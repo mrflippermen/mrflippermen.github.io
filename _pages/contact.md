@@ -16,7 +16,6 @@ La forma más rápida de contactarme es a través de LinkedIn o correo electrón
 
 *   **📧 Email:** `tu-email@ejemplo.com` (Reemplazar)
 *   **💼 LinkedIn:** [Esteban Jimenez](https://www.linkedin.com/in/esteban-jimenez-994868249/)
-*   **🐦 Twitter/X:** [@tu_usuario](https://twitter.com/)
 
 ---
 
