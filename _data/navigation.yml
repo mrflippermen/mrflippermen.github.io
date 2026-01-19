@@ -3,6 +3,10 @@ main:
     url: /
   - title: "Portafolio"
     url: /portfolio/
+  - title: "Writeups"
+    url: /writeups/
+  - title: "Certificaciones"
+    url: /certs/
   - title: "Artículos"
     url: /year-archive/
   - title: "Categorías"

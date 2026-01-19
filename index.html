@@ -4,4 +4,28 @@
 
 layout: home
 author_profile: true
+header:
+  overlay_color: "#333"
+intro:
+  - excerpt: "Bienvenido a mi espacio personal. Aquí documento mi camino en Ciberseguridad, compartiendo conocimientos y logros."
+feature_row:
+  - icon: fas fa-terminal
+    title: "Writeups & CTFs"
+    excerpt: "Análisis detallados de máquinas vulnerables (HTB, VulnHub) y retos de hacking."
+    url: "/writeups/"
+    btn_label: "Leer Writeups"
+    btn_class: "btn--info"
+  - icon: fas fa-certificate
+    title: "Certificaciones"
+    excerpt: "Mis credenciales profesionales y validaciones de la industria."
+    url: "/certs/"
+    btn_label: "Ver Certificaciones"
+    btn_class: "btn--info"
 ---
+
+{% include feature_row id="intro" type="center" %}
+
+{% include feature_row %}
+
+<h3 class="archive__subtitle">Últimas Publicaciones</h3>
+

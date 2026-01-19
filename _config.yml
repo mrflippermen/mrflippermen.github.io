@@ -243,6 +243,14 @@ compress_html:
 
 
 # Defaults
+collections:
+  writeups:
+    output: true
+    permalink: /:collection/:path/
+  certs:
+    output: true
+    permalink: /:collection/:path/
+
 defaults:
   # _posts
   - scope:
@@ -255,3 +263,23 @@ defaults:
       comments: false
       share: false
       related: true
+  
+  # _writeups
+  - scope:
+      path: ""
+      type: writeups
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      related: true
+
+  # _certs
+  - scope:
+      path: ""
+      type: certs
+    values:
+      layout: single
+      author_profile: true
+      share: true
+
