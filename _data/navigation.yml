@@ -1,0 +1,19 @@
+main:
+  - title: "Home"
+    url: /
+  - title: "Portafolio"
+    url: /portfolio/
+  - title: "Artículos"
+    url: /year-archive/
+  - title: "Categorías"
+    url: /categories/
+  - title: "Etiquetas"
+    url: /tags/
+  - title: "Videos"
+    url: /videos/
+  - title: "Buscador"
+    url: /buscador/
+  - title: "Contacto"
+    url: /contact/
+  - title: "About"
+    url: /about/
