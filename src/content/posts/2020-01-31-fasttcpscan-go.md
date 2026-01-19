@@ -1,7 +1,6 @@
----
-layout: single
+﻿---
 title: FastTcpScan - Go
-excerpt: "En el siguiente artículo os comparto la herramienta `FastTcpScan` que nos desarrollamos en la máquina `Hawk` de la plataforma [HackTheBox](https://hackthebox.eu). Esta herramienta consiste en un escáner que permite detectar de forma rápida y precisa los puertos TCP que una máquina tiene abiertos."
+excerpt: "En el siguiente artÃ­culo os comparto la herramienta `FastTcpScan` que nos desarrollamos en la mÃ¡quina `Hawk` de la plataforma [HackTheBox](https://hackthebox.eu). Esta herramienta consiste en un escÃ¡ner que permite detectar de forma rÃ¡pida y precisa los puertos TCP que una mÃ¡quina tiene abiertos."
 date: 2020-01-31
 classes: wide
 header:
@@ -16,25 +15,25 @@ tags:
 
 ![](/assets/images/fasttcpscan-go/golang-go.png)
 
-En el siguiente artículo os comparto la herramienta `FastTcpScan` que nos desarrollamos en la máquina `Hawk` de la plataforma [HackTheBox](https://hackthebox.eu). Esta herramienta consiste en un escáner que permite detectar de forma rápida y precisa los puertos TCP que una máquina tiene abiertos.
+En el siguiente artÃ­culo os comparto la herramienta `FastTcpScan` que nos desarrollamos en la mÃ¡quina `Hawk` de la plataforma [HackTheBox](https://hackthebox.eu). Esta herramienta consiste en un escÃ¡ner que permite detectar de forma rÃ¡pida y precisa los puertos TCP que una mÃ¡quina tiene abiertos.
 
-Para aquellos que quieran ver el desarrollo de la herramienta paso a paso, tenéis disponible el siguiente vídeo en el que la creamos desde 0:
+Para aquellos que quieran ver el desarrollo de la herramienta paso a paso, tenÃ©is disponible el siguiente vÃ­deo en el que la creamos desde 0:
 
-- [Máquina Hawk - HackTheBox](https://www.youtube.com/watch?v=7L1WNU7fBec)
+- [MÃ¡quina Hawk - HackTheBox](https://www.youtube.com/watch?v=7L1WNU7fBec)
 
-La herramienta `fastTCPScan.go` la podéis encontrar más abajo en este mismo artículo.
+La herramienta `fastTCPScan.go` la podÃ©is encontrar mÃ¡s abajo en este mismo artÃ­culo.
 
-## ¿Cómo se usa la herramienta?
+## Â¿CÃ³mo se usa la herramienta?
 
-Lo primero una vez contemos con el script `fastTCPScan.go`, será compilarlo. Esto podemos hacerlo de la siguiente forma:
+Lo primero una vez contemos con el script `fastTCPScan.go`, serÃ¡ compilarlo. Esto podemos hacerlo de la siguiente forma:
 
 ```go
-┌─[✗]─[root@parrot]─[/home/s4vitar/Desktop]
-└──╼ #cd /usr/bin/
-┌─[root@parrot]─[/usr/bin]
-└──╼ #go build -ldflags "-s -w" fastTCPScan.go 
-┌─[root@parrot]─[/usr/bin]
-└──╼ #upx brute fastTCPScan
+â”Œâ”€[âœ—]â”€[root@parrot]â”€[/home/s4vitar/Desktop]
+â””â”€â”€â•¼ #cd /usr/bin/
+â”Œâ”€[root@parrot]â”€[/usr/bin]
+â””â”€â”€â•¼ #go build -ldflags "-s -w" fastTCPScan.go 
+â”Œâ”€[root@parrot]â”€[/usr/bin]
+â””â”€â”€â•¼ #upx brute fastTCPScan
                        Ultimate Packer for eXecutables
                           Copyright (C) 1996 - 2018
 UPX 3.95        Markus Oberhumer, Laszlo Molnar & John Reiser   Aug 26th 2018
@@ -47,29 +46,29 @@ upx: brute: FileNotFoundException: brute: No such file or directory
 Packed 1 file.
 ```
 
-Una vez hecho, ya podremos usar la herramienta. Su uso es de lo más sencillo, cabe decir antes que nada que la herramienta cuenta con un panel de ayuda:
+Una vez hecho, ya podremos usar la herramienta. Su uso es de lo mÃ¡s sencillo, cabe decir antes que nada que la herramienta cuenta con un panel de ayuda:
 
 ```go
-┌─[✗]─[root@parrot]─[/home/s4vitar/Desktop]
-└──╼ #fastTCPScan -h
+â”Œâ”€[âœ—]â”€[root@parrot]â”€[/home/s4vitar/Desktop]
+â””â”€â”€â•¼ #fastTCPScan -h
 Usage of fastTCPScan:
   -host string
-        Host o dirección IP a escanear (default "127.0.0.1")
+        Host o direcciÃ³n IP a escanear (default "127.0.0.1")
   -range string
         Rango de puertos a comprobar: 80,443,1-65535,1000-2000, ... (default "1-65535")
   -threads int
-        Número de hilos a usar (default 1000)
+        NÃºmero de hilos a usar (default 1000)
   -timeout duration
         Segundos por puerto (default 1s)
 ```
 
-Mediante el parámetro `-host` especificamos la dirección ip de la máquina objetivo (también podemos especificar un nombre de dominio), con el parámetro `-threads` especificamos el número de hilos a usar y con el parámetro `-range` especificamos el rango de puertos a escanear.
+Mediante el parÃ¡metro `-host` especificamos la direcciÃ³n ip de la mÃ¡quina objetivo (tambiÃ©n podemos especificar un nombre de dominio), con el parÃ¡metro `-threads` especificamos el nÃºmero de hilos a usar y con el parÃ¡metro `-range` especificamos el rango de puertos a escanear.
 
-En este caso a modo de ejemplo, efectuaremos un escaneo contra la dirección ip `192.168.11.12` haciendo uso de 900 hilos (por defecto se escanean todos los puertos [**1-65535**]):
+En este caso a modo de ejemplo, efectuaremos un escaneo contra la direcciÃ³n ip `192.168.11.12` haciendo uso de 900 hilos (por defecto se escanean todos los puertos [**1-65535**]):
 
 ```go
-┌─[✗]─[root@parrot]─[/home/s4vitar/Desktop]
-└──╼ #fastTCPScan -host 192.168.11.12 -threads 900
+â”Œâ”€[âœ—]â”€[root@parrot]â”€[/home/s4vitar/Desktop]
+â””â”€â”€â•¼ #fastTCPScan -host 192.168.11.12 -threads 900
 
 [*] Escaneando host 192.168.11.12 (Puerto: 1-65535)
 
@@ -80,9 +79,9 @@ En este caso a modo de ejemplo, efectuaremos un escaneo contra la dirección ip 
 
 Y listo, no tiene mayor misterio. 
 
-Actualmente tira por TCP, pero también se puede configurar para que vaya por UDP... de hecho no sería muy complicado si miráis el código, con unas pequeñas modificaciones ya lo tendríais, ¡esa parte os la dejo a vosotros!.
+Actualmente tira por TCP, pero tambiÃ©n se puede configurar para que vaya por UDP... de hecho no serÃ­a muy complicado si mirÃ¡is el cÃ³digo, con unas pequeÃ±as modificaciones ya lo tendrÃ­ais, Â¡esa parte os la dejo a vosotros!.
 
-Por aquí tenéis el script `fastTCPScan.go`:
+Por aquÃ­ tenÃ©is el script `fastTCPScan.go`:
 
 ```go
 /*
@@ -104,9 +103,9 @@ import (
 )
 
 var (
-	host = flag.String("host", "127.0.0.1", "Host o dirección IP a escanear")
+	host = flag.String("host", "127.0.0.1", "Host o direcciÃ³n IP a escanear")
 	ports = flag.String("range", "1-65535", "Rango de puertos a comprobar: 80,443,1-65535,1000-2000, ...")
-	threads = flag.Int("threads", 1000, "Número de hilos a usar")
+	threads = flag.Int("threads", 1000, "NÃºmero de hilos a usar")
 	timeout = flag.Duration("timeout", 1*time.Second, "Segundos por puerto")
 )
 

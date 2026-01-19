@@ -1,7 +1,6 @@
----
-layout: single
+﻿---
 title: HTB - Jeeves
-excerpt: "Jeeves fue lanzada en 2017. Comenzamos con un servidor web y encontramos una instancia de Jenkins sin autenticación en un puerto alternativo. Podemos abusar de la consola de scripts de Jenkins para obtener ejecución de comandos y una shell remota. Desde allí, encontramos una base de datos de KeePass, extraemos un hash que podemos usar para hacer Pass-The-Hash y obtener ejecución como Administrador. El archivo `root.txt` está oculto utilizando Alternative Data Streams (ADS)"
+excerpt: "Jeeves fue lanzada en 2017. Comenzamos con un servidor web y encontramos una instancia de Jenkins sin autenticaciÃ³n en un puerto alternativo. Podemos abusar de la consola de scripts de Jenkins para obtener ejecuciÃ³n de comandos y una shell remota. Desde allÃ­, encontramos una base de datos de KeePass, extraemos un hash que podemos usar para hacer Pass-The-Hash y obtener ejecuciÃ³n como Administrador. El archivo `root.txt` estÃ¡ oculto utilizando Alternative Data Streams (ADS)"
 date: 2020-12-13
 classes: wide
 header:
@@ -19,11 +18,11 @@ tags:
 ---
 
 
-Jeeves fue lanzada en 2017. Comenzamos con un servidor web y encontramos una instancia de Jenkins sin autenticación en un puerto alternativo. Podemos abusar de la consola de scripts de Jenkins para obtener ejecución de comandos y una shell remota. Desde allí, encontramos una base de datos de KeePass, extraemos un hash que podemos usar para hacer Pass-The-Hash y obtener ejecución como Administrador. El archivo `root.txt` está oculto utilizando Alternative Data Streams (ADS)
+Jeeves fue lanzada en 2017. Comenzamos con un servidor web y encontramos una instancia de Jenkins sin autenticaciÃ³n en un puerto alternativo. Podemos abusar de la consola de scripts de Jenkins para obtener ejecuciÃ³n de comandos y una shell remota. Desde allÃ­, encontramos una base de datos de KeePass, extraemos un hash que podemos usar para hacer Pass-The-Hash y obtener ejecuciÃ³n como Administrador. El archivo `root.txt` estÃ¡ oculto utilizando Alternative Data Streams (ADS)
 
 # HTB: Jeeves
 
-**Información de la Máquina**
+**InformaciÃ³n de la MÃ¡quina**
 
 
 | Nombre       | [Jeeves](https://app.hackthebox.com/machines/Jeeves) |
@@ -133,22 +132,22 @@ Nmap done: 1 IP address (1 host up) scanned in 48.49 seconds
 
 ### Sitio Web (TCP 80)
 
-El servidor web devuelve un motor de búsqueda con apariencia de "Pregunta a Jeeves":
-Cualquier cosa que envíes realiza una petición GET a `/error.html`. Es una página simple con una imagen que parece un error de ASP.NET sobre un fallo de conexión a MSSQL. Este formulario no parece útil.
+El servidor web devuelve un motor de bÃºsqueda con apariencia de "Pregunta a Jeeves":
+Cualquier cosa que envÃ­es realiza una peticiÃ³n GET a `/error.html`. Es una pÃ¡gina simple con una imagen que parece un error de ASP.NET sobre un fallo de conexiÃ³n a MSSQL. Este formulario no parece Ãºtil.
 
 <p align="center">
 <img src="/assets//images/htb-jeeves/web.png">
 </p> 
 
-### HTTP - TCP 50000 La página en el puerto 50000 devuelve un error 404, pero las cabeceras revelan que es **Jetty**, un servidor web Java.
+### HTTP - TCP 50000 La pÃ¡gina en el puerto 50000 devuelve un error 404, pero las cabeceras revelan que es **Jetty**, un servidor web Java.
 
-#### Fuzzing de Directorios El uso de wordlists estándar modernas (como `raft-medium`) con herramientas como `feroxbuster` no encuentra nada.
+#### Fuzzing de Directorios El uso de wordlists estÃ¡ndar modernas (como `raft-medium`) con herramientas como `feroxbuster` no encuentra nada.
 
 <p align="center">
 <img src="/assets//images/htb-jeeves/feroxbuster.png">
 </p> 
 
-#### Sin embargo, usando una lista más antigua (común en 2017) como `directory-list-2.3-medium.txt` de `dirbuster`, encontramos algo interesante:
+#### Sin embargo, usando una lista mÃ¡s antigua (comÃºn en 2017) como `directory-list-2.3-medium.txt` de `dirbuster`, encontramos algo interesante:
 
 <p align="center">
 <img src="/assets//images/htb-jeeves/gobuster.png">
@@ -170,14 +169,14 @@ La ruta `/askjeeves` nos lleva a una instancia de **Jenkins**.
 ---
 
 ## Shell como kohsuke
-### Primero, hago clic en "Nuevo elemento" y en el siguiente formulario le pongo un nombre (no importa qué, simplemente usaré "flippermen"), y seleccionaré "Proyecto Freestyle" como tipo.
+### Primero, hago clic en "Nuevo elemento" y en el siguiente formulario le pongo un nombre (no importa quÃ©, simplemente usarÃ© "flippermen"), y seleccionarÃ© "Proyecto Freestyle" como tipo.
 
 
 <p align="center">
 <img src="/assets//images/htb-jeeves/cmd (2).png">
 </p> 
 
-Al final, voy a "Añadir paso de compilación" y seleccionaré "Ejecutar el comando batch de Windows"
+Al final, voy a "AÃ±adir paso de compilaciÃ³n" y seleccionarÃ© "Ejecutar el comando batch de Windows"
 
 <p align="center">
 <img src="/assets//images/htb-jeeves/cmd (3).png">
@@ -185,8 +184,8 @@ Al final, voy a "Añadir paso de compilación" y seleccionaré "Ejecutar el coma
 
 
 Run Job
-#### En Object, Jenkins estaba configurado de tal forma que "Construir ahora" no era una opción. Aquí está:
-#### Al hacer clic ahí, aparece en el historial de compilaciones (he hecho dos clics, ups):
+#### En Object, Jenkins estaba configurado de tal forma que "Construir ahora" no era una opciÃ³n. AquÃ­ estÃ¡:
+#### Al hacer clic ahÃ­, aparece en el historial de compilaciones (he hecho dos clics, ups):
 
 <p align="center">
 <img src="/assets//images/htb-jeeves/cmd (5).png">
@@ -198,11 +197,11 @@ Run Job
 <img src="/assets//images/htb-jeeves/cmd (6).png">
 </p> 
 
-### Ejecución mediante Consola de Scripts [2]
-#### Desde el menú principal izquierdo del panel de control, haré clic en "Gestionar a Jenkins":
+### EjecuciÃ³n mediante Consola de Scripts [2]
+#### Desde el menÃº principal izquierdo del panel de control, harÃ© clic en "Gestionar a Jenkins":
 
 imagen-20220413062516108
-#### Un poco más de la mitad está "Script Console":
+#### Un poco mÃ¡s de la mitad estÃ¡ "Script Console":
 
 imagen-20220413062543265
 #### Da una caja para poner en scripts Groovy. Para ejecutar un comando en el host, introduzco , y hago clic en ejecutar:println "cmd.exe /c whoami".execute().text
@@ -221,7 +220,7 @@ println "cmd.exe /c whoami".execute().text
 
 ```
 
-Al hacer clic en "Run", vemos el resultado en la página.
+Al hacer clic en "Run", vemos el resultado en la pÃ¡gina.
 
 ###Obtener Reverse ShellPodemos generar un payload de PowerShell (por ejemplo, usando [revshells.com](https://www.revshells.com/)). Pegamos el comando en la consola de scripts de Groovy.
 
@@ -245,7 +244,7 @@ e3232272************************
 
 ---
 
-##Shell como Administrator###EnumeraciónMirando en el directorio de documentos de Kohsuke, encontramos un archivo interesante:
+##Shell como Administrator###EnumeraciÃ³nMirando en el directorio de documentos de Kohsuke, encontramos un archivo interesante:
 
 ```powershell
 PS C:\Users\kohsuke\Documents> ls
@@ -255,9 +254,9 @@ Mode                LastWriteTime         Length Name
 
 ```
 
-Es una base de datos de **KeePass** (`.kdbx`), un gestor de contraseñas local.
+Es una base de datos de **KeePass** (`.kdbx`), un gestor de contraseÃ±as local.
 
-###ExfiltraciónPara sacar el archivo de la máquina Windows, podemos copiarlo al directorio de trabajo de Jenkins (que es accesible vía web):
+###ExfiltraciÃ³nPara sacar el archivo de la mÃ¡quina Windows, podemos copiarlo al directorio de trabajo de Jenkins (que es accesible vÃ­a web):
 
 ```powershell
 copy \users\kohsuke\Documents\CEH.kdbx C:\Users\Administrator\.jenkins\workspace\0xdf\
@@ -266,7 +265,7 @@ copy \users\kohsuke\Documents\CEH.kdbx C:\Users\Administrator\.jenkins\workspace
 
 Luego, desde la interfaz web de Jenkins, vamos al "Workspace" del proyecto y descargamos el archivo `CEH.kdbx`.
 
-###Cracking de la Contraseña MaestraNecesitamos la contraseña maestra para abrir la base de datos. Usamos `keepass2john` para extraer el hash y luego `hashcat` para romperlo.
+###Cracking de la ContraseÃ±a MaestraNecesitamos la contraseÃ±a maestra para abrir la base de datos. Usamos `keepass2john` para extraer el hash y luego `hashcat` para romperlo.
 
 1. **Extraer hash:**
 ```bash
@@ -283,9 +282,9 @@ hashcat -m 13400 CEH.kdbx.hash /usr/share/wordlists/rockyou.txt
 
 
 
-El resultado es la contraseña: **`moonshine1`**.
+El resultado es la contraseÃ±a: **`moonshine1`**.
 
-###Extraer ContraseñasUsamos `kpcli` para abrir la base de datos con la contraseña encontrada.
+###Extraer ContraseÃ±asUsamos `kpcli` para abrir la base de datos con la contraseÃ±a encontrada.
 
 ```bash
 kpcli --kdb CEH.kdbx
@@ -295,7 +294,7 @@ kpcli:/> find .
 
 ```
 
-Al inspeccionar las entradas, la entrada "Backup stuff" llama la atención:
+Al inspeccionar las entradas, la entrada "Backup stuff" llama la atenciÃ³n:
 
 ```text
 Title: Backup stuff
@@ -303,12 +302,12 @@ Pass: aad3b435b51404eeaad3b435b51404ee:e0fb1fb85756c24235ff238cbe81fe00
 
 ```
 
-###Pass The HashLa "contraseña" encontrada (`aad3b...:e0fb...`) es en realidad un hash NTLM de Windows (formato `LM:NT`).
+###Pass The HashLa "contraseÃ±a" encontrada (`aad3b...:e0fb...`) es en realidad un hash NTLM de Windows (formato `LM:NT`).
 
-* `aad3b435b51404eeaad3b435b51404ee`: Hash LM vacío (aad3b...).
+* `aad3b435b51404eeaad3b435b51404ee`: Hash LM vacÃ­o (aad3b...).
 * `e0fb1fb85756c24235ff238cbe81fe00`: Hash NT del password real.
 
-Podemos usar este hash directamente para autenticarnos sin saber la contraseña en texto claro (**Pass The Hash**). Probamos con `crackmapexec`:
+Podemos usar este hash directamente para autenticarnos sin saber la contraseÃ±a en texto claro (**Pass The Hash**). Probamos con `crackmapexec`:
 
 ```bash
 crackmapexec smb 10.10.10.63 -u Administrator -H aad3b435b51404eeaad3b435b51404ee:e0fb1fb85756c24235ff238cbe81fe00
@@ -329,4 +328,4 @@ nt authority\system
 
 ---
 
-##Flag de Root (ADS)Al ir al escritorio del Administrador, no está 
+##Flag de Root (ADS)Al ir al escritorio del Administrador, no estÃ¡ 
