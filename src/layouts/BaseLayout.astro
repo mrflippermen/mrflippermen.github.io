@@ -10,6 +10,26 @@ const { title = "Flippermen | CyberSec" } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          return 'light';
+        }
+        return 'dark';
+      })();
+    
+      if (theme === 'light') {
+        document.body.classList.add('light-mode');
+      } else {
+        document.body.classList.remove('light-mode');
+      }
+
+      window.localStorage.setItem('theme', theme);
+    </script>
   </head>
   <body>
     <header>
@@ -21,6 +41,11 @@ const { title = "Flippermen | CyberSec" } = Astro.props;
             <li><a href="/certs">Certificaciones</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
+            <li>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
+                    <span id="themeIcon">☀️</span>
+                </button>
+            </li>
           </ul>
         </nav>
       </div>
@@ -33,5 +58,24 @@ const { title = "Flippermen | CyberSec" } = Astro.props;
         <p>&copy; {new Date().getFullYear()} Flippermen. Built with Astro.</p>
       </div>
     </footer>
+    
+    <script is:inline>
+        const handleToggleClick = () => {
+          const element = document.body;
+          element.classList.toggle("light-mode");
+      
+          const isLight = element.classList.contains("light-mode");
+          localStorage.setItem("theme", isLight ? "light" : "dark");
+          
+          document.getElementById("themeIcon").innerText = isLight ? "🌙" : "☀️";
+        }
+      
+        document.getElementById("themeToggle").addEventListener("click", handleToggleClick);
+        
+        // Initial icon state
+        if (localStorage.getItem('theme') === 'light') {
+             document.getElementById("themeIcon").innerText = "🌙";
+        }
+    </script>
   </body>
 </html>
