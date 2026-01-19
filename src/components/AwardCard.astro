@@ -1,0 +1,84 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  image?: string;
+  link?: string;
+}
+
+const { title, subtitle, image, link } = Astro.props;
+---
+
+<div class="award-item">
+  {link ? (
+    <a href={link} class="award-link">
+      {image && <img src={image} alt={title} class="award-image" />}
+      <div class="award-content">
+        <h3 set:html={title}></h3>
+        {subtitle && <span class="subtitle">{subtitle}</span>}
+        <slot />
+      </div>
+    </a>
+  ) : (
+    <>
+      {image && <img src={image} alt={title} class="award-image" />}
+      <div class="award-content">
+        <h3 set:html={title}></h3>
+        {subtitle && <span class="subtitle">{subtitle}</span>}
+        <slot />
+      </div>
+    </>
+  )}
+</div>
+
+<style>
+  .award-item {
+    background: var(--color-surface);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--color-primary);
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .award-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .award-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .award-image {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px 8px 0 0;
+    display: block;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Special style for horizontal images like awards in text */
+  .award-content img {
+      margin: 1rem 0;
+  }
+
+  .award-content {
+    padding: 1.5rem;
+  }
+
+  .award-content h3 {
+    margin-top: 0;
+    color: var(--color-text);
+  }
+
+  .subtitle {
+    display: block;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+  }
+</style>

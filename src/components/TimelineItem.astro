@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+  institution: string;
+  year?: string;
+  image?: string;
+}
+
+const { title, institution, year, image } = Astro.props;
+---
+
+<div class="timeline-item">
+  <h3>{title}</h3>
+  <span class="institution" set:html={institution}></span>
+  {year && <span class="period"><i class="far fa-calendar-alt"></i> {year}</span>}
+  {image && <img src={image} alt={title} class="timeline-image" />}
+  <slot />
+</div>
+
+<style>
+  .timeline-image {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 8px;
+    margin-top: 1rem;
+    border: 1px solid var(--color-border);
+    display: block;
+  }
+</style>
