@@ -1,0 +1,37 @@
+---
+import '../styles/global.scss';
+const { title = "Flippermen | CyberSec" } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav>
+          <a href="/" class="logo">&lt;Flippermen /&gt;</a>
+          <ul>
+            <li><a href="/writeups">Writeups</a></li>
+            <li><a href="/certs">Certificaciones</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <div class="container">
+        <p>&copy; {new Date().getFullYear()} Flippermen. Built with Astro.</p>
+      </div>
+    </footer>
+  </body>
+</html>

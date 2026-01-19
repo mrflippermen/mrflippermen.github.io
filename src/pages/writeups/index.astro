@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allWriteups = await getCollection('writeups');
+// Sort by date desc if available, otherwise roughly keep order
+allWriteups.sort((a, b) => {
+  if (a.data.date && b.data.date) {
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  }
+  return 0;
+});
+---
+
+<BaseLayout title="Writeups | Flippermen">
+  <div class="container">
+    <h1>Writeups & CTFs</h1>
+    <p>Collection of walkthroughs and security challenges.</p>
+    
+    <div class="feature-grid">
+      {allWriteups.map((post) => (
+        <div class="card">
+           <div class="content">
+            <h3><a href={`/writeups/${post.slug}`}>{post.data.title}</a></h3>
+             {post.data.excerpt && <p>{post.data.excerpt}</p>}
+             <a href={`/writeups/${post.slug}`} class="btn">Read More</a>
+           </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

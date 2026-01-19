@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Flippermen | Ciberseguridad">
+  <div class="hero">
+    <div class="container">
+      <h1>Bienvenido a mi Bitácora</h1>
+      <p>Investigaciones en ciberseguridad, writeups de CTFs y el camino hacia la maestría en Hacking Ético.</p>
+      <div style="display: flex; justify-content: center; gap: 1rem;">
+        <a href="/writeups" class="btn">Ver Writeups</a>
+        <a href="/certs" class="btn" style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary)">Mis Certificaciones</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="feature-grid">
+      <div class="card">
+        <img src="/images/writeups-thumb.jpg" alt="Writeups" onerror="this.src='https://via.placeholder.com/400x200/111/0f0?text=Writeups'"/>
+        <div class="content">
+          <h3>Writeups & CTFs</h3>
+          <p>Guías detalladas de máquinas de HackTheBox, TryHackMe y otros desafíos técnicos.</p>
+          <a href="/writeups" class="btn">Explorar &rarr;</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="/images/certs-thumb.jpg" alt="Certs" onerror="this.src='https://via.placeholder.com/400x200/111/0f0?text=Certs'"/>
+        <div class="content">
+          <h3>Certificaciones</h3>
+          <p>Mis logros profesionales y certificaciones oficiales en el campo de la seguridad.</p>
+          <a href="/certs" class="btn">Ver Credenciales &rarr;</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

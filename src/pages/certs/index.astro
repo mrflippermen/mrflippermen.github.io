@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allCerts = await getCollection('certs');
+---
+
+<BaseLayout title="Certificaciones | Flippermen">
+  <div class="container">
+    <h1>Certificaciones</h1>
+    <ul>
+      {allCerts.map((cert) => (
+        <li style="margin-bottom: 1rem;">
+          <a href={`/certs/${cert.slug}`} style="font-size: 1.25rem; font-weight: bold;">{cert.data.title}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
