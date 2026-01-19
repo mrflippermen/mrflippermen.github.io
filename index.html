@@ -1,31 +1,36 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
 author_profile: true
 header:
-  overlay_color: "#333"
+overlay_image: /assets/images/header.jpg
+overlay_filter: 0.5
+caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
+
 intro:
-  - excerpt: "Bienvenido a mi espacio personal. Aquí documento mi camino en Ciberseguridad, compartiendo conocimientos y logros."
-feature_row:
-  - icon: fas fa-terminal
-    title: "Writeups & CTFs"
-    excerpt: "Análisis detallados de máquinas vulnerables (HTB, VulnHub) y retos de hacking."
-    url: "/writeups/"
-    btn_label: "Leer Writeups"
-    btn_class: "btn--info"
-  - icon: fas fa-certificate
-    title: "Certificaciones"
-    excerpt: "Mis credenciales profesionales y validaciones de la industria."
-    url: "/certs/"
-    btn_label: "Ver Certificaciones"
-    btn_class: "btn--info"
+- excerpt: "Bienvenido a mi portafolio profesional. Aquí encontrarás mis investigaciones en ciberseguridad, writeups de
+CTFs y mis certificaciones."
+
+feature_row_writeups:
+- image_path: /assets/images/writeups-thumb.jpg
+alt: "Writeups & CTFs"
+title: "Writeups & CTFs"
+excerpt: "Guías detalladas de máquinas de HackTheBox, TryHackMe y otros desafíos."
+url: "/writeups/"
+btn_label: "Ver Writeups"
+btn_class: "btn--primary"
+
+feature_row_certs:
+- image_path: /assets/images/certs-thumb.jpg
+alt: "Certificaciones"
+title: "Certificaciones"
+excerpt: "Mis logros profesionales y certificaciones en el campo de la seguridad informática."
+url: "/certs/"
+btn_label: "Ver Certificaciones"
+btn_class: "btn--primary"
 ---
 
 {% include feature_row id="intro" type="center" %}
 
-{% include feature_row %}
+{% include feature_row id="feature_row_writeups" %}
 
-<h3 class="archive__subtitle">Últimas Publicaciones</h3>
-
+{% include feature_row id="feature_row_certs" %}

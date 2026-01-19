@@ -1,14 +1,20 @@
 ---
-layout: archive
-title: "Certificaciones y Logros"
+title: "Certificaciones"
 permalink: /certs/
+layout: archive
 author_profile: true
+collection: certs
+defaults:
+  # _certs
+  - scope:
+      path: ""
+      type: certs
+    values:
+      layout: single
+      author_profile: true
+      share: true
 ---
 
-Colección de mis certificaciones profesionales y logros destacados en el campo de la Ciberseguridad.
-
-<div class="entries-list">
 {% for post in site.certs reversed %}
   {% include archive-single.html %}
 {% endfor %}
-</div>
