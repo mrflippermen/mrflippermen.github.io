@@ -3,8 +3,8 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('certs');
-  return blogEntries.map(entry => ({
+  const certEntries = await getCollection('certs');
+  return certEntries.map(entry => ({
     params: { slug: entry.slug }, props: { entry },
   }));
 }
@@ -13,13 +13,107 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<BaseLayout title={entry.data.title}>
-  <div class="container">
-    <article style="max-width: 800px; margin: 0 auto; padding: 2rem 0;">
+<BaseLayout title={`${entry.data.title} | Certifications`}>
+  <div class="cert-details-container">
+    <div class="cert-header">
+      {entry.data.image && <img src={entry.data.image} alt={entry.data.title} class="cert-hero-img" />}
       <h1>{entry.data.title}</h1>
-      <div class="prose">
-        <Content />
+      <div class="meta-tags">
+        <span class="tag level">{entry.data.level}</span>
+        <span class="tag platform">{entry.data.platform}</span>
+        <span class="tag duration"><i class="far fa-clock"></i> {entry.data.duration}</span>
       </div>
-    </article>
+    </div>
+
+    <div class="cert-content">
+      <Content />
+    </div>
+
+    <div class="back-link">
+      <a href="/about" class="btn">&larr; Volver al Perfil</a>
+    </div>
   </div>
 </BaseLayout>
+
+<style>
+  .cert-details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 1rem;
+  }
+
+  .cert-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .cert-hero-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+
+  .meta-tags {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: var(--color-surface);
+    border: 1px solid var(--color-primary);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: var(--color-text);
+  }
+
+  .cert-content {
+    background: var(--color-surface);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    line-height: 1.8;
+  }
+
+  .cert-content h2 {
+    color: var(--color-primary);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .cert-content ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .cert-content li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .cert-content li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+  }
+
+  .back-link {
+    margin-top: 3rem;
+    text-align: center;
+  }
+</style>

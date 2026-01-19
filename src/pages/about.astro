@@ -18,7 +18,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span><a href="https://github.com/mrflippermen" target="_blank"><i class="fab fa-github"></i> GitHub</a></span>
       </div>
       <p style="margin-top: 2rem; max-width: 800px; margin-left: auto; margin-right: auto; color: var(--color-text); font-size: 1.1rem; border-left: 4px solid var(--color-primary); padding-left: 1.5rem; text-align: left;">
-        Ingeniería en Ciberseguridad (en curso) y Ayudante de Cátedra en UDLA. Pentester Independiente y Operador de Red Team con experiencia en HackerOne. 
+        Ingeniería en Ciberseguridad (en curso) y Ayudante de Cátedra en <strong>UDLA Ecuador</strong>. Soy originario de <strong>Loja</strong> (provincia al sur del Ecuador) y actualmente me despeño como Pentester Independiente y Operador de Red Team con experiencia en HackerOne. 
         <br><br>
         Especializado en <strong>simulaciones de ataques reales</strong>, <strong>explotación de Active Directory</strong> y <strong>evasión de defensas</strong>. 
         Top 1 Nacional Ecuador y Puesto 43 Mundial en Hack The Box (2025). 
@@ -35,6 +35,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span class="institution">HackerOne / Freelance</span>
         <span class="period"><i class="far fa-calendar-alt"></i> 2023 - Actualidad</span>
         <p>Especializado en simulaciones de ataques reales, explotación de vulnerabilidades y evasión de defensas (EDR Evasion, Persistence). Tácticas de APT.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Speaker: Ciber Concientización</h3>
+        <span class="institution">Universidad Nacional de Loja (UNL)</span>
+        <span class="period"><i class="far fa-calendar-alt"></i> 2024</span>
+        <p>Conferencia sobre riesgos digitales, ingeniería social y buenas prácticas de seguridad para estudiantes y personal administrativo.</p>
       </div>
 
       <div class="timeline-item">
@@ -64,57 +71,69 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="feature-grid" style="margin: 0; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
         
         <div class="award-item" style="border-left-color: #ff0000; padding: 0;">
-          <img src="/images/about/Cybernetics.jpg" alt="Cybernetics" style="width: 100%; border-radius: 8px 8px 0 0; display: block;">
-          <div style="padding: 1.5rem;">
-            <h3>Cybernetics <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 0.9rem;"></i></h3>
-            <span style="font-size: 0.85rem; color: #888;">Abr 2025 | 40h</span>
-            <p style="font-size: 0.9rem; margin-bottom: 0;">AD exploitation, advanced phishing, DevOps security.</p>
-          </div>
+          <a href="/certs/cybernetics" style="text-decoration: none; color: inherit; display: block;">
+            <img src="/images/about/Cybernetics.jpg" alt="Cybernetics" style="width: 100%; border-radius: 8px 8px 0 0; display: block;">
+            <div style="padding: 1.5rem;">
+              <h3>Cybernetics <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 0.9rem;"></i></h3>
+              <span style="font-size: 0.85rem; color: #888;">Abr 2025 | 40h</span>
+              <p style="font-size: 0.9rem; margin-bottom: 0;">AD exploitation, advanced phishing, DevOps security.</p>
+            </div>
+          </a>
         </div>
 
         <div class="award-item" style="border-left-color: #ff0000; padding: 0;">
-          <img src="/images/about/aptlabs.jpg" alt="APTLabs" style="width: 100%; border-radius: 8px 8px 0 0; display: block;">
-          <div style="padding: 1.5rem;">
-            <h3>APTLabs <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 0.9rem;"></i></h3>
-            <span style="font-size: 0.85rem; color: #888;">Mar 2025 | 40h</span>
-            <p style="font-size: 0.9rem; margin-bottom: 0;">APT tactics, defense evasion, lateral movement.</p>
-          </div>
+          <a href="/certs/aptlabs" style="text-decoration: none; color: inherit; display: block;">
+            <img src="/images/about/aptlabs.jpg" alt="APTLabs" style="width: 100%; border-radius: 8px 8px 0 0; display: block;">
+            <div style="padding: 1.5rem;">
+              <h3>APTLabs <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 0.9rem;"></i></h3>
+              <span style="font-size: 0.85rem; color: #888;">Mar 2025 | 40h</span>
+              <p style="font-size: 0.9rem; margin-bottom: 0;">APT tactics, defense evasion, lateral movement.</p>
+            </div>
+          </a>
         </div>
 
         <div class="award-item" style="border-left-color: #ff0000; padding: 0;">
-          <img src="/images/about/Zephyr.jpg" alt="Zephyr" style="width: 100%; border-radius: 8px 8px 0 0; display: block;">
-          <div style="padding: 1.5rem;">
-            <h3>Zephyr <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 0.9rem;"></i></h3>
-            <span style="font-size: 0.85rem; color: #888;">Mar 2025 | 40h</span>
-            <p style="font-size: 0.9rem; margin-bottom: 0;">Pivoting, SQL attacks, cracking, AD exploitation.</p>
-          </div>
+          <a href="/certs/zephyr" style="text-decoration: none; color: inherit; display: block;">
+            <img src="/images/about/Zephyr.jpg" alt="Zephyr" style="width: 100%; border-radius: 8px 8px 0 0; display: block;">
+            <div style="padding: 1.5rem;">
+              <h3>Zephyr <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 0.9rem;"></i></h3>
+              <span style="font-size: 0.85rem; color: #888;">Mar 2025 | 40h</span>
+              <p style="font-size: 0.9rem; margin-bottom: 0;">Pivoting, SQL attacks, cracking, AD exploitation.</p>
+            </div>
+          </a>
         </div>
 
         <div class="award-item" style="border-left-color: #ff0000; padding: 0;">
-          <img src="/images/about/rastalab.jpg" alt="RastaLabs" style="width: 100%; border-radius: 8px 8px 0 0; display: block;">
-          <div style="padding: 1.5rem;">
-            <h3>RastaLabs <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 0.9rem;"></i></h3>
-            <span style="font-size: 0.85rem; color: #888;">Mar 2025 | 40h</span>
-            <p style="font-size: 0.9rem; margin-bottom: 0;">EDR evasion, exploit dev, persistence, phishing.</p>
-          </div>
+          <a href="/certs/rastalabs" style="text-decoration: none; color: inherit; display: block;">
+            <img src="/images/about/rastalab.jpg" alt="RastaLabs" style="width: 100%; border-radius: 8px 8px 0 0; display: block;">
+            <div style="padding: 1.5rem;">
+              <h3>RastaLabs <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 0.9rem;"></i></h3>
+              <span style="font-size: 0.85rem; color: #888;">Mar 2025 | 40h</span>
+              <p style="font-size: 0.9rem; margin-bottom: 0;">EDR evasion, exploit dev, persistence, phishing.</p>
+            </div>
+          </a>
         </div>
 
         <div class="award-item" style="border-left-color: #ff0000; padding: 0;">
-          <img src="/images/about/Offshore.jpg" alt="Offshore" style="width: 100%; border-radius: 8px 8px 0 0; display: block;">
-          <div style="padding: 1.5rem;">
-            <h3>Offshore <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 0.9rem;"></i></h3>
-            <span style="font-size: 0.85rem; color: #888;">Abr 2025 | 48h</span>
-            <p style="font-size: 0.9rem; margin-bottom: 0;">AD attacks, EDR evasion, tunneling/pivoting.</p>
-          </div>
+          <a href="/certs/offshore" style="text-decoration: none; color: inherit; display: block;">
+            <img src="/images/about/Offshore.jpg" alt="Offshore" style="width: 100%; border-radius: 8px 8px 0 0; display: block;">
+            <div style="padding: 1.5rem;">
+              <h3>Offshore <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 0.9rem;"></i></h3>
+              <span style="font-size: 0.85rem; color: #888;">Abr 2025 | 48h</span>
+              <p style="font-size: 0.9rem; margin-bottom: 0;">AD attacks, EDR evasion, tunneling/pivoting.</p>
+            </div>
+          </a>
         </div>
 
         <div class="award-item" style="border-left-color: #ff0000; padding: 0;">
-          <img src="/images/about/dante.jpg" alt="Dante" style="width: 100%; border-radius: 8px 8px 0 0; display: block;">
-          <div style="padding: 1.5rem;">
-            <h3>Dante <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 0.9rem;"></i></h3>
-            <span style="font-size: 0.85rem; color: #888;">Mar 2025 | 40h</span>
-            <p style="font-size: 0.9rem; margin-bottom: 0;">Exploit dev, lateral movement, privesc.</p>
-          </div>
+          <a href="/certs/dante" style="text-decoration: none; color: inherit; display: block;">
+            <img src="/images/about/dante.jpg" alt="Dante" style="width: 100%; border-radius: 8px 8px 0 0; display: block;">
+            <div style="padding: 1.5rem;">
+              <h3>Dante <i class="fas fa-check-circle" style="color: var(--color-primary); font-size: 0.9rem;"></i></h3>
+              <span style="font-size: 0.85rem; color: #888;">Mar 2025 | 40h</span>
+              <p style="font-size: 0.9rem; margin-bottom: 0;">Exploit dev, lateral movement, privesc.</p>
+            </div>
+          </a>
         </div>
 
       </div>
@@ -181,33 +200,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h2><i class="fas fa-trophy"></i> Premios y Logros</h2>
       
       <div class="award-item">
-        <h3>Top 1 Ecuador | Puesto 43 Mundial</h3>
-        <p>Hack The Box ranking 2025. Especialista en máquinas retiradas y Pro Labs.</p>
+        <h3><i class="fas fa-crown" style="color: gold;"></i> Top 1 Ecuador | Puesto 43 Mundial</h3>
+        <p><strong>Hack The Box (2025)</strong>: Reconocimiento global por habilidades avanzadas en Red Teaming, resolviendo los laboratorios más complejos (Insane) y Pro Labs. Especialista en máquinas retiradas y entornos empresariales simulados.</p>
       </div>
       
       <div class="award-item">
-        <h3>Tricampeón Nacional (Ingenials)</h3>
-        <p>Dominando categorías de ethical hacking y red teaming por 3 años consecutivos (UDLA).</p>
+        <h3><i class="fas fa-trophy" style="color: silver;"></i> Tricampeón Nacional (Ingenials)</h3>
+        <p><strong>UDLA (3 Años Consecutivos)</strong>: Dominio absoluto en categorías de Ethical Hacking, Retos Jeopardy y Attack-Defense. Ganador con proyectos innovadores como el Keylogger en RAM y herramientas de auditoría Flipper Zero.</p>
       </div>
 
       <div class="award-item">
-        <h3>4to Lugar - Latin American Cybersecurity Challenge</h3>
-        <p>Representación destacada a nivel regional (LACC).</p>
+        <h3><i class="fas fa-medal" style="color: #cd7f32;"></i> 4to Lugar - Latin American Cybersecurity Challenge</h3>
+        <p>Representación de alto nivel en competencia regional (LACC), enfrentando a los mejores equipos de Latinoamérica en escenarios de Ciberseguridad ofensiva y defensiva.</p>
       </div>
 
       <div class="award-item">
-        <h3>Capitán Mejor Equipo Blue Team</h3>
-        <p>Holmes CTF Hack The Box 2025. Liderazgo técnico en defensa y respuesta a incidentes.</p>
+        <h3><i class="fas fa-shield-alt" style="color: #4da6ff;"></i> Capitán Mejor Equipo Blue Team</h3>
+        <p><strong>Holmes CTF Hack The Box 2025</strong>: Liderazgo técnico en defensa cibernética (Blue Team), respuesta a incidentes y análisis forense bajo presión.</p>
       </div>
       
       <div class="award-item">
-        <h3>Ekoparty 2025 (Argentina)</h3>
-        <p>Participante en Wardriving Challenge y CTF.</p>
+        <h3><i class="fas fa-wifi"></i> Ekoparty 2025 (Argentina)</h3>
+        <p>Participante destacado en el <strong>Wardriving Challenge</strong>, demostrando habilidades en auditoría inalámbrica y seguridad en redes. Competidor en el CTF principal.</p>
       </div>
       
       <div class="award-item">
-        <h3>Preselección Mundial (Australia)</h3>
-        <p>Equipo Latinoamérica y Caribe (WorldSkills).</p>
+        <h3><i class="fas fa-globe-americas"></i> Preselección Mundial (Australia)</h3>
+        <p>Seleccionado para el <strong>Equipo Latinoamérica y Caribe (WorldSkills)</strong>, reconociendo la excelencia técnica y capacidad competitiva a nivel internacional.</p>
       </div>
     </div>
 
