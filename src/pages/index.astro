@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 ---
 
 <BaseLayout title="Flippermen | Command Center">
@@ -29,7 +30,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <a href="/about" class="nav-card profile-card">
         <div class="card-overlay"></div>
         <div class="icon-container">
-          <i class="fas fa-user-secret"></i>
+          <Icon name="user-secret" />
         </div>
         <div class="card-content">
           <h2>IDENTITY</h2>
@@ -42,7 +43,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <a href="/writeups" class="nav-card ops-card">
         <div class="card-overlay"></div>
         <div class="icon-container">
-          <i class="fas fa-terminal"></i>
+          <Icon name="terminal" />
         </div>
         <div class="card-content">
           <h2>OPERATIONS</h2>
@@ -55,7 +56,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <a href="/certs" class="nav-card arsenal-card">
         <div class="card-overlay"></div>
         <div class="icon-container">
-          <i class="fas fa-certificate"></i>
+          <Icon name="certificate" />
         </div>
         <div class="card-content">
           <h2>ARSENAL</h2>
