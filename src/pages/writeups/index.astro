@@ -3,38 +3,444 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const allWriteups = await getCollection('writeups');
-// Sort by date desc if available, otherwise roughly keep order
+// Sort by date desc
 allWriteups.sort((a, b) => {
   if (a.data.date && b.data.date) {
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
   }
   return 0;
 });
+
+const latestMission = allWriteups[0];
+const pastMissions = allWriteups.slice(1);
+const totalMissions = allWriteups.length;
 ---
 
-<BaseLayout title="Writeups | Flippermen">
-  <div class="container">
-    <h1>Writeups & CTFs</h1>
-    <p>Collection of walkthroughs and security challenges.</p>
+<BaseLayout title="Operations Log | Flippermen">
+  <div class="ops-container">
     
-    <div class="feature-grid">
-      {allWriteups.map((post) => (
-        <div class="card">
-           {post.data.header?.teaser ? (
-             <img src={post.data.header.teaser.replace('/assets/', '/')} alt={post.data.title} style="height: 200px; object-fit: cover;" />
-           ) : (
-             <div style="height: 200px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;">No Image</div>
-           )}
-           <div class="content">
-            <h3><a href={`/writeups/${post.slug}`}>{post.data.title}</a></h3>
-             <div style="margin-bottom: 1rem; color: #888; font-size: 0.9rem;">
-               {post.data.date && new Date(post.data.date).toLocaleDateString()}
-             </div>
-             {post.data.excerpt && <p>{post.data.excerpt.substring(0, 150)}...</p>}
-             <a href={`/writeups/${post.slug}`} class="btn" style="margin-top: 1rem;">Leer Writeup</a>
-           </div>
+    <!-- DASHBOARD HEADER -->
+    <div class="ops-header">
+      <div class="header-content">
+        <h1 class="glitch" data-text="OPERATIONS LOG">OPERATIONS LOG</h1>
+        <div class="terminal-line">
+           <span class="prompt">root@flippermen:~/missions#</span> <span class="cmd">ls -la --sort=date</span>
         </div>
+      </div>
+      
+      <div class="stats-panel">
+        <div class="stat-box">
+          <span class="stat-label">TOTAL MISSIONS</span>
+          <span class="stat-value">{totalMissions}</span>
+        </div>
+        <div class="stat-box success">
+          <span class="stat-label">STATUS</span>
+          <span class="stat-value">ACTIVE</span>
+        </div>
+        <div class="stat-box warning">
+          <span class="stat-label">DEFCON</span>
+          <span class="stat-value">3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH BAR (VISUAL) -->
+    <div class="search-bar-container">
+      <div class="search-icon"><i class="fas fa-search"></i></div>
+      <input type="text" class="search-input" placeholder="Search target system, CVE or technique..." disabled />
+      <div class="search-meta">FILTER: <span class="highlight">ALL</span></div>
+    </div>
+
+    <!-- HERO MISSION (LATEST) -->
+    {latestMission && (
+      <section class="hero-mission">
+        <div class="mission-label">>>> LATEST OPERATION <<<</div>
+        <div class="hero-card">
+          <div class="hero-image">
+             {latestMission.data.header?.teaser ? (
+               <img src={latestMission.data.header.teaser.replace('/assets/', '/')} alt={latestMission.data.title} />
+             ) : (
+               <div class="placeholder-hero">CLASSIFIED IMAGE</div>
+             )}
+             <div class="overlay"></div>
+          </div>
+          <div class="hero-content">
+            <div class="hero-meta">
+              <span class="date-badge">{latestMission.data.date && new Date(latestMission.data.date).toLocaleDateString()}</span>
+              <span class="status-badge">PWNED</span>
+            </div>
+            <h2><a href={`/writeups/${latestMission.slug}`}>{latestMission.data.title}</a></h2>
+            <p class="hero-excerpt">{latestMission.data.excerpt ? latestMission.data.excerpt : "Mission details classified. Authorized personnel only."}</p>
+            <a href={`/writeups/${latestMission.slug}`} class="access-btn">ACCESS REPORT_</a>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- MISSION GRID -->
+    <div class="grid-label">>>> ARCHIVED OPERATIONS</div>
+    <div class="mission-grid">
+      {pastMissions.map((post) => (
+        <article class="mission-card">
+          <div class="card-media">
+             {post.data.header?.teaser ? (
+               <img src={post.data.header.teaser.replace('/assets/', '/')} alt={post.data.title} />
+             ) : (
+               <div class="placeholder-grid">NO SIGNAL</div>
+             )}
+             <div class="card-status"><i class="fas fa-check-circle"></i></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta">
+               <span class="mission-id">OP-{Math.floor(Math.random() * 9000) + 1000}</span>
+               <span class="mission-date">{post.data.date && new Date(post.data.date).toLocaleDateString()}</span>
+            </div>
+            <h3><a href={`/writeups/${post.slug}`}>{post.data.title}</a></h3>
+            <div class="tags">
+               <span class="tag">#CTF</span>
+               <span class="tag">#Security</span>
+            </div>
+            <a href={`/writeups/${post.slug}`} class="read-more">View Log &rarr;</a>
+          </div>
+        </article>
       ))}
     </div>
+
   </div>
 </BaseLayout>
+
+<style>
+  :root {
+    --neon-green: #00ff41;
+    --neon-red: #ff3333;
+    --dark-bg: #050505;
+    --panel-bg: #111;
+    --border-color: #333;
+  }
+
+  .ops-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: 'Courier New', Courier, monospace; /* Terminal vibe */
+  }
+
+  /* HEADER */
+  .ops-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  h1.glitch {
+    font-size: 3rem;
+    color: #fff;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    letter-spacing: -2px;
+  }
+
+  .terminal-line {
+    font-family: monospace;
+    color: #aaa;
+    margin-top: 0.5rem;
+    background: #000;
+    padding: 0.5rem;
+    border-radius: 4px;
+    display: inline-block;
+  }
+  .prompt { color: var(--neon-green); }
+  .cmd { color: #fff; }
+
+  .stats-panel {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .stat-box {
+    background: #111;
+    border: 1px solid #333;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+  }
+  
+  .stat-label { font-size: 0.7rem; color: #666; letter-spacing: 1px; }
+  .stat-value { font-size: 1.2rem; color: #fff; font-weight: bold; }
+  .stat-box.success .stat-value { color: var(--neon-green); }
+  .stat-box.warning .stat-value { color: orange; }
+
+  /* COMPONENT: SEARCH BAR */
+  .search-bar-container {
+    background: #111;
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  .search-icon { color: #555; margin-right: 1rem; }
+  .search-input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    width: 100%;
+    font-family: monospace;
+    font-size: 1.1rem;
+    outline: none;
+  }
+  .search-meta { color: #444; font-size: 0.8rem; font-weight: bold; }
+  .highlight { color: var(--neon-green); }
+
+  /* SECTION LABELS */
+  .mission-label, .grid-label {
+    color: var(--neon-green);
+    font-family: monospace;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    opacity: 0.8;
+  }
+
+  /* HERO MISSION */
+  .hero-mission {
+    margin-bottom: 4rem;
+  }
+
+  .hero-card {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    background: #111;
+    border: 1px solid #333;
+    min-height: 350px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  @media (max-width: 768px) {
+    .hero-card { grid-template-columns: 1fr; }
+  }
+
+  .hero-image {
+    position: relative;
+    background: #000;
+  }
+  
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    filter: grayscale(40%);
+    transition: all 0.5s;
+  }
+  
+  .hero-card:hover .hero-image img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.02);
+  }
+
+  .placeholder-hero {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 5px;
+    background: repeating-linear-gradient(
+      45deg,
+      #050505,
+      #050505 10px,
+      #0a0a0a 10px,
+      #0a0a0a 20px
+    );
+  }
+
+  .hero-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid #333;
+    position: relative;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .date-badge {
+    background: #222;
+    color: #aaa;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 4px;
+  }
+  
+  .status-badge {
+    background: rgba(0, 255, 65, 0.2);
+    color: var(--neon-green);
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    border: 1px solid var(--neon-green);
+    font-weight: bold;
+  }
+
+  .hero-content h2 {
+    font-size: 2rem;
+    margin: 0 0 1rem 0;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .hero-content h2 a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .hero-content h2 a:hover { color: var(--neon-green); }
+
+  .hero-excerpt {
+    color: #ccc;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .access-btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: var(--neon-green);
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: fit-content;
+    transition: all 0.3s;
+  }
+  
+  .access-btn:hover {
+    box-shadow: 0 0 15px var(--neon-green);
+    transform: translateX(5px);
+  }
+
+  /* MISSION GRID */
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .mission-card {
+    background: #111;
+    border: 1px solid #333;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  
+  .mission-card:hover {
+    transform: translateY(-5px);
+    border-color: #555;
+  }
+
+  .card-media {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    border-bottom: 1px solid #333;
+  }
+  
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+  
+  .mission-card:hover .card-media img { opacity: 1; }
+
+  .card-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--neon-green);
+    background: #000;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .placeholder-grid {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+    font-size: 1.5rem;
+    background: #0a0a0a;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-family: monospace;
+  }
+
+  .mission-card h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.3rem;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .mission-card h3 a {
+    color: #eee;
+    text-decoration: none;
+  }
+
+  .tags {
+    margin-bottom: 1.5rem;
+  }
+  
+  .tag {
+    font-size: 0.75rem;
+    color: #888;
+    margin-right: 0.5rem;
+  }
+
+  .read-more {
+    color: var(--neon-green);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .read-more:hover { text-decoration: underline; }
+
+</style>
