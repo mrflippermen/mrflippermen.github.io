@@ -11,7 +11,7 @@ tags: ["AD Hardening", "DevOps Security", "Kerberos", "MS Security"]
 
 ## 🔒 Confidential Assessment Profile
 
-**Target Environment**: `Hardened Active Directory & DevOps`
+**Target Environment**: `Hardened Active Directory & DevOps` 
 **Defense Level**: `MAXIMUM`
 
 **Cybernetics** representa un entorno de **Active Directory endurecido (Hardened AD)** que simula una organización moderna consciente de la seguridad. Las configuraciones por defecto han sido aseguradas, el monitoreo está activo y las rutas de ataque obvias han sido cerradas.
