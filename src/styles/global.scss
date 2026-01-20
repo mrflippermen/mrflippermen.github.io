@@ -1,26 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+@import 'tokens';
 
-:root {
-    --color-bg: #111;
-    --color-text: #eee;
-    --color-primary: #00ff41;
-    /* Hacker Green */
-    --color-secondary: #008f11;
-    --color-accent: #fcee0a;
-    --color-surface: #1a1a1a;
-    --color-border: #333;
-}
-
-/* Light Mode Variables via class */
+// Light Mode específico para hero (override)
 body.light-mode {
-    --color-bg: #f4f4f4;
-    --color-text: #1a1a1a;
-    --color-surface: #ffffff;
-    --color-primary: #007722;
-    --color-secondary: #004d16;
-    --color-accent: #b3a400;
-    --color-border: #ddd;
-
     .hero {
         h1 {
             color: #fff;

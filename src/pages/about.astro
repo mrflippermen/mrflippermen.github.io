@@ -101,6 +101,46 @@ import SkillContainer from '../components/SkillContainer.astro';
           <p>Framework ofensivo avanzado. Módulos de <strong>exfiltración SAM/SYSTEM</strong>, keyloggers discretos y análisis de puertos automatizado.</p>
           <a href="https://github.com/mrflippermen/flipper-atack" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
         </TimelineItem>
+
+        <TimelineItem 
+          title="Shellcode-Evasion-Suite"
+          institution="Python | EDR/AV Evasion"
+        >
+          <p>Plataforma de ofuscación y encriptación de shellcode multi-técnica. Implementa <strong>polimorfismo</strong>, encoding XOR/RC4 y técnicas anti-sandbox para bypass avanzado de EDR/AV.</p>
+          <a href="https://github.com/mrflippermen/Shellcode-Evasion-Suite" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
+        </TimelineItem>
+
+        <TimelineItem 
+          title="BloodHound-Parser"
+          institution="Python | Active Directory"
+        >
+          <p>Parser de última generación para datasets BloodHound. Automatiza la extracción de <strong>rutas de ataque críticas</strong>, delegation chains y vulnerabilidades de Kerberos en entornos AD complejos.</p>
+          <a href="https://github.com/mrflippermen/BloodHound-Parser" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
+        </TimelineItem>
+
+        <TimelineItem 
+          title="Shodan-Intel-Reporter"
+          institution="Python | OSINT"
+        >
+          <p>Framework de inteligencia automatizada sobre infraestructura expuesta. Genera reportes visualizados con <strong>análisis de superficie de ataque</strong> y correlación de vulnerabilidades CVE.</p>
+          <a href="https://github.com/mrflippermen/Shodan-Intel-Reporter" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
+        </TimelineItem>
+
+        <TimelineItem 
+          title="SpiderFoot-URL-Parser"
+          institution="Python | Reconnaissance"
+        >
+          <p>Extractor y procesador de salidas SpiderFoot. Integra pipelines de <strong>enumeración pasiva</strong> con filtrado por criticidad para bug bounty y reconocimiento sigiloso.</p>
+          <a href="https://github.com/mrflippermen/SpiderFoot-URL-Parser" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
+        </TimelineItem>
+
+        <TimelineItem 
+          title="BugBounty-Automation-Setup"
+          institution="Shell | DevOps Security"
+        >
+          <p>Script de aprovisionamiento ZSH para entornos de reconocimiento. Transforma instancias Linux vanilla en <strong>plataformas de combate</strong> con herramientas pre-configuradas (Nuclei, FFUF, Amass) en minutos.</p>
+          <a href="https://github.com/mrflippermen/BugBounty-Automation-Setup" target="_blank" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
+        </TimelineItem>
         
         <TimelineItem 
           title="RAM Keylogger (Forensic Resistant)"
@@ -230,14 +270,7 @@ import SkillContainer from '../components/SkillContainer.astro';
 </BaseLayout>
 
 <style>
-  /* --- VARS & RESET --- */
-  :root {
-    --neon-green: #00ff41;
-    --neon-blue: #4da6ff;
-    --dark-bg: #0a0a0a;
-    --card-bg: rgba(20, 20, 20, 0.8);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-  }
+  /* Estilos específicos de CV/About - usa variables globales de _tokens.scss */
 
   .cv-container {
     max-width: 1000px;
