@@ -1,0 +1,248 @@
+---
+const { currentPath } = Astro.url;
+---
+
+<header class="command-header">
+  <div class="hud-top-bar">
+    <div class="hud-item">
+      <span class="hud-label">SESS_ID:</span>
+      <span class="hud-value blink">0xFACEB00C</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">NET_STATUS:</span>
+      <span class="hud-value secure">SECURE</span>
+    </div>
+    <div class="hud-item only-desktop">
+      <span class="hud-label">DEFCON:</span>
+      <span class="hud-value warning">3</span>
+    </div>
+  </div>
+
+  <nav class="tactical-nav">
+    <a href="/" class="brand-unit">
+      <span class="bracket">[</span>
+      <span class="brand-text">FLIPPERMEN</span>
+      <span class="bracket">]</span>
+    </a>
+
+    <!-- Hamburger / Mobile Toggle -->
+    <button id="mobile-menu-btn" class="mobile-toggle" aria-label="Toggle Navigation">
+      <div class="bar top"></div>
+      <div class="bar mid"></div>
+      <div class="bar bot"></div>
+    </button>
+
+    <div class="nav-links-container" id="nav-links">
+      <a href="/about" class={currentPath === '/about' ? 'active' : ''}>
+        <span class="nav-icon">👤</span> IDENTITY
+      </a>
+      <a href="/writeups" class={currentPath === '/writeups' ? 'active' : ''}>
+        <span class="nav-icon">📝</span> OPS_LOG
+      </a>
+      <a href="/certs" class={currentPath === '/certs' ? 'active' : ''}>
+        <span class="nav-icon">🏅</span> CREDENTIALS
+      </a>
+      <a href="/contact" class={currentPath === '/contact' ? 'active' : ''}>
+        <span class="nav-icon">📡</span> COMMS
+      </a>
+      
+      <div class="separator"></div>
+
+      <button id="themeToggle" class="theme-switch" aria-label="Toggle Night Vision">
+        <span class="switch-icon">👁️</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Mobile Menu Logic
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const navLinks = document.getElementById('nav-links');
+
+  menuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    menuBtn.classList.toggle('active');
+  });
+</script>
+
+<style>
+  :root {
+    --neon-green: #00ff41;
+    --neon-red: #ff3333;
+    --hud-bg: #0a0a0a;
+    --hud-border: 1px solid #333;
+  }
+
+  /* HEADER CONTAINER */
+  .command-header {
+    background: rgba(10, 10, 10, 0.95);
+    border-bottom: 2px solid var(--neon-green);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: 'Courier New', monospace;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 255, 65, 0.1);
+  }
+
+  /* TOP HUD BAR */
+  .hud-top-bar {
+    display: flex;
+    justify-content: flex-end;
+    background: #000;
+    padding: 2px 1rem;
+    font-size: 0.7rem;
+    border-bottom: 1px solid #222;
+    gap: 1.5rem;
+  }
+
+  .hud-item {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .hud-label { color: #555; }
+  .hud-value { color: #aaa; font-weight: bold; }
+  .hud-value.secure { color: var(--neon-green); }
+  .hud-value.warning { color: #ffbd2e; }
+  .hud-value.blink { animation: blink 2s infinite; }
+
+  @keyframes blink { 50% { opacity: 0.5; } }
+
+  /* MAIN NAV */
+  .tactical-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* BRAND */
+  .brand-unit {
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .bracket { color: var(--neon-green); transition: all 0.3s; }
+  .brand-unit:hover .bracket { text-shadow: 0 0 10px var(--neon-green); }
+  .brand-text { color: #fff; }
+
+  /* NAV LINKS */
+  .nav-links-container {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .nav-links-container a {
+    text-decoration: none;
+    color: #888;
+    font-size: 0.9rem;
+    font-weight: 600;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-icon { opacity: 0.5; transition: 0.3s; }
+  .nav-links-container a:hover .nav-icon { opacity: 1; text-shadow: 0 0 10px white; }
+
+  .nav-links-container a:hover,
+  .nav-links-container a.active {
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  }
+
+  .nav-links-container a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--neon-green);
+    transition: width 0.3s;
+  }
+
+  .nav-links-container a:hover::after,
+  .nav-links-container a.active::after {
+    width: 100%;
+  }
+
+  .separator {
+    width: 1px;
+    height: 20px;
+    background: #333;
+  }
+
+  /* THEME SWITCH */
+  .theme-switch {
+    background: none;
+    border: 1px solid #333;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+  }
+
+  .theme-switch:hover {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+  }
+
+  /* MOBILE TOGGLE */
+  .mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .bar {
+    width: 25px;
+    height: 2px;
+    background: var(--neon-green);
+    transition: 0.3s;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .only-desktop { display: none; }
+    
+    .mobile-toggle { display: flex; }
+    
+    .nav-links-container {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(10, 10, 10, 0.98);
+      flex-direction: column;
+      padding: 2rem;
+      gap: 2rem;
+      border-bottom: 2px solid var(--neon-green);
+      transform: translateY(-150%); /* Hidden by default */
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 999;
+    }
+
+    .nav-links-container.open {
+      transform: translateY(0);
+    }
+  }
+</style>
