@@ -1,19 +1,43 @@
----
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AwardCard from '../../components/AwardCard.astro';
 
 const allCerts = await getCollection('certs');
+// Sort by date descending (newest first)
+allCerts.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 ---
 
 <BaseLayout title="Certificaciones | Flippermen">
-  <div class="container">
-    <h1>Certificaciones</h1>
-    <ul>
+  <div class="container" style="padding-top: 4rem;">
+    <h1 style="text-align: center; margin-bottom: 3rem; font-size: 3rem; color: var(--color-primary);">Certificaciones & Labs</h1>
+    
+    <div class="feature-grid">
       {allCerts.map((cert) => (
-        <li style="margin-bottom: 1rem;">
-          <a href={`/certs/${cert.slug}`} style="font-size: 1.25rem; font-weight: bold;">{cert.data.title}</a>
-        </li>
+        <AwardCard
+          title={cert.data.title}
+          subtitle={`${cert.data.platform} | ${cert.data.level}`}
+          image={cert.data.image}
+          link={`/certs/${cert.slug}`}
+        >
+          <div style="margin-top: 0.5rem;">
+            {cert.data.tags && cert.data.tags.map(tag => (
+              <span style="
+                display: inline-block; 
+                background: rgba(255,255,255,0.1); 
+                padding: 2px 8px; 
+                border-radius: 4px; 
+                font-size: 0.8rem; 
+                margin-right: 4px; 
+                margin-bottom: 4px;
+                color: #ccc;
+              ">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </AwardCard>
       ))}
-    </ul>
+    </div>
   </div>
 </BaseLayout>
+
