@@ -88,8 +88,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   /* TERMINAL HERO */
   .hero-terminal {
-    background: #0a0a0a;
-    border: 1px solid #333;
+    background: var(--dark-bg);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 4rem;
@@ -97,11 +97,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .terminal-header {
-    background: #1a1a1a;
+    background: var(--color-surface);
     padding: 0.8rem 1rem;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .dot {
@@ -110,22 +110,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-radius: 50%;
     margin-right: 8px;
   }
-  .red { background: #ff5f56; }
-  .yellow { background: #ffbd2e; }
-  .green { background: #27c93f; }
-  .title { margin-left: auto; color: #555; font-family: monospace; font-size: 0.8rem; }
+  .red { background: var(--terminal-dot-red); }
+  .yellow { background: var(--terminal-dot-yellow); }
+  .green { background: var(--terminal-dot-green); }
+  .title { margin-left: auto; color: var(--color-text-quaternary); font-family: monospace; font-size: 0.8rem; }
 
   .terminal-body {
     padding: 2rem;
     font-family: 'Courier New', monospace;
   }
 
-  .sys-msg { color: #666; margin: 0.2rem 0; font-size: 0.9rem; }
+  .sys-msg { color: var(--color-text-tertiary); margin: 0.2rem 0; font-size: 0.9rem; }
   .sys-msg.success { color: var(--neon-green); margin-bottom: 1.5rem; }
 
   .glitch-title {
     font-size: 4rem;
-    color: #fff;
+    color: var(--color-text-white);
     margin: 0;
     line-height: 1;
     font-family: 'Inter', sans-serif;
@@ -148,9 +148,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .nav-card {
-    background: #111;
-    border: 1px solid #333;
-    border-left: 4px solid #333;
+    background: var(--panel-bg);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-border);
     padding: 2rem;
     text-decoration: none;
     position: relative;
@@ -169,20 +169,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .icon-container {
     font-size: 3rem;
-    color: #333;
+    color: var(--color-border);
     margin-bottom: 1rem;
     transition: color 0.3s;
   }
 
   .card-content h2 {
-    color: #fff;
+    color: var(--color-text-white);
     margin: 0;
     font-size: 1.8rem;
     font-family: 'Inter', sans-serif;
   }
   
   .card-content p {
-    color: #888;
+    color: var(--color-text-secondary);
     margin: 0.5rem 0 1.5rem 0;
   }
 
@@ -192,7 +192,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
     background: #222;
-    color: #666;
+    color: var(--color-text-tertiary);
     align-self: flex-start;
   }
 
@@ -213,7 +213,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .landing-footer {
     margin-top: 4rem;
     text-align: center;
-    color: #444;
+    color: var(--color-text-muted);
     font-family: monospace;
   }
 

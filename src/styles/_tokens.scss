@@ -12,6 +12,17 @@ $color-neon-blue: #4da6ff;
 $color-neon-red: #ff3333;
 $color-neon-yellow: #fcee0a;
 
+// Terminal-specific colors (macOS dots)
+$color-terminal-dot-red: #ff5f56;
+$color-terminal-dot-yellow: #ffbd2e;
+$color-terminal-dot-green: #27c93f;
+
+// Badge/Difficulty colors
+$color-badge-easy: #27c93f;
+$color-badge-medium: #ffbd2e;
+$color-badge-hard: #ff3333;
+$color-badge-insane: #ff006e;
+
 // -----------------------------------------------------------------------------
 // Backgrounds
 // -----------------------------------------------------------------------------
@@ -27,7 +38,12 @@ $color-bg-card: rgba(20, 20, 20, 0.8);
 $color-text-primary: #eee;
 $color-text-secondary: #888;
 $color-text-tertiary: #666;
+$color-text-quaternary: #555;
+$color-text-muted: #444;
+$color-text-light: #aaa;
+$color-text-medium-light: #ccc;
 $color-text-white: #fff;
+$color-text-black: #000;
 
 // -----------------------------------------------------------------------------
 // Borders
@@ -77,6 +93,11 @@ $z-tooltip: 3000;
     --neon-red: #{$color-neon-red};
     --neon-yellow: #{$color-neon-yellow};
 
+    // Terminal
+    --terminal-dot-red: #{$color-terminal-dot-red};
+    --terminal-dot-yellow: #{$color-terminal-dot-yellow};
+    --terminal-dot-green: #{$color-terminal-dot-green};
+
     // Backgrounds
     --dark-bg: #{$color-bg-dark};
     --color-bg: #{$color-bg-panel};
@@ -86,12 +107,20 @@ $z-tooltip: 3000;
 
     // Text
     --color-text: #{$color-text-primary};
+    --color-text-secondary: #{$color-text-secondary};
+    --color-text-tertiary: #{$color-text-tertiary};
+    --color-text-quaternary: #{$color-text-quaternary};
+    --color-text-muted: #{$color-text-muted};
+    --color-text-light: #{$color-text-light};
+    --color-text-white: #{$color-text-white};
+    --color-text-black: #{$color-text-black};
     --color-primary: #{$color-neon-green};
     --color-secondary: #008f11;
     --color-accent: #{$color-neon-yellow};
 
     // Borders
     --color-border: #{$color-border-default};
+    --border-color: #{$color-border-default};
     --glass-border: 1px solid #{$color-border-glass};
 
     // Hud específicos

@@ -113,14 +113,14 @@ footer {
     text-align: center;
     padding: 2rem 0;
     margin-top: 4rem;
-    color: #666;
+    color: var(--color-text-tertiary);
     border-top: 1px solid var(--color-border);
 }
 
 .btn {
     display: inline-block;
     background: var(--color-primary);
-    color: #000;
+    color: var(--color-text-black);
     padding: 0.8rem 1.5rem;
     border-radius: 4px;
     font-weight: 600;
@@ -201,7 +201,7 @@ footer {
         font-size: 1.25rem;
         max-width: 700px;
         margin: 0 auto 2rem;
-        color: #ccc;
+        color: var(--color-text-medium-light);
     }
 }
 
@@ -227,7 +227,7 @@ footer {
         font-size: 1.5rem;
         letter-spacing: 2px;
         text-transform: uppercase;
-        color: #888;
+        color: var(--color-text-secondary);
         margin-bottom: 1.5rem;
         font-weight: 600;
     }
@@ -283,7 +283,7 @@ footer {
 
         &:hover {
             background: var(--color-primary);
-            color: #000;
+            color: var(--color-text-black);
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
         }
@@ -325,7 +325,7 @@ footer {
     }
 
     .period {
-        color: #888;
+        color: var(--color-text-secondary);
         font-size: 0.9rem;
         margin-bottom: 0.25rem;
         display: block;
