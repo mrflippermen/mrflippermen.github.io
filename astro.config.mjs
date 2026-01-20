@@ -6,5 +6,9 @@ export default defineConfig({
     site: 'https://mrflippermen.github.io',
     base: '/',
     output: 'static',
-    integrations: [sitemap()],
+    integrations: [
+        sitemap({
+            filter: (page) => !page.includes('/404'),
+        })
+    ],
 });
