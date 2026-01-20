@@ -2,37 +2,237 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Flippermen | Ciberseguridad">
-  <div class="hero">
-    <div class="container">
-      <h1>Bienvenido a mi Bitácora</h1>
-      <p>Investigaciones en ciberseguridad, writeups de CTFs y el camino hacia la maestría en Hacking Ético.</p>
-      <div style="display: flex; justify-content: center; gap: 1rem;">
-        <a href="/writeups" class="btn">Ver Writeups</a>
-        <a href="/certs" class="btn" style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary)">Mis Certificaciones</a>
+<BaseLayout title="Flippermen | Command Center">
+  <div class="landing-container">
+    
+    <!-- HERO TERMINAL -->
+    <section class="hero-terminal">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="title">ROOT_ACCESS_GRANTED</span>
       </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <section class="feature-grid">
-      <div class="card">
-        <img src="/images/hackthebox.webp" alt="Writeups" style="object-fit: cover; object-position: center;"/>
-        <div class="content">
-          <h3>Writeups & CTFs</h3>
-          <p>Guías detalladas de máquinas de HackTheBox, TryHackMe y otros desafíos técnicos.</p>
-          <a href="/writeups" class="btn">Explorar &rarr;</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="/images/avatar.jpg" alt="Certs" style="object-fit: cover; object-position: top;"/>
-        <div class="content">
-          <h3>Certificaciones</h3>
-          <p>Mis logros profesionales y certificaciones oficiales en el campo de la seguridad.</p>
-          <a href="/certs" class="btn">Ver Credenciales &rarr;</a>
-        </div>
+      <div class="terminal-body">
+        <p class="sys-msg">> INITIALIZING KERNEL...</p>
+        <p class="sys-msg">> LOADING MODULES: RED_TEAM, EXPLOIT_DEV, THREAT_HUNTING...</p>
+        <p class="sys-msg success">> SYSTEM ONLINE.</p>
+        <h1 class="glitch-title" data-text="ESTEBAN JIMENEZ">ESTEBAN JIMENEZ</h1>
+        <p class="subtitle">Red Team Operator | Senior Researcher</p>
       </div>
     </section>
+
+    <!-- MAIN NAVIGATION GRID -->
+    <section class="nav-grid">
+      
+      <!-- CARD 1: IDENTITY -->
+      <a href="/about" class="nav-card profile-card">
+        <div class="card-overlay"></div>
+        <div class="icon-container">
+          <i class="fas fa-user-secret"></i>
+        </div>
+        <div class="card-content">
+          <h2>IDENTITY</h2>
+          <p>Executive Profile & Skills</p>
+          <span class="status">VERIFIED</span>
+        </div>
+      </a>
+
+      <!-- CARD 2: OPERATIONS -->
+      <a href="/writeups" class="nav-card ops-card">
+        <div class="card-overlay"></div>
+        <div class="icon-container">
+          <i class="fas fa-terminal"></i>
+        </div>
+        <div class="card-content">
+          <h2>OPERATIONS</h2>
+          <p>Mission Log & Writeups</p>
+          <span class="status active">ACTIVE</span>
+        </div>
+      </a>
+
+      <!-- CARD 3: ARSENAL -->
+      <a href="/certs" class="nav-card arsenal-card">
+        <div class="card-overlay"></div>
+        <div class="icon-container">
+          <i class="fas fa-certificate"></i>
+        </div>
+        <div class="card-content">
+          <h2>ARSENAL</h2>
+          <p>Certifications & Credentials</p>
+          <span class="status locked">SECURE</span>
+        </div>
+      </a>
+
+    </section>
+
+    <footer class="landing-footer">
+      <p class="blink">_WAITING FOR INPUT...</p>
+    </footer>
+
   </div>
 </BaseLayout>
+
+<style>
+  :root {
+    --neon-green: #00ff41;
+    --neon-blue: #4da6ff;
+    --neon-red: #ff3333;
+    --dark-bg: #050505;
+    --panel-bg: #111;
+  }
+
+  .landing-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 1rem;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* TERMINAL HERO */
+  .hero-terminal {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.05);
+  }
+
+  .terminal-header {
+    background: #1a1a1a;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #333;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  .red { background: #ff5f56; }
+  .yellow { background: #ffbd2e; }
+  .green { background: #27c93f; }
+  .title { margin-left: auto; color: #555; font-family: monospace; font-size: 0.8rem; }
+
+  .terminal-body {
+    padding: 2rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .sys-msg { color: #666; margin: 0.2rem 0; font-size: 0.9rem; }
+  .sys-msg.success { color: var(--neon-green); margin-bottom: 1.5rem; }
+
+  .glitch-title {
+    font-size: 4rem;
+    color: #fff;
+    margin: 0;
+    line-height: 1;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    letter-spacing: -2px;
+  }
+
+  .subtitle {
+    color: var(--neon-blue);
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  /* NAV GRID */
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .nav-card {
+    background: #111;
+    border: 1px solid #333;
+    border-left: 4px solid #333;
+    padding: 2rem;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 250px;
+  }
+
+  .nav-card:hover {
+    transform: translateY(-10px);
+    background: #151515;
+  }
+
+  .icon-container {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+  }
+
+  .card-content h2 {
+    color: #fff;
+    margin: 0;
+    font-size: 1.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .card-content p {
+    color: #888;
+    margin: 0.5rem 0 1.5rem 0;
+  }
+
+  .status {
+    font-size: 0.8rem;
+    font-family: monospace;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: #222;
+    color: #666;
+    align-self: flex-start;
+  }
+
+  /* CARD VARIANTS */
+  .profile-card:hover { border-left-color: var(--neon-blue); box-shadow: 0 10px 30px rgba(77, 166, 255, 0.1); }
+  .profile-card:hover .icon-container { color: var(--neon-blue); }
+  .profile-card:hover .status { color: var(--neon-blue); background: rgba(77, 166, 255, 0.1); }
+
+  .ops-card:hover { border-left-color: var(--neon-green); box-shadow: 0 10px 30px rgba(0, 255, 65, 0.1); }
+  .ops-card:hover .icon-container { color: var(--neon-green); }
+  .ops-card:hover .status { color: var(--neon-green); background: rgba(0, 255, 65, 0.1); }
+
+  .arsenal-card:hover { border-left-color: var(--neon-red); box-shadow: 0 10px 30px rgba(255, 51, 51, 0.1); }
+  .arsenal-card:hover .icon-container { color: var(--neon-red); }
+  .arsenal-card:hover .status { color: var(--neon-red); background: rgba(255, 51, 51, 0.1); }
+
+  /* FOOTER */
+  .landing-footer {
+    margin-top: 4rem;
+    text-align: center;
+    color: #444;
+    font-family: monospace;
+  }
+
+  .blink {
+    animation: blinker 1.5s linear infinite;
+  }
+  
+  @keyframes blinker {
+    50% { opacity: 0; }
+  }
+
+  @media (max-width: 768px) {
+    .glitch-title { font-size: 2.5rem; }
+    .nav-grid { grid-template-columns: 1fr; }
+  }
+</style>
