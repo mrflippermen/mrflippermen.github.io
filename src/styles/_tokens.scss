@@ -134,10 +134,29 @@ $z-tooltip: 3000;
 // Light Mode Override
 body.light-mode {
     --color-bg: #f4f4f4;
-    --color-text: #1a1a1a;
+    --color-bg-panel: #e0e0e0;
     --color-surface: #ffffff;
-    --color-primary: #007722;
-    --color-secondary: #004d16;
-    --color-accent: #b3a400;
-    --color-border: #ddd;
+    --card-bg: #ffffff;
+
+    --color-text: #1a1a1a;
+    --color-text-primary: #111;
+    --color-text-secondary: #333;
+    --color-text-tertiary: #555;
+    --color-text-muted: #666;
+    --color-text-white: #000;
+    /* Invert white text to black for light mode */
+    --color-text-light: #444;
+
+    --color-primary: #d32f2f;
+    /* Darker Red for contrast on white */
+    --color-secondary: #1976d2;
+    /* Darker Blue */
+    --color-accent: #388e3c;
+    /* Darker Green */
+
+    --color-border: #ccc;
+    --glass-border: 1px solid rgba(0, 0, 0, 0.1);
+
+    --hud-bg: #e0e0e0;
+    --hud-border: 1px solid #bbb;
 }

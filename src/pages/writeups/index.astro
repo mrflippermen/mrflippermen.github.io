@@ -57,8 +57,8 @@ const totalMissions = allWriteups.length;
         <div class="mission-label">>>> LATEST OPERATION <<<</div>
         <div class="hero-card">
           <div class="hero-image">
-             {latestMission.data.header?.teaser ? (
-               <img src={latestMission.data.header.teaser.replace('/assets/', '/')} alt={latestMission.data.title} />
+             {latestMission.data.image || latestMission.data.header?.teaser ? (
+               <img src={latestMission.data.image || latestMission.data.header.teaser.replace('/assets/', '/')} alt={latestMission.data.title} />
              ) : (
                <div class="placeholder-hero">CLASSIFIED IMAGE</div>
              )}
@@ -83,8 +83,8 @@ const totalMissions = allWriteups.length;
       {pastMissions.map((post) => (
         <article class="mission-card">
           <div class="card-media">
-             {post.data.header?.teaser ? (
-               <img src={post.data.header.teaser.replace('/assets/', '/')} alt={post.data.title} />
+             {post.data.image || post.data.header?.teaser ? (
+               <img src={post.data.image || post.data.header.teaser.replace('/assets/', '/')} alt={post.data.title} />
              ) : (
                <div class="placeholder-grid">NO SIGNAL</div>
              )}
