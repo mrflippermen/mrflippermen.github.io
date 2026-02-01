@@ -5,7 +5,7 @@ level: "Intermediate"
 platform: "Cyberwarfare Labs"
 category: "Certification"
 duration: "30-Day Campaign"
-image: "/images/cwl-ad-rts.png"
+image: "/images/about/cwl-ad-rts.png"
 tags: ["Red Teaming", "Active Directory", "ESXi", "Kerberos", "Lateral Movement"]
 ---
 

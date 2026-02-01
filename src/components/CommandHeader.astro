@@ -72,13 +72,14 @@ const { currentPath } = Astro.url;
   /* HEADER CONTAINER */
   .command-header {
     background: rgba(10, 10, 10, 0.95);
-    border-bottom: 2px solid var(--neon-green);
+    border-bottom: 2px solid;
+    border-image: linear-gradient(90deg, var(--neon-red), var(--neon-blue)) 1;
     position: sticky;
     top: 0;
     z-index: 1000;
     font-family: 'Courier New', monospace;
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 20px rgba(0, 255, 65, 0.1);
+    box-shadow: 0 4px 20px rgba(255, 51, 51, 0.1);
   }
 
   /* TOP HUD BAR */
@@ -128,8 +129,8 @@ const { currentPath } = Astro.url;
     gap: 0.2rem;
   }
 
-  .bracket { color: var(--neon-green); transition: all 0.3s; }
-  .brand-unit:hover .bracket { text-shadow: 0 0 10px var(--neon-green); }
+  .bracket { color: var(--neon-blue); transition: all 0.3s; }
+  .brand-unit:hover .bracket { text-shadow: 0 0 10px var(--neon-blue); }
   .brand-text { color: #fff; }
 
   /* NAV LINKS */
@@ -168,7 +169,7 @@ const { currentPath } = Astro.url;
     left: 0;
     width: 0%;
     height: 2px;
-    background: var(--neon-green);
+    background: linear-gradient(90deg, var(--neon-red), var(--neon-blue));
     transition: width 0.3s;
   }
 
@@ -194,8 +195,8 @@ const { currentPath } = Astro.url;
   }
 
   .theme-switch:hover {
-    border-color: var(--neon-green);
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+    border-color: var(--neon-red);
+    box-shadow: 0 0 10px rgba(255, 51, 51, 0.2);
   }
 
   /* MOBILE TOGGLE */
@@ -211,7 +212,7 @@ const { currentPath } = Astro.url;
   .bar {
     width: 25px;
     height: 2px;
-    background: var(--neon-green);
+    background: var(--neon-red);
     transition: 0.3s;
   }
 
@@ -230,7 +231,8 @@ const { currentPath } = Astro.url;
       flex-direction: column;
       padding: 2rem;
       gap: 2rem;
-      border-bottom: 2px solid var(--neon-green);
+      gap: 2rem;
+      border-bottom: 2px solid var(--neon-red);
       transform: translateY(-150%); /* Hidden by default */
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 999;

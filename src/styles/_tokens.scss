@@ -114,9 +114,12 @@ $z-tooltip: 3000;
     --color-text-light: #{$color-text-light};
     --color-text-white: #{$color-text-white};
     --color-text-black: #{$color-text-black};
-    --color-primary: #{$color-neon-green};
-    --color-secondary: #008f11;
-    --color-accent: #{$color-neon-yellow};
+    --color-primary: #{$color-neon-red};
+    /* Changed from Green to Red for Red Team domination */
+    --color-secondary: #{$color-neon-blue};
+    /* Changed to Blue for Blue Team balance */
+    --color-accent: #{$color-neon-green};
+    /* Keeping Green as a third accent now */
 
     // Borders
     --color-border: #{$color-border-default};
