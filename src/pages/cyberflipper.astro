@@ -1,0 +1,313 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AwardCard from '../components/AwardCard.astro';
+---
+
+<BaseLayout title="CyberFlipper Initiative | FlipperMen">
+  <div class="fob-container">
+    
+    <!-- HEADER SECTION -->
+    <section class="fob-header fade-in-up">
+      <div class="terminal-badge">
+        <span class="pulse">●</span> LIVE OPERATION
+      </div>
+      <div class="hero-image-container">
+        <img src="/images/cyberflipper_hero.png" alt="CyberFlipper Emblem" class="team-emblem" />
+      </div>
+      <h1 class="glitch" data-text="CYBERFLIPPER">CYBERFLIPPER</h1>
+      <p class="subtitle">CELL_ORIGIN: <span class="highlight">UNIVERSIDAD DE LAS AMÉRICAS (UDLA)</span></p>
+      <p class="mission-brief">
+        Unidad de élite forjada en la academia, perfeccionada en el campo de batalla digital.
+        No somos un club de estudio. Somos una fuerza operativa de investigación y hacking ético.
+      </p>
+    </section>
+
+    <!-- ACHIEVEMENTS GRID -->
+    <section class="achievements-section fade-in-up">
+      <h2 class="section-title">> CONFIRMED_KILLS_AND_HONORS</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="icon">🏆</div>
+          <div class="number">#1</div>
+          <div class="label">ECUADOR<br>University CTF 2025</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">🌎</div>
+          <div class="number">TOP 95</div>
+          <div class="label">GLOBAL RANKING<br>Hack The Box</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">🚩</div>
+          <div class="number">ORG</div>
+          <div class="label">CREATORS OF<br>CYBERMINDS CTF</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANIFIESTO -->
+    <section class="manifesto-section fade-in-up">
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="title">mission_statement.txt</span>
+        </div>
+        <div class="terminal-content">
+          <p>> INIT_SEQUENCE...</p>
+          <p>> LOADING CORE_VALUES...</p>
+          <br>
+          <p><span class="cmd">root@cyberflipper:~#</span> cat manifesto.txt</p>
+          <p>
+            Nacimos en los laboratorios de la <strong>UDLA</strong> con un solo propósito:
+            Elevar el estándar de la ciberseguridad en Ecuador.
+          </p>
+          <p>
+            Creemos en la <strong>práctica obsesiva</strong>. La teoría es necesaria, pero solo el fuego del CTF forja verdaderos operadores.
+            Rompemos sistemas para aprender a protegerlos. Investigamos lo que otros ignoran.
+          </p>
+          <p class="cursor">_</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECRUITMENT CALL TO ACTION -->
+    <section class="recruitment-section fade-in-up">
+      <h2 class="section-title">>> JOIN_THE_CELL</h2>
+      <p class="recruit-text">
+        No buscamos expertos. Buscamos <strong>obsesión</strong>.
+        Si tienes la curiosidad para desarmar el mundo y la ética para volver a armarlo mejor, tu lugar está con nosotros.
+      </p>
+      
+      <div class="action-buttons">
+        <a href="https://forms.typeform.com/to/example" target="_blank" class="cta-btn primary">
+          <span class="icon">⚡</span> INICIAR POSTULACIÓN
+        </a>
+        <a href="/contact" class="cta-btn secondary">
+          <span class="icon">📡</span> CONTACTAR LÍDER
+        </a>
+      </div>
+      
+      <p class="disclaimer">
+        * El proceso de selección es riguroso. Prepárate.
+      </p>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  /* VARIABLES LOCALES */
+  :root {
+    --neon-purple: #bd00ff;
+    --neon-cyan: #00f3ff;
+  }
+
+  .fob-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 4rem 1rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text);
+  }
+
+  /* HEADER */
+  .fob-header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .terminal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid var(--neon-red);
+    color: var(--neon-red);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+  }
+
+  .pulse { animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+  h1.glitch {
+    font-size: 4rem;
+    font-weight: 900;
+    margin: 0;
+    color: #fff;
+    letter-spacing: -2px;
+    text-shadow: 2px 2px 0px var(--neon-purple), -2px -2px 0px var(--neon-blue);
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    font-family: 'Courier New', monospace;
+    color: #888;
+    margin-top: 1rem;
+  }
+
+  .highlight { color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); }
+
+  .hero-image-container {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .team-emblem {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.3));
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .mission-brief {
+    max-width: 700px;
+    margin: 2rem auto 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #ccc;
+  }
+
+  /* ACHIEVEMENTS */
+  .achievements-section { margin-bottom: 6rem; }
+  
+  .section-title {
+    font-family: 'Courier New', monospace;
+    color: var(--neon-green);
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .stat-card {
+    background: rgba(10, 10, 10, 0.5);
+    border: 1px solid #333;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 8px;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--neon-blue);
+  }
+
+  .stat-card .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .stat-card .number { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 0.5rem; }
+  .stat-card .label { font-size: 0.9rem; color: #888; font-family: 'Courier New', monospace; letter-spacing: 1px; }
+
+  /* MANIFESTO TERMINAL */
+  .manifesto-section { margin-bottom: 6rem; }
+
+  .terminal-window {
+    background: #050505;
+    border: 1px solid #444;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  .terminal-bar {
+    background: #222;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.red { background: #ff5f56; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #27c93f; }
+  .title { margin-left: auto; margin-right: auto; font-family: monospace; color: #888; font-size: 0.8rem; }
+
+  .terminal-content {
+    padding: 2rem;
+    font-family: 'Courier New', monospace;
+    color: #ddd;
+    line-height: 1.6;
+  }
+
+  .cmd { color: var(--neon-green); }
+  .cursor { animation: blink 1s infinite; color: var(--neon-green); font-weight: bold; }
+
+  /* RECRUITMENT */
+  .recruitment-section { text-align: center; padding: 4rem 2rem; background: linear-gradient(180deg, transparent, rgba(0, 243, 255, 0.05)); border-radius: 16px; border: 1px solid #222; }
+
+  .recruit-text {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .cta-btn.primary {
+    background: var(--neon-blue);
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 86, 179, 0.4);
+  }
+
+  .cta-btn.primary:hover {
+    transform: scale(1.05);
+    background: #fff;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+  }
+
+  .cta-btn.secondary {
+    border: 1px solid #555;
+    color: #fff;
+  }
+
+  .cta-btn.secondary:hover {
+    border-color: #fff;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .disclaimer { margin-top: 2rem; color: #555; font-size: 0.8rem; font-style: italic; }
+
+  /* LIGHT MODE OVERRIDES */
+  :global(body.light-mode) .stat-card { background: #fff; border-color: #ccc; }
+  :global(body.light-mode) .stat-card .number { color: #000; }
+  :global(body.light-mode) .terminal-window { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+  :global(body.light-mode) h1.glitch { color: #000; text-shadow: 2px 2px 0px rgba(189, 0, 255, 0.2); }
+  :global(body.light-mode) .mission-brief { color: #444; }
+
+</style>
