@@ -132,31 +132,58 @@ $z-tooltip: 3000;
 }
 
 // Light Mode Override
+// Light Mode Override - "Day Mode"
 body.light-mode {
-    --color-bg: #f4f4f4;
-    --color-bg-panel: #e0e0e0;
-    --color-surface: #ffffff;
+    --color-bg: #ffffff;
+    --color-bg-panel: #f0f0f0;
+    --color-surface: #f8f8f8;
     --card-bg: #ffffff;
 
     --color-text: #1a1a1a;
-    --color-text-primary: #111;
-    --color-text-secondary: #333;
-    --color-text-tertiary: #555;
-    --color-text-muted: #666;
-    --color-text-white: #000;
-    /* Invert white text to black for light mode */
-    --color-text-light: #444;
+    --color-text-primary: #000000;
+    --color-text-secondary: #333333;
+    --color-text-tertiary: #555555;
+    --color-text-muted: #666666;
+    --color-text-white: #000000;
+    /* FORCE BLACK TEXT on elements that are usually white */
+    --color-text-light: #444444;
 
-    --color-primary: #d32f2f;
-    /* Darker Red for contrast on white */
-    --color-secondary: #1976d2;
-    /* Darker Blue */
-    --color-accent: #388e3c;
-    /* Darker Green */
+    /* High Contrast Accents */
+    --color-primary: #cc0000;
+    /* Dark Red */
+    --color-secondary: #0056b3;
+    /* Dark Blue */
+    --color-accent: #2e7d32;
+    /* Dark Green */
 
-    --color-border: #ccc;
-    --glass-border: 1px solid rgba(0, 0, 0, 0.1);
+    --color-border: #cccccc;
+    --glass-border: 1px solid rgba(0, 0, 0, 0.2);
 
     --hud-bg: #e0e0e0;
-    --hud-border: 1px solid #bbb;
+    --hud-border: 1px solid #999;
+
+    /* Ensure specific text elements are visible */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: #000 !important;
+    }
+
+    p,
+    span,
+    li,
+    a {
+        color: #222;
+    }
+
+    .nav-link {
+        color: #333 !important;
+    }
+
+    .hero-excerpt {
+        color: #444 !important;
+    }
 }
