@@ -17,11 +17,11 @@ import SkillContainer from '../components/SkillContainer.astro';
       <div class="profile-info">
         <h1 class="glitch-text" data-text="Esteban Jimenez">Esteban Jimenez</h1>
         <div class="profile-title">
-          <span class="role">Red Team Operator</span>
-          <span class="separator">/</span>
-          <span class="role">Senior Cybersecurity Researcher</span>
-          <span class="separator">/</span>
-          <span class="role">Exploit Developer</span>
+          <span class="role red-role">Red Team Operator</span>
+          <span class="separator">|</span>
+          <span class="role purple-role">Purple Team Strategist</span>
+          <span class="separator">|</span>
+          <span class="role blue-role">Blue Team Lead</span>
         </div>
         
         <div class="profile-stats">
@@ -82,7 +82,7 @@ import SkillContainer from '../components/SkillContainer.astro';
         <div class="glass-card">
           <div class="card-icon"><i class="fas fa-medal"></i></div>
           <div class="card-content">
-            <h3>Tricampeón Nacional</h3>
+            <h3>Tricampeóngi Nacional</h3>
             <div class="card-subtitle">Ingenials (3 Años Consecutivos)</div>
             <p>Dominio absoluto en Ethical Hacking y Attack-Defense.</p>
           </div>
@@ -295,8 +295,9 @@ import SkillContainer from '../components/SkillContainer.astro';
     height: 160px;
     border-radius: 50%;
     overflow: hidden;
-    border: 3px solid var(--neon-green);
-    box-shadow: 0 0 25px rgba(0, 255, 65, 0.2);
+    padding: 3px;
+    background: linear-gradient(135deg, var(--neon-red), var(--neon-blue));
+    box-shadow: -10px 0 30px rgba(255, 51, 51, 0.3), 10px 0 30px rgba(77, 166, 255, 0.3);
     margin-bottom: 1.5rem;
   }
   
@@ -304,6 +305,8 @@ import SkillContainer from '../components/SkillContainer.astro';
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--card-bg); /* Inner border to separate image from gradient */
   }
 
   .profile-header h1 {
@@ -315,11 +318,15 @@ import SkillContainer from '../components/SkillContainer.astro';
 
   .profile-title {
     font-size: 1.1rem;
-    color: var(--neon-green);
+    color: #fff;
     margin-bottom: 1rem;
     font-weight: 500;
     letter-spacing: 0.5px;
   }
+
+  .red-role { color: var(--neon-red); text-shadow: 0 0 10px rgba(255, 51, 51, 0.4); }
+  .blue-role { color: var(--neon-blue); text-shadow: 0 0 10px rgba(77, 166, 255, 0.4); }
+  .purple-role { background: linear-gradient(90deg, var(--neon-red), var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
   
   .profile-title .separator {
     color: #444;
@@ -343,9 +350,10 @@ import SkillContainer from '../components/SkillContainer.astro';
   }
 
   .top-stat {
-    border-color: var(--neon-green);
+    border-color: var(--neon-red); /* Changed to Red to signify Attack/Top Rank */
     color: #fff;
-    background: rgba(0, 255, 65, 0.1);
+    background: rgba(255, 51, 51, 0.1);
+    box-shadow: 0 0 15px rgba(255, 51, 51, 0.2);
   }
 
   .profile-meta {
@@ -364,7 +372,8 @@ import SkillContainer from '../components/SkillContainer.astro';
   }
   
   .meta-link:hover {
-    color: var(--neon-green);
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
   }
 
   /* --- SECTIONS --- */
@@ -374,7 +383,8 @@ import SkillContainer from '../components/SkillContainer.astro';
 
   .section-title {
     font-size: 1.8rem;
-    border-left: 4px solid var(--neon-green);
+    border-left: 4px solid;
+    border-image: linear-gradient(to bottom, var(--neon-red), var(--neon-blue)) 1 100%;
     padding-left: 1rem;
     margin-bottom: 2rem;
     color: #fff;
@@ -452,7 +462,7 @@ import SkillContainer from '../components/SkillContainer.astro';
     background: rgba(255, 255, 255, 0.03);
     padding: 2rem;
     border-radius: 8px;
-    border-left: 2px solid var(--neon-green);
+    border-left: 2px solid var(--neon-blue); /* Changed to Blue for professional profile/strategy */
   }
   
   .bio-quote {
@@ -479,6 +489,7 @@ import SkillContainer from '../components/SkillContainer.astro';
   .project-link:hover {
     background: var(--neon-green);
     color: #000;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
   }
   
   .tag {
