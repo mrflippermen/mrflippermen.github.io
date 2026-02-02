@@ -14,60 +14,199 @@ import AwardCard from '../components/AwardCard.astro';
       <div class="hero-image-container">
         <img src="/images/cyberflipper_hero.png" alt="CyberFlipper Emblem" class="team-emblem" />
       </div>
-      <h1 class="glitch" data-text="CYBERFLIPPER">CYBERFLIPPER</h1>
-      <p class="subtitle">CELL_ORIGIN: <span class="highlight">UNIVERSIDAD DE LAS AMÉRICAS (UDLA)</span></p>
+      <h1 class="glitch" data-text="CYBERFLIPPERS">CYBERFLIPPERS</h1>
       <p class="mission-brief">
-        Unidad de élite forjada en la academia, perfeccionada en el campo de batalla digital.
-        No somos un club de estudio. Somos una fuerza operativa de investigación y hacking ético.
+        "Vivimos para el Rojo, protegemos en Azul. 'Flipeamos' el sistema y capturamos la bandera."
       </p>
     </section>
 
-    <!-- ACHIEVEMENTS GRID -->
+    <!-- STATS GRID -->
     <section class="achievements-section fade-in-up">
-      <h2 class="section-title">> CONFIRMED_KILLS_AND_HONORS</h2>
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="icon">🏆</div>
-          <div class="number">#1</div>
-          <div class="label">ECUADOR<br>University CTF 2025</div>
-        </div>
-        <div class="stat-card">
-          <div class="icon">🌎</div>
-          <div class="number">TOP 95</div>
-          <div class="label">GLOBAL RANKING<br>Hack The Box</div>
+          <div class="icon">👥</div>
+          <div class="number">10</div>
+          <div class="label">PLAYERS<br>ACTIVE OPERATORS</div>
         </div>
         <div class="stat-card">
           <div class="icon">🚩</div>
-          <div class="number">ORG</div>
-          <div class="label">CREATORS OF<br>CYBERMINDS CTF</div>
+          <div class="number">136</div>
+          <div class="label">FLAGS PWND<br>TOTAL CAPTURES</div>
+        </div>
+        <div class="stat-card">
+          <div class="icon">🌎</div>
+          <div class="number">UDLA</div>
+          <div class="label">ORIGIN<br>FICA - CIBERSEGURIDAD</div>
         </div>
       </div>
     </section>
 
-    <!-- MANIFIESTO -->
+    <!-- ABOUT / PHILOSOPHY -->
     <section class="manifesto-section fade-in-up">
       <div class="terminal-window">
         <div class="terminal-bar">
           <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-          <span class="title">mission_statement.txt</span>
+          <span class="title">identity.log</span>
         </div>
         <div class="terminal-content">
-          <p>> INIT_SEQUENCE...</p>
-          <p>> LOADING CORE_VALUES...</p>
+          <p>> <span class="cmd">whoami</span></p>
+          <p>Somos <strong>CYBERFLIPPERS</strong>.</p>
+          <p>Somos un colectivo de apasionados, curiosos y breakers de sistemas que representan con orgullo a Ecuador. La ciberseguridad no es solo nuestra carrera; es el desafío que nos impulsa a ser más rápidos, más listos y a pensar diferente.</p>
           <br>
-          <p><span class="cmd">root@cyberflipper:~#</span> cat manifesto.txt</p>
-          <p>
-            Nacimos en los laboratorios de la <strong>UDLA</strong> con un solo propósito:
-            Elevar el estándar de la ciberseguridad en Ecuador.
-          </p>
-          <p>
-            Creemos en la <strong>práctica obsesiva</strong>. La teoría es necesaria, pero solo el fuego del CTF forja verdaderos operadores.
-            Rompemos sistemas para aprender a protegerlos. Investigamos lo que otros ignoran.
-          </p>
+          <p>> <span class="cmd">cat philosophy.txt</span></p>
+          <p>Nuestro nombre es nuestra mentalidad. Somos "Flippers":</p>
+          <ul class="terminal-list">
+            <li>🐬 <strong>Como el delfín:</strong> Ágiles, inteligentes y capaces de navegar aguas profundas.</li>
+            <li>🔄 <strong>Como el acto:</strong> "Flipeamos" el sistema, le damos la vuelta al problema, encontramos el bit que lo cambia todo.</li>
+          </ul>
+          <br>
+          <p class="section-header">>> VIVIR EN ROJO (RED TEAM)</p>
+          <p>Nos apasiona la caza. Disfrutamos la elegancia de un exploit bien hecho, la emoción de encontrar un vector impensado y la satisfacción de ver saltar esa shell. Romper es un arte.</p>
+          <br>
+          <p class="section-header">>> PROTEGER EN AZUL (BLUE TEAM)</p>
+          <p>Un verdadero maestro sabe construir. Defendemos con la misma intensidad, levantando muros, analizando logs como poesía y cazando al cazador. Construimos fortalezas.</p>
+          <br>
+          <p class="section-header">>> ORIGIN: UDLA</p>
+          <p>Nuestra historia no empieza en un garaje, sino en los pasillos y laboratorios de la <strong>Universidad de las Américas (UDLA)</strong>, Facultad de Ingeniería y Ciencias Aplicadas (FICA). Nuestra fuerza viene de entender los fundamentos.</p>
+          <br>
+          <p class="highlight-text">"Rompemos. Defendemos. Aprendemos."</p>
           <p class="cursor">_</p>
         </div>
       </div>
     </section>
+
+    <!-- ROSTER / PERSONNEL -->
+    <section class="roster-section fade-in-up">
+      <h2 class="section-title">>> ACTIVE_ROSTER</h2>
+      <div class="mission-status-bar">
+        <span class="status-icon blink">⚠️</span>
+        <span class="status-text">CURRENT_OBJECTIVE: PREPARING FOR BRAZIL OPERATION</span>
+      </div>
+      
+      <div class="roster-grid">
+        <!-- CAPTAIN -->
+        <div class="operator-card captain">
+          <div class="op-role">CAPTAIN</div>
+          <div class="op-name">flippermen</div>
+          <div class="op-stats">
+            <span>LVL: 4</span> | <span>🏁 59075</span> | <span>💀 136</span>
+          </div>
+        </div>
+
+        <!-- MEMBERS -->
+        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">ANGELDUSTx</div></div>
+        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">MarcGMN1403</div></div>
+        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">KomiGath</div></div>
+        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">ch1l1</div></div>
+        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">crrlla</div></div>
+        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">AdrianX</div></div>
+        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">DiegoJr</div></div>
+        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">0s0bit</div></div>
+        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">N01syb0y</div></div>
+      </div>
+    </section>
+
+    <!-- PAST EVENTS -->
+    <section class="events-section fade-in-up">
+      <h2 class="section-title">>> PAST_OPERATIONS</h2>
+      <div class="events-list">
+        
+        <div class="event-row">
+          <div class="event-name">Holmes CTF 2025</div>
+          <div class="event-rank rank-high">RANK 66</div>
+        </div>
+
+        <div class="event-row">
+          <div class="event-name">Cyber Apocalypse CTF 2025: Tales from Eldoria</div>
+          <div class="event-rank">RANK 114</div>
+        </div>
+
+        <div class="event-row">
+          <div class="event-name">Neurogrid CTF: Human-Only</div>
+          <div class="event-rank">RANK 497</div>
+        </div>
+        
+        <div class="event-row">
+          <div class="event-name">Hack The Boo 2025</div>
+          <div class="event-rank">RANK 1072</div>
+        </div>
+
+      </div>
+    </section>
+
+    <style>
+      /* Additional Styles for New Content */
+      .terminal-list { list-style: none; padding-left: 1rem; margin: 1rem 0; }
+      .terminal-list li { margin-bottom: 0.5rem; }
+      .section-header { color: var(--neon-cyan); font-weight: bold; margin-top: 1.5rem; border-bottom: 1px dashed #444; display: inline-block; }
+      .highlight-text { color: #fff; font-size: 1.1rem; text-align: center; margin-top: 2rem; border: 1px solid var(--neon-red); padding: 1rem; }
+      
+      .events-list { display: flex; flex-direction: column; gap: 1rem; max-width: 800px; margin: 0 auto; }
+      .event-row { 
+        display: flex; justify-content: space-between; align-items: center; 
+        padding: 1rem; background: rgba(255,255,255,0.05); border-left: 3px solid #444;
+        font-family: 'Courier New', monospace;
+      }
+      .event-row:hover { border-left-color: var(--neon-blue); background: rgba(255,255,255,0.08); }
+      .event-name { font-weight: bold; color: #eee; }
+      .event-rank { color: #aaa; }
+      .event-rank.rank-high { color: var(--neon-green); text-shadow: 0 0 5px rgba(39, 201, 63, 0.5); }
+
+      /* ROSTER STYLES */
+      .mission-status-bar {
+        background: rgba(255, 189, 46, 0.1);
+        border: 1px solid #ffbd2e;
+        color: #ffbd2e;
+        padding: 0.5rem 1rem;
+        margin-bottom: 2rem;
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        display: inline-block;
+        border-radius: 4px;
+      }
+      .blink { animation: blink 1s infinite; }
+
+      .roster-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .operator-card {
+        background: rgba(10, 10, 10, 0.6);
+        border: 1px solid #333;
+        padding: 1.5rem;
+        border-radius: 6px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s;
+      }
+
+      .operator-card:hover {
+        border-color: var(--neon-cyan);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 243, 255, 0.1);
+      }
+
+      .operator-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 4px; height: 100%;
+        background: #333;
+        transition: 0.3s;
+      }
+
+      .operator-card:hover::before { background: var(--neon-cyan); }
+
+      .operator-card.captain { border-color: var(--neon-purple); background: rgba(189, 0, 255, 0.05); }
+      .operator-card.captain::before { background: var(--neon-purple); }
+
+      .op-role { font-size: 0.7rem; color: #666; letter-spacing: 2px; margin-bottom: 0.5rem; font-family: 'Courier New', monospace; }
+      .captain .op-role { color: var(--neon-purple); font-weight: bold; }
+      
+      .op-name { font-size: 1.2rem; font-weight: bold; color: #fff; }
+      .op-stats { font-size: 0.8rem; color: #888; margin-top: 0.5rem; font-family: monospace; }
+    </style>
 
     <!-- RECRUITMENT CALL TO ACTION -->
     <section class="recruitment-section fade-in-up">
