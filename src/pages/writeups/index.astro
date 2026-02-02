@@ -31,7 +31,7 @@ const totalMissions = allWriteups.length;
       <div class="stats-panel">
         <div class="stat-box">
           <span class="stat-label">TOTAL MISSIONS</span>
-          <span class="stat-value">{totalMissions}</span>
+          <span class="stat-value" id="mission-count">{totalMissions}</span>
         </div>
         <div class="stat-box success">
           <span class="stat-label">STATUS</span>
@@ -45,15 +45,21 @@ const totalMissions = allWriteups.length;
     </div>
 
     <!-- SEARCH BAR (VISUAL) -->
+    <!-- SEARCH BAR (VISUAL) -->
     <div class="search-bar-container">
       <div class="search-icon"><i class="fas fa-search"></i></div>
-      <input type="text" class="search-input" placeholder="Search target system, CVE or technique..." disabled />
-      <div class="search-meta">FILTER: <span class="highlight">ALL</span></div>
+      <input type="text" id="search-input" class="search-input" placeholder="Search target system, CVE or technique..." />
+      <div class="filter-controls" id="filter-controls">
+        <span class="filter-label">FILTER:</span>
+        <button class="filter-btn active" data-filter="ALL">ALL</button>
+        <button class="filter-btn" data-filter="HTB">HTB</button>
+        <button class="filter-btn" data-filter="CTF">CTF</button>
+      </div>
     </div>
 
     <!-- HERO MISSION (LATEST) -->
     {latestMission && (
-      <section class="hero-mission">
+      <section class="hero-mission searchable-item" data-title={latestMission.data.title.toLowerCase()} data-platform={latestMission.data.platform?.toUpperCase() || 'OTHER'} data-tags={latestMission.data.tags?.join(' ').toLowerCase() || ''}>
         <div class="mission-label">>>> LATEST OPERATION <<<</div>
         <div class="hero-card">
           <div class="hero-image">
@@ -81,7 +87,7 @@ const totalMissions = allWriteups.length;
     <div class="grid-label">>>> ARCHIVED OPERATIONS</div>
     <div class="mission-grid">
       {pastMissions.map((post) => (
-        <article class="mission-card">
+        <article class="mission-card searchable-item" data-title={post.data.title.toLowerCase()} data-platform={post.data.platform?.toUpperCase() || 'OTHER'} data-tags={post.data.tags?.join(' ').toLowerCase() || ''}>
           <div class="card-media">
              {post.data.image || post.data.header?.teaser ? (
                <img src={post.data.image || post.data.header.teaser.replace('/assets/', '/')} alt={post.data.title} />
@@ -108,6 +114,66 @@ const totalMissions = allWriteups.length;
 
   </div>
 </BaseLayout>
+
+<script>
+  // CLIENT-SIDE SEARCH & FILTER LOGIC
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.searchable-item');
+  const countDisplay = document.getElementById('mission-count');
+  
+  let currentFilter = 'ALL';
+  let currentSearch = '';
+
+  function filterItems() {
+    let visibleCount = 0;
+
+    items.forEach(item => {
+      const el = item as HTMLElement;
+      const title = el.dataset.title || '';
+      const tags = el.dataset.tags || '';
+      const platform = el.dataset.platform || 'OTHER';
+      
+      const searchMatch = title.includes(currentSearch) || tags.includes(currentSearch);
+      
+      // Filter Match Logic: Check Platform field OR Tags
+      const filterMatch = currentFilter === 'ALL' || 
+                          platform === currentFilter || 
+                          tags.includes(currentFilter.toLowerCase());
+
+      if (searchMatch && filterMatch) {
+        el.style.display = ''; // Restore default display
+        visibleCount++;
+      } else {
+        el.style.display = 'none';
+      }
+    });
+
+    // Update Counter
+    if (countDisplay) countDisplay.innerText = visibleCount.toString();
+  }
+
+  // Event Listeners
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = (e.target as HTMLInputElement).value.toLowerCase();
+      filterItems();
+    });
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Toggle Active Class
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Update Filter
+      const target = btn as HTMLElement;
+      currentFilter = target.dataset.filter || 'ALL';
+      filterItems();
+    });
+  });
+</script>
 
 <style>
   :root {
@@ -200,6 +266,27 @@ const totalMissions = allWriteups.length;
   }
   .search-meta { color: #444; font-size: 0.8rem; font-weight: bold; }
   .highlight { color: var(--neon-green); }
+
+  /* FILTERS */
+  .filter-controls { display: flex; align-items: center; gap: 0.5rem; }
+  .filter-label { color: #444; font-size: 0.8rem; font-weight: bold; margin-right: 0.5rem; }
+  
+  .filter-btn {
+    background: transparent;
+    border: 1px solid #333;
+    color: #666;
+    padding: 2px 8px;
+    font-family: monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .filter-btn:hover, .filter-btn.active {
+    color: var(--neon-green);
+    border-color: var(--neon-green);
+    background: rgba(0, 255, 65, 0.1);
+  }
 
   /* SECTION LABELS */
   .mission-label, .grid-label {
