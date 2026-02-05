@@ -172,17 +172,52 @@ import AwardCard from '../components/AwardCard.astro';
         <div class="achievement-item">
           <div class="achievement-header">
             <span class="achievement-flag">🎯</span>
-            <span class="achievement-name">Ingenials - Tricampeón Nacional</span>
+            <span class="achievement-name">Neurogrid CTF: Human-Only</span>
           </div>
-          <div class="achievement-detail">3 años consecutivos representando a Ecuador</div>
+          <div class="achievement-detail">Competencia Internacional | Rank 150</div>
+          <div class="achievement-member">Equipo CyberFlippers</div>
+        </div>
+
+        <div class="achievement-item">
+          <div class="achievement-header">
+            <span class="achievement-flag">🎃</span>
+            <span class="achievement-name">Hack The Boo 2025</span>
+          </div>
+          <div class="achievement-detail">Competencia Global | Rank 125</div>
           <div class="achievement-member">Equipo CyberFlippers</div>
         </div>
       </div>
 
       <div class="recognition-note">
-        <p>🔸 Estos logros se alcanzaron con recursos propios, formación autodidacta y sin respaldo institucional significativo.</p>
+        <p class="note-header">� CONTEXTO Y REALIDAD</p>
+        <p>�🔸 Estos logros se alcanzaron con recursos propios, formación autodidacta y sin respaldo institucional significativo.</p>
         <p>🔸 Mientras representábamos internacionalmente, enfrentamos falta de reconocimiento y respeto en el entorno académico.</p>
-        <p class="pride-statement">Nuestro orgullo es Ecuador. Nuestra fuerza es el equipo. Nuestra motivación es demostrar que el talento ecuatoriano compite al más alto nivel.</p>
+        
+        <p class="note-header future-vision">🚀 MIRANDO HACIA ADELANTE</p>
+        <p>A pesar de las adversidades, <strong>seguiremos apoyando a la UDLA</strong> por el compromiso del Director de la Facultad y otros docentes que sí valoran el talento.</p>
+        <p><strong>Respetamos a las instituciones educativas</strong> y estamos dispuestos a colaborar con cualquier entidad que desee nuestro apoyo en charlas, capacitaciones y formación en ciberseguridad.</p>
+        
+        <div class="ctf-vision">
+          <p class="vision-title">🏆 PROYECTO: CTF UNIVERSITARIO NACIONAL ECUADOR</p>
+          <p>El capitán de CyberFlippers está trabajando en crear <strong>el CTF más grande de universidades del Ecuador</strong>, reuniendo talento de instituciones como:</p>
+          <div class="universities-grid">
+            <span>• Universidad Nacional de Loja</span>
+            <span>• UTPL</span>
+            <span>• UIDE Loja</span>
+            <span>• U. Católica Cuenca</span>
+            <span>• U. de Cuenca</span>
+            <span>• U. de Guayaquil</span>
+            <span>• UEES</span>
+            <span>• EPN</span>
+            <span>• U. San Francisco</span>
+            <span>• PUCE</span>
+            <span>• UDLA</span>
+            <span>• Y más...</span>
+          </div>
+          <p class="vision-goal">Una sola competencia. Un solo objetivo: demostrar que Ecuador tiene talento de clase mundial en ciberseguridad.</p>
+        </div>
+        
+        <p class="pride-statement">Nuestro orgullo es Ecuador. Nuestra fuerza es el equipo. Nuestra misión es elevar el nivel de la ciberseguridad nacional.</p>
       </div>
     </section>
 
@@ -319,6 +354,66 @@ import AwardCard from '../components/AwardCard.astro';
       }
       
       .recognition-note p { margin-bottom: 1rem; color: #ddd; }
+      
+      .note-header {
+        color: var(--neon-cyan);
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid var(--neon-cyan);
+        padding-bottom: 0.5rem;
+        display: block;
+      }
+      
+      .note-header.future-vision {
+        color: var(--neon-green);
+        border-bottom-color: var(--neon-green);
+      }
+      
+      .ctf-vision {
+        background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(77, 166, 255, 0.05));
+        border: 2px solid var(--neon-green);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+      }
+      
+      .vision-title {
+        color: var(--neon-green);
+        font-weight: bold;
+        font-size: 1.15rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+      }
+      
+      .universities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.5rem;
+        margin: 1.5rem 0;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 6px;
+      }
+      
+      .universities-grid span {
+        color: #aaa;
+        font-size: 0.9rem;
+        padding: 0.25rem;
+      }
+      
+      .vision-goal {
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 1rem;
+        font-style: italic;
+        font-size: 1.05rem;
+      }
+      
       .recognition-note .pride-statement {
         margin-top: 1.5rem;
         padding-top: 1.5rem;
