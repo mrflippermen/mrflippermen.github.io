@@ -254,13 +254,26 @@ import SkillContainer from '../components/SkillContainer.astro';
         </AwardCard>
       </div>
 
-      <h2 class="section-title"><i class="fas fa-biohazard"></i> Cyberwarfare Labs</h2>
+
+      <!-- Cyberwarfare Labs Section with Logo -->
+      <div class="cwl-section">
+        <div class="cwl-logo-container">
+          <img src="/images/about/cwl-logo.png" alt="Cyberwarfare Labs Logo" class="cwl-logo" />
+        </div>
+        <h2 class="section-title"><i class="fas fa-biohazard"></i> Cyberwarfare Labs</h2>
+      </div>
       <div class="feature-grid">
          <AwardCard
             title='Certified AD Red Team Specialist'
             subtitle="ID: 697ea4d4fbb... | Feb 2026"
             image="/images/about/cwl-ad-rts.png"
             link="/certs/ad-rts"
+        />
+         <AwardCard
+            title='Certified Web Red Team Analyst'
+            subtitle="ID: 6983d6b090d... | Feb 2026"
+            image="/images/about/cwl-web-rta.png"
+            link="/certs/web-rta"
         />
       </div>
 
@@ -550,4 +563,40 @@ import SkillContainer from '../components/SkillContainer.astro';
     color: #888;
     margin: 2rem 0 1rem 0;
   }
+
+  /* --- CYBERWARFARE LABS SECTION --- */
+  .cwl-section {
+    margin-bottom: 2rem;
+  }
+
+  .cwl-logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+  }
+
+  .cwl-logo {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 51, 51, 0.3)) 
+            drop-shadow(0 0 20px rgba(77, 166, 255, 0.3))
+            drop-shadow(0 0 20px rgba(0, 255, 65, 0.2));
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      filter: drop-shadow(0 0 15px rgba(255, 51, 51, 0.3)) 
+              drop-shadow(0 0 15px rgba(77, 166, 255, 0.3))
+              drop-shadow(0 0 15px rgba(0, 255, 65, 0.2));
+    }
+    50% {
+      filter: drop-shadow(0 0 25px rgba(255, 51, 51, 0.5)) 
+              drop-shadow(0 0 25px rgba(77, 166, 255, 0.5))
+              drop-shadow(0 0 25px rgba(0, 255, 65, 0.4));
+    }
+  }
+
 </style>
