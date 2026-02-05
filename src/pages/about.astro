@@ -78,13 +78,13 @@ import SkillContainer from '../components/SkillContainer.astro';
           </div>
         </div>
 
-        <!-- Card 4: Ingenials -->
-        <div class="glass-card">
-          <div class="card-icon"><i class="fas fa-medal"></i></div>
+        <!-- Card 4: CyberFlippers Captain -->
+        <div class="glass-card purple-card">
+          <div class="card-icon"><i class="fas fa-users"></i></div>
           <div class="card-content">
-            <h3>Tricampeóngi Nacional</h3>
-            <div class="card-subtitle">Ingenials (3 Años Consecutivos)</div>
-            <p>Dominio absoluto en Ethical Hacking y Attack-Defense.</p>
+            <h3>Capitán de CyberFlippers</h3>
+            <div class="card-subtitle">Equipo Nacional Ecuador</div>
+            <p>Liderazgo de equipo competitivo con <strong>participación en CTFs internacionales</strong>. Formación autodidacta y representación de Ecuador a nivel global.</p>
           </div>
         </div>
       </div>
@@ -455,6 +455,13 @@ import SkillContainer from '../components/SkillContainer.astro';
   }
   
   .blue-card .card-icon { color: var(--neon-blue); }
+
+  .purple-card {
+    border: 1px solid #bd00ff;
+    background: linear-gradient(145deg, rgba(189, 0, 255, 0.05), rgba(0,0,0,0));
+  }
+  
+  .purple-card .card-icon { color: #bd00ff; }
 
   .glass-card h3 {
     margin: 0 0 0.5rem 0;
