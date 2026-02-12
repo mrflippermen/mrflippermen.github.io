@@ -1,5 +1,7 @@
+---
 title: "Impacket Cheat Sheet"
 description: "Colección de scripts en Python para interacción con protocolos de red (SMB, Kerberos, DCERPC)."
+---
 
 # Impacket
 

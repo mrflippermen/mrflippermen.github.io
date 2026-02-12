@@ -1,5 +1,7 @@
+---
 title: "Mimikatz Cheat Sheet"
 description: "La navaja suiza para extracción de credenciales, manipulación de tickets y ataques avanzados en Windows."
+---
 
 # Mimikatz
 
