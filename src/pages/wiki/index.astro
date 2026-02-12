@@ -1,0 +1,95 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AwardCard from '../../components/AwardCard.astro';
+
+const allWiki = await getCollection('wiki');
+// Sort by title alphabetically
+allWiki.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<BaseLayout title="Knowledge Wiki | Flippermen">
+  <div class="vault-container">
+    
+    <div class="vault-header">
+      <h1 class="vault-title"><i class="fas fa-book"></i> KNOWLEDGE WIKI</h1>
+      <p class="vault-subtitle">Herramientas, Técnicas y Referencias de Ciberseguridad</p>
+      <div class="vault-meta">
+        <span>TOTAL_ENTRIES: {allWiki.length}</span>
+        <span>STATUS: CLASSIFIED</span>
+      </div>
+    </div>
+    
+    <div class="vault-grid">
+      {allWiki.map((entry) => (
+        <AwardCard
+          title={entry.data.title}
+          subtitle={entry.data.description}
+          image={entry.data.image || '/images/wiki/default.png'}
+          link={`/wiki/${entry.slug}`}
+        />
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>
+
+<style>
+  :root {
+    --neon-blue: #00d9ff;
+    --dark-bg: #050505;
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .vault-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* HEADER */
+  .vault-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 2rem;
+  }
+
+  .vault-title {
+    font-size: 2.5rem;
+    color: #fff;
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -1px;
+  }
+  
+  .vault-title i { color: var(--neon-blue); margin-right: 0.5rem; }
+
+  .vault-subtitle {
+    font-size: 1.1rem;
+    color: #888;
+    margin: 0.5rem 0 1.5rem 0;
+  }
+
+  .vault-meta {
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: var(--neon-blue);
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    background: rgba(0, 217, 255, 0.05);
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+  }
+
+  /* GRID */
+  .vault-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+</style>
