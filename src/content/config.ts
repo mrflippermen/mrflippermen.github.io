@@ -25,8 +25,18 @@ const posts = defineCollection({
     }).passthrough(),
 });
 
+const wiki = defineCollection({
+    schema: z.object({
+        title: z.string(),
+        description: z.string().optional(),
+        image: z.string().optional(),
+        date: z.date().optional(),
+    }).passthrough(),
+});
+
 export const collections = {
     writeups,
     certs,
+    wiki,
     posts,
 };

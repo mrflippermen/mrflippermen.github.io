@@ -1,6 +1,5 @@
 title: "Rubeus Cheat Sheet"
 description: "Herramienta en C# para interacción cruda con Kerberos: Roasting, Tickets y Delegación."
-image: "/images/certs/ad-rubeus.png"
 
 # Rubeus
 

@@ -1,6 +1,5 @@
 title: "BloodHound Cheat Sheet"
 description: "Mapeo de relaciones de confianza y caminos de ataque en Active Directory."
-image: "/images/certs/ad-bloodhound.png"
 
 # BloodHound
 

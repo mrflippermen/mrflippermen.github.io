@@ -1,6 +1,5 @@
 title: "PowerUpSQL Cheat Sheet"
 description: "Herramienta para descubrir, auditar y escalar privilegios en servidores SQL Server dentro del dominio."
-image: "/images/certs/ad-powerupsql.png"
 
 # PowerUpSQL
 
