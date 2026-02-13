@@ -1,233 +1,286 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
+import ProfessionalLogin from '../components/ProfessionalLogin.astro';
 ---
 
-<BaseLayout title="Flippermen | Command Center">
-  <div class="landing-container">
+<BaseLayout title="Flippermen | Strategic Command">
+  
+  <ProfessionalLogin />
+
+  <div class="dashboard-container">
     
-    <!-- HERO TERMINAL -->
-    <section class="hero-terminal">
-      <div class="terminal-header">
-        <span class="dot red"></span>
-        <span class="dot yellow"></span>
-        <span class="dot green"></span>
-        <span class="title">ROOT_ACCESS_GRANTED</span>
+    <!-- EXECUTIVE PROFILE HEADER -->
+    <header class="dashboard-header">
+      <div class="header-content">
+        <h1 class="executive-name">ESTEBAN JIMENEZ</h1>
+        <div class="executive-role">
+          <span class="role-badge red">RED TEAM OPERATOR</span>
+          <span class="role-badge purple">PURPLE TEAM STRATEGIST</span>
+        </div>
       </div>
-      <div class="terminal-body">
-        <p class="sys-msg">> INITIALIZING KERNEL...</p>
-        <p class="sys-msg">> LOADING MODULES: RED_TEAM, EXPLOIT_DEV, THREAT_HUNTING...</p>
-        <p class="sys-msg success">> SYSTEM ONLINE.</p>
-        <h1 class="glitch-title" data-text="ESTEBAN JIMENEZ">ESTEBAN JIMENEZ</h1>
-        <p class="subtitle">Red Team Operator | Senior Researcher</p>
+      <div class="system-status">
+        <div class="pulse-indicator"></div>
+        <span class="status-text">SYSTEM OPERATIONAL</span>
       </div>
-    </section>
+    </header>
 
-    <!-- MAIN NAVIGATION GRID -->
-    <section class="nav-grid">
+    <!-- STRATEGIC GRID (5 Columns) -->
+    <section class="strategic-grid">
       
-      <!-- CARD 1: IDENTITY -->
-      <a href="/about" class="nav-card profile-card">
-        <div class="card-overlay"></div>
-        <div class="icon-container">
-          <Icon name="user-secret" />
+      <!-- 1. IDENTITY -->
+      <a href="/about" class="grid-card identity-card">
+        <div class="card-icon"><Icon name="user-secret" /></div>
+        <div class="card-body">
+          <h3>IDENTITY</h3>
+          <span class="card-desc">Executive Profile</span>
         </div>
-        <div class="card-content">
-          <h2>IDENTITY</h2>
-          <p>Executive Profile & Skills</p>
-          <span class="status">VERIFIED</span>
-        </div>
-      </a>
-
-      <!-- CARD 2: OPERATIONS -->
-      <a href="/writeups" class="nav-card ops-card">
-        <div class="card-overlay"></div>
-        <div class="icon-container">
-          <Icon name="terminal" />
-        </div>
-        <div class="card-content">
-          <h2>OPERATIONS</h2>
-          <p>Mission Log & Writeups</p>
-          <span class="status active">ACTIVE</span>
+        <div class="card-footer">
+          <span class="access-level">LEVEL 5</span>
         </div>
       </a>
 
-      <!-- CARD 3: ARSENAL -->
-      <a href="/certs" class="nav-card arsenal-card">
-        <div class="card-overlay"></div>
-        <div class="icon-container">
-          <Icon name="certificate" />
+      <!-- 2. OPERATIONS -->
+      <a href="/writeups" class="grid-card ops-card">
+        <div class="card-icon"><Icon name="terminal" /></div>
+        <div class="card-body">
+          <h3>OPERATIONS</h3>
+          <span class="card-desc">Mission Logs</span>
         </div>
-        <div class="card-content">
-          <h2>ARSENAL</h2>
-          <p>Certifications & Credentials</p>
-          <span class="status locked">SECURE</span>
+        <div class="card-footer">
+          <span class="access-level">ACTIVE</span>
+        </div>
+      </a>
+
+      <!-- 3. ARSENAL -->
+      <a href="/certs" class="grid-card arsenal-card">
+        <div class="card-icon"><Icon name="certificate" /></div>
+        <div class="card-body">
+          <h3>ARSENAL</h3>
+          <span class="card-desc">Credentials</span>
+        </div>
+        <div class="card-footer">
+          <span class="access-level">VERIFIED</span>
+        </div>
+      </a>
+
+      <!-- 4. INTELLIGENCE (WIKI) -->
+      <a href="/wiki" class="grid-card intel-card">
+        <div class="card-icon"><i class="fas fa-book-dead"></i></div> <!-- Fallback icon if Icon component misses it, assuming fontawesome present -->
+        <div class="card-body">
+          <h3>INTELLIGENCE</h3>
+          <span class="card-desc">Knowledge Base</span>
+        </div>
+        <div class="card-footer">
+          <span class="access-level">CLASSIFIED</span>
+        </div>
+      </a>
+
+      <!-- 5. UNIT (CYBERFLIPPER) -->
+      <a href="/cyberflipper" class="grid-card unit-card">
+        <div class="card-icon"><i class="fas fa-biohazard"></i></div>
+        <div class="card-body">
+          <h3>CYBERFLIPPER</h3>
+          <span class="card-desc">Special Unit</span>
+        </div>
+        <div class="card-footer">
+          <span class="access-level">RESTRICTED</span>
         </div>
       </a>
 
     </section>
 
-    <footer class="landing-footer">
-      <p class="blink">_WAITING FOR INPUT...</p>
+    <footer class="dashboard-footer">
+      <div class="footer-ticker">
+        <span>> ENCRYPTED CONNECTION ESTABLISHED</span>
+        <span>> NODE: US-EAST-1</span>
+        <span>> LATENCY: 2ms</span>
+      </div>
     </footer>
 
   </div>
 </BaseLayout>
 
 <style>
-  /* Estilos específicos de landing page - usa variables globales de _tokens.scss */
-
-  .landing-container {
-    max-width: 1200px;
+  /* Dashboard Styling */
+  .dashboard-container {
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 4rem 1rem;
-    min-height: 80vh;
+    padding: 2rem;
+    min-height: 85vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
-  /* TERMINAL HERO */
-  .hero-terminal {
-    background: var(--dark-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 4rem;
-    box-shadow: 0 0 30px rgba(0, 255, 65, 0.05);
-  }
-
-  .terminal-header {
-    background: var(--color-surface);
-    padding: 0.8rem 1rem;
+  /* HEADER */
+  .dashboard-header {
     display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--color-border);
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 2rem;
   }
 
-  .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 8px;
-  }
-  .red { background: var(--terminal-dot-red); }
-  .yellow { background: var(--terminal-dot-yellow); }
-  .green { background: var(--terminal-dot-green); }
-  .title { margin-left: auto; color: var(--color-text-quaternary); font-family: monospace; font-size: 0.8rem; }
-
-  .terminal-body {
-    padding: 2rem;
-    font-family: 'Courier New', monospace;
-  }
-
-  .sys-msg { color: var(--color-text-tertiary); margin: 0.2rem 0; font-size: 0.9rem; }
-  .sys-msg.success { color: var(--neon-green); margin-bottom: 1.5rem; }
-
-  .glitch-title {
-    font-size: 4rem;
-    color: var(--color-text-white);
+  .executive-name {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
     margin: 0;
-    line-height: 1;
-    font-family: 'Inter', sans-serif;
-    font-weight: 900;
-    letter-spacing: -2px;
+    color: #fff;
+    background: linear-gradient(90deg, #fff, #888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
-  .subtitle {
-    color: var(--neon-blue);
-    font-size: 1.2rem;
-    margin-top: 0.5rem;
+  .executive-role {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .role-badge {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.4rem 0.8rem;
+    border-radius: 2px;
     letter-spacing: 1px;
   }
+  .role-badge.red { background: rgba(255, 51, 51, 0.1); color: var(--neon-red); border: 1px solid var(--neon-red); }
+  .role-badge.purple { background: rgba(189, 147, 249, 0.1); color: #bd93f9; border: 1px solid #bd93f9; }
 
-  /* NAV GRID */
-  .nav-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+  .system-status {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: monospace;
+    color: var(--neon-green);
+    font-size: 0.9rem;
   }
 
-  .nav-card {
-    background: var(--panel-bg);
-    border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-border);
+  .pulse-indicator {
+    width: 10px;
+    height: 10px;
+    background: var(--neon-green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--neon-green);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* GRID SYSTEM */
+  .strategic-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    perspective: 1000px;
+  }
+
+  .grid-card {
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid #333;
+    border-top: 2px solid #555;
     padding: 2rem;
     text-decoration: none;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 250px;
+    height: 320px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
   }
 
-  .nav-card:hover {
-    transform: translateY(-10px);
-    background: #151515;
+  .grid-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-top-color: var(--neon-blue);
+    background: rgba(30, 30, 30, 0.9);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    z-index: 10;
   }
 
-  .icon-container {
-    font-size: 3rem;
-    color: var(--color-border);
-    margin-bottom: 1rem;
-    transition: color 0.3s;
-  }
-
-  .card-content h2 {
-    color: var(--color-text-white);
-    margin: 0;
-    font-size: 1.8rem;
-    font-family: 'Inter', sans-serif;
+  .card-icon {
+    font-size: 2.5rem;
+    color: #555;
+    transition: 0.4s;
   }
   
-  .card-content p {
-    color: var(--color-text-secondary);
-    margin: 0.5rem 0 1.5rem 0;
+  .grid-card:hover .card-icon {
+    color: #fff;
+    transform: scale(1.2);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   }
 
-  .status {
-    font-size: 0.8rem;
+  .card-body h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ddd;
+    letter-spacing: 1px;
+  }
+
+  .card-desc {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 0.5rem;
+    display: block;
+  }
+
+  .card-footer {
+    border-top: 1px solid #333;
+    padding-top: 1rem;
+    margin-top: auto;
+  }
+
+  .access-level {
     font-family: monospace;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    background: #222;
-    color: var(--color-text-tertiary);
-    align-self: flex-start;
+    font-size: 0.7rem;
+    color: #555;
+    background: #111;
+    padding: 0.3rem 0.6rem;
+    border-radius: 2px;
   }
 
-  /* CARD VARIANTS */
-  .profile-card:hover { border-left-color: var(--neon-blue); box-shadow: 0 10px 30px rgba(77, 166, 255, 0.1); }
-  .profile-card:hover .icon-container { color: var(--neon-blue); }
-  .profile-card:hover .status { color: var(--neon-blue); background: rgba(77, 166, 255, 0.1); }
-
-  .ops-card:hover { border-left-color: var(--neon-green); box-shadow: 0 10px 30px rgba(0, 255, 65, 0.1); }
-  .ops-card:hover .icon-container { color: var(--neon-green); }
-  .ops-card:hover .status { color: var(--neon-green); background: rgba(0, 255, 65, 0.1); }
-
-  .arsenal-card:hover { border-left-color: var(--neon-red); box-shadow: 0 10px 30px rgba(255, 51, 51, 0.1); }
-  .arsenal-card:hover .icon-container { color: var(--neon-red); }
-  .arsenal-card:hover .status { color: var(--neon-red); background: rgba(255, 51, 51, 0.1); }
+  /* Specific Card Accents on Hover */
+  .identity-card:hover { border-top-color: var(--neon-blue); }
+  .ops-card:hover { border-top-color: var(--neon-green); }
+  .arsenal-card:hover { border-top-color: var(--neon-red); }
+  .intel-card:hover { border-top-color: #f1c40f; }
+  .unit-card:hover { border-top-color: #9b59b6; }
 
   /* FOOTER */
-  .landing-footer {
+  .dashboard-footer {
     margin-top: 4rem;
-    text-align: center;
-    color: var(--color-text-muted);
+    border-top: 1px solid #222;
+    padding-top: 1rem;
     font-family: monospace;
+    color: #444;
+    font-size: 0.8rem;
   }
 
-  .blink {
-    animation: blinker 1.5s linear infinite;
+  .footer-ticker {
+    display: flex;
+    gap: 2rem;
   }
-  
-  @keyframes blinker {
-    50% { opacity: 0; }
+
+  /* MEDIA QUERIES */
+  @media (max-width: 1200px) {
+    .strategic-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
   @media (max-width: 768px) {
-    .glitch-title { font-size: 2.5rem; }
-    .nav-grid { grid-template-columns: 1fr; }
+    .dashboard-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .executive-name { font-size: 2.5rem; }
+    .strategic-grid { grid-template-columns: 1fr; }
+    .grid-card { height: 200px; flex-direction: row; align-items: center; padding: 1.5rem; }
+    .card-footer { display: none; }
+    .footer-ticker { flex-direction: column; gap: 0.5rem; }
   }
 </style>

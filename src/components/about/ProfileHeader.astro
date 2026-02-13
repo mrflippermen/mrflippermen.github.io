@@ -1,43 +1,253 @@
 ---
-// Profile Header Component for About Page
 ---
-
-<header class="profile-header">
-  <div class="profile-avatar">
-    <img 
-      src="/images/about/profile-photo.jpg" 
-      alt="Esteban Jimenez - Red Team Operator" 
-      loading="eager"
-      decoding="async"
-      width="160"
-      height="160"
-    />
-  </div>
-  
-  <div class="profile-info">
-    <h1 class="glitch-text" data-text="Esteban Jimenez">Esteban Jimenez</h1>
-    <div class="profile-title">
-      <span class="role red-role">Red Team Operator</span>
-      <span class="separator">|</span>
-      <span class="role purple-role">Purple Team Strategist</span>
-      <span class="separator">|</span>
-      <span class="role blue-role">Blue Team Lead</span>
-    </div>
+<header class="dossier-header">
+  <div class="dossier-container">
     
-    <div class="profile-stats">
-      <div class="stat-badge top-stat">
-        <i class="fas fa-trophy"></i> Top 1 Ecuador & Global Top 50 (Hack The Box)
+    <div class="dossier-photo">
+      <div class="photo-frame">
+        <img 
+          src="/images/about/profile-photo.jpg" 
+          alt="Esteban Jimenez" 
+          width="200"
+          height="200"
+        />
+        <div class="scan-line"></div>
       </div>
-      <div class="stat-badge">
-        <i class="fas fa-flag"></i> Capitán Equipo Nacional LACC 2025
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span>CLEARANCE: TOP SECRET</span>
       </div>
     </div>
 
-    <div class="profile-meta">
-      <a href="mailto:jimenez.francisco16@yahoo.es" class="meta-link"><i class="fas fa-envelope"></i> Email</a>
-      <a href="https://linkedin.com/in/esteban-jimenez-994868249/" target="_blank" rel="noopener noreferrer" class="meta-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
-      <a href="https://github.com/mrflippermen" target="_blank" rel="noopener noreferrer" class="meta-link"><i class="fab fa-github"></i> GitHub</a>
-      <span class="location"><i class="fas fa-map-marker-alt"></i> Loja / Quito, Ecuador (Global)</span>
+    <div class="dossier-info">
+      <div class="identity-block">
+        <h1 class="name">ESTEBAN JIMENEZ</h1>
+        <h2 class="title">RED TEAM OPERATOR // PURPLE TEAM STRATEGIST</h2>
+      </div>
+
+      <div class="executive-summary">
+        <p>
+          Especialista en ciberseguridad ofensiva y defensiva con enfoque en protección de infraestructura crítica. 
+          Liderazgo probado en simulaciones de adversarios (Red Team), respuesta a incidentes y 
+          desarrollo de capacidades defensivas (Blue Team).
+        </p>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta-item">
+          <span class="label">LOCATION</span>
+          <span class="value">Quito, Ecuador (Global Remote)</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">UNIT</span>
+          <span class="value">CyberFlippers Captain</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">RANK</span>
+          <span class="value">Top 1 Ecuador (HTB)</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">CONTACT</span>
+          <div class="social-links">
+            <a href="mailto:jimenez.francisco16@yahoo.es"><i class="fas fa-envelope"></i></a>
+            <a href="https://linkedin.com/in/esteban-jimenez-994868249/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/mrflippermen" target="_blank"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 </header>
+
+<style>
+  .dossier-header {
+    background: rgba(10, 10, 10, 0.4);
+    border: 1px solid #333;
+    border-left: 4px solid var(--neon-red);
+    padding: 2.5rem;
+    margin-bottom: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Watermark effect */
+  .dossier-header::before {
+    content: 'CONFIDENTIAL';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 8rem;
+    color: rgba(255, 255, 255, 0.02);
+    font-weight: 900;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .dossier-container {
+    display: flex;
+    gap: 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* PHOTO SECTION */
+  .dossier-photo {
+    flex-shrink: 0;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .photo-frame {
+    width: 100%;
+    height: 200px;
+    border: 2px solid #444;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.2);
+    transition: filter 0.5s;
+  }
+  
+  .photo-frame:hover img {
+    filter: grayscale(0%) contrast(1);
+  }
+
+  .scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--neon-blue);
+    opacity: 0.5;
+    animation: scan-vertical 4s infinite linear;
+    pointer-events: none;
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: monospace;
+    font-size: 0.7rem;
+    color: var(--neon-green);
+    background: rgba(0, 255, 65, 0.05);
+    padding: 0.3rem 0.5rem;
+    border: 1px solid rgba(0, 255, 65, 0.2);
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--neon-green);
+    border-radius: 50%;
+    animation: blink 2s infinite;
+  }
+
+  /* INFO SECTION */
+  .dossier-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .identity-block {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 1rem;
+  }
+
+  .name {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #fff;
+    margin: 0;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .title {
+    font-size: 1rem;
+    color: var(--neon-red);
+    margin: 0.5rem 0 0 0;
+    font-family: monospace;
+    letter-spacing: 2px;
+  }
+
+  .executive-summary {
+    font-size: 1.1rem;
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 800px;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .label {
+    font-size: 0.7rem;
+    color: #666;
+    font-family: monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .value {
+    font-size: 0.95rem;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-links a {
+    color: #aaa;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+  }
+
+  .social-links a:hover {
+    color: var(--neon-blue);
+  }
+
+  @keyframes scan-vertical {
+    0% { top: -10%; }
+    100% { top: 110%; }
+  }
+
+  @keyframes blink { 
+    50% { opacity: 0; }
+  }
+
+  @media (max-width: 768px) {
+    .dossier-container { flex-direction: column; align-items: center; text-align: center; gap: 2rem; }
+    .dossier-photo { width: 160px; margin: 0 auto; }
+    .status-indicator { justify-content: center; }
+    .name { font-size: 2rem; }
+    .meta-grid { grid-template-columns: 1fr; gap: 1rem; }
+  }
+</style>

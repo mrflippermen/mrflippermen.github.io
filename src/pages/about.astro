@@ -19,55 +19,7 @@ import CertificationsShowcase from '../components/about/CertificationsShowcase.a
 
     <ProjectsSection />
 
-    <!-- EXECUTIVE PROFILE -->
-    <section class="cv-section executive-section">
-      <h2 class="section-title"><i class="fas fa-user-tie"></i> Perfil Profesional</h2>
-      
-      <div class="executive-content">
-        <div class="profile-summary">
-          <p class="lead-text">
-            Especialista en ciberseguridad ofensiva y defensiva. Experiencia en competencias 
-            internacionales y laboratorios de pentesting avanzado.
-          </p>
-        </div>
-
-        <div class="expertise-areas">
-          <div class="expertise-card offensive">
-            <div class="expertise-icon"><i class="fas fa-crosshairs"></i></div>
-            <h3>Red Team</h3>
-            <div class="key-areas">
-              <span>AD Exploitation</span>
-              <span>EDR Bypass</span>
-              <span>Web Pentesting</span>
-              <span>Custom Tooling</span>
-            </div>
-          </div>
-
-          <div class="expertise-card defensive">
-            <div class="expertise-icon"><i class="fas fa-shield-halved"></i></div>
-            <h3>Blue Team</h3>
-            <div class="key-areas">
-              <span>DFIR</span>
-              <span>Threat Hunting</span>
-              <span>Forensics</span>
-              <span>SIEM Analysis</span>
-            </div>
-          </div>
-
-          <div class="expertise-card leadership">
-            <div class="expertise-icon"><i class="fas fa-users-gear"></i></div>
-            <h3>Liderazgo</h3>
-            <div class="key-areas">
-              <span>Team Captain</span>
-              <span>CTF Design</span>
-              <span>Training</span>
-              <span>Mentoring</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    <!-- SKILLS MATRIX -->
     <SkillsMatrix />
 
     <!-- TRAYECTORIA -->
@@ -114,114 +66,21 @@ import CertificationsShowcase from '../components/about/CertificationsShowcase.a
     color: #e0e0e0;
   }
 
-  /* --- HEADER --- */
-  .profile-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 4rem;
-    position: relative;
-  }
-
-  .profile-avatar {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    overflow: hidden;
-    padding: 3px;
-    background: linear-gradient(135deg, var(--neon-red), var(--neon-blue));
-    box-shadow: -10px 0 30px rgba(255, 51, 51, 0.3), 10px 0 30px rgba(77, 166, 255, 0.3);
-    margin-bottom: 1.5rem;
-  }
-  
-  .profile-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid var(--card-bg);
-  }
-
-  .profile-header h1 {
-    font-size: 2.5rem;
-    margin: 0 0 0.5rem 0;
-    color: #fff;
-    font-weight: 800;
-  }
-
-  .profile-title {
-    font-size: 1.1rem;
-    color: #fff;
-    margin-bottom: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
-
-  .red-role { color: var(--neon-red); text-shadow: 0 0 10px rgba(255, 51, 51, 0.4); }
-  .blue-role { color: var(--neon-blue); text-shadow: 0 0 10px rgba(77, 166, 255, 0.4); }
-  .purple-role { background: linear-gradient(90deg, var(--neon-red), var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
-  
-  .profile-title .separator {
-    color: #444;
-    margin: 0 0.5rem;
-  }
-
-  .profile-stats {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-  }
-
-  .stat-badge {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    border: var(--glass-border);
-  }
-
-  .top-stat {
-    border-color: var(--neon-red);
-    color: #fff;
-    background: rgba(255, 51, 51, 0.1);
-    box-shadow: 0 0 15px rgba(255, 51, 51, 0.2);
-  }
-
-  .profile-meta {
-    display: flex;
-    gap: 1.5rem;
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .meta-link {
-    color: var(--color-text-light);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .meta-link:hover {
-    color: #fff;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-  }
-
   /* --- SECTIONS --- */
   .cv-section {
     margin-bottom: 5rem;
   }
 
   .section-title {
-    font-size: 1.8rem;
-    border-left: 4px solid;
+    font-size: 1.5rem;
+    border-left: 3px solid;
     border-image: linear-gradient(to bottom, var(--neon-red), var(--neon-blue)) 1 100%;
     padding-left: 1rem;
     margin-bottom: 2rem;
     color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
   }
 
   /* --- AWARDS GRID --- */
@@ -232,99 +91,111 @@ import CertificationsShowcase from '../components/about/CertificationsShowcase.a
   }
 
   .glass-card {
-    background: var(--card-bg);
-    border: var(--glass-border);
-    border-radius: 12px;
+    background: rgba(10, 10, 10, 0.6);
+    border: 1px solid #333;
+    border-radius: 2px; /* Sharper corners */
     padding: 1.5rem;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    backdrop-filter: blur(5px);
   }
 
   .glass-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    border-color: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    border-color: #555;
+    background: rgba(20, 20, 20, 0.8);
   }
 
   .card-icon {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #666;
+    color: #444;
+    transition: color 0.3s;
+  }
+  
+  .glass-card:hover .card-icon {
+    color: #fff;
   }
 
   .highlight-card {
-    border: 1px solid gold;
-    background: linear-gradient(145deg, rgba(255, 215, 0, 0.05), rgba(0,0,0,0));
+    border-left: 3px solid gold;
   }
   
   .highlight-card .card-icon { color: gold; }
 
   .blue-card {
-    border: 1px solid var(--neon-blue);
-    background: linear-gradient(145deg, rgba(77, 166, 255, 0.05), rgba(0,0,0,0));
+    border-left: 3px solid var(--neon-blue);
   }
   
   .blue-card .card-icon { color: var(--neon-blue); }
 
   .purple-card {
-    border: 1px solid #bd00ff;
-    background: linear-gradient(145deg, rgba(189, 0, 255, 0.05), rgba(0,0,0,0));
+    border-left: 3px solid #bd00ff;
   }
   
   .purple-card .card-icon { color: #bd00ff; }
 
   .glass-card h3 {
     margin: 0 0 0.5rem 0;
-    font-size: 1.2rem;
-    color: #fff;
+    font-size: 1.1rem;
+    color: #eee;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
   }
 
   .card-subtitle {
-    font-size: 0.9rem;
-    color: var(--neon-green);
+    font-size: 0.8rem;
+    color: var(--color-text-secondary); /* More subtle than neon green */
     margin-bottom: 1rem;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: monospace;
   }
 
   .card-img {
     width: 100%;
     margin-top: 1rem;
-    border-radius: 6px;
-    opacity: 0.8;
-    transition: opacity 0.3s;
+    border-radius: 2px;
+    opacity: 0.7;
+    filter: grayscale(0.5);
+    transition: all 0.3s;
+    border: 1px solid #333;
   }
   
-  .glass-card:hover .card-img { opacity: 1; }
+  .glass-card:hover .card-img { opacity: 1; filter: grayscale(0); }
 
   /* --- PROJECTS --- */
   .project-link {
     display: inline-block;
     margin-top: 0.5rem;
-    color: var(--neon-green);
+    color: #fff;
     text-decoration: none;
-    font-size: 0.9rem;
-    border: 1px solid var(--neon-green);
-    padding: 0.2rem 0.8rem;
-    border-radius: 4px;
+    font-size: 0.8rem;
+    border: 1px solid #444;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
     transition: all 0.3s;
+    font-family: monospace;
   }
   
   .project-link:hover {
-    background: var(--neon-green);
+    background: #fff;
     color: #000;
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
   }
   
   .tag {
-    background: var(--neon-green);
-    color: #000;
+    background: #222;
+    color: #aaa;
     font-size: 0.7rem;
     padding: 2px 6px;
-    border-radius: 4px;
+    border: 1px solid #333;
+    border-radius: 2px;
     vertical-align: middle;
     margin-left: 0.5rem;
+    font-family: monospace;
   }
 
   /* --- SKILLS --- */
@@ -335,16 +206,19 @@ import CertificationsShowcase from '../components/about/CertificationsShowcase.a
   }
   
   .skill-group h3 {
-    font-size: 1.1rem;
-    color: var(--color-text-light);
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 1.2rem;
     border-bottom: 1px solid #333;
     padding-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Inter', sans-serif;
   }
   
-  .red-team h3 { color: #ff4d4d; border-color: #ff4d4d; }
-  .rnd h3 { color: var(--neon-green); border-color: var(--neon-green); }
-  .ics h3 { color: #FFA500; border-color: #FFA500; }
+  .red-team h3 { border-bottom-color: var(--neon-red); color: #fff; }
+  .rnd h3 { border-bottom-color: var(--neon-blue); color: #fff; }
+  .ics h3 { border-bottom-color: gold; color: #fff; }
 
   /* --- CERTS --- */
   .feature-grid {
@@ -355,131 +229,18 @@ import CertificationsShowcase from '../components/about/CertificationsShowcase.a
   
   .cert-showcase {
     margin-bottom: 2rem;
-    border: 1px solid var(--neon-blue);
-    border-radius: 8px;
-    background: rgba(77, 166, 255, 0.05);
+    border: 1px solid #333;
+    border-radius: 2px;
+    background: rgba(10, 10, 10, 0.4);
   }
   
   .subsection-title {
-    font-size: 1.2rem;
-    color: var(--color-text-secondary);
+    font-size: 1rem;
+    color: #666;
     margin: 2rem 0 1rem 0;
-  }
-
-  /* --- EXECUTIVE PROFILE SECTION --- */
-  .executive-section {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
-    padding: 3rem 1.5rem;
-    border-radius: 12px;
-  }
-
-  .executive-content {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .profile-summary {
-    margin-bottom: 3rem;
-  }
-
-  .lead-text {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: #ddd;
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .expertise-areas {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 3rem 0;
-  }
-
-  .expertise-card {
-    background: rgba(0, 0, 0, 0.4);
-    border: 2px solid;
-    border-radius: 12px;
-    padding: 2rem;
-    transition: all 0.3s;
-  }
-
-  .expertise-card.offensive {
-    border-color: var(--neon-red);
-    background: linear-gradient(135deg, rgba(255, 51, 51, 0.08), rgba(0, 0, 0, 0.4));
-  }
-
-  .expertise-card.defensive {
-    border-color: var(--neon-blue);
-    background: linear-gradient(135deg, rgba(77, 166, 255, 0.08), rgba(0, 0, 0, 0.4));
-  }
-
-  .expertise-card.leadership {
-    border-color: #bd00ff;
-    background: linear-gradient(135deg, rgba(189, 0, 255, 0.08), rgba(0, 0, 0, 0.4));
-  }
-
-  .expertise-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  }
-
-  .expertise-card.offensive:hover {
-    box-shadow: 0 10px 30px rgba(255, 51, 51, 0.3);
-  }
-
-  .expertise-card.defensive:hover {
-    box-shadow: 0 10px 30px rgba(77, 166, 255, 0.3);
-  }
-
-  .expertise-card.leadership:hover {
-    box-shadow: 0 10px 30px rgba(189, 0, 255, 0.3);
-  }
-
-  .expertise-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .expertise-card.offensive .expertise-icon {
-    color: var(--neon-red);
-  }
-
-  .expertise-card.defensive .expertise-icon {
-    color: var(--neon-blue);
-  }
-
-  .expertise-card.leadership .expertise-icon {
-    color: #bd00ff;
-  }
-
-  .expertise-card h3 {
-    margin: 0 0 1rem 0;
-    font-size: 1.3rem;
-    color: #fff;
-  }
-
-  .expertise-card p {
-    color: #bbb;
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-  }
-
-  .key-areas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .key-areas span {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 0.4rem 0.8rem;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    color: #ddd;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: monospace;
   }
 
   .cwl-section {
@@ -494,5 +255,10 @@ import CertificationsShowcase from '../components/about/CertificationsShowcase.a
   .cwl-logo {
     max-width: 180px;
     height: auto;
+    filter: grayscale(1);
+    opacity: 0.6;
+    transition: all 0.4s;
   }
+  
+  .cwl-logo:hover { filter: grayscale(0); opacity: 1; }
 </style>
