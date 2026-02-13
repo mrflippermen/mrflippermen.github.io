@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    {params: {lang: 'en'}},
+    {params: {lang: 'es'}},
+  ];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={`Contact | ${t('nav.contact')}`}>
+  <div class="container">
+    <div class="contact-frame">
+      <h1 class="page-title">{t('nav.contact')}</h1>
+      <p class="intro-text">
+        {lang === 'es' ? 'Canal seguro abierto. Envíe sus credenciales o propuestas.' : 'Secure channel open. Send details or proposals.'}
+      </p>
+      
+      <div class="contact-grid">
+        <a href="mailto:jimenez.francisco16@yahoo.es" class="contact-card email">
+          <span class="icon">✉️</span>
+          <span class="label">EMAIL</span>
+          <span class="value">jimenez.francisco16@yahoo.es</span>
+        </a>
+
+        <a href="https://github.com/flippermen" target="_blank" class="contact-card github">
+          <span class="icon">🐙</span>
+          <span class="label">GITHUB</span>
+          <span class="value">flippermen</span>
+        </a>
+
+        <a href="https://linkedin.com/in/esteban-jimenez-994868249/" target="_blank" class="contact-card linkedin">
+          <span class="icon">💼</span>
+          <span class="label">LINKEDIN</span>
+          <span class="value">Esteban Jimenez</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 1rem;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .contact-frame {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    padding: 3rem;
+    position: relative;
+  }
+
+  /* Decorative corners */
+  .contact-frame::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: -1px;
+      width: 20px; height: 20px;
+      border-top: 2px solid var(--red-team);
+      border-left: 2px solid var(--red-team);
+  }
+  .contact-frame::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; right: -1px;
+      width: 20px; height: 20px;
+      border-bottom: 2px solid var(--blue-team);
+      border-right: 2px solid var(--blue-team);
+  }
+
+  .page-title {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  .intro-text {
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-main);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .contact-card:hover {
+    transform: translateX(10px);
+    border-color: var(--text-primary);
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .icon { font-size: 1.5rem; }
+  
+  .label {
+    font-family: var(--font-mono);
+    font-weight: bold;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    width: 80px;
+  }
+
+  .value {
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+</style>

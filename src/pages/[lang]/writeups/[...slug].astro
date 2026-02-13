@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('writeups');
+  return blogEntries.flatMap(entry => [
+    { params: { lang: 'en', slug: entry.slug }, props: { entry } },
+    { params: { lang: 'es', slug: entry.slug }, props: { entry } }
+  ]);
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={entry.data.title}>
+  <div class="container">
+    <article style="max-width: 800px; margin: 0 auto; padding: 2rem 0;">
+      <h1>{entry.data.title}</h1>
+      <div style="margin-bottom: 2rem; color: #666; font-family: monospace;">
+        {entry.data.date && <time>{new Date(entry.data.date).toLocaleDateString()}</time>} | ID: {entry.slug}
+      </div>
+      <div class="prose">
+        <Content />
+      </div>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+.prose {
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    line-height: 1.8;
+}
+.prose :global(h1), .prose :global(h2), .prose :global(h3) {
+    color: var(--text-primary);
+    font-family: 'Share Tech Mono', monospace;
+}
+.prose :global(pre) {
+    background: #1e1e1e !important;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+</style>

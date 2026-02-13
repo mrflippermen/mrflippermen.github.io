@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    {params: {lang: 'en'}},
+    {params: {lang: 'es'}},
+  ];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Note: For now, reusing existing components. 
+// Ideally these components should also accept a 'lang' prop or use the i18n context 
+// to translate their internal content.
+import ProfileHeader from '../../components/about/ProfileHeader.astro';
+import AchievementsGrid from '../../components/about/AchievementsGrid.astro';
+import ProjectsSection from '../../components/about/ProjectsSection.astro';
+import SkillsMatrix from '../../components/about/SkillsMatrix.astro';
+import CertificationsShowcase from '../../components/about/CertificationsShowcase.astro';
+import TimelineItem from '../../components/TimelineItem.astro';
+---
+
+<BaseLayout title={`Esteban Jimenez | ${t('nav.about')}`}>
+  <div class="cv-container">
+  
+    <ProfileHeader />
+
+    <AchievementsGrid />
+
+    <ProjectsSection />
+
+    <!-- SKILLS MATRIX -->
+    <SkillsMatrix />
+
+    <!-- TRAYECTORIA -->
+    <section class="cv-section">
+      <h2 class="section-title"><i class="fas fa-briefcase"></i> {lang === 'es' ? 'Trayectoria Profesional' : 'Professional Trajectory'}</h2>
+      <TimelineItem 
+        title="Pentester & Red Team Operator"
+        institution="HackerOne | Freelance"
+        year="2023 - Acting"
+      >
+        <p>{lang === 'es' ? 'Simulaciones de ataque real y evasión de defensas corporativas. Foco en infraestructura crítica.' : 'Real-world attack simulations and corporate defense evasion. Focus on critical infrastructure.'}</p>
+      </TimelineItem>
+
+      <TimelineItem 
+        title="CTF Architect & Speaker"
+        institution="Hackron, Cybercamp, Pwn Or Die"
+        year="2024 - 2025"
+      >
+        <p>{lang === 'es' ? 'Diseño de escenarios Full-Spectrum. Speaker sobre Flipper Zero Ops, Forense Digital y Pwn/Exploitation.' : 'Full-Spectrum scenario design. Speaker on Flipper Zero Ops, Digital Forensics, and Pwn/Exploitation.'}</p>
+      </TimelineItem>
+
+      <TimelineItem 
+        title={lang === 'es' ? 'Ayudante de Cátedra' : 'Teaching Assistant'}
+        institution="UDLA Ecuador"
+        year="2023 - Acting"
+      >
+         <p>{lang === 'es' ? 'Mentoría técnica en laboratorios de explotación y defensa.' : 'Technical mentorship in exploitation and defense labs.'}</p>
+      </TimelineItem>
+    </section>
+
+    <CertificationsShowcase />
+
+  </div>
+</BaseLayout>
+
+<style>
+  .cv-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: var(--font-sans);
+  }
+
+  .cv-section {
+    margin-bottom: 5rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    border-left: 3px solid;
+    border-image: linear-gradient(to bottom, var(--red-team), var(--blue-team)) 1 100%;
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+</style>

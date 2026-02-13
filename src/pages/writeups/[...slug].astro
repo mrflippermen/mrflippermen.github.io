@@ -1,28 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('writeups');
-  return blogEntries.map(entry => ({
-    params: { slug: entry.slug }, props: { entry },
-  }));
+    // We must provide paths even for a redirect in static mode if using dynamic routes
+    const { getCollection } = await import('astro:content');
+    const entries = await getCollection('writeups');
+    return entries.map(entry => ({
+        params: { slug: entry.slug }
+    }));
 }
-
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { slug } = Astro.params;
+return Astro.redirect(`/es/writeups/${slug}`);
 ---
-
-<BaseLayout title={entry.data.title}>
-  <div class="container">
-    <article style="max-width: 800px; margin: 0 auto; padding: 2rem 0;">
-      <h1>{entry.data.title}</h1>
-      <div style="margin-bottom: 2rem; color: #888;">
-        {entry.data.date && <time>{new Date(entry.data.date).toLocaleDateString()}</time>}
-      </div>
-      <div class="prose" style="line-height: 1.8; font-size: 1.1rem;">
-        <Content />
-      </div>
-    </article>
-  </div>
-</BaseLayout>

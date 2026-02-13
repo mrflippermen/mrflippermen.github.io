@@ -1,126 +1,81 @@
 // =============================================================================
-// DESIGN TOKENS - ENTERPRISE EDITION
+// DESIGN TOKENS - BRIGHT CYBER-OPS
 // =============================================================================
-// Single Source of Truth for "Senior Executive" Aesthetic.
-// Palette: Slate / Gold / Navy / Crimson.
+// Single Source of Truth for "Flippermen" Rebrand.
+// Aesthetics: Military/Gov Command Center, High-Tech, Light Theme.
+// Palette: Platinum / Electric Crimson / Sapphire / Deep Purple.
 
 // -----------------------------------------------------------------------------
-// Colors - Enterprise Theory
+// Colors - The War Palette
 // -----------------------------------------------------------------------------
-$color-gold: #FFD700; // Leadership / Excellence / Primary Accent
-$color-crimson: #DC2626; // Red Team / Alerts / Aggressive Ops (Matte, not Neon)
-$color-navy-dark: #0B1120; // Deep Background
-$color-navy-light: #1E293B; // Surfaces / Cards
-$color-slate: #94A3B8; // Secondary Text / UI Elements
-$color-blue-steel: #3B82F6; // Blue Team / Defensive (Muted)
+$color-platinum: #E6E8EB; // Main Background (Bone/Tech White)
+$color-bone: #F4F6F8; // Secondary/Surface Background
+$color-gunmetal: #1A1D21; // Primary Text (Deep Charcoal - High Contrast)
+$color-slate: #5C6B7F; // Secondary Text (Technical Grey)
+$color-border: #D1D5DB; // Tech Borders
 
-// Old Neon Variables (Mapped to New Palette for Compatibility)
-$color-neon-green: $color-gold; // Re-mapped to Gold for "Success/Terminal"
-$color-neon-blue: $color-blue-steel; // Re-mapped to Steel Blue
-$color-neon-red: $color-crimson; // Re-mapped to Crimson
-$color-neon-yellow: $color-gold;
+// FACTIONS
+$color-crimson: #D90429; // RED TEAM (Offensive) - Electric Crimson
+$color-sapphire: #00F0FF; // BLUE TEAM (Defensive) - Neon Cyan/Sapphire
+$color-purple: #7209B7; // PURPLE TEAM (Strategy) - Vibranium
 
-// Terminal Dots (Kept mostly standard but muted)
-$color-terminal-dot-red: #EF4444;
-$color-terminal-dot-yellow: #F59E0B;
-$color-terminal-dot-green: #10B981;
-
-// Badge/Difficulty colors
-$color-badge-easy: #10B981;
-$color-badge-medium: #F59E0B;
-$color-badge-hard: #DC2626;
-$color-badge-insane: #7F1D1D;
-
-// -----------------------------------------------------------------------------
-// Backgrounds
-// -----------------------------------------------------------------------------
-$color-bg-dark: $color-navy-dark;
-$color-bg-surface: $color-navy-light;
-$color-bg-panel: #0F172A;
-$color-bg-card: rgba(30, 41, 59, 0.7); // Glassy Navy
-
-// -----------------------------------------------------------------------------
-// Text Colors
-// -----------------------------------------------------------------------------
-$color-text-primary: #F8FAFC; // OFF-WHITE
-$color-text-secondary: $color-slate; // SLATE
-$color-text-tertiary: #64748B;
-$color-text-muted: #475569;
-
-// -----------------------------------------------------------------------------
-// Borders
-// -----------------------------------------------------------------------------
-$color-border-default: #334155;
-$color-border-light: #475569;
-$color-border-glass: rgba(148, 163, 184, 0.1);
+// STATUS
+$color-success: #10B981; // Emerald
+$color-warning: #F59E0B; // Amber
+$color-danger: $color-crimson;
 
 // -----------------------------------------------------------------------------
 // Typography
 // -----------------------------------------------------------------------------
-$font-mono: 'Courier New', monospace;
-$font-sans: 'Inter', sans-serif;
+$font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; // Data/Headers
+$font-sans: 'Inter', system-ui, -apple-system, sans-serif; // Body
 
 // -----------------------------------------------------------------------------
-// Spacing & Radius
+// Spacing & Layout
 // -----------------------------------------------------------------------------
-$border-radius-sm: 2px; // Sharper, more military
+$border-radius-sm: 2px;
 $border-radius-md: 4px;
-$border-radius-lg: 8px;
+$border-radius-lg: 0px; // Sharp technical edges
 
 // -----------------------------------------------------------------------------
 // Export as CSS Custom Properties
 // -----------------------------------------------------------------------------
 :root {
-    // Core Colors
-    --gold: #{$color-gold};
-    --crimson: #{$color-crimson};
-    --navy: #{$color-navy-dark};
-    --slate: #{$color-slate};
-
-    // Compatibility Wrappers (So existing code doesn't break immediately)
-    --neon-green: var(--gold);
-    --neon-blue: #{$color-blue-steel};
-    --neon-red: var(--crimson);
-    --neon-yellow: var(--gold);
-    --neon-purple: #9333EA; // Keep a muted purple for "Unit"/CyberFlippers
-
     // Backgrounds
-    --color-bg: #{$color-bg-dark};
-    --color-surface: #{$color-bg-surface};
-    --card-bg: #{$color-bg-card};
-    --panel-bg: #{$color-bg-panel};
+    --bg-main: #{$color-platinum};
+    --bg-card: #{$color-bone};
+    --bg-panel: #FFFFFF;
 
     // Text
-    --color-text: #{$color-text-primary};
-    --color-text-secondary: #{$color-text-secondary};
-    --color-text-tertiary: #{$color-text-tertiary};
+    --text-primary: #{$color-gunmetal};
+    --text-secondary: #{$color-slate};
+    --text-muted: #9CA3AF;
 
-    // Semantic Roles
-    --color-primary: var(--gold); // Leadership
-    --color-secondary: var(--slate); // Support
-    --color-accent: var(--crimson); // Action/Alert
+    // Factions (The Core Identity)
+    --red-team: #{$color-crimson};
+    --blue-team: #{$color-sapphire};
+    --purple-team: #{$color-purple};
 
-    // Borders
-    --border-color: #{$color-border-default};
-    --glass-border: 1px solid #{$color-border-glass};
+    // UI Elements
+    --border-color: #{$color-border};
+    --glass-border: 1px solid rgba(26, 29, 33, 0.1);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 
-    // HUD
-    --hud-bg: rgba(15, 23, 42, 0.95);
-    --hud-border: 1px solid var(--border-color);
-}
+    // Tech Glows (Subtler for Light Mode)
+    --shadow-glow-red: 0 0 10px rgba(217, 4, 41, 0.2);
+    --shadow-glow-blue: 0 0 10px rgba(0, 240, 255, 0.2);
 
-// Light Mode Override - "Paper Dossier" Mode
-body.light-mode {
-    --color-bg: #F8FAFC; // Paper White
-    --color-surface: #E2E8F0; // Light Grey
-    --card-bg: #FFFFFF;
+    // Fonts
+    --font-mono: #{$font-mono};
+    --font-sans: #{$font-sans};
 
-    --color-text: #0F172A; // Ink Black
-    --color-text-secondary: #475569;
+    // Legacy/Compat (Mapping old neon vars to new scheme)
+    --neon-red: var(--red-team);
+    --neon-blue: var(--blue-team);
+    --neon-purple: var(--purple-team);
+    --neon-green: #{$color-success};
 
-    --color-primary: #B45309; // Dark Gold/Bronze
-    --color-accent: #991B1B; // Dark Red
-
-    --border-color: #CBD5E1;
-    --glass-border: 1px solid #94A3B8;
+    // Grid/Circuit Pattern Opacity
+    --pattern-opacity: 0.05;
 }

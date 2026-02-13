@@ -7,9 +7,17 @@ export default defineConfig({
     base: '/',
     output: 'static',
 
+    i18n: {
+        defaultLocale: "es",
+        locales: ["es", "en"],
+        routing: {
+            prefixDefaultLocale: false
+        }
+    },
+
     // Sitemap re-enabled with proper configuration
     integrations: [
-        // sitemap({})
+        sitemap()
     ],
 
     // Vite optimization for production builds

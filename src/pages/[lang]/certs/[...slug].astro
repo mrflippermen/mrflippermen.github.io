@@ -1,0 +1,144 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getLangFromUrl } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const certEntries = await getCollection('certs');
+  return certEntries.flatMap(entry => [
+    { params: { lang: 'en', slug: entry.slug }, props: { entry } },
+    { params: { lang: 'es', slug: entry.slug }, props: { entry } }
+  ]);
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const lang = getLangFromUrl(Astro.url);
+---
+
+<BaseLayout title={`${entry.data.title} | Certifications`}>
+  <div class="cert-details-container">
+    <div class="cert-header">
+      {entry.data.image && <img src={entry.data.image} alt={entry.data.title} class="cert-hero-img" />}
+      <h1>{entry.data.title}</h1>
+      <div class="meta-tags">
+        <span class="tag level">{entry.data.level}</span>
+        <span class="tag platform">{entry.data.platform}</span>
+        <span class="tag duration"><i class="far fa-clock"></i> {entry.data.duration}</span>
+      </div>
+    </div>
+
+    <div class="cert-content">
+      <Content />
+    </div>
+
+    <div class="back-link">
+      <a href={`/${lang}/certs`} class="btn">&larr; {lang === 'es' ? 'Volver a Credenciales' : 'Back to Credentials'}</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .cert-details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 1rem;
+    font-family: var(--font-sans);
+  }
+
+  .cert-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .cert-hero-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .meta-tags {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+  }
+
+  .cert-content {
+    background: var(--bg-panel);
+    padding: 2rem;
+    border-radius: 2px;
+    border: 1px solid var(--border-color);
+    line-height: 1.8;
+    color: var(--text-primary);
+  }
+
+  .cert-content :global(h2) {
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .cert-content :global(ul) {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .cert-content :global(li) {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .cert-content :global(li::before) {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--success-color, #10B981);
+  }
+
+  .back-link {
+    margin-top: 3rem;
+    text-align: center;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    text-decoration: none;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s;
+    font-weight: bold;
+    font-family: var(--font-mono);
+  }
+
+  .btn:hover {
+    background: var(--text-primary);
+    color: #fff;
+  }
+</style>

@@ -1,0 +1,523 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    {params: {lang: 'en'}},
+    {params: {lang: 'es'}},
+  ];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const allWriteups = await getCollection('writeups');
+// Sort by date desc
+allWriteups.sort((a, b) => {
+  if (a.data.date && b.data.date) {
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  }
+  return 0;
+});
+
+const latestMission = allWriteups[0];
+const pastMissions = allWriteups.slice(1);
+const totalMissions = allWriteups.length;
+---
+
+<BaseLayout title={`Operations Log | ${t('nav.writeups')}`}>
+  <div class="ops-container">
+    
+    <!-- DASHBOARD HEADER -->
+    <div class="ops-header">
+      <div class="header-content">
+        <h1 class="glitch" data-text="OPERATIONS LOG">OPERATIONS LOG</h1>
+        <div class="terminal-line">
+           <span class="prompt">root@flippermen:~/missions#</span> <span class="cmd">ls -la --sort=date</span>
+        </div>
+      </div>
+      
+      <div class="stats-panel">
+        <div class="stat-box">
+          <span class="stat-label">TOTAL MISSIONS</span>
+          <span class="stat-value" id="mission-count">{totalMissions}</span>
+        </div>
+        <div class="stat-box success">
+          <span class="stat-label">STATUS</span>
+          <span class="stat-value">ACTIVE</span>
+        </div>
+        <div class="stat-box warning">
+          <span class="stat-label">DEFCON</span>
+          <span class="stat-value">3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH BAR -->
+    <div class="search-bar-container">
+      <div class="search-icon"><i class="fas fa-search"></i></div>
+      <input type="text" id="search-input" class="search-input" placeholder="Search target system, CVE or technique..." />
+      <div class="filter-controls" id="filter-controls">
+        <span class="filter-label">FILTER:</span>
+        <button class="filter-btn active" data-filter="ALL">ALL</button>
+        <button class="filter-btn" data-filter="HTB">HTB</button>
+        <button class="filter-btn" data-filter="CTF">CTF</button>
+      </div>
+    </div>
+
+    <!-- HERO MISSION (LATEST) -->
+    {latestMission && (
+      <section class="hero-mission searchable-item" data-title={latestMission.data.title.toLowerCase()} data-platform={latestMission.data.platform?.toUpperCase() || 'OTHER'} data-tags={latestMission.data.tags?.join(' ').toLowerCase() || ''}>
+        <div class="mission-label">>>> LATEST OPERATION ({lang.toUpperCase()}) <<<</div>
+        <div class="hero-card">
+          <div class="hero-image">
+             {latestMission.data.image || latestMission.data.header?.teaser ? (
+               <img src={latestMission.data.image || latestMission.data.header.teaser.replace('/assets/', '/')} alt={latestMission.data.title} />
+             ) : (
+               <div class="placeholder-hero">CLASSIFIED IMAGE</div>
+             )}
+             <div class="overlay"></div>
+          </div>
+          <div class="hero-content">
+            <div class="hero-meta">
+              <span class="date-badge">{latestMission.data.date && new Date(latestMission.data.date).toLocaleDateString()}</span>
+              <span class="status-badge">PWNED</span>
+            </div>
+            <h2><a href={`/${lang}/writeups/${latestMission.slug}`}>{latestMission.data.title}</a></h2>
+            <p class="hero-excerpt">{latestMission.data.excerpt ? latestMission.data.excerpt : "Mission details classified. Authorized personnel only."}</p>
+            <a href={`/${lang}/writeups/${latestMission.slug}`} class="access-btn">ACCESS REPORT_</a>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- MISSION GRID -->
+    <div class="grid-label">>>> ARCHIVED OPERATIONS</div>
+    <div class="mission-grid">
+      {pastMissions.map((post) => (
+        <article class="mission-card searchable-item" data-title={post.data.title.toLowerCase()} data-platform={post.data.platform?.toUpperCase() || 'OTHER'} data-tags={post.data.tags?.join(' ').toLowerCase() || ''}>
+          <div class="card-media">
+             {post.data.image || post.data.header?.teaser ? (
+               <img src={post.data.image || post.data.header.teaser.replace('/assets/', '/')} alt={post.data.title} />
+             ) : (
+               <div class="placeholder-grid">NO SIGNAL</div>
+             )}
+             <div class="card-status"><i class="fas fa-check-circle"></i></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta">
+               <span class="mission-id">OP-{Math.floor(Math.random() * 9000) + 1000}</span>
+               <span class="mission-date">{post.data.date && new Date(post.data.date).toLocaleDateString()}</span>
+            </div>
+            <h3><a href={`/${lang}/writeups/${post.slug}`}>{post.data.title}</a></h3>
+            <div class="tags">
+               <span class="tag">#CTF</span>
+               <span class="tag">#Security</span>
+            </div>
+            <a href={`/${lang}/writeups/${post.slug}`} class="read-more">View Log &rarr;</a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>
+
+<script>
+  // CLIENT-SIDE SEARCH & FILTER LOGIC
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.searchable-item');
+  const countDisplay = document.getElementById('mission-count');
+  
+  let currentFilter = 'ALL';
+  let currentSearch = '';
+
+  function filterItems() {
+    let visibleCount = 0;
+
+    items.forEach(item => {
+      const el = item as HTMLElement;
+      const title = el.dataset.title || '';
+      const tags = el.dataset.tags || '';
+      const platform = el.dataset.platform || 'OTHER';
+      
+      const searchMatch = title.includes(currentSearch) || tags.includes(currentSearch);
+      
+      const filterMatch = currentFilter === 'ALL' || 
+                          platform === currentFilter || 
+                          tags.includes(currentFilter.toLowerCase());
+
+      if (searchMatch && filterMatch) {
+        el.style.display = ''; 
+        visibleCount++;
+      } else {
+        el.style.display = 'none';
+      }
+    });
+
+    if (countDisplay) countDisplay.innerText = visibleCount.toString();
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = (e.target as HTMLInputElement).value.toLowerCase();
+      filterItems();
+    });
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const target = btn as HTMLElement;
+      currentFilter = target.dataset.filter || 'ALL';
+      filterItems();
+    });
+  });
+</script>
+
+<style>
+  /* Reuse Global "Bright Cyber-Ops" Variables */
+  .ops-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: var(--font-mono);
+  }
+
+  /* HEADER */
+  .ops-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  h1.glitch {
+    font-size: 3rem;
+    color: var(--text-primary);
+    margin: 0;
+    font-family: 'Share Tech Mono', sans-serif;
+    font-weight: 900;
+  }
+
+  .terminal-line {
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    background: var(--bg-card);
+    padding: 0.5rem;
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px solid var(--border-color);
+  }
+  .prompt { color: var(--success-color, #10B981); }
+  .cmd { color: var(--text-primary); }
+
+  .stats-panel {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .stat-box {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+  }
+  
+  .stat-label { font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 1px; }
+  .stat-value { font-size: 1.2rem; color: var(--text-primary); font-weight: bold; }
+  .stat-box.success .stat-value { color: var(--success-color, #10B981); }
+  .stat-box.warning .stat-value { color: #F59E0B; }
+
+  /* COMPONENT: SEARCH BAR */
+  .search-bar-container {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  .search-icon { color: var(--text-secondary); margin-right: 1rem; }
+  .search-input {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    outline: none;
+  }
+
+  /* FILTERS */
+  .filter-controls { display: flex; align-items: center; gap: 0.5rem; }
+  .filter-label { color: var(--text-secondary); font-size: 0.8rem; font-weight: bold; margin-right: 0.5rem; }
+  
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 2px 8px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .filter-btn:hover, .filter-btn.active {
+    color: var(--text-primary);
+    border-color: var(--blue-team);
+    background: rgba(0, 240, 255, 0.1);
+  }
+
+  /* SECTION LABELS */
+  .mission-label, .grid-label {
+    color: var(--blue-team);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    opacity: 0.8;
+  }
+
+  /* HERO MISSION */
+  .hero-mission {
+    margin-bottom: 4rem;
+  }
+
+  .hero-card {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    min-height: 350px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  @media (max-width: 768px) {
+    .hero-card { grid-template-columns: 1fr; }
+  }
+
+  .hero-image {
+    position: relative;
+    background: #000;
+  }
+  
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+    filter: grayscale(20%);
+    transition: all 0.5s;
+  }
+  
+  .hero-card:hover .hero-image img {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.02);
+  }
+
+  .placeholder-hero {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 5px;
+    background: var(--bg-card);
+  }
+
+  .hero-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid var(--border-color);
+    position: relative;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .date-badge {
+    background: var(--bg-main);
+    color: var(--text-secondary);
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+  }
+  
+  .status-badge {
+    background: rgba(0, 255, 65, 0.2);
+    color: var(--success-color, #10B981);
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    border: 1px solid var(--success-color, #10B981);
+    font-weight: bold;
+  }
+
+  .hero-content h2 {
+    font-size: 2rem;
+    margin: 0 0 1rem 0;
+    font-family: 'Share Tech Mono', sans-serif;
+  }
+  
+  .hero-content h2 a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .hero-content h2 a:hover { color: var(--blue-team); }
+
+  .hero-excerpt {
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .access-btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: var(--text-primary);
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: fit-content;
+    transition: all 0.3s;
+  }
+  
+  .access-btn:hover {
+    background: var(--blue-team);
+    transform: translateX(5px);
+  }
+
+  /* MISSION GRID */
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .mission-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  
+  .mission-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--blue-team);
+  }
+
+  .card-media {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+  }
+  
+  .mission-card:hover .card-media img { opacity: 1; }
+
+  .card-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--success-color, #10B981);
+    background: var(--bg-main);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .placeholder-grid {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    background: var(--bg-card);
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
+  }
+
+  .mission-card h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.3rem;
+    font-family: 'Share Tech Mono', sans-serif;
+  }
+  
+  .mission-card h3 a {
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .tags {
+    margin-bottom: 1.5rem;
+  }
+  
+  .tag {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-right: 0.5rem;
+  }
+
+  .read-more {
+    color: var(--blue-team);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .read-more:hover { text-decoration: underline; }
+
+</style>
