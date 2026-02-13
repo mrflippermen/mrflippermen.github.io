@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
-import ProfessionalLogin from '../../components/ProfessionalLogin.astro';
+
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
 export function getStaticPaths() {
@@ -17,7 +17,7 @@ const t = useTranslations(lang);
 
 <BaseLayout title={`Flippermen | ${t('nav.home')}`}>
   
-  <ProfessionalLogin />
+
 
   <div class="dashboard-container">
     
