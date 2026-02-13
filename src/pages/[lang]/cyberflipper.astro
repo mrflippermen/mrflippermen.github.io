@@ -36,9 +36,24 @@ const stats = {
           <div class="unit-designation">SPECIAL OPERATIONS UNIT - ECUADOR</div>
         </div>
 
-        <p class="mission-brief">
-          {lang === 'es' ? '"Operamos en las sombras para servir a la luz. Ofensiva de élite, defensa estratégica."' : '"We operate in the shadows to serve the light. Elite offensive, strategic defense."'}
-        </p>
+        <div class="origin-story">
+            <h3>{lang === 'es' ? 'ORIGIN_STORY: THE "ZERO-BUDGET" CAMPAIGN' : 'ORIGIN_STORY: THE "ZERO-BUDGET" CAMPAIGN'}</h3>
+            <p>
+                {lang === 'es' 
+                    ? 'En 2025, clasificamos al torno más importante de la región en Brasil. Solicitamos respaldo a nuestra institución. Su respuesta oficial fue: "Tomen una gorra y una camiseta. Suerte."'
+                    : 'In 2025, we qualified for the most important tournament in the region in Brazil. We asked our institution for support. Their official response was: "Take a cap and a t-shirt. Good luck."'}
+            </p>
+            <p>
+                {lang === 'es'
+                    ? 'En ese momento entendimos que estábamos solos. Y nos encantó. Sin presupuesto, sin laboratorios patrocinados y sin mentores corporativos, CyberFlippers se convirtió en una célula autónoma. Convertimos la falta de recursos en nuestro mayor exploit. Mientras otros equipos viajaban con viáticos, nosotros estudiábamos kernels hasta las 4 AM.'
+                    : 'At that moment we understood we were alone. And we loved it. With no budget, no sponsored labs, and no corporate mentors, CyberFlippers became an autonomous cell. We turned lack of resources into our greatest exploit. While other teams traveled with per diems, we studied kernels until 4 AM.'}
+            </p>
+            <blockquote class="quote">
+                {lang === 'es'
+                    ? 'Resultado: Top 1 Nacional, Top Regional y Respeto Global. No necesitamos su dinero. Necesitábamos un enemigo común. Gracias por la gorra.'
+                    : 'Result: National Top 1, Regional Top Tier, and Global Respect. We didn\'t need their money. We needed a common enemy. Thanks for the cap.'}
+            </blockquote>
+        </div>
       </div>
     </section>
 
@@ -82,20 +97,31 @@ const stats = {
           </div>
           <div class="op-name">flippermen</div>
           <div class="op-stats">
-            <div><span class="stat-label">SKILL:</span> FULL STACK</div>
+            <div><span class="stat-label">SPECIALTY:</span> AD INFRASTRUCTURE ARCHITECT</div>
+            <div class="faction-tag red">RED TEAM LEAD</div>
           </div>
         </div>
 
-        <!-- MEMBERS -->
-        {["ANGELDUSTx", "MarcGMN1403", "KomiGath", "ch1l1", "crrlla", "AdrianX", "DiegoJr", "0s0bit", "N01syb0y"].map((op) => (
+        <!-- SPECIALISTS -->
+        {[
+            { name: "MarcGMN1403", role: "CRYPTANALYSIS LEAD", rank: "E-5", spec: "STEGANOGRAPHY" },
+            { name: "AngelDustX", role: "WEB EXPLOITATION", rank: "E-4", spec: "SQLi/XSS EXPERT" },
+            { name: "KomiGath", role: "DIGITAL FORENSICS", rank: "E-4", spec: "MALWARE REVERSE ENG" },
+            { name: "ch1l1", role: "INTEL OPERATIVE", rank: "E-4", spec: "OSINT & SOCIAL ENG" },
+            { name: "crrlla", role: "OPERATOR", rank: "E-3", spec: "NETWORK ASSAULT" },
+            { name: "AdrianX", role: "OPERATOR", rank: "E-3", spec: "LINUX PRIVESC" },
+            { name: "DiegoJr", role: "OPERATOR", rank: "E-3", spec: "WINDOWS INTERNALS" },
+            { name: "0s0bit", role: "OPERATOR", rank: "E-3", spec: "SCRIPTING" },
+            { name: "N01syb0y", role: "OPERATOR", rank: "E-3", spec: "HARDWARE HACKING" }
+        ].map((op) => (
           <div class="operator-card">
             <div class="card-header">
-              <span class="role">OPERATOR</span>
-              <span class="rank">E-4</span>
+              <span class="role">{op.role}</span>
+              <span class="rank">{op.rank}</span>
             </div>
-            <div class="op-name">{op}</div>
+            <div class="op-name">{op.name}</div>
             <div class="op-stats">
-              <div><span class="stat-label">STATUS:</span> ACTIVE</div>
+              <div><span class="stat-label">SPEC:</span> {op.spec}</div>
             </div>
           </div>
         ))}
@@ -202,13 +228,37 @@ const stats = {
     font-weight: bold;
   }
 
-  .mission-brief {
-    max-width: 600px;
-    margin: 1.5rem auto 0;
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    font-style: italic;
-    border-left: 3px solid var(--border-color);
+  /* NARRATIVE */
+  .origin-story {
+    max-width: 700px;
+    margin: 2rem auto;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.03); /* Subtle background */
+    padding: 2rem;
+    border-left: 4px solid var(--red-team);
+    border-radius: 4px;
+  }
+
+  .origin-story h3 {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--red-team);
+      margin-top: 0;
+      font-size: 1.2rem;
+  }
+
+  .origin-story p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.7;
+  }
+
+  .origin-story .quote {
+      font-style: italic;
+      color: var(--text-primary);
+      font-weight: bold;
+      margin: 1.5rem 0 0 0;
+      padding-left: 1rem;
+      border-left: 2px solid var(--blue-team);
   }
 
   /* STATS */
@@ -273,7 +323,7 @@ const stats = {
 
   .roster-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1rem;
   }
 
@@ -282,16 +332,30 @@ const stats = {
     border: 1px solid var(--border-color);
     padding: 1rem;
     border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  .operator-card:hover {
+      border-color: var(--blue-team);
+      transform: translateY(-2px);
   }
 
   .operator-card.captain { 
       border-color: var(--red-team); 
-      background: rgba(217, 4, 41, 0.03); 
+      background: rgba(217, 4, 41, 0.05); 
   }
 
   .card-header { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-secondary); font-family: var(--font-mono); margin-bottom: 0.5rem; }
   .op-name { font-weight: bold; color: var(--text-primary); font-size: 1.1rem; }
-  .op-stats { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem; font-family: var(--font-mono); }
+  .op-stats { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; font-family: var(--font-mono); }
+  
+  .faction-tag {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: var(--red-team);
+  }
 
   /* REPRESENTATION */
   .representation-section { margin-bottom: 4rem; }
@@ -328,15 +392,20 @@ const stats = {
   .cta-btn {
     display: inline-block;
     padding: 0.8rem 2rem;
-    background: var(--text-primary);
+    background: var(--red-team); /* Fix Ghost Button */
     color: #fff;
     font-weight: bold;
     text-decoration: none;
     border-radius: 2px;
     font-family: var(--font-mono);
+    text-transform: uppercase;
+    transition: all 0.3s;
   }
   
-  .cta-btn:hover { background: var(--red-team); }
+  .cta-btn:hover { 
+      background: var(--blue-team); 
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+  }
 
   @media (max-width: 768px) {
     .achievement-item { flex-direction: column; align-items: flex-start; gap: 1rem; }
