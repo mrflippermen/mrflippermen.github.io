@@ -4,7 +4,7 @@ description: "Comandos esenciales para enumeración de Active Directory usando P
 image: "/images/wiki/2.png"
 ---
 
-# PowerSploit (PowerView)
+# PowerSploit & PowerView: Reconocimiento de Active Directory
 
 **PowerSploit** es una colección de módulos de Microsoft PowerShell que pueden utilizarse para ayudar a los pentesters durante todas las fases de una evaluación. **PowerView** es su herramienta de reconocimiento más famosa.
 

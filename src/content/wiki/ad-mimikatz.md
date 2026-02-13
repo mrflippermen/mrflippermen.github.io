@@ -4,7 +4,7 @@ description: "La navaja suiza para extracción de credenciales, manipulación de
 image: "/images/wiki/6.png"
 ---
 
-# Mimikatz
+# Mimikatz: Post-Exploitation y Extracción de Credenciales
 
 **Mimikatz** es la herramienta más conocida para la extracción de credenciales en texto claro, hashes, códigos PIN y tickets Kerberos de la memoria. También permite realizar ataques de Pass-the-Hash, Pass-the-Ticket o construir Golden Tickets.
 

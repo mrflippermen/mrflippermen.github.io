@@ -4,7 +4,7 @@ description: "Ataque contra cuentas que tienen desactivada la pre-autenticación
 image: "/images/wiki/10.png"
 ---
 
-# ASREPRoast
+# ASREPRoast: Ataque sin Pre-Autenticación Kerberos
 
 **ASREPRoast** es una técnica que permite recuperar hashes de contraseñas de usuarios que tienen la propiedad `Do not require Kerberos preauthentication` habilitada. Esto significa que cualquiera puede pedir un ticket TGT para ese usuario al Controlador de Dominio, y el DC responderá con un ticket cifrado con la contraseña del usuario. Podemos capturar ese ticket y crackearlo offline.
 

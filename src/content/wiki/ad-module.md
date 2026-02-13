@@ -4,7 +4,7 @@ description: "Uso del módulo oficial de Microsoft para enumeración sigilosa (L
 image: "/images/wiki/9.png"
 ---
 
-# Active Directory Module (AD Module)
+# AD Module: Enumeración Oficial de Microsoft (LotL)
 
 El **Módulo de Active Directory para Windows PowerShell** es la herramienta oficial de Microsoft. Es excelente para la enumeración porque está firmada por Microsoft y su uso es "esperado" en entornos corporativos, lo que reduce la probabilidad de detección por antivirus/EDR comparado con herramientas ofensivas como PowerView.
 

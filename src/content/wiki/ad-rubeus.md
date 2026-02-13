@@ -4,7 +4,7 @@ description: "Herramienta en C# para interacción cruda con Kerberos: Roasting, 
 image: "/images/wiki/7.png"
 ---
 
-# Rubeus
+# Rubeus: Herramienta Ofensiva para Kerberos
 
 **Rubeus** es una herramienta escrita en C# (parte de GhostPack) para la interacción directa con el protocolo Kerberos y el abuso de tickets. Es "OPSEC safe" en muchos aspectos y muy potente para ataques modernos.
 

@@ -4,7 +4,7 @@ description: "Herramienta para descubrir, auditar y escalar privilegios en servi
 image: "/images/wiki/3.png"
 ---
 
-# PowerUpSQL
+# PowerUpSQL: Escalada de Privilegios en SQL Server
 
 **PowerUpSQL** es una herramienta de PowerShell para atacar SQL Server. Permite descubrir instancias, auditar configuraciones débiles y ejecutar comandos si se tienen los privilegios adecuados.
 

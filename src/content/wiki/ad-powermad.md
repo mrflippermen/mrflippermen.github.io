@@ -4,7 +4,7 @@ description: "Herramientas para Machine Account Quota y explotación de DNS din�
 image: "/images/wiki/4.png"
 ---
 
-# Powermad
+# Powermad: Abuso de Machine Account Quota y DNS Dinámico
 
 **Powermad** es una colección de funciones para abusar de servicios como Machine Account Quota (agregar máquinas al dominio) y DNS dinámico. Es fundamental para ataques como **Resource-Based Constrained Delegation (RBCD)**.
 

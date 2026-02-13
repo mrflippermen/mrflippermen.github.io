@@ -4,7 +4,7 @@ description: "Herramienta de análisis visual de ACLs y permisos en Active Direc
 image: "/images/wiki/11.png"
 ---
 
-# Adalanche
+# Adalanche: Visualización de Permisos y ACLs
 
 **Adalanche** es una herramienta open-source para visualizar y analizar permisos en Active Directory. Es similar a BloodHound en su objetivo de mapear relaciones, pero se enfoca mucho en la visualización inmediata de ACLs y permisos efectivos.
 

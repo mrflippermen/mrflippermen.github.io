@@ -4,7 +4,7 @@ description: "Mapeo de relaciones de confianza y caminos de ataque en Active Dir
 image: "/images/wiki/8.png"
 ---
 
-# BloodHound
+# BloodHound: Mapeo de Attack Paths en Active Directory
 
 **BloodHound** utiliza teoría de grafos para revelar las relaciones ocultas y, a menudo, no deseadas dentro de un entorno de Active Directory. Puede identificar rutas de ataque complejas que serían imposibles de ver manualmente.
 

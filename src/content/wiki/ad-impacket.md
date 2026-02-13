@@ -4,7 +4,7 @@ description: "Colección de scripts en Python para interacción con protocolos d
 image: "/images/wiki/5.png"
 ---
 
-# Impacket
+# Impacket: Python Network Protocol Library
 
 **Impacket** es una colección de clases de Python para trabajar con protocolos de red. Es esencial para realizar ataques desde sistemas Linux (como Kali) contra entornos Windows sin necesidad de "vivir de la tierra" en una máquina comprometida.
 
