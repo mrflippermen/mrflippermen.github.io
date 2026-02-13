@@ -9,14 +9,7 @@ export default defineConfig({
 
     // Sitemap re-enabled with proper configuration
     integrations: [
-        sitemap({
-            filter: (page) => !page.includes('/404'),
-            serialize(item) {
-                // Ensure lastmod is always a valid date
-                item.lastmod = new Date();
-                return item;
-            }
-        })
+        sitemap()
     ],
 
     // Vite optimization for production builds
