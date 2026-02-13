@@ -42,14 +42,14 @@ $border-radius-lg: 0px; // Sharp technical edges
 // -----------------------------------------------------------------------------
 :root {
     // Backgrounds
-    --bg-main: #{$color-platinum};
-    --bg-card: #{$color-bone};
-    --bg-panel: #FFFFFF;
+    --bg-main: #050505; // Deep Black
+    --bg-card: #0A0A0A; // Slightly lighter black
+    --bg-panel: #111111; // Dark Grey panel
 
     // Text
-    --text-primary: #{$color-gunmetal};
-    --text-secondary: #{$color-slate};
-    --text-muted: #9CA3AF;
+    --text-primary: #FFFFFF; // White
+    --text-secondary: #AAAAAA; // Light Grey
+    --text-muted: #666666; // Darker Grey
 
     // Factions (The Core Identity)
     --red-team: #{$color-crimson};
@@ -58,7 +58,7 @@ $border-radius-lg: 0px; // Sharp technical edges
 
     // UI Elements
     --border-color: #{$color-border};
-    --glass-border: 1px solid rgba(26, 29, 33, 0.1);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 
@@ -77,5 +77,5 @@ $border-radius-lg: 0px; // Sharp technical edges
     --neon-green: #{$color-success};
 
     // Grid/Circuit Pattern Opacity
-    --pattern-opacity: 0.05;
+    --pattern-opacity: 0.1;
 }

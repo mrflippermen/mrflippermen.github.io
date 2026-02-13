@@ -57,3 +57,61 @@ import AwardCard from '../AwardCard.astro';
     <AwardCard title='Dante' subtitle="Exploit Dev" image="/images/about/dante.jpg" link="/certs/dante" />
   </div>
 </section>
+
+<style>
+  .cv-section {
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  
+  .section-title i { color: var(--blue-team); margin-right: 0.5rem; }
+
+  .subsection-title {
+    font-size: 1.4rem;
+    color: var(--text-secondary);
+    margin: 3rem 0 1.5rem;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .cert-showcase {
+    margin-bottom: 3rem;
+  }
+
+  .cwl-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 4rem;
+  }
+  
+  .cwl-logo {
+    height: 50px;
+    width: auto;
+    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.3));
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+    .cwl-section {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

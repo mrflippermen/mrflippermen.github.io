@@ -55,10 +55,12 @@ const { title, subtitle, image, link } = Astro.props;
 
   .award-image {
     width: 100%;
-    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
     border-radius: 8px 8px 0 0;
     display: block;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--border-color);
+    background: #000; /* Fallback for transparency */
   }
 
   /* Special style for horizontal images like awards in text */
