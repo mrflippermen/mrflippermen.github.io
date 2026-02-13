@@ -90,7 +90,8 @@ a {
 // LAYOUT COMPONENTS
 // -----------------------------------------------------------------------------
 header {
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--bg-panel) !important;
+    /* Fix Flashbang */
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;

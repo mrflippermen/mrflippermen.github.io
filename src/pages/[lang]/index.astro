@@ -27,6 +27,7 @@ const t = useTranslations(lang);
         <h1 class="executive-name">ESTEBAN JIMENEZ</h1>
         <div class="executive-role">
           <span class="role-badge red">{t('role.red')}</span>
+          <span class="role-badge blue">{t('role.blue')}</span>
           <span class="role-badge purple">{t('role.purple')}</span>
         </div>
       </div>
@@ -149,6 +150,7 @@ const t = useTranslations(lang);
     margin-top: 1rem;
   }
 
+  /* Neon Badges */
   .role-badge {
     font-size: 0.8rem;
     font-weight: 700;
@@ -156,16 +158,30 @@ const t = useTranslations(lang);
     border-radius: 2px;
     letter-spacing: 1px;
     font-family: var(--font-mono);
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
   }
-  .role-badge.red { 
-      background: rgba(217, 4, 41, 0.1); 
-      color: var(--red-team); 
-      border: 1px solid var(--red-team); 
+
+  .role-badge.red {
+    background: rgba(217, 4, 41, 0.1);
+    color: var(--red-team);
+    border: 1px solid var(--red-team);
+    box-shadow: 0 0 10px rgba(217, 4, 41, 0.4);
   }
-  .role-badge.purple { 
-      background: rgba(114, 9, 183, 0.1); 
-      color: var(--purple-team); 
-      border: 1px solid var(--purple-team); 
+
+  .role-badge.blue {
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--blue-team);
+    border: 1px solid var(--blue-team);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+  }
+
+  .role-badge.purple {
+    background: rgba(114, 9, 183, 0.1);
+    color: var(--purple-team);
+    border: 1px solid var(--purple-team);
+    box-shadow: 0 0 10px rgba(114, 9, 183, 0.4);
   }
 
   .system-status {
