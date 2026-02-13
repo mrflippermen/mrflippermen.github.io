@@ -17,9 +17,7 @@ export default defineConfig({
     },
 
     // Sitemap re-enabled with proper configuration
-    integrations: [
-        sitemap()
-    ],
+    // sitemap()
 
     // Vite optimization for production builds
     vite: {
