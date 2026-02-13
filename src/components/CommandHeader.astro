@@ -25,13 +25,13 @@ const currentTime = new Date().toISOString().split('T')[0];
     </div>
     <div class="hud-item only-desktop">
       <span class="hud-label">DEFCON:</span>
-      <span class="hud-value warning">3</span>
+      <span class="hud-value warning blink-warning">3</span>
     </div>
     <div class="hud-item">
       <span class="hud-label">LANG:</span>
-      <a href="/es" class={lang === 'es' ? 'lang-switch active' : 'lang-switch'}>ES</a>
+      <a href={`/es${currentPath.replace(/^(\/en|\/es)/, '')}`} class={lang === 'es' ? 'lang-switch active' : 'lang-switch'}>ES</a>
       <span class="separator">|</span>
-      <a href="/en" class={lang === 'en' ? 'lang-switch active' : 'lang-switch'}>EN</a>
+      <a href={`/en${currentPath.replace(/^(\/en|\/es)/, '')}`} class={lang === 'en' ? 'lang-switch active' : 'lang-switch'}>EN</a>
     </div>
   </div>
 
@@ -79,17 +79,23 @@ const currentTime = new Date().toISOString().split('T')[0];
       const userAgentEl = document.getElementById('user-agent-info');
       // Only run if we haven't already populated it or if it's default
       if (userAgentEl && userAgentEl.textContent === 'ANONYMOUS') {
-        const ua = navigator.userAgent;
-        let displayUA = 'UNKNOWN';
+        userAgentEl.textContent = 'SCANNING...';
         
-        if (ua.includes('Windows')) displayUA = 'WIN_NT';
-        else if (ua.includes('Mac')) displayUA = 'DARWIN';
-        else if (ua.includes('Linux')) displayUA = 'ELF64';
-        else if (ua.includes('Android')) displayUA = 'ANDROID';
-        else if (ua.includes('iPhone') || ua.includes('iPad')) displayUA = 'IOS';
-        
-        userAgentEl.textContent = displayUA;
+        setTimeout(() => {
+            const ua = navigator.userAgent;
+            let displayUA = 'UNKNOWN';
+            
+            if (ua.includes('Windows')) displayUA = 'WIN_NT_KERNEL';
+            else if (ua.includes('Mac')) displayUA = 'DARWIN_OS';
+            else if (ua.includes('Linux')) displayUA = 'ELF64_LINUX';
+            else if (ua.includes('Android')) displayUA = 'ANDROID_ARM';
+            else if (ua.includes('iPhone') || ua.includes('iPad')) displayUA = 'IOS_MOBI';
+            
+            userAgentEl.textContent = displayUA;
+            userAgentEl.classList.add('scanned');
+        }, 800);
       }
+
 
       // Mobile Menu Logic
       const menuBtn = document.getElementById('mobile-menu-btn');
@@ -152,6 +158,23 @@ const currentTime = new Date().toISOString().split('T')[0];
   
   .hud-value.secure { color: #00F0FF; }
   .hud-value.warning { color: #D90429; }
+  
+  .blink-warning {
+    animation: blink 2s infinite;
+  }
+
+  @keyframes blink {
+    0% { opacity: 1; text-shadow: 0 0 5px #D90429; }
+    50% { opacity: 0.4; text-shadow: none; }
+    100% { opacity: 1; text-shadow: 0 0 5px #D90429; }
+  }
+
+  /* Scanned Effect */
+  .hud-value.scanned {
+    color: #00F0FF;
+    text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+    transition: all 0.5s;
+  }
 
   /* Language Switcher */
   .lang-switch {

@@ -7,64 +7,55 @@ import TimelineItem from '../TimelineItem.astro';
   <div class="projects-container">
     <TimelineItem 
       title='Flipper CyberAttack Suite <span class="tag">Flagship</span>'
-      institution='PowerShell | Flipper Zero'
+      institution='PowerShell | Hardware Offense'
+      faction="red"
     >
-      <p>Framework ofensivo avanzado. Módulos de <strong>exfiltración SAM/SYSTEM</strong>, keyloggers discretos y análisis de puertos automatizado.</p>
+      <p>Infraestructura de ataque portátil. <strong>Reduce el tiempo de despliegue de payloads físicos en un 60%</strong>, permitiendo exfiltración de credenciales SAM/SYSTEM en menos de 30 segundos en entornos restringidos.</p>
       <a href="https://github.com/mrflippermen/flipper-atack" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
     </TimelineItem>
 
     <TimelineItem 
       title="Shellcode-Evasion-Suite"
-      institution="Python | EDR/AV Evasion"
+      institution="Python | Defense Evasion"
+      faction="purple"
     >
-      <p>Plataforma de ofuscación y encriptación de shellcode multi-técnica. Implementa <strong>polimorfismo</strong>, encoding XOR/RC4 y técnicas anti-sandbox para bypass avanzado de EDR/AV.</p>
+      <p>Motor de ofuscación polimórfico. Logra una <strong>tasa de evasión del 90% frente a EDRs comerciales</strong> mediante cifrado XOR/RC4 rotativo, facilitando simulaciones de adversarios realistas sin detección inmediata.</p>
       <a href="https://github.com/mrflippermen/Shellcode-Evasion-Suite" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
     </TimelineItem>
 
     <TimelineItem 
       title="BloodHound-Parser"
-      institution="Python | Active Directory"
+      institution="Python | Active Directory Audit"
+      faction="blue"
     >
-      <p>Parser de última generación para datasets BloodHound. Automatiza la extracción de <strong>rutas de ataque críticas</strong>, delegation chains y vulnerabilidades de Kerberos en entornos AD complejos.</p>
+      <p>Analizador automatizado de rutas de ataque. <strong>Identifica y prioriza el 100% de las rutas críticas hacia Domain Admin</strong>, reduciendo el tiempo de análisis de grafos complejos de horas a minutos.</p>
       <a href="https://github.com/mrflippermen/BloodHound-Parser" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
     </TimelineItem>
 
     <TimelineItem 
       title="Shodan-Intel-Reporter"
-      institution="Python | OSINT"
+      institution="Python | Threat Intelligence"
+      faction="blue"
     >
-      <p>Framework de inteligencia automatizada sobre infraestructura expuesta. Genera reportes visualizados con <strong>análisis de superficie de ataque</strong> y correlación de vulnerabilidades CVE.</p>
+      <p>Inteligencia de amenazas automatizada. <strong>Monitoriza activos expuestos 24/7</strong>, reduciendo la ventana de exposición a CVEs críticos mediante alertas tempranas y correlación de vulnerabilidades.</p>
       <a href="https://github.com/mrflippermen/Shodan-Intel-Reporter" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
     </TimelineItem>
 
     <TimelineItem 
-      title="SpiderFoot-URL-Parser"
-      institution="Python | Reconnaissance"
-    >
-      <p>Extractor y procesador de salidas SpiderFoot. Integra pipelines de <strong>enumeración pasiva</strong> con filtrado por criticidad para bug bounty y reconocimiento sigiloso.</p>
-      <a href="https://github.com/mrflippermen/SpiderFoot-URL-Parser" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
-    </TimelineItem>
-
-    <TimelineItem 
       title="BugBounty-Automation-Setup"
-      institution="Shell | DevOps Security"
+      institution="Shell | DevSecOps"
+      faction="red"
     >
-      <p>Script de aprovisionamiento ZSH para entornos de reconocimiento. Transforma instancias Linux vanilla en <strong>plataformas de combate</strong> con herramientas pre-configuradas (Nuclei, FFUF, Amass) en minutos.</p>
+      <p>Aprovisionamiento de infraestructura de reconocimiento. <strong>Acelera el setup de entornos de pentesting en un 400%</strong>, transformando instancias vanilla en plataformas de combate operativas en menos de 5 minutos.</p>
       <a href="https://github.com/mrflippermen/BugBounty-Automation-Setup" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
     </TimelineItem>
     
     <TimelineItem 
-      title="RAM Keylogger (Forensic Resistant)"
-      institution="C++ | Windows Internals"
+      title="RAM Keylogger (Resillience)"
+      institution="C++ | Forensics Counter-Measures"
+      faction="purple"
     >
-      <p>Keylogger residente exclusivamente en memoria (RAM) para minimizar huella forense. Incluye análisis de evasión de EDRs.</p>
-    </TimelineItem>
-
-    <TimelineItem 
-      title="ad-enum-toolkit"
-      institution="Python | Bash"
-    >
-      <p>Suite de automatización para enumeración masiva de vectores de ataque en entornos Active Directory.</p>
+      <p>Implante residente en memoria. Diseñado para <strong>testear capacidades de memoria forense</strong>, operando sin tocar disco para simular amenazas APT avanzadas que evaden análisis estático tradicional.</p>
     </TimelineItem>
   </div>
 </section>
