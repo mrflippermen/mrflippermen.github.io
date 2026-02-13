@@ -1,261 +1,449 @@
 ---
 title: "Digital Forensics & DFIR Tools"
 description: "Colección exhaustiva de herramientas para análisis forense digital, respuesta a incidentes y malware analysis."
-image: "/images/wiki/forensics.png"
+image: "/images/wiki/1.png"
 ---
 
-# Not The Hidden Wiki
+# 🔬 Not The Hidden Wiki
 
 ## 📖 Portada
 
 Bienvenido a la **colección más completa de herramientas forenses digitales y de respuesta a incidentes (DFIR)**. Este repositorio reúne más de **180+ herramientas especializadas** organizadas por funcionalidad, desde análisis de memoria y disco hasta forense móvil, análisis de malware y respuesta a incidentes en tiempo real.
 
+> 💡 **Tip**: Usa `Ctrl+F` para buscar herramientas específicas o navega por el índice para encontrar la categoría que necesitas.
+
 Ya seas un investigador forense, analista de seguridad, pentester o miembro de un equipo de respuesta a incidentes, encontrarás aquí las herramientas esenciales para tu arsenal.
 
 ---
 
-## 📑 Índice
+## 📑 Índice Rápido
+
+<details open>
+<summary><strong>Click para expandir/contraer índice</strong></summary>
 
 - [🧠 Memory Forensics](#-memory-forensics)
 - [💿 Disk & Filesystem Forensics](#-disk--filesystem-forensics)
 - [🪟 Windows Forensics](#-windows-forensics)
 - [🍎 macOS Forensics](#-macos-forensics)
 - [🐧 Linux Forensics](#-linux-forensics)
-- [📱 Mobile Forensics (iOS & Android)](#-mobile-forensics-ios--android)
-- [🌐 Network & PCAP Analysis](#-network--pcap-analysis)
-- [🌍 Browser & Web Forensics](#-browser--web-forensics)
-- [🦠 Malware Analysis & Sandboxing](#-malware-analysis--sandboxing)
-- [📄 File & Document Analysis](#-file--document-analysis)
-- [🎨 Image & Media Forensics](#-image--media-forensics)
-- [🔊 Audio & Steganography](#-audio--steganography)
+- [📱 Mobile Forensics](#-mobile-forensics-ios--android)
+- [🌐 Network & PCAP](#-network--pcap-analysis)
+- [🌍 Browser & Web](#-browser--web-forensics)
+- [🦠 Malware Analysis](#-malware-analysis--sandboxing)
+- [📄 File & Document](#-file--document-analysis)
+- [🎨 Image & Media](#-image--media-forensics)
+- [🔊 Audio & Stego](#-audio--steganography)
 - [✉️ Email Forensics](#️-email-forensics)
 - [⏱️ Timeline Analysis](#️-timeline-analysis)
-- [🚨 Incident Response & Live Forensics](#-incident-response--live-forensics)
-- [🧰 DFIR Platforms & Frameworks](#-dfir-platforms--frameworks)
-- [☁️ Cloud & Container Forensics](#️-cloud--container-forensics)
-- [🔍 Data Identification & Utilities](#-data-identification--utilities)
-- [📚 Resources & Collections](#-resources--collections)
+- [🚨 Incident Response](#-incident-response--live-forensics)
+- [🧰 DFIR Platforms](#-dfir-platforms--frameworks)
+- [☁️ Cloud & Container](#️-cloud--container-forensics)
+- [🔍 Data Utilities](#-data-identification--utilities)
+- [📚 Resources](#-resources--collections)
+
+</details>
 
 ---
 
 ## 🧠 Memory Forensics
--  Volatility 3.0 - [link](https://github.com/volatilityfoundation/volatility3)
--  Volatility 2.0 - [link](https://github.com/volatilityfoundation/volatility)
--  Volatility profiles for Linux and Mac OS X - [link](https://github.com/volatilityfoundation/profiles)
--  rekall - Memory analysis framework - [link](https://github.com/google/rekall)
--  MemProcFS: is an easy and convenient way of viewing physical memory as files in a virtual file system. - [link](https://github.com/ufrisk/MemProcFS)
--  MemProcFS-Analyzer - [link](https://github.com/evild3ad/MemProcFS-Analyzer)
--  Collect-MemoryDump - [link](https://github.com/evild3ad/Collect-MemoryDump)
--  LeechCore: Physical Memory Acquisition Library & The LeechAgent Remote Memory Acquisition Agent. - [link](https://github.com/ufrisk/LeechCore)
--  PCILeech: Direct Memory Access (DMA) Attack Software. - [link](https://github.com/ufrisk/pcileech)
--  LiME - Linux Memory Extractor - [link](https://github.com/504ensicsLabs/LiME)
--  avml - Memory analysis tool - [link](https://github.com/microsoft/avml)
--  VolUtility - Web interface for Volatility Memory Forensics - [link](https://github.com/kevthehermit/VolUtility)
--  OROCHI: The Volatility Collaborative GUI - [link](https://github.com/LDO-CERT/orochi)
--  AutoVolatility: Run several volatility plugins at the same time. - [link](https://github.com/carlospolop/autoVolatility)
--  usermode memory scanner for windows - [link](https://github.com/forrest-orr/moneta)
--  swap_digger - [link](https://github.com/sevagas/swap_digger)
--  KeeFarce - Extract KeePass 2.x credentials from memory - [link](https://github.com/denandz/KeeFarce)
--  tapir - Windows memory forensics tool - [link](https://github.com/tap-ir/tapir)
--  linux-explorer - Linux memory analysis tool - [link](https://github.com/intezer/linux-explorer)
+
+> **Análisis de memoria volátil (RAM) para extraer artefactos digitales, procesos, credenciales y evidencia forense.**
+
+### ⭐ Herramientas Principales
+
+-  **[Volatility 3.0](https://github.com/volatilityfoundation/volatility3)** - Framework líder para análisis de memoria RAM (Python 3)
+-  **[Volatility 2.0](https://github.com/volatilityfoundation/volatility)** - Versión legacy con plugins específicos
+-  **[MemProcFS](https://github.com/ufrisk/MemProcFS)** - Visualiza memoria física como sistema de archivos virtual
+-  **[OROCHI](https://github.com/LDO-CERT/orochi)** - GUI colaborativa para Volatility
+-  **[rekall](https://github.com/google/rekall)** - Framework avanzado de análisis de memoria
+
+### 🔧 Herramientas Auxiliares
+
+-  [Volatility profiles](https://github.com/volatilityfoundation/profiles) - Perfiles para Linux y Mac OS X
+-  [MemProcFS-Analyzer](https://github.com/evild3ad/MemProcFS-Analyzer) - Analizador automatizado
+-  [Collect-MemoryDump](https://github.com/evild3ad/Collect-MemoryDump) - Recolector de dumps de memoria
+-  [AutoVolatility](https://github.com/carlospolop/autoVolatility) - Ejecuta múltiples plugins de Vol
+
+atility
+-  [VolUtility](https://github.com/kevthehermit/VolUtility) - Interfaz web para Volatility
+
+### 🎯 Adquisición de Memoria
+
+-  **[LiME](https://github.com/504ensicsLabs/LiME)** - Linux Memory Extractor (módulo kernel)
+-  **[avml](https://github.com/microsoft/avml)** - Adquisición de memoria para Linux (Microsoft)
+-  **[LeechCore](https://github.com/ufrisk/LeechCore)** - Librería de adquisición de memoria física
+-  **[PCILeech](https://github.com/ufrisk/pcileech)** - Direct Memory Access (DMA) Attack Software
+
+### 🔍 Análisis Especializado
+
+-  [KeeFarce](https://github.com/denandz/KeeFarce) - Extrae credenciales de KeePass 2.x desde memoria
+-  [moneta](https://github.com/forrest-orr/moneta) - Escáner de memoria usermode para Windows
+-  [swap_digger](https://github.com/sevagas/swap_digger) - Análisis de archivos swap en Linux
+-  [tapir](https://github.com/tap-ir/tapir) - Herramienta de forense de memoria para Windows
+-  [linux-explorer](https://github.com/intezer/linux-explorer) - Análisis de memoria para Linux
+
+---
 
 ## 💿 Disk & Filesystem Forensics
--  Autopsy - [link](https://www.autopsy.com/)
--  sleuthkit: Forensic toolkit to analyze volume and file system data - [link](https://github.com/sleuthkit/sleuthkit)
--  Foremost - [link](https://www.kali.org/tools/foremost/)
--  foremost: Foremost is a forensic tool for recovering files based on their data structures. - [link](https://doc.ubuntu-fr.org/foremost)
--  PhotoRec - File data recovery tool - [link](https://www.cgsecurity.org/wiki/PhotoRec)
--  Disk recovery software - [link](https://www.r-studio.com/)
--  RecuperaBit - filesystem recovery tool - [link](https://github.com/Lazza/RecuperaBit)
--  libewf - library for forensic disk images - [link](https://github.com/libyal/libewf)
--  imagemounter - tool for mounting forensic disk images - [link](https://github.com/ralphje/imagemounter)
--  guymager - Forensic imager - [link](https://sourceforge.net/projects/guymager/)
--  dcfldd - Enhanced version of dd for forensics and security - [link](https://github.com/adulau/dcfldd)
--  dcfldd.sourceforge.net - Enhanced version of dd for forensics and security - [link](https://dcfldd.sourceforge.net/)
--  dcfldd.sourceforge.net - Enhanced version of dd for forensics and security - [link](https://sourceforge.net/projects/dcfldd/)
--  dissect - Disk image format converter - [link](https://github.com/fox-it/dissect)
--  bulk_extractor - Forensic tool that scans a disk image,  file, or a directory of files and extracts information of interest - [link](https://github.com/simsong/bulk_extractor)
+
+> **Análisis y recuperación de sistemas de archivos, particiones y datos borrados.**
+
+### 🔎 Análisis de Disco
+
+-  **[Autopsy](https://www.autopsy.com/)** - Plataforma completa con GUI para análisis forense
+-  **[Sleuth Kit (TSK)](https://github.com/sleuthkit/sleuthkit)** - Toolkit de línea de comandos para análisis de volúmenes
+-  **[FTK Imager](https://www.r-studio.com/)** - Software profesional de recuperación de disco
+
+### 📦 Recuperación de Archivos
+
+-  **[Foremost](https://www.kali.org/tools/foremost/)** - File carving basado en headers y footers
+-  **[PhotoRec](https://www.cgsecurity.org/wiki/PhotoRec)** - Recuperación de archivos eliminados
+-  **[RecuperaBit](https://github.com/Lazza/RecuperaBit)** - Recuperación de sistemas de archivos
+-  **[bulk_extractor](https://github.com/simsong/bulk_extractor)** - Extractor masivo de información
+
+### 💾 Imaging & Montaje
+
+-  [guymager](https://sourceforge.net/projects/guymager/) - Herramienta de imaging forense
+-  [dcfldd](https://github.com/adulau/dcfldd) - Versión mejorada de `dd` para forense
+-  [libewf](https://github.com/libyal/libewf) - Librería para imágenes forenses (E01)
+-  [imagemounter](https://github.com/ralphje/imagemounter) - Montaje automático de imágenes forenses
+-  [dissect](https://github.com/fox-it/dissect) - Conversor de formatos de imágenes de disco
+
+---
 
 ## 🪟 Windows Forensics
--  Eric Zimmerman Forensic Tools - [link](https://ericzimmerman.github.io/#!index.md)
--  chainsaw: Rapidly Search and Hunt through Windows Forensic Artefacts - [link](https://github.com/WithSecureLabs/chainsaw)
--  Event log explorer - [link](https://eventlogxp.com/)
--  evtx2json extracts events of interest from event logs, dedups them, and exports them to json. - [link](https://github.com/Silv3rHorn/evtx2json)
--  Pure Python parser for Windows Event Log files (.evtx) - [link](https://github.com/williballenthin/python-evtx)
--  python-evt - Python library for parsing Windows Event Log files (EVT) - [link](https://github.com/williballenthin/python-evt)
--  hayabusa - Binary analysis framework - [link](https://github.com/Yamato-Security/hayabusa)
--  LogonTracer - Logon and session timeline analysis tool - [link](https://github.com/JPCERTCC/LogonTracer)
--  computer_activity_view.html - Computer activity viewer - [link](https://www.nirsoft.net/utils/computer_activity_view.html)
--  squey.org - A tool for parsing and analyzing windows event logs - [link](https://squey.org/)
--  regrippy - Registry analysis tool - [link](https://github.com/airbus-cert/regrippy)
--  RegRipper3.0 - Registry analysis tool (RegRipper 3.0) - [link](https://github.com/keydet89/RegRipper3.0)
--  fred - Forensic Registry EDitor (FRED) - [link](https://www.pinguin.lu/fred)
--  Hivetools - [link](https://github.com/p0dalirius/hivetools)
--  python-ntfs - Python library for NTFS file system parsing - [link](https://github.com/williballenthin/python-ntfs)
--  dfir_ntfs: An NTFS/FAT parser for digital forensics & incident response. - [link](https://github.com/msuhanov/dfir_ntfs)
--  USN-Journal-Parser - USN (Update Sequence Number) journal parser - [link](https://github.com/PoorBillionaire/USN-Journal-Parser)
--  ntfs-linker - NTFS junction point creation tool - [link](https://strozfriedberg.github.io/ntfs-linker/)
--  mftmactime - MFT (Master File Table) MAC (Modification, Access, Change) timeline generator - [link](https://github.com/kero99/mftmactime)
--  MFTExtractor - MFT (Master File Table) extractor - [link](https://github.com/aarsakian/MFTExtractor)
--  pyshadow - Python library for NTFS shadow copy parsing - [link](https://github.com/alicangnll/pyshadow)
--  WinSearchDBAnalyzer - Windows Search database analysis tool - [link](https://github.com/moaistory/WinSearchDBAnalyzer)
--  PowerForensics: PowerForensics provides an all in one platform for live disk forensic analysis. [link](https://www.powershellgallery.com/packages/PowerForensics/1.1.1) - [link](https://github.com/Invoke-IR/PowerForensics)
--  pofr - PowerForensics PowerShell module - [link](https://github.com/gmagklaras/pofr)
--  PowerShell PE Parser - [link](https://github.com/jsecurity101/PowerParse)
--  ExtractBitlockerKeys: extract the bitlocker recovery keys from a domain. - [link](https://github.com/p0dalirius/ExtractBitlockerKeys)
--  bruteforce-luks: A tool to help recover encrypted LUKS2 containers - [link](https://github.com/glv2/bruteforce-luks)
--  Fastir_Collector - Windows forensic memory collection tool - [link](https://github.com/SekoiaLab/Fastir_Collector)
--  artifactcollector - Collects forensic artifacts on live Windows systems - [link](https://github.com/forensicanalysis/artifactcollector)
--  thor-lite - Host-based intrusion detection system (HIDS) for Windows - [link](https://www.nextron-systems.com/thor-lite/)
--  winfe.net - Windows Forensic Environment (WinFE) - [link](https://www.winfe.net/home)
+
+> **Herramientas especializadas para análisis forense en sistemas Windows.**
+
+### 🛠️ Suites Completas
+
+-  **[Eric Zimmerman Tools (EZTools)](https://ericzimmerman.github.io/#!index.md)** - Suite esencial para Windows forense
+-  **[WinFE](https://www.winfe.net/home)** - Windows Forensic Environment de arranque
+
+### 📊 Event Logs & Registry
+
+-  **[Hayabusa](https://github.com/Yamato-Security/hayabusa)** - Análisis rápido de logs EVTX
+-  **[Chainsaw](https://github.com/WithSecureLabs/chainsaw)** - Búsqueda rápida en artefactos de Windows
+-  **[RegRipper 3.0](https://github.com/keydet89/RegRipper3.0)** - Parser de registro de Windows
+-  **[evtx2json](https://github.com/Silv3rHorn/evtx2json)** - Convierte event logs a JSON
+-  [python-evtx](https://github.com/williballenthin/python-evtx) - Parser Python para archivos EVTX
+-  [python-evt](https://github.com/williballenthin/python-evt) - Parser Python para archivos EVT
+-  [regrippy](https://github.com/airbus-cert/regrippy) - Análisis de registro en Python
+-  [fred](https://www.pinguin.lu/fred) - Forensic Registry EDitor
+-  [LogonTracer](https://github.com/JPCERTCC/LogonTracer) - Análisis de sesiones de logon
+
+### 💽 NTFS & Filesystem
+
+-  **[PowerForensics](https://github.com/Invoke-IR/PowerForensics)** - Análisis forense de disco en PowerShell
+-  [python-ntfs](https://github.com/williballenthin/python-ntfs) - Parser de NTFS en Python
+-  [dfir_ntfs](https://github.com/msuhanov/dfir_ntfs) - Parser NTFS/FAT para DFIR
+-  [USN-Journal-Parser](https://github.com/PoorBillionaire/USN-Journal-Parser) - Parser del USN journal
+-  [mftmactime](https://github.com/kero99/mftmactime) - Generador de timeline desde MFT
+-  [MFTExtractor](https://github.com/aarsakian/MFTExtractor) - Extractor de Master File Table
+-  [pyshadow](https://github.com/alicangnll/pyshadow) - Parser de shadow copies en Python
+-  [Hivetools](https://github.com/p0dalirius/hivetools) - Herramientas para registry hives
+
+### 🔐 Credentials & Encryption
+
+-  [ExtractBitlockerKeys](https://github.com/p0dalirius/ExtractBitlockerKeys) - Extrae claves de BitLocker del dominio
+-  [bruteforce-luks](https://github.com/glv2/bruteforce-luks) - Recuperación de contenedores LUKS2
+-  [pofr](https://github.com/gmagklaras/pofr) - Módulo PowerForensics PowerShell
+
+### 📦 Artifact Collection
+
+-  [Fastir_Collector](https://github.com/SekoiaLab/Fastir_Collector) - Recolector de memoria en Windows
+-  [artifactcollector](https://github.com/forensicanalysis/artifactcollector) - Recolector de artefactos en vivo
+-  [thor-lite](https://www.nextron-systems.com/thor-lite/) - HIDS para Windows
+-  [PowerShell PE Parser](https://github.com/jsecurity101/PowerParse) - Parser de ejecutables en PowerShell
+
+### 🌐 Online Tools
+
+-  [Event log explorer](https://eventlogxp.com/) - Explorador de event logs
+-  [squey.org](https://squey.org/) - Análisis de event logs
+-  [computer_activity_view](https://www.nirsoft.net/utils/computer_activity_view.html) - Visor de actividad
+-  [WinSearchDBAnalyzer](https://github.com/moaistory/WinSearchDBAnalyzer) - Analizador de Windows Search
+
+---
 
 ## 🍎 macOS Forensics
--  mac_apt: macOS Artifact Parsing Tool - [link](https://github.com/ydkhatri/mac_apt/)
--  mac_apt - macOS artifact parsing toolkit (mac_apt) - [link](https://github.com/ydkhatri/mac_apt)
--  MacForensics: Repository of scripts for processing various artifacts from macOS (formerly OSX). - [link](https://github.com/ydkhatri/MacForensics)
--  osxcollector - OS X forensic evidence collection tool - [link](https://github.com/Yelp/osxcollector)
--  OSXAuditor - OS X auditor and forensic analysis tool - [link](https://github.com/jipegit/OSXAuditor)
--  macMRU-Parser - OS X Most Recently Used (MRU) file parser - [link](https://github.com/mac4n6/macMRU-Parser)
--  Mac-Locations-Scraper - OS X locations scraper tool - [link](https://github.com/mac4n6/Mac-Locations-Scraper)
--  apfs-fuse - APFS (Apple File System) FUSE implementation - [link](https://github.com/sgan81/apfs-fuse)
--  Disk-Arbitrator - tool for managing disk arbitration on macOS - [link](https://github.com/aburgh/Disk-Arbitrator)
--  parse the macOS Unified Log files - [link](https://github.com/mandiant/macos-UnifiedLogs)
+
+> **Herramientas para análisis forense en sistemas macOS y análisis de APFS.**
+
+-  **[mac_apt](https://github.com/ydkhatri/mac_apt)** - macOS Artifact Parsing Tool
+-  **[MacForensics](https://github.com/ydkhatri/MacForensics)** - Scripts para artefactos de macOS
+-  **[os
+
+xcollector](https://github.com/Yelp/osxcollector)** - Recolector de evidencia forense
+-  **[macos-UnifiedLogs](https://github.com/mandiant/macos-UnifiedLogs)** - Parser de Unified Logs
+-  [OSXAuditor](https://github.com/jipegit/OSXAuditor) - Auditoría y análisis forense
+-  [macMRU-Parser](https://github.com/mac4n6/macMRU-Parser) - Parser de archivos MRU
+-  [Mac-Locations-Scraper](https://github.com/mac4n6/Mac-Locations-Scraper) - Scraper de ubicaciones
+-  [apfs-fuse](https://github.com/sgan81/apfs-fuse) - Implementación FUSE de APFS
+-  [Disk-Arbitrator](https://github.com/aburgh/Disk-Arbitrator) - Gestión de disk arbitration
+
+---
 
 ## 🐧 Linux Forensics
--  FastIR Collector Linux - [link](https://github.com/SekoiaLab/Fastir_Collector_Linux)
--  unix_collector - Unix system memory and binary analysis tool - [link](https://github.com/op7ic/unix_collector)
--  unix_collector: elf-contained shell script designed for the forensic collection of various artifacts from Unix-based systems - [link](https://github.com/op7ic/unix_collector/tree/main)
--  libelfmaster: Secure ELF parsing/loading library for forensics reconstruction of malware, and robust reverse engineering tools - [link](https://github.com/elfmaster/libelfmaster)
+
+> **Análisis forense para sistemas Linux y Unix.**
+
+-  **[FastIR Collector Linux](https://github.com/SekoiaLab/Fastir_Collector_Linux)** - Recolector de artefactos
+-  **[unix_collector](https://github.com/op7ic/unix_collector)** - Script shell para recolección forense
+-  **[libelfmaster](https://github.com/elfmaster/libelfmaster)** - Librería de parsing ELF para forense
+-  [linux-explorer](https://github.com/intezer/linux-explorer) - Análisis de memoria Linux
+
+---
 
 ## 📱 Mobile Forensics (iOS & Android)
--  Andriller - is software utility with a collection of forensic tools for smartphones - [link](https://github.com/den4uk/andriller)
--  Android Forensic - [link](https://github.com/RealityNet/Android-Forensics-References)
--  PancakeViewer - Android SQLite database viewer - [link](https://github.com/forensicmatt/PancakeViewer)
--  OpenBackupExtractor - iOS backup extractor - [link](https://github.com/vgmoose/OpenBackupExtractor)
--  MEAT - Mobile Evidence Acquisition Toolkit (MEAT) - [link](https://github.com/jfarley248/MEAT)
--  iOS-Frequent-Locations-Dumper - iOS frequent locations dumper - [link](https://github.com/mac4n6/iOS-Frequent-Locations-Dumper)
--  iLEAPP - iOS Logs, Events, and Properties Parser (iLEAPP) - [link](https://github.com/abrignoni/iLEAPP)
--  ALEAPP - Advanced iOS Logical Extraction and Analysis (ALEAPP) - [link](https://github.com/abrignoni/ALEAPP)
--  Returns logs events and protobuf parser - [link](https://github.com/abrignoni/RLEAPP)
--  Signal Forensics - [link](https://github.com/AvillaDaniel/Signal-Forensics)
+
+> **Extracción y análisis de dispositivos móviles iOS y Android.**
+
+### 📲 Android
+
+-  **[Andriller](https://github.com/den4uk/andriller)** - Colección de herramientas forenses para Android
+-  **[Android-Forensics-References](https://github.com/RealityNet/Android-Forensics-References)** - Referencias de forense
+-  [PancakeViewer](https://github.com/forensicmatt/PancakeViewer) - Visor de bases de datos SQLite
+
+### 🍏 iOS
+
+-  **[iLEAPP](https://github.com/abrignoni/iLEAPP)** - iOS Logs, Events, and Properties Parser
+-  **[ALEAPP](https://github.com/abrignoni/ALEAPP)** - Advanced Logical Extraction and Analysis
+-  **[OpenBackupExtractor](https://github.com/vgmoose/OpenBackupExtractor)** - Extractor de backups de iOS
+-  [iOS-Frequent-Locations-Dumper](https://github.com/mac4n6/iOS-Frequent-Locations-Dumper) - Dumper de ubicaciones
+-  [RLEAPP](https://github.com/abrignoni/RLEAPP) - Returns logs events and protobuf parser
+-  [cLeapp](https://github.com/markmckinnon/cLeapp) - Chrome logs parser
+-  [Signal Forensics](https://github.com/AvillaDaniel/Signal-Forensics) - Forense de Signal
+
+### 📱 General Mobile
+
+-  [MEAT](https://github.com/jfarley248/MEAT) - Mobile Evidence Acquisition Toolkit
+
+---
 
 ## 🌐 Network & PCAP Analysis
--  PCAP Analysis - [link](https://apackets.com/)
--  PcapXray - [link](https://github.com/Srinivas11789/PcapXray)
--  online tool to analyse pcap files - [link](https://lab.dynamite.ai/)
--  BruteShark - [link](https://github.com/odedshimon/BruteShark)
--  ?page=Networkminer - A tool for parsing and analyzing windows event logs - [link](https://www.netresec.com/?page=Networkminer)
--  kismet - Wireless network and device detector, sniffer, wardriving tool - [link](https://github.com/kismetwireless/kismet)
--  O-Saft: OWASP SSL advanced forensic tool - [link](https://github.com/OWASP/O-Saft)
--  GreyNoise - [link](https://viz.greynoise.io/)
+
+> **Análisis de tráfico de red y archivos de captura PCAP.**
+
+-  **[BruteShark](https://github.com/odedshimon/BruteShark)** - Analizador de red forense
+-  **[NetworkMiner](https://www.netresec.com/?page=Networkminer)** - Network Forensic Analysis Tool
+-  **[PcapXray](https://github.com/Srinivas11789/PcapXray)** - Visualización de PCAP
+-  [apackets.com](https://apackets.com/) - Análisis online de PCAP
+-  [lab.dynamite.ai](https://lab.dynamite.ai/) - Herramienta online de análisis
+-  [kismet]( https://github.com/kismetwireless/kismet) - Detector de redes wireless
+-  [O-Saft](https://github.com/OWASP/O-Saft) - OWASP SSL advanced forensic tool
+-  [GreyNoise](https://viz.greynoise.io/) - Inteligencia de ruido de internet
+
+---
 
 ## 🌍 Browser & Web Forensics
--  hindsight - forensic analysis tool for browsers - [link](https://github.com/obsidianforensics/hindsight)
--  chrome-url-dumper - Chrome URL dumping tool - [link](https://github.com/eLoopWoo/chrome-url-dumper)
--  chrome_cache_view.html - Chrome cache viewer - [link](https://www.nirsoft.net/utils/chrome_cache_view.html)
--  Chrome logs events and protobufs parser - [link](https://github.com/markmckinnon/cLeapp)
--  ccl_chromium_reader: These libraries provide programmatic access to these data-stores with a digital forensics slant - [link](https://github.com/cclgroupltd/ccl_chromium_reader)
--  IE10Analyzer - Internet Explorer 10 history analysis tool - [link](https://github.com/moaistory/IE10Analyzer)
--  beagle - A tool for searching and analysing the information found on web servers - [link](https://github.com/yampelo/beagle)
+
+> **Análisis forense de navegadores y actividad web.**
+
+-  **[Hindsight](https://github.com/obsidianforensics/hindsight)** - Análisis de Chrome/Chromium
+-  **[ccl_chromium_reader](https://github.com/cclgroupltd/ccl_chromium_reader)** - Lector de datos de Chromium
+-  [chrome-url-dumper](https://github.com/eLoopWoo/chrome-url-dumper) - Dumper de URLs
+-  [chrome_cache_view](https://www.nirsoft.net/utils/chrome_cache_view.html) - Visor de caché
+-  [cLeapp](https://github.com/markmckinnon/cLeapp) - Parser de logs de Chrome
+-  [IE10Analyzer](https://github.com/moaistory/IE10Analyzer) - Analizador de IE10
+-  [beagle](https://github.com/yampelo/beagle) - Análisis de información en servidores web
+
+---
 
 ## 🦠 Malware Analysis & Sandboxing
--  Virustotal - [link](https://www.virustotal.com/gui/home)
--  Hybrid-Analysis - [link](https://www.hybrid-analysis.com/)
--  Any-Run - [link](https://app.any.run/)
--  Loki - Simple IOC and YARA Scanner - [link](https://github.com/Neo23x0/Loki)
--  Your Swiss Army knife to analyze malicious web traffic - [link](https://github.com/malwareinfosec/EKFiddle)
--  Search Evasion Techniques - [link](https://unprotect.it/)
--  ID Ransomware - [link](https://id-ransomware.malwarehunterteam.com/index.php)
--  angr: a platform-agnostic binary analysis framework - [link](https://github.com/angr/angr)
--  inVtero.net - .NET application analysis - [link](https://github.com/ShaneK2/inVtero.net)
--  sherloq - malware classifier - [link](https://github.com/GuidoBartoli/sherloq)
--  laikaboss - File identification tool - [link](https://github.com/lmco/laikaboss)
--  Blauhaunt - Anti-forensic tool detector - [link](https://github.com/cgosec/Blauhaunt)
+
+> **Análisis de malware, sandboxing y detección de IOCs.**
+
+### 🔬 Sandboxes Online
+
+-  **[VirusTotal](https://www.virustotal.com/gui/home)** - Análisis multi-antivirus
+-  **[Hybrid-Analysis](https://www.hybrid-analysis.com/)** - Sandbox gratuito de malware
+-  **[Any.Run](https://app.any.run/)** - Sandbox interactivo en tiempo real
+
+### 🛡️ Scanners & Detection
+
+-  **[Loki](https://github.com/Neo23x0/Loki)** - Scanner simple de IOCs y YARA
+-  **[unprotect.it](https://unprotect.it/)** - Base de datos de técnicas de evasión
+-  **[EKFiddle](https://github.com/malwareinfosec/EKFiddle)** - Análisis de tráfico web malicioso
+-  [ID Ransomware](https://id-ransomware.malwarehunterteam.com/index.php) - Identificador de ransomware
+
+### 🔍 Analysis Tools
+
+-  **[angr](https://github.com/angr/angr)** - Framework de análisis binario
+-  [inVtero.net](https://github.com/ShaneK2/inVtero.net) - Análisis de aplicaciones .NET
+-  [sherloq](https://github.com/GuidoBartoli/sherloq) - Clasificador de malware
+-  [laikaboss](https://github.com/lmco/laikaboss) - Identificación de archivos
+-  [Blauhaunt](https://github.com/cgosec/Blauhaunt) - Detector de herramientas anti-forenses
+
+---
 
 ## 📄 File & Document Analysis
--  exif: Utility to read / write and edit metadata in image / audio and video files - [link](https://exiftool.org/)
--  exifprobe: Exifprobe is a command-line tool to parse EXIF data from image files. - [link](https://github.com/hfiguiere/exifprobe)
--  exiftool: writing and editing meta information in image / audio and video files. - [link](https://github.com/exiftool/exiftool)
--  exiv2: Image metadata library and toolset - [link](https://github.com/Exiv2/exiv2)
--  FOCA - metadata extraction tool for documents - [link](https://github.com/ElevenPaths/FOCA)
--  oletools - python tools to analyze MS OLE2 files - [link](https://github.com/decalage2/oletools)
--  Powerful Python tool to analyze PDF documents - [link](https://github.com/jesparza/peepdf)
--  Extract and Deobfuscate XLM macros - [link](https://github.com/DissectMalware/XLMMacroDeobfuscator)
--  OfficeForensicTools: A set of tools for collecting forensic information. - [link](https://github.com/DissectMalware/OfficeForensicTools)
--  bstrings - Binary strings analysis tool - [link](https://github.com/EricZimmerman/bstrings)
--  binwalk: Binwalk is a tool for analyzing / reverse engineering / and extracting firmware images. - [link](https://github.com/ReFirmLabs/binwalk)
--  collection of scripts and utilities to extract and rebuild linux based firmware images. - [link](https://github.com/rampageX/firmware-mod-kit)
+
+> **Análisis de metadatos, documentos Office y archivos PDF.**
+
+### 📊 Metadata
+
+-  **[ExifTool](https://github.com/exiftool/exiftool)** - Lectura/escritura de metadatos
+-  **[FOCA](https://github.com/ElevenPaths/FOCA)** - Extracción de metadatos de documentos
+-  [exifprobe](https://github.com/hfiguiere/exifprobe) - Parser de EXIF en línea de comandos
+-  [exiv2](https://github.com/Exiv2/exiv2) - Librería de metadatos de imágenes
+
+### 📝 Office & Documents
+
+-  **[oletools](https://github.com/decalage2/oletools)** - Análisis de archivos MS OLE2
+-  **[XLMMacroDeobfuscator](https://github.com/DissectMalware/XLMMacroDeobfuscator)** - Desofuscador de macros XLM
+-  **[OfficeForensicTools](https://github.com/DissectMalware/OfficeForensicTools)** - Herramientas forenses para Office
+-  [peepdf](https://github.com/jesparza/peepdf) - Analizador de PDFs maliciosos
+
+### 🔧 Binary Analysis
+
+-  **[binwalk](https://github.com/ReFirmLabs/binwalk)** - Análisis y extracción de firmware
+-  **[bstrings](https://github.com/EricZimmerman/bstrings)** - Extractor de strings binarios
+-  [firmware-mod-kit](https://github.com/rampageX/firmware-mod-kit) - Extracción de firmware Linux
+
+---
 
 ## 🎨 Image & Media Forensics
--  imago-forensics: Imago is a python tool that extract digital evidences from images. - [link](https://github.com/redaelli/imago-forensics)
--  ghiro - digital image forensics tool - [link](https://github.com/Ghirensics/ghiro)
--  IPED - Internet Picture Evidence Detector (IPED) - [link](https://github.com/sepinf-inc/IPED)
+
+> **Análisis forense de imágenes y medios digitales.**
+
+-  **[IPED](https://github.com/sepinf-inc/IPED)** - Internet Picture Evidence Detector
+-  **[imago-forensics](https://github.com/redaelli/imago-forensics)** - Extractor de evidencia de imágenes
+-  [ghiro](https://github.com/Ghirensics/ghiro) - Herramienta de forense de imágenes
+
+---
 
 ## 🔊 Audio & Steganography
--  stegoVeritas - [link](https://github.com/bannsec/stegoVeritas)
--  Collection of steganography tools - [link](https://github.com/DominicBreuker/stego-toolkit)
--  zsteg - steganographic coder for WAV files - [link](https://github.com/zed-0xff/zsteg)
--  wavsteg - steganography tool for WAV files - [link](https://github.com/samolds/wavsteg)
--  sonicvisualiser - audio analysis software - [link](https://www.sonicvisualiser.org/)
+
+> **Análisis de audio y detección de esteganografía.**
+
+-  **[stegoVeritas](https://github.com/bannsec/stegoVeritas)** - Detector de esteganografía
+-  **[stego-toolkit](https://github.com/DominicBreuker/stego-toolkit)** - Colección de herramientas stego
+-  [zsteg](https://github.com/zed-0xff/zsteg) - Detector para PNG y BMP
+-  [wavsteg](https://github.com/samolds/wavsteg) - Esteganografía en archivos WAV
+-  [sonicvisualiser](https://www.sonicvisualiser.org/) - Software de análisis de audio
+
+---
 
 ## ✉️ Email Forensics
--  application to analyze the EML file - [link](https://github.com/ninoseki/eml_analyzer)
--  online tool for check email Reputation - [link](https://emailrep.io/)
--  ThePhish - [link](https://github.com/emalderson/ThePhish)
--  Sysinfo OST Viewer - [link](https://www.sysinfotools.com/recovery/ost-file-viewer.php)
+
+> **Análisis de correos electrónicos y archivos EML.**
+
+-  **[ThePhish](https://github.com/emalderson/ThePhish)** - Analizador de phishing
+-  **[eml_analyzer](https://github.com/ninoseki/eml_analyzer)** - Analizador de archivos EML
+-  [emailrep.io](https://emailrep.io/) - Verificación de reputación de email
+-  [Sysinfo OST Viewer](https://www.sysinfotools.com/recovery/ost-file-viewer.php) - Visor de OST
+
+---
 
 ## ⏱️ Timeline Analysis
--   timeliner - timeline generation tool for forensic investigations - [link](https://github.com/airbus-cert/timeliner)
--  introducing-timeline - timeline explorer tool - [link](https://binaryforay.blogspot.com/2017/04/introducing-timeline-explorer-v0400.html)
--  plaso - super timeline generation tool - [link](https://github.com/log2timeline/plaso)
--  dftimewolf - [link](https://github.com/log2timeline/dftimewolf)
--  timesketch - [link](https://github.com/google/timesketch)
+
+> **Generación y análisis de líneas de tiempo forenses.**
+
+-  **[Plaso](https://github.com/log2timeline/plaso)** - Motor backend para log2timeline
+-  **[Timesketch](https://github.com/google/timesketch)** - Análisis colaborativo de timelines
+-  **[dftimewolf](https://github.com/log2timeline/dftimewolf)** - Orquestador de workflows DFIR
+-  [timeliner](https://github.com/airbus-cert/timeliner) - Generador de timeline
+-  [Timeline Explorer](https://binaryforay.blogspot.com/2017/04/introducing-timeline-explorer-v0400.html) - Explorador de timelines
+
+---
 
 ## 🚨 Incident Response & Live Forensics
--  Remote Live Forensics - [link](https://github.com/google/grr)
--  Velociraptor - [link](https://github.com/Velocidex/velociraptor)
--  SPECTR3 - DFIR incident response and threat hunting platform - [link](https://github.com/alpine-sec/SPECTR3)
--  Invoke-LiveResponse - [link](https://github.com/mgreen27/Powershell-IR)
--  CHIRP: A forensic collection tool written in Python. - [link](https://github.com/cisagov/CHIRP)
--  FastIR Artifacts: Live forensic artifacts collector. - [link](https://github.com/SekoiaLab/fastir_artifacts)
--  ArtifactExtractor - Forensic artifact extraction tool - [link](https://github.com/Silv3rHorn/ArtifactExtractor)
--  acquire - Evidence acquisition tool - [link](https://github.com/fox-it/acquire)
--  ForensicMiner - Forensic incident response and intelligence gathering - [link](https://github.com/securityjoes/ForensicMiner)
--  osquery - SQL-powered operating system instrumentation, monitoring, and analytics - [link](https://github.com/osquery/osquery)
--  mig - MIG - Mozilla Investigation Game - [link](https://github.com/mozilla/mig)
--  intelmq - Incident and event processing framework - [link](https://github.com/certtools/intelmq)
--  uac - Forensic tool for the analysis of User Account Control (UAC) - [link](https://github.com/tclahr/uac)
+
+> **Respuesta a incidentes y forense en vivo.**
+
+### 🚀 Live Response
+
+-  **[Velociraptor](https://github.com/Velocidex/velociraptor)** - Endpoint monitoring y respuesta
+-  **[GRR Rapid Response](https://github.com/google/grr)** - Framework de respuesta remota
+-  **[osquery](https://github.com/osquery/osquery)** - SQL para instrumentación de OS
+-  [Invoke-LiveResponse](https://github.com/mgreen27/Powershell-IR) - PowerShell
+
+ IR
+
+### 📦 Artifact Collection
+
+-  **[CHIRP](https://github.com/cisagov/CHIRP)** - Recolector forense en Python
+-  **[FastIR Artifacts](https://github.com/SekoiaLab/fastir_artifacts)** - Recolector de artefactos
+-  **[ArtifactExtractor](https://github.com/Silv3rHorn/ArtifactExtractor)** - Extractor de artefactos
+-  **[acquire](https://github.com/fox-it/acquire)** - Herramienta de adquisición de evidencia
+-  [ForensicMiner](https://github.com/securityjoes/ForensicMiner) - Recolector de evidencia
+-  [uac](https://github.com/tclahr/uac) - Análisis de User Account Control
+
+### 🔍 DFIR Platforms
+
+-  **[SPECTR3](https://github.com/alpine-sec/SPECTR3)** - Plataforma de DFIR y threat hunting
+-  [mig](https://github.com/mozilla/mig) - Mozilla Investigation Game
+-  [intelmq](https://github.com/certtools/intelmq) - Framework de eventos de incidentes
+
+---
 
 ## 🧰 DFIR Platforms & Frameworks
--  turbinia: Automation and Scaling of Digital Forensics Tools - [link](https://github.com/google/turbinia)
--  Kuiper: Digital Forensics Investigation Platform - [link](https://github.com/DFIRKuiper/Kuiper)
--  dff - Digital Forensics Framework (DFF) - [link](https://github.com/arxsys/dff)
--  sift - SANS Investigative Forensic Toolkit (SIFT) - [link](https://github.com/teamdfir/sift)
--  iris-web - web interface for digital forensics - [link](https://github.com/dfir-iris/iris-web)
--  dfirtrack - digital forensics and incident response (DFIR) case management tool - [link](https://github.com/dfirtrack/dfirtrack)
--  catalyst - incident response and threat intelligence framework - [link](https://github.com/SecurityBrewery/catalyst)
--  incidents - incident response automation tool - [link](https://github.com/veeral-patel/incidents)
--  DetectionLab - [link](https://github.com/clong/DetectionLab)
--  dexter - Automated digital forensics tool - [link](https://github.com/coinbase/dexter)
--  fit - Flexible and Intelligent Tracker - [link](https://github.com/fit-project/fit)
--  recon - Forensic investigation tool - [link](https://github.com/rusty-ferris-club/recon)
--  bitscout - Remote forensics tool - [link](https://github.com/vitaly-kamluk/bitscout)
+
+> **Plataformas completas y frameworks para DFIR.**
+
+-  **[Turbinia](https://github.com/google/turbinia)** - Automatización y escalado de forense en la nube
+-  **[Kuiper](https://github.com/DFIRKuiper/Kuiper)** - Plataforma de investigación forense
+-  **[SIFT Workstation](https://github.com/teamdfir/sift)** - Toolkit forense completo de SANS
+-  **[DFF](https://github.com/arxsys/dff)** - Digital Forensics Framework
+-  **[iris-web](https://github.com/dfir-iris/iris-web)** - Interfaz web para forense
+-  [dfirtrack](https://github.com/dfirtrack/dfirtrack) - Gestión de casos DFIR
+-  [catalyst](https://github.com/SecurityBrewery/catalyst) - Framework de threat intelligence
+-  [incidents](https://github.com/veeral-patel/incidents) - Automatización de respuesta
+-  [DetectionLab](https://github.com/clong/DetectionLab) - Laboratorio de detección
+-  [dexter](https://github.com/coinbase/dexter) - Forense automatizado
+-  [fit](https://github.com/fit-project/fit) - Flexible and Intelligent Tracker
+-  [recon](https://github.com/rusty-ferris-club/recon) - Investigación forense
+-  [bitscout](https://github.com/vitaly-kamluk/bitscout) - Forense remoto
+
+---
 
 ## ☁️ Cloud & Container Forensics
--  docker-explorer - Docker container analysis tool - [link](https://github.com/google/docker-explorer)
--  toolkit - Docker forensics toolkit - [link](https://github.com/docker-forensics-toolkit/toolkit)
--  Static analysis powered security scanner for your terraform code - [link](https://github.com/liamg/tfsec)
+
+> **Análisis forense de contenedores Docker y infraestructura cloud.**
+
+-  **[docker-explorer](https://github.com/google/docker-explorer)** - Análisis de contenedores Docker
+-  **[docker-forensics-toolkit](https://github.com/docker-forensics-toolkit/toolkit)** - Toolkit de forense Docker
+-  [tfsec](https://github.com/liamg/tfsec) - Scanner de seguridad para Terraform
+
+---
 
 ## 🔍 Data Identification & Utilities
--  pyWhat -  🐸 Identify anything. pyWhat easily lets you identify emails, IP addresses, and more. Feed it a .pcap file or some text and it'll tell you what it is! 🧙‍♀️
-Topics - [link](https://github.com/bee-san/pyWhat)
--  lemmeknow - The fastest way to identify anything! - [link](https://github.com/swanandx/lemmeknow)
--  Zed is a system that makes data easier by utilizing our new super-structured data model. - [link](https://www.brimdata.io/)
--  DCode - [link](https://www.digital-detective.net/dcode/)
--  hashlookup-forensic-analyser - Hashlookup forensic analyser - [link](https://github.com/hashlookup/hashlookup-forensic-analyser)
--  Autoaudit: A log tampering detection tool - [link](https://github.com/a-mess-tech/autoaudit)
--  CIRCLean - USB key sanitizer - [link](https://www.circl.lu/projects/CIRCLean/)
+
+> **Herramientas de identificación de datos y utilidades generales.**
+
+-  **[pyWhat](https://github.com/bee-san/pyWhat)** 🐸 - Identifica emails, IPs, hashes y más
+-  **[lemmeknow](https://github.com/swanandx/lemmeknow)** - Identificación rápida de cualquier cosa
+-  **[Brim (Zed)](https://www.brimdata.io/)** - Sistema de super-estructuración de datos
+-  **[hashlookup-forensic-analyser](https://github.com/hashlookup/hashlookup-forensic-analyser)** - Analizador de hashes
+-  [DCode](https://www.digital-detective.net/dcode/) - Decodificador de timestamps
+-  [Autoaudit](https://github.com/a-mess-tech/autoaudit) - Detector de manipulación de logs
+-  [CIRCLean](https://www.circl.lu/projects/CIRCLean/) - Sanitizador de USB
+
+---
 
 ## 📚 Resources & Collections
--  Awesome Forensics - [link](https://github.com/cugu/awesome-forensics)
--  fireeye.market - Artifact repository - [link](https://fireeye.market/apps/211368)
+
+> **Colecciones de recursos y repositorios de referencia.**
+
+-  **[Awesome Forensics](https://github.com/cugu/awesome-forensics)** - Lista curada de recursos forenses
+-  **[FireEye Market](https://fireeye.market/apps/211368)** - Repositorio de artefactos
+
+---
+
+## 📌 Notas Finales
+
+> 💡 **Recuerda**: Siempre documenta tu cadena de custodia y mantén la integridad de la evidencia.
+
+**Contribuciones**: Si conoces una herramienta que debería estar en esta lista, considera contribuir al repositorio.
+
+**Licencias**: Verifica siempre las licencias de las herramientas antes de usarlas en entornos de producción o legales.
+
+---
+
+<div align="center">
+
+**🔬 Happy Forensics! 🔍**
+
+*Última actualización: 2026*
+
+</div>
