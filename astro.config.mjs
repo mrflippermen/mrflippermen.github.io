@@ -11,13 +11,22 @@ export default defineConfig({
         defaultLocale: "es",
         locales: ["es", "en"],
         routing: {
-            prefixDefaultLocale: false
+            prefixDefaultLocale: true,
+            strategy: 'pathname'
         }
     },
 
     // Sitemap re-enabled with proper configuration
     integrations: [
-        sitemap()
+        sitemap({
+            i18n: {
+                defaultLocale: 'es',
+                locales: {
+                    en: 'en',
+                    es: 'es',
+                },
+            },
+        })
     ],
 
     // Vite optimization for production builds
