@@ -3,7 +3,7 @@ const { currentPath } = Astro.url;
 const currentTime = new Date().toISOString().split('T')[0];
 ---
 
-<header class="command-header">
+<header class="command-header" role="banner">
   <div class="hud-top-bar">
     <div class="hud-item">
       <span class="hud-label">USER_AGENT:</span>
@@ -27,7 +27,7 @@ const currentTime = new Date().toISOString().split('T')[0];
     </div>
   </div>
 
-  <nav class="tactical-nav">
+  <nav class="tactical-nav" role="navigation" aria-label="Main navigation">
     <a href="/" class="brand-unit">
       <span class="bracket">[</span>
       <span class="brand-text">FLIPPERMEN</span>
@@ -35,7 +35,7 @@ const currentTime = new Date().toISOString().split('T')[0];
     </a>
 
     <!-- Hamburger / Mobile Toggle -->
-    <button id="mobile-menu-btn" class="mobile-toggle" aria-label="Toggle Navigation">
+    <button id="mobile-menu-btn" class="mobile-toggle" aria-label="Toggle Navigation" aria-expanded="false">
       <div class="bar top"></div>
       <div class="bar mid"></div>
       <div class="bar bot"></div>
@@ -71,35 +71,44 @@ const currentTime = new Date().toISOString().split('T')[0];
 </header>
 
 <script>
-  // Mobile Menu Logic
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const navLinks = document.getElementById('nav-links');
+  // Ensure scripts only run once per page load
+  document.addEventListener('DOMContentLoaded', function() {
+    // Mobile Menu Logic
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const navLinks = document.getElementById('nav-links');
 
-  menuBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-    menuBtn.classList.toggle('active');
+    if (menuBtn && navLinks) {
+      // Remove any existing listeners before adding new ones
+      const newMenuBtn = menuBtn.cloneNode(true);
+      menuBtn.parentNode.replaceChild(newMenuBtn, menuBtn);
+      
+      newMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        newMenuBtn.classList.toggle('active');
+      });
+    }
+
+    // Dynamic User Agent Display
+    const userAgentEl = document.getElementById('user-agent-info');
+    if (userAgentEl && userAgentEl.textContent === 'ANONYMOUS') {
+      const ua = navigator.userAgent;
+      let displayUA = 'UNKNOWN';
+      
+      if (ua.includes('Windows')) displayUA = 'WIN';
+      else if (ua.includes('Mac')) displayUA = 'OSX';
+      else if (ua.includes('Linux')) displayUA = 'LINUX';
+      else if (ua.includes('Android')) displayUA = 'ANDROID';
+      else if (ua.includes('iPhone') || ua.includes('iPad')) displayUA = 'iOS';
+      
+      // Add browser
+      if (ua.includes('Firefox')) displayUA += '/FF';
+      else if (ua.includes('Chrome') && !ua.includes('Edg')) displayUA += '/CHROME';
+      else if (ua.includes('Safari') && !ua.includes('Chrome')) displayUA += '/SAFARI';
+      else if (ua.includes('Edg')) displayUA += '/EDGE';
+      
+      userAgentEl.textContent = displayUA;
+    }
   });
-
-  // Dynamic User Agent Display
-  const userAgentEl = document.getElementById('user-agent-info');
-  if (userAgentEl) {
-    const ua = navigator.userAgent;
-    let displayUA = 'UNKNOWN';
-    
-    if (ua.includes('Windows')) displayUA = 'WIN';
-    else if (ua.includes('Mac')) displayUA = 'OSX';
-    else if (ua.includes('Linux')) displayUA = 'LINUX';
-    else if (ua.includes('Android')) displayUA = 'ANDROID';
-    else if (ua.includes('iPhone') || ua.includes('iPad')) displayUA = 'iOS';
-    
-    // Add browser
-    if (ua.includes('Firefox')) displayUA += '/FF';
-    else if (ua.includes('Chrome') && !ua.includes('Edg')) displayUA += '/CHROME';
-    else if (ua.includes('Safari') && !ua.includes('Chrome')) displayUA += '/SAFARI';
-    else if (ua.includes('Edg')) displayUA += '/EDGE';
-    
-    userAgentEl.textContent = displayUA;
-  }
 </script>
 
 <style>

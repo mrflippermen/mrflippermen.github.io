@@ -1,6 +1,7 @@
 ---
 import CommandHeader from '../components/CommandHeader.astro';
 import SEOHead from '../components/SEOHead.astro';
+import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.scss';
 
 interface Props {
@@ -25,10 +26,30 @@ const {
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" 
+      content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+      "
+    />
+    
+    <!-- Security Headers -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="X-Content-Type-Options" content="nosniff" />
+    
     <!-- Google Fonts Preconnect for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
+    <link 
+      rel="stylesheet" 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      crossorigin="anonymous"
+    >
     
     <title>{title}</title>
     
@@ -38,6 +59,9 @@ const {
       image={image}
       type={type}
     />
+    
+    <!-- View Transitions for smooth page navigation -->
+    <ViewTransitions />
     
     <script is:inline>
       const theme = (() => {
@@ -60,11 +84,17 @@ const {
     </script>
   </head>
   <body>
+    <!-- Skip Navigation for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <CommandHeader />
-    <main>
+    
+    <!-- Main content with ARIA landmark and ID for skip link -->
+    <main id="main-content" role="main">
       <slot />
     </main>
-    <footer>
+    
+    <footer role="contentinfo">
       <div class="container">
         <p>&copy; {new Date().getFullYear()} Flippermen. Built with Astro.</p>
       </div>
@@ -90,3 +120,24 @@ const {
     </script>
   </body>
 </html>
+
+<style>
+  /* Skip Navigation Link for Accessibility */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--neon-red);
+    color: #000;
+    padding: 8px 16px;
+    z-index: 10000;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 0 0 4px 0;
+    transition: top 0.2s;
+  }
+  
+  .skip-link:focus {
+    top: 0;
+  }
+</style>

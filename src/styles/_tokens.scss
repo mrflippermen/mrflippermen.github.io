@@ -36,11 +36,11 @@ $color-bg-card: rgba(20, 20, 20, 0.8);
 // Text Colors
 // -----------------------------------------------------------------------------
 $color-text-primary: #eee;
-$color-text-secondary: #888;
-$color-text-tertiary: #666;
-$color-text-quaternary: #555;
-$color-text-muted: #444;
-$color-text-light: #aaa;
+$color-text-secondary: #aaa; // Changed from #888 to #aaa for better WCAG contrast (7:1 ratio)
+$color-text-tertiary: #888; // Reduced from #666 for hierarchy
+$color-text-quaternary: #666; // Reduced from #555
+$color-text-muted: #555; // Reduced from #444
+$color-text-light: #bbb; // Improved from #aaa
 $color-text-medium-light: #ccc;
 $color-text-white: #fff;
 $color-text-black: #000;

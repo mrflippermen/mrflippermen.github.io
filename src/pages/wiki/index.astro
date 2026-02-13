@@ -35,11 +35,7 @@ allWiki.sort((a, b) => a.data.title.localeCompare(b.data.title));
 </BaseLayout>
 
 <style>
-  :root {
-    --neon-blue: #00d9ff;
-    --dark-bg: #050505;
-    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-  }
+  /* Vault-specific styles - using global variables from _tokens.scss */
 
   .vault-container {
     max-width: 1200px;
@@ -68,7 +64,7 @@ allWiki.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
   .vault-subtitle {
     font-size: 1.1rem;
-    color: #888;
+    color: var(--color-text-secondary);
     margin: 0.5rem 0 1.5rem 0;
   }
 

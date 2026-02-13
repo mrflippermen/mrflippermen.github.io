@@ -1,0 +1,59 @@
+---
+import AwardCard from '../AwardCard.astro';
+---
+
+<section class="cv-section">
+  <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Formación Elite</h2>
+  
+  <!-- CBTeamer Showcase -->
+  <div class="cert-showcase">
+    <AwardCard
+      title='Certified Blue Teamer (CBTeamer)'
+      subtitle="ID: 10916716 | Ene 2026"
+      image="/images/about/cbteamer.png"
+      link="/certs/cbteamer"
+    >
+      <p>Dominio en DFIR, Threat Hunting y defensa en AD.</p>
+    </AwardCard>
+  </div>
+
+  <!-- Cyberwarfare Labs Section with Logo -->
+  <div class="cwl-section">
+    <div class="cwl-logo-container">
+      <img 
+        src="/images/about/cwl-logo.png" 
+        alt="Cyberwarfare Labs Logo" 
+        class="cwl-logo"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <h2 class="section-title"><i class="fas fa-biohazard"></i> Cyberwarfare Labs</h2>
+  </div>
+  
+  <div class="feature-grid">
+    <AwardCard
+      title='Certified AD Red Team Specialist'
+      subtitle="ID: 697ea4d4fbb... | Feb 2026"
+      image="/images/about/cwl-ad-rts.png"
+      link="/certs/ad-rts"
+    />
+    <AwardCard
+      title='Certified Web Red Team Analyst'
+      subtitle="ID: 6983d6b090d... | Feb 2026"
+      image="/images/about/cwl-web-rta.png"
+      link="/certs/web-rta"
+    />
+  </div>
+
+  <!-- HTB Pro Labs Matrix -->
+  <h3 class="subsection-title">Hack The Box Pro Labs (100% Completados)</h3>
+  <div class="feature-grid">
+    <AwardCard title='Cybernetics' subtitle="APT & Phishing" image="/images/about/Cybernetics.jpg" link="/certs/cybernetics" />
+    <AwardCard title='APTLabs' subtitle="Lateral Movement" image="/images/about/aptlabs.jpg" link="/certs/aptlabs" />
+    <AwardCard title='RastaLabs' subtitle="EDR Evasion" image="/images/about/rastalab.jpg" link="/certs/rastalabs" />
+    <AwardCard title='Offshore' subtitle="AD Trusts" image="/images/about/Offshore.jpg" link="/certs/offshore" />
+    <AwardCard title='Zephyr' subtitle="Pivoting" image="/images/about/Zephyr.jpg" link="/certs/zephyr" />
+    <AwardCard title='Dante' subtitle="Exploit Dev" image="/images/about/dante.jpg" link="/certs/dante" />
+  </div>
+</section>
