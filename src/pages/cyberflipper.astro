@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AwardCard from '../components/AwardCard.astro';
 ---
 
 <BaseLayout title="CyberFlipper Initiative | FlipperMen">
@@ -8,717 +7,569 @@ import AwardCard from '../components/AwardCard.astro';
     
     <!-- HEADER SECTION -->
     <section class="fob-header fade-in-up">
-      <div class="terminal-badge">
-        <span class="pulse">●</span> LIVE OPERATION
+      <div class="classification-banner">
+        <span>// TOP SECRET // NOFORN // 2026</span>
       </div>
-      <div class="hero-image-container">
-        <img src="/images/cyberflipper_hero.png" alt="CyberFlipper Emblem" class="team-emblem" />
+      
+      <div class="header-content">
+        <div class="hero-image-container">
+            <img src="/images/cyberflipper_hero.png" alt="CyberFlipper Emblem" class="team-emblem" />
+        </div>
+        
+        <div class="title-block">
+          <h1 class="stamped-title">CYBERFLIPPERS</h1>
+          <div class="unit-designation">SPECIAL OPERATIONS UNIT - ECUADOR</div>
+        </div>
+
+        <p class="mission-brief">
+          "Operamos en las sombras para servir a la luz. Ofensiva de élite, defensa estratégica."
+        </p>
       </div>
-      <h1 class="glitch" data-text="CYBERFLIPPERS">CYBERFLIPPERS</h1>
-      <p class="mission-brief">
-        "Vivimos para el Rojo, protegemos en Azul. 'Flipeamos' el sistema y capturamos la bandera."
-      </p>
     </section>
 
-    <!-- STATS GRID -->
+    <!-- STATS GRID ("INTEL REPORT") -->
     <section class="achievements-section fade-in-up">
+      <div class="section-label">UNIT_STATISTICS</div>
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="icon">👥</div>
+          <div class="label">OPERATIVES</div>
           <div class="number">10</div>
-          <div class="label">PLAYERS<br>ACTIVE OPERATORS</div>
+          <div class="sub-label">ACTIVE DUTY</div>
         </div>
         <div class="stat-card">
-          <div class="icon">🚩</div>
+          <div class="label">CONFIRMED KILLS</div>
           <div class="number">136</div>
-          <div class="label">FLAGS PWND<br>TOTAL CAPTURES</div>
+          <div class="sub-label">FLAGS CAPTURED</div>
         </div>
         <div class="stat-card">
-          <div class="icon">🔥</div>
+          <div class="label">AFFILIATION</div>
           <div class="number">INDIE</div>
-          <div class="label">INDEPENDENT<br>NACIDOS EN UDLA</div>
+          <div class="sub-label">AUTONOMOUS CELL</div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT / PHILOSOPHY -->
+    <!-- MISSION STATEMENT ("DOSSIER") -->
     <section class="manifesto-section fade-in-up">
-      <div class="terminal-window">
-        <div class="terminal-bar">
-          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-          <span class="title">identity.log</span>
-        </div>
-        <div class="terminal-content">
-          <p>> <span class="cmd">whoami</span></p>
-          <p><strong>CYBERFLIPPERS</strong> — Colectivo ecuatoriano de ethical hackers. Rompemos sistemas, defendemos infraestructuras, capturamos banderas.</p>
-          <br>
-          <p>> <span class="cmd">cat mantra.txt</span></p>
-          <p class="section-header">>> RED TEAM: Romper es un arte</p>
-          <p>Exploits elegantes. Vectores inesperados. Shells que caen.</p>
+      <div class="dossier-file">
+        <div class="dossier-tab">MISSION_PROFILE.TXT</div>
+        <div class="dossier-content">
+          <div class="dossier-header">
+            <span class="stamp">CLASSIFIED</span>
+            <span class="date">EST. 2023</span>
+          </div>
           
-          <p class="section-header">>> BLUE TEAM: Construir fortalezas</p>
-          <p>Logs como poesía. Cazar al cazador. Defender con inteligencia.</p>
-          
-          <p class="section-header">>> ORIGIN: Autodidactas</p>
-          <p>Nacimos en UDLA. Nos forjamos en <strong>foros, CTFs y madrugadas debuggeando</strong>. Sin apoyo institucional, pero con hambre de conocimiento.</p>
-          <br>
-          <p class="highlight-text">"Rompemos. Defendemos. Representamos a Ecuador."</p>
-          <p class="cursor">_</p>
+          <h3 class="dossier-title">IDENTITY // WHOAMI</h3>
+          <p>
+            <strong>CYBERFLIPPERS</strong> es la fuerza de vanguardia en ciberseguridad ofensiva de Ecuador. 
+            Nacidos en las aulas, forjados en el fuego de CTFs internacionales.
+          </p>
+
+          <div class="dossier-grid">
+            <div class="dossier-col">
+              <h4>>> RED TEAM DOCTRINE</h4>
+              <p>La intrusión es un arte. Explotamos vulnerabilidades para erradicarlas. Sigilo, precisión e impacto máximo.</p>
+            </div>
+            <div class="dossier-col">
+              <h4>>> BLUE TEAM DOCTRINE</h4>
+              <p>La defensa es nuestra fortaleza. Monitoreo constante, respuesta a incidentes y fortificación de infraestructura crítica.</p>
+            </div>
+          </div>
+
+          <div class="dossier-quote">
+            "We break to build. We hack to protect. We represent Ecuador."
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ROSTER / PERSONNEL -->
     <section class="roster-section fade-in-up">
-      <h2 class="section-title">>> ACTIVE_ROSTER</h2>
-      <div class="mission-status-bar">
-        <span class="status-icon blink">⚠️</span>
-        <span class="status-text">CURRENT_OBJECTIVE: PREPARING FOR BRAZIL OPERATION</span>
+      <div class="section-header-row">
+        <h2 class="section-title">ACTIVE_ROSTER</h2>
+        <div class="status-indicator">
+          <span class="status-dot"></span> OPERATIONAL
+        </div>
       </div>
       
       <div class="roster-grid">
         <!-- CAPTAIN -->
         <div class="operator-card captain">
-          <div class="op-role">CAPTAIN</div>
+          <div class="card-header">
+            <span class="role">UNIT COMMANDER</span>
+            <span class="rank">O-5</span>
+          </div>
           <div class="op-name">flippermen</div>
           <div class="op-stats">
-            <span>LVL: 4</span> | <span>🏁 59075</span> | <span>💀 136</span>
+            <div><span class="stat-label">SKILL:</span> FULL STACK</div>
+            <div><span class="stat-label">EXP:</span> ELITE</div>
           </div>
         </div>
 
         <!-- MEMBERS -->
-        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">ANGELDUSTx</div></div>
-        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">MarcGMN1403</div></div>
-        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">KomiGath</div></div>
-        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">ch1l1</div></div>
-        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">crrlla</div></div>
-        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">AdrianX</div></div>
-        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">DiegoJr</div></div>
-        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">0s0bit</div></div>
-        <div class="operator-card member"><div class="op-role">OPERATOR</div><div class="op-name">N01syb0y</div></div>
+        {["ANGELDUSTx", "MarcGMN1403", "KomiGath", "ch1l1", "crrlla", "AdrianX", "DiegoJr", "0s0bit", "N01syb0y"].map((op) => (
+          <div class="operator-card">
+            <div class="card-header">
+              <span class="role">OPERATOR</span>
+              <span class="rank">E-4</span>
+            </div>
+            <div class="op-name">{op}</div>
+            <div class="op-stats">
+              <div><span class="stat-label">STATUS:</span> ACTIVE</div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
 
     <!-- INTERNATIONAL REPRESENTATION -->
     <section class="representation-section fade-in-up">
-      <h2 class="section-title">>> REPRESENTING_ECUADOR_GLOBALLY</h2>
-      <div class="representation-banner">
-        <div class="banner-icon">🇪🇨</div>
-        <div class="banner-text">
-          <strong>3 miembros de CyberFlippers</strong> han representado a Ecuador y a la UDLA en competencias internacionales de ciberseguridad.
-          <br><span class="sub-text">Sin apoyo institucional. Solo con talento, dedicación y orgullo nacional.</span>
-        </div>
-      </div>
+      <h2 class="section-title">GLOBAL_DEPLOYMENTS</h2>
       
       <div class="achievements-list">
-        <div class="achievement-item">
+        <div class="achievement-item gold-tier">
           <div class="achievement-header">
-            <span class="achievement-flag">🥇</span>
-            <span class="achievement-name">LACC 2025 - Colombia</span>
+            <span class="flag">🥇</span>
+            <span class="event">LACC 2025 - COLOMBIA</span>
           </div>
-          <div class="achievement-detail">Capitán Equipo Nacional Ecuador | 4to Lugar Regional</div>
-          <div class="achievement-member">Representante: <strong>flippermen</strong></div>
+          <div class="achievement-details">
+            <span class="highlight">4TH PLACE REGIONAL</span> // TEAM ECUADOR CAPTAIN
+          </div>
         </div>
 
-        <div class="achievement-item">
+        <div class="achievement-item blue-tier">
           <div class="achievement-header">
-            <span class="achievement-flag">🛡️</span>
-            <span class="achievement-name">Holmes CTF 2025 - Blue Team</span>
+            <span class="flag">🛡️</span>
+            <span class="event">HOLMES CTF 2025</span>
           </div>
-          <div class="achievement-detail">Mejor Blue Team de Latinoamérica | Rank 66 Global</div>
-          <div class="achievement-member">Participantes CyberFlippers: <strong>3 operadores</strong></div>
+          <div class="achievement-details">
+            <span class="highlight">BEST LATAM BLUE TEAM</span> // GLOBAL RANK 66
+          </div>
         </div>
 
-        <div class="achievement-item">
+        <div class="achievement-item gold-tier">
           <div class="achievement-header">
-            <span class="achievement-flag">🏆</span>
-            <span class="achievement-name">Hack The Box - Top 1 Nacional</span>
+            <span class="flag">🏆</span>
+            <span class="event">HACK THE BOX</span>
           </div>
-          <div class="achievement-detail">Rank #1 Ecuador | Top 50 Global Hall of Fame</div>
-          <div class="achievement-member">Representante: <strong>flippermen</strong></div>
-        </div>
-
-        <div class="achievement-item">
-          <div class="achievement-header">
-            <span class="achievement-flag">🎯</span>
-            <span class="achievement-name">Neurogrid CTF: Human-Only</span>
+          <div class="achievement-details">
+            <span class="highlight">#1 ECUADOR</span> // TOP 50 HALL OF FAME
           </div>
-          <div class="achievement-detail">Competencia Internacional | Rank 497</div>
-          <div class="achievement-member">Equipo CyberFlippers</div>
-        </div>
-
-        <div class="achievement-item">
-          <div class="achievement-header">
-            <span class="achievement-flag">🎃</span>
-            <span class="achievement-name">Hack The Boo 2025</span>
-          </div>
-          <div class="achievement-detail">Competencia Global | Rank 1072</div>
-          <div class="achievement-member">Equipo CyberFlippers</div>
         </div>
       </div>
 
-      <div class="recognition-note">
-        <!-- CONTEXTO -->
-        <p class="note-header">⚡ EL CAMINO</p>
-        <p>Formación autodidacta. Recursos propios. Representación internacional sin respaldo institucional.</p>
-        
-        <!-- COMPROMISO -->
-        <p class="note-header future-vision">🤝 COLABORACIÓN</p>
-        <p>Apoyamos a instituciones educativas con: charlas, capacitaciones (Red/Blue/Purple Team), talleres y mentoría.</p>
-        
-        <!-- VISIÓN CTF -->
-        <div class="ctf-vision">
-          <p class="vision-title">💡 VISIÓN: CTF UNIVERSITARIO NACIONAL</p>
-          <p>Reunir el talento de <strong>11+ universidades ecuatorianas</strong> en una competencia épica.</p>
-          <p class="vision-goal">🎯 Una competencia. Un país. Demostrar talento de clase mundial.</p>
-          <p class="vision-note">Proyecto aspiracional para fortalecer la comunidad nacional.</p>
-        </div>
-        
-        <!-- INVITACIÓN -->
-        <div class="community-invitation">
-          <p class="invitation-header">🌟 ÚNETE</p>
-          <p><strong>¿Te apasiona la ciberseguridad?</strong> Únete a CyberFlippers.</p>
-          <p><strong>Requisitos:</strong> Pasión, dedicación, trabajo en equipo, orgullo ecuatoriano.</p>
-          <p class="invitation-cta"><strong>Juntos, elevamos la ciberseguridad nacional.</strong></p>
-        </div>
-        
-        <p class="pride-statement">🇪🇨 Ecuador. Equipo. Excelencia.</p>
+      <div class="vision-box">
+        <h4>>> STRATEGIC VISION: NATIONAL CTF LEAGUE</h4>
+        <p>
+          Mobilizing talent from 11+ universities. Unifying the national cybersecurity front.
+        </p>
       </div>
     </section>
 
-
-    <style>
-      /* Additional Styles for New Content */
-      .terminal-list { list-style: none; padding-left: 1rem; margin: 1rem 0; }
-      .terminal-list li { margin-bottom: 0.5rem; }
-      .section-header { color: var(--neon-cyan); font-weight: bold; margin-top: 1.5rem; border-bottom: 1px dashed #444; display: inline-block; }
-      .highlight-text { color: #fff; font-size: 1.1rem; text-align: center; margin-top: 2rem; border: 1px solid var(--neon-red); padding: 1rem; }
-      
-      .warning-text { 
-        color: #ffbd2e; 
-        font-weight: bold; 
-        margin-top: 1.5rem; 
-        border-bottom: 1px dashed #ffbd2e; 
-        display: inline-block;
-        text-shadow: 0 0 5px rgba(255, 189, 46, 0.3);
-      }
-      
-      .motto-text { 
-        color: #fff; 
-        font-size: 1.15rem; 
-        text-align: center; 
-        margin-top: 1.5rem; 
-        padding: 1.25rem; 
-        background: linear-gradient(135deg, rgba(255, 51, 51, 0.1), rgba(77, 166, 255, 0.1));
-        border-left: 4px solid var(--neon-green);
-        font-style: italic;
-        line-height: 1.6;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      }
-      
-      
-      .events-list { display: flex; flex-direction: column; gap: 1rem; max-width: 800px; margin: 0 auto; }
-      .event-row { 
-        display: flex; justify-content: space-between; align-items: center; 
-        padding: 1rem; background: rgba(255,255,255,0.05); border-left: 3px solid #444;
-        font-family: 'Courier New', monospace;
-      }
-      .event-row:hover { border-left-color: var(--neon-blue); background: rgba(255,255,255,0.08); }
-      .event-name { font-weight: bold; color: #eee; }
-      .event-rank { color: #aaa; }
-      .event-rank.rank-high { color: var(--neon-green); text-shadow: 0 0 5px rgba(39, 201, 63, 0.5); }
-
-      /* INTERNATIONAL REPRESENTATION STYLES */
-      .representation-section { margin-bottom: 6rem; }
-      
-      .representation-banner {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-        background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 51, 51, 0.05));
-        border: 2px solid gold;
-        padding: 2rem;
-        border-radius: 8px;
-        margin-bottom: 3rem;
-        box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
-      }
-      
-      .banner-icon { font-size: 4rem; }
-      .banner-text { flex: 1; font-size: 1.1rem; line-height: 1.8; color: #fff; }
-      .banner-text .sub-text { color: #ffbd2e; font-style: italic; margin-top: 0.5rem; display: inline-block; }
-      
-      .achievements-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 3rem;
-      }
-      
-      .achievement-item {
-        background: rgba(10, 10, 10, 0.6);
-        border: 1px solid #333;
-        border-left: 4px solid var(--neon-green);
-        padding: 1.5rem;
-        border-radius: 6px;
-        transition: all 0.3s;
-      }
-      
-      .achievement-item:hover {
-        transform: translateY(-3px);
-        border-left-color: gold;
-        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.15);
-      }
-      
-      .achievement-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
-      }
-      
-      .achievement-flag { font-size: 2rem; }
-      .achievement-name { font-weight: bold; font-size: 1.1rem; color: #fff; }
-      .achievement-detail { color: var(--neon-cyan); margin-bottom: 0.75rem; font-size: 0.95rem; }
-      .achievement-member { color: #888; font-size: 0.85rem; font-family: 'Courier New', monospace; }
-      .achievement-member strong { color: var(--neon-green); }
-      
-      .recognition-note {
-        background: rgba(255, 189, 46, 0.05);
-        border: 1px dashed #ffbd2e;
-        padding: 2rem;
-        border-radius: 8px;
-        font-family: 'Courier New', monospace;
-        line-height: 1.8;
-      }
-      
-      .recognition-note p { margin-bottom: 1rem; color: #ddd; }
-      
-      .note-header {
-        color: var(--neon-cyan);
-        font-weight: bold;
-        font-size: 1.1rem;
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-        border-bottom: 2px solid var(--neon-cyan);
-        padding-bottom: 0.5rem;
-        display: block;
-      }
-      
-      .note-header.future-vision {
-        color: var(--neon-green);
-        border-bottom-color: var(--neon-green);
-      }
-      
-      .ctf-vision {
-        background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(77, 166, 255, 0.05));
-        border: 2px solid var(--neon-green);
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
-      }
-      
-      .vision-title {
-        color: var(--neon-green);
-        font-weight: bold;
-        font-size: 1.15rem;
-        text-align: center;
-        margin-bottom: 1rem;
-        text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
-      }
-      
-      .universities-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 0.5rem;
-        margin: 1.5rem 0;
-        padding: 1rem;
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 6px;
-      }
-      
-      .universities-grid span {
-        color: #aaa;
-        font-size: 0.9rem;
-        padding: 0.25rem;
-      }
-      
-      .vision-goal {
-        color: #fff;
-        font-weight: bold;
-        text-align: center;
-        margin-top: 1rem;
-        font-style: italic;
-        font-size: 1.05rem;
-      }
-      
-      .vision-note {
-        color: #888;
-        font-size: 0.9rem;
-        text-align: center;
-        margin-top: 1rem;
-        font-style: italic;
-        border-top: 1px dashed #444;
-        padding-top: 1rem;
-      }
-      
-      .universities-header {
-        color: var(--neon-cyan);
-        font-weight: bold;
-        margin-top: 1rem;
-        margin-bottom: 0.5rem;
-      }
-      
-      /* COLLABORATION AND INVITATION STYLES */
-      .collaboration-list,
-      .requirements-list {
-        list-style: none;
-        padding-left: 1rem;
-        margin: 1rem 0;
-      }
-      
-      .collaboration-list li,
-      .requirements-list li {
-        margin-bottom: 0.5rem;
-        color: #ddd;
-      }
-      
-      .community-invitation {
-        background: linear-gradient(135deg, rgba(189, 0, 255, 0.1), rgba(0, 243, 255, 0.05));
-        border: 2px solid var(--neon-purple);
-        border-radius: 8px;
-        padding: 2rem;
-        margin: 2rem 0;
-        box-shadow: 0 0 25px rgba(189, 0, 255, 0.2);
-      }
-      
-      .invitation-header {
-        color: var(--neon-purple);
-        font-weight: bold;
-        font-size: 1.3rem;
-        text-align: center;
-        margin-bottom: 1rem;
-        text-shadow: 0 0 10px rgba(189, 0, 255, 0.4);
-        text-transform: uppercase;
-        letter-spacing: 2px;
-      }
-      
-      .invitation-cta {
-        margin-top: 1.5rem;
-        padding: 1rem;
-        background: rgba(255, 255, 255, 0.03);
-        border-left: 4px solid var(--neon-purple);
-        color: #fff;
-        font-weight: 500;
-        line-height: 1.8;
-      }
-      
-      .recognition-note .pride-statement {
-        margin-top: 1.5rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid #444;
-        color: #fff;
-        font-weight: bold;
-        font-size: 1.05rem;
-        text-align: center;
-      }
-
-
-      /* ROSTER STYLES */
-      .mission-status-bar {
-        background: rgba(255, 189, 46, 0.1);
-        border: 1px solid #ffbd2e;
-        color: #ffbd2e;
-        padding: 0.5rem 1rem;
-        margin-bottom: 2rem;
-        font-family: 'Courier New', monospace;
-        font-weight: bold;
-        display: inline-block;
-        border-radius: 4px;
-      }
-      .blink { animation: blink 1s infinite; }
-
-      .roster-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 1.5rem;
-      }
-
-      .operator-card {
-        background: rgba(10, 10, 10, 0.6);
-        border: 1px solid #333;
-        padding: 1.5rem;
-        border-radius: 6px;
-        position: relative;
-        overflow: hidden;
-        transition: all 0.3s;
-      }
-
-      .operator-card:hover {
-        border-color: var(--neon-cyan);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(0, 243, 255, 0.1);
-      }
-
-      .operator-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; width: 4px; height: 100%;
-        background: #333;
-        transition: 0.3s;
-      }
-
-      .operator-card:hover::before { background: var(--neon-cyan); }
-
-      .operator-card.captain { border-color: var(--neon-purple); background: rgba(189, 0, 255, 0.05); }
-      .operator-card.captain::before { background: var(--neon-purple); }
-
-      .op-role { font-size: 0.7rem; color: #666; letter-spacing: 2px; margin-bottom: 0.5rem; font-family: 'Courier New', monospace; }
-      .captain .op-role { color: var(--neon-purple); font-weight: bold; }
-      
-      .op-name { font-size: 1.2rem; font-weight: bold; color: #fff; }
-      .op-stats { font-size: 0.8rem; color: #888; margin-top: 0.5rem; font-family: monospace; }
-    </style>
-
-    <!-- RECRUITMENT CALL TO ACTION -->
+    <!-- RECRUITMENT -->
     <section class="recruitment-section fade-in-up">
-      <h2 class="section-title">>> JOIN_THE_CELL</h2>
-      <p class="recruit-text">
-        No buscamos expertos. Buscamos <strong>obsesión</strong>.
-        Si tienes la curiosidad para desarmar el mundo y la ética para volver a armarlo mejor, tu lugar está con nosotros.
-      </p>
-      
-      <div class="action-buttons">
-        <a href="https://forms.typeform.com/to/example" target="_blank" class="cta-btn primary">
-          <span class="icon">⚡</span> INICIAR POSTULACIÓN
-        </a>
-        <a href="/contact" class="cta-btn secondary">
-          <span class="icon">📡</span> CONTACTAR LÍDER
-        </a>
+      <div class="recruit-frame">
+        <h2 class="recruit-title">ENLISTMENT_PROTOCOL</h2>
+        <p class="recruit-text">
+          We do not seek certificates. We seek <strong>obsession</strong>.
+          If you have the discipline to master the machine, report for duty.
+        </p>
+        
+        <div class="action-buttons">
+          <a href="https://forms.typeform.com/to/example" target="_blank" class="cta-btn primary">
+            INITIATE APPLICATION
+          </a>
+          <a href="/contact" class="cta-btn secondary">
+            CONTACT COMMAND
+          </a>
+        </div>
       </div>
-      
-      <p class="disclaimer">
-        * El proceso de selección es riguroso. Prepárate.
-      </p>
     </section>
 
   </div>
 </BaseLayout>
 
 <style>
-  /* VARIABLES LOCALES */
-  :root {
-    --neon-purple: #bd00ff;
-    --neon-cyan: #00f3ff;
-  }
-
+  /* --- LOCAL VARIABLES (Scoped to this page) --- */
   .fob-container {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 4rem 1rem;
-    font-family: 'Inter', sans-serif;
     color: var(--color-text);
   }
 
-  /* HEADER */
+  /* --- HEADER --- */
   .fob-header {
     text-align: center;
     margin-bottom: 5rem;
+    position: relative;
   }
 
-  .terminal-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(255, 0, 0, 0.1);
-    border: 1px solid var(--neon-red);
-    color: var(--neon-red);
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
+  .classification-banner {
+    display: inline-block;
+    background: #000;
+    color: var(--crimson);
+    border: 1px solid var(--crimson);
+    padding: 0.2rem 1rem;
+    font-family: var(--font-mono);
     font-size: 0.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
     font-weight: bold;
-    margin-bottom: 1.5rem;
-    letter-spacing: 1px;
   }
 
-  .pulse { animation: pulse 1.5s infinite; }
-  @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+  .team-emblem {
+    width: 180px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5)) grayscale(0.2);
+    margin-bottom: 1.5rem;
+  }
 
-  h1.glitch {
+  .stamped-title {
     font-size: 4rem;
     font-weight: 900;
     margin: 0;
-    color: #fff;
+    color: var(--color-text);
     letter-spacing: -2px;
-    text-shadow: 2px 2px 0px var(--neon-purple), -2px -2px 0px var(--neon-blue);
+    line-height: 1;
+    text-transform: uppercase;
   }
 
-  .subtitle {
-    font-size: 1.25rem;
-    font-family: 'Courier New', monospace;
-    color: #888;
-    margin-top: 1rem;
-  }
-
-  .highlight { color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); }
-
-  .hero-image-container {
-    margin: 2rem 0;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .team-emblem {
-    max-width: 300px;
-    width: 100%;
-    height: auto;
-    filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.3));
-    animation: float 6s ease-in-out infinite;
-  }
-  
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
+  .unit-designation {
+    color: var(--gold);
+    font-family: var(--font-mono);
+    letter-spacing: 3px;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    font-weight: bold;
   }
 
   .mission-brief {
     max-width: 700px;
     margin: 2rem auto 0;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #ccc;
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+    font-style: italic;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
   }
 
-  /* ACHIEVEMENTS */
-  .achievements-section { margin-bottom: 6rem; }
-  
-  .section-title {
-    font-family: 'Courier New', monospace;
-    color: var(--neon-green);
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #333;
-    padding-bottom: 0.5rem;
+  /* --- STATS GRID --- */
+  .section-label {
+    font-family: var(--font-mono);
+    color: var(--slate);
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    display: inline-block;
+    padding-bottom: 0.2rem;
   }
 
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 5rem;
   }
 
   .stat-card {
-    background: rgba(10, 10, 10, 0.5);
-    border: 1px solid #333;
-    padding: 2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
     text-align: center;
-    border-radius: 8px;
-    transition: transform 0.3s, border-color 0.3s;
+    border-radius: var(--border-radius-sm);
   }
 
-  .stat-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--neon-blue);
+  .stat-card .label {
+    font-size: 0.8rem;
+    color: var(--slate);
+    font-family: var(--font-mono);
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
   }
 
-  .stat-card .icon { font-size: 2.5rem; margin-bottom: 1rem; }
-  .stat-card .number { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 0.5rem; }
-  .stat-card .label { font-size: 0.9rem; color: #888; font-family: 'Courier New', monospace; letter-spacing: 1px; }
+  .stat-card .number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--color-text);
+  }
 
-  /* MANIFESTO TERMINAL */
-  .manifesto-section { margin-bottom: 6rem; }
+  .stat-card .sub-label {
+    font-size: 0.7rem;
+    color: var(--gold);
+    font-weight: bold;
+    margin-top: 0.5rem;
+  }
 
-  .terminal-window {
-    background: #050505;
-    border: 1px solid #444;
-    border-radius: 8px;
-    overflow: hidden;
+  /* --- MANIFESTO DOSSIER --- */
+  .manifesto-section { margin-bottom: 5rem; }
+
+  .dossier-file {
+    background: #fdfbf7; /* Paper color */
+    color: #111; /* Ink color */
+    padding: 3rem;
+    border: 1px solid #ccc;
+    position: relative;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: rotate(-1deg);
+  }
+  
+  /* Use a pseudo-element for the "paper clip" or folder tab if desired, keeping it simple for now */
+  .dossier-tab {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    background: #fdfbf7;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 0.8rem;
   }
 
-  .terminal-bar {
-    background: #222;
-    padding: 0.5rem 1rem;
+  .dossier-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #000;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .stamp {
+    border: 2px solid var(--crimson);
+    color: var(--crimson);
+    padding: 0.2rem 1rem;
+    font-weight: 900;
+    transform: rotate(-5deg);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+  }
+
+  .dossier-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .dossier-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .dossier-col h4 {
+    border-bottom: 1px solid #999;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .dossier-quote {
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+    padding: 2rem;
+    background: rgba(0,0,0,0.05);
+    border-left: 4px solid var(--gold);
+  }
+
+  /* --- ROSTER --- */
+  .roster-section { margin-bottom: 5rem; }
+
+  .section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .status-indicator {
+    font-family: var(--font-mono);
+    color: var(--neon-green); /* Keep green for "Operational" status */
+    font-size: 0.8rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .dot { width: 12px; height: 12px; border-radius: 50%; }
-  .dot.red { background: #ff5f56; }
-  .dot.yellow { background: #ffbd2e; }
-  .dot.green { background: #27c93f; }
-  .title { margin-left: auto; margin-right: auto; font-family: monospace; color: #888; font-size: 0.8rem; }
-
-  .terminal-content {
-    padding: 2rem;
-    font-family: 'Courier New', monospace;
-    color: #ddd;
-    line-height: 1.6;
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--neon-green);
+    border-radius: 50%;
+    animation: blink 2s infinite;
   }
 
-  .cmd { color: var(--neon-green); }
-  .cursor { animation: blink 1s infinite; color: var(--neon-green); font-weight: bold; }
+  .roster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
 
-  /* RECRUITMENT */
-  .recruitment-section { text-align: center; padding: 4rem 2rem; background: linear-gradient(180deg, transparent, rgba(0, 243, 255, 0.05)); border-radius: 16px; border: 1px solid #222; }
+  .operator-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: 1rem;
+    transition: all 0.3s;
+  }
+
+  .operator-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+
+  .operator-card.captain {
+    border-color: var(--gold);
+    background: rgba(255, 215, 0, 0.05);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--slate);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
+  }
+
+  .op-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .op-stats {
+    font-size: 0.7rem;
+    color: var(--slate);
+    font-family: var(--font-mono);
+  }
+
+  .stat-label { color: var(--color-text-tertiary); }
+
+  /* --- REPRESENTATION --- */
+  .representation-section { margin-bottom: 5rem; }
+
+  .achievements-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .achievement-item {
+    background: var(--color-surface);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .achievement-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: bold;
+    color: var(--color-text);
+  }
+
+  .achievement-details {
+    font-family: var(--font-mono);
+    color: var(--slate);
+    font-size: 0.9rem;
+  }
+
+  .gold-tier { border-left: 3px solid var(--gold); }
+  .blue-tier { border-left: 3px solid var(--color-blue-steel); }
+
+  .vision-box {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border: 1px dashed var(--slate);
+    text-align: center;
+  }
+
+  .vision-box h4 {
+    color: var(--gold);
+    margin: 0 0 0.5rem 0;
+    font-family: var(--font-mono);
+  }
+
+  /* --- RECRUITMENT --- */
+  .recruitment-section {
+    text-align: center;
+  }
+
+  .recruit-frame {
+    border: 4px solid var(--color-surface);
+    padding: 3rem;
+    background: var(--navy);
+  }
+
+  .recruit-title {
+    font-size: 2rem;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
 
   .recruit-text {
-    font-size: 1.25rem;
     max-width: 600px;
-    margin: 0 auto 3rem;
+    margin: 0 auto 2rem;
+    color: var(--slate);
   }
 
   .action-buttons {
     display: flex;
     justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
     padding: 1rem 2rem;
-    border-radius: 4px;
     font-weight: bold;
     text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    border-radius: var(--border-radius-sm);
     transition: all 0.3s;
-    text-transform: uppercase;
-    letter-spacing: 1px;
   }
 
   .cta-btn.primary {
-    background: var(--neon-blue);
+    background: var(--gold);
     color: #000;
-    box-shadow: 0 0 20px rgba(0, 86, 179, 0.4);
   }
-
+  
   .cta-btn.primary:hover {
-    transform: scale(1.05);
     background: #fff;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
   }
 
   .cta-btn.secondary {
-    border: 1px solid #555;
-    color: #fff;
+    border: 1px solid var(--slate);
+    color: var(--color-text);
   }
 
   .cta-btn.secondary:hover {
-    border-color: #fff;
-    background: rgba(255,255,255,0.1);
+    border-color: var(--color-text);
   }
 
-  .disclaimer { margin-top: 2rem; color: #555; font-size: 0.8rem; font-style: italic; }
+  /* --- MOBILE --- */
+  @media (max-width: 768px) {
+    .stats-grid, .dossier-grid { grid-template-columns: 1fr; }
+    .stamped-title { font-size: 2.5rem; }
+  }
 
-  /* LIGHT MODE OVERRIDES */
-  :global(body.light-mode) .stat-card { background: #fff; border-color: #ccc; }
-  :global(body.light-mode) .stat-card .number { color: #000; }
-  :global(body.light-mode) .terminal-window { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-  :global(body.light-mode) h1.glitch { color: #000; text-shadow: 2px 2px 0px rgba(189, 0, 255, 0.2); }
-  :global(body.light-mode) .mission-brief { color: #444; }
-
+  @keyframes blink { 50% { opacity: 0; } }
 </style>

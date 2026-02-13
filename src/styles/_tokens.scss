@@ -1,56 +1,58 @@
 // =============================================================================
-// DESIGN TOKENS - SINGLE SOURCE OF TRUTH
+// DESIGN TOKENS - ENTERPRISE EDITION
 // =============================================================================
-// Todas las variables de diseño centralizadas aquí.
-// NO duplicar estas definiciones en otros archivos.
+// Single Source of Truth for "Senior Executive" Aesthetic.
+// Palette: Slate / Gold / Navy / Crimson.
 
 // -----------------------------------------------------------------------------
-// Colors - Neon Theme
+// Colors - Enterprise Theory
 // -----------------------------------------------------------------------------
-$color-neon-green: #00ff41;
-$color-neon-blue: #4da6ff;
-$color-neon-red: #ff3333;
-$color-neon-yellow: #fcee0a;
+$color-gold: #FFD700; // Leadership / Excellence / Primary Accent
+$color-crimson: #DC2626; // Red Team / Alerts / Aggressive Ops (Matte, not Neon)
+$color-navy-dark: #0B1120; // Deep Background
+$color-navy-light: #1E293B; // Surfaces / Cards
+$color-slate: #94A3B8; // Secondary Text / UI Elements
+$color-blue-steel: #3B82F6; // Blue Team / Defensive (Muted)
 
-// Terminal-specific colors (macOS dots)
-$color-terminal-dot-red: #ff5f56;
-$color-terminal-dot-yellow: #ffbd2e;
-$color-terminal-dot-green: #27c93f;
+// Old Neon Variables (Mapped to New Palette for Compatibility)
+$color-neon-green: $color-gold; // Re-mapped to Gold for "Success/Terminal"
+$color-neon-blue: $color-blue-steel; // Re-mapped to Steel Blue
+$color-neon-red: $color-crimson; // Re-mapped to Crimson
+$color-neon-yellow: $color-gold;
+
+// Terminal Dots (Kept mostly standard but muted)
+$color-terminal-dot-red: #EF4444;
+$color-terminal-dot-yellow: #F59E0B;
+$color-terminal-dot-green: #10B981;
 
 // Badge/Difficulty colors
-$color-badge-easy: #27c93f;
-$color-badge-medium: #ffbd2e;
-$color-badge-hard: #ff3333;
-$color-badge-insane: #ff006e;
+$color-badge-easy: #10B981;
+$color-badge-medium: #F59E0B;
+$color-badge-hard: #DC2626;
+$color-badge-insane: #7F1D1D;
 
 // -----------------------------------------------------------------------------
 // Backgrounds
 // -----------------------------------------------------------------------------
-$color-bg-dark: #0a0a0a;
-$color-bg-darker: #050505;
-$color-bg-surface: #1a1a1a;
-$color-bg-panel: #111;
-$color-bg-card: rgba(20, 20, 20, 0.8);
+$color-bg-dark: $color-navy-dark;
+$color-bg-surface: $color-navy-light;
+$color-bg-panel: #0F172A;
+$color-bg-card: rgba(30, 41, 59, 0.7); // Glassy Navy
 
 // -----------------------------------------------------------------------------
 // Text Colors
 // -----------------------------------------------------------------------------
-$color-text-primary: #eee;
-$color-text-secondary: #aaa; // Changed from #888 to #aaa for better WCAG contrast (7:1 ratio)
-$color-text-tertiary: #888; // Reduced from #666 for hierarchy
-$color-text-quaternary: #666; // Reduced from #555
-$color-text-muted: #555; // Reduced from #444
-$color-text-light: #bbb; // Improved from #aaa
-$color-text-medium-light: #ccc;
-$color-text-white: #fff;
-$color-text-black: #000;
+$color-text-primary: #F8FAFC; // OFF-WHITE
+$color-text-secondary: $color-slate; // SLATE
+$color-text-tertiary: #64748B;
+$color-text-muted: #475569;
 
 // -----------------------------------------------------------------------------
 // Borders
 // -----------------------------------------------------------------------------
-$color-border-default: #333;
-$color-border-light: #444;
-$color-border-glass: rgba(255, 255, 255, 0.1);
+$color-border-default: #334155;
+$color-border-light: #475569;
+$color-border-glass: rgba(148, 163, 184, 0.1);
 
 // -----------------------------------------------------------------------------
 // Typography
@@ -59,131 +61,66 @@ $font-mono: 'Courier New', monospace;
 $font-sans: 'Inter', sans-serif;
 
 // -----------------------------------------------------------------------------
-// Spacing
+// Spacing & Radius
 // -----------------------------------------------------------------------------
-$spacing-unit: 1rem;
-$spacing-xs: 0.25rem;
-$spacing-sm: 0.5rem;
-$spacing-md: 1rem;
-$spacing-lg: 2rem;
-$spacing-xl: 4rem;
-
-// -----------------------------------------------------------------------------
-// Border Radius
-// -----------------------------------------------------------------------------
-$border-radius-sm: 4px;
-$border-radius-md: 8px;
-$border-radius-lg: 12px;
-$border-radius-circle: 50%;
-
-// -----------------------------------------------------------------------------
-// Z-Index Scale
-// -----------------------------------------------------------------------------
-$z-header: 1000;
-$z-modal: 2000;
-$z-tooltip: 3000;
+$border-radius-sm: 2px; // Sharper, more military
+$border-radius-md: 4px;
+$border-radius-lg: 8px;
 
 // -----------------------------------------------------------------------------
 // Export as CSS Custom Properties
 // -----------------------------------------------------------------------------
 :root {
-    // Colors
-    --neon-green: #{$color-neon-green};
-    --neon-blue: #{$color-neon-blue};
-    --neon-red: #{$color-neon-red};
-    --neon-yellow: #{$color-neon-yellow};
+    // Core Colors
+    --gold: #{$color-gold};
+    --crimson: #{$color-crimson};
+    --navy: #{$color-navy-dark};
+    --slate: #{$color-slate};
 
-    // Terminal
-    --terminal-dot-red: #{$color-terminal-dot-red};
-    --terminal-dot-yellow: #{$color-terminal-dot-yellow};
-    --terminal-dot-green: #{$color-terminal-dot-green};
+    // Compatibility Wrappers (So existing code doesn't break immediately)
+    --neon-green: var(--gold);
+    --neon-blue: #{$color-blue-steel};
+    --neon-red: var(--crimson);
+    --neon-yellow: var(--gold);
+    --neon-purple: #9333EA; // Keep a muted purple for "Unit"/CyberFlippers
 
     // Backgrounds
-    --dark-bg: #{$color-bg-dark};
-    --color-bg: #{$color-bg-panel};
+    --color-bg: #{$color-bg-dark};
     --color-surface: #{$color-bg-surface};
-    --panel-bg: #{$color-bg-panel};
     --card-bg: #{$color-bg-card};
+    --panel-bg: #{$color-bg-panel};
 
     // Text
     --color-text: #{$color-text-primary};
     --color-text-secondary: #{$color-text-secondary};
     --color-text-tertiary: #{$color-text-tertiary};
-    --color-text-quaternary: #{$color-text-quaternary};
-    --color-text-muted: #{$color-text-muted};
-    --color-text-light: #{$color-text-light};
-    --color-text-white: #{$color-text-white};
-    --color-text-black: #{$color-text-black};
-    --color-primary: #{$color-neon-red};
-    /* Changed from Green to Red for Red Team domination */
-    --color-secondary: #{$color-neon-blue};
-    /* Changed to Blue for Blue Team balance */
-    --color-accent: #{$color-neon-green};
-    /* Keeping Green as a third accent now */
+
+    // Semantic Roles
+    --color-primary: var(--gold); // Leadership
+    --color-secondary: var(--slate); // Support
+    --color-accent: var(--crimson); // Action/Alert
 
     // Borders
-    --color-border: #{$color-border-default};
     --border-color: #{$color-border-default};
     --glass-border: 1px solid #{$color-border-glass};
 
-    // Hud específicos
-    --hud-bg: #{$color-bg-dark};
-    --hud-border: 1px solid #{$color-border-default};
+    // HUD
+    --hud-bg: rgba(15, 23, 42, 0.95);
+    --hud-border: 1px solid var(--border-color);
 }
 
-// Light Mode Override
-// Light Mode Override - "Day Mode"
+// Light Mode Override - "Paper Dossier" Mode
 body.light-mode {
-    --color-bg: #ffffff;
-    --color-bg-panel: #f0f0f0;
-    --color-surface: #f8f8f8;
-    --card-bg: #ffffff;
+    --color-bg: #F8FAFC; // Paper White
+    --color-surface: #E2E8F0; // Light Grey
+    --card-bg: #FFFFFF;
 
-    --color-text: #1a1a1a;
-    --color-text-primary: #000000;
-    --color-text-secondary: #333333;
-    --color-text-tertiary: #555555;
-    --color-text-muted: #666666;
-    --color-text-white: #000000;
-    /* FORCE BLACK TEXT on elements that are usually white */
-    --color-text-light: #444444;
+    --color-text: #0F172A; // Ink Black
+    --color-text-secondary: #475569;
 
-    /* High Contrast Accents */
-    --color-primary: #cc0000;
-    /* Dark Red */
-    --color-secondary: #0056b3;
-    /* Dark Blue */
-    --color-accent: #2e7d32;
-    /* Dark Green */
+    --color-primary: #B45309; // Dark Gold/Bronze
+    --color-accent: #991B1B; // Dark Red
 
-    --color-border: #cccccc;
-    --glass-border: 1px solid rgba(0, 0, 0, 0.2);
-
-    --hud-bg: #e0e0e0;
-    --hud-border: 1px solid #999;
-
-    /* Ensure specific text elements are visible */
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        color: #000 !important;
-    }
-
-    p,
-    span,
-    li,
-    a {
-        color: #222;
-    }
-
-    .nav-link {
-        color: #333 !important;
-    }
-
-    .hero-excerpt {
-        color: #444 !important;
-    }
+    --border-color: #CBD5E1;
+    --glass-border: 1px solid #94A3B8;
 }
