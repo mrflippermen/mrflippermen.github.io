@@ -18,15 +18,7 @@ export default defineConfig({
 
     // Sitemap re-enabled with proper configuration
     integrations: [
-        sitemap({
-            i18n: {
-                defaultLocale: 'es',
-                locales: {
-                    en: 'en',
-                    es: 'es',
-                },
-            },
-        })
+        sitemap()
     ],
 
     // Vite optimization for production builds
