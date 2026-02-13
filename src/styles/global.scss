@@ -19,10 +19,33 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-code,
-pre,
-.mono {
+html {
+    scroll-padding-top: 120px;
+    /* Parche 2: Evita que el header tape los títulos */
+}
+
+/* Parche 3: Listas Hacker */
+ul {
+    list-style: none;
+    /* Quitamos los puntos aburridos */
+    padding-left: 1rem;
+}
+
+ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+ul li::before {
+    content: ">>";
+    position: absolute;
+    left: 0;
+    color: var(--red-team);
+    /* Color ofensivo */
     font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 0.9em;
 }
 
 a {
