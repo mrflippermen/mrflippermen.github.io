@@ -6,7 +6,7 @@ const currentTime = new Date().toISOString().split('T')[0];
 <header class="command-header" role="banner">
   <div class="hud-top-bar">
     <div class="hud-item">
-      <span class="hud-label">ID:</span>
+      <span class="hud-label">USER_AGENT:</span>
       <span class="hud-value" id="user-agent-info">ANONYMOUS</span>
     </div>
     <div class="hud-item only-desktop">
@@ -14,19 +14,24 @@ const currentTime = new Date().toISOString().split('T')[0];
       <span class="hud-value">{currentTime}</span>
     </div>
     <div class="hud-item">
-      <span class="hud-label">AUTH:</span>
-      <span class="hud-value secure">VERIFIED</span>
+      <span class="hud-label">ACCESS:</span>
+      <span class="hud-value secure">GRANTED</span>
     </div>
     <div class="hud-item only-desktop">
       <span class="hud-label">DEFCON:</span>
-      <span class="hud-value warning">4</span>
+      <span class="hud-value warning">3</span>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">SESS:</span>
+      <span class="hud-value blink">0xFACEB00C</span>
     </div>
   </div>
 
   <nav class="tactical-nav" role="navigation" aria-label="Main navigation">
     <a href="/" class="brand-unit">
+      <span class="bracket">[</span>
       <span class="brand-text">FLIPPERMEN</span>
-      <span class="unit-code">// COMMAND</span>
+      <span class="bracket">]</span>
     </a>
 
     <!-- Hamburger / Mobile Toggle -->
@@ -38,22 +43,22 @@ const currentTime = new Date().toISOString().split('T')[0];
 
     <div class="nav-links-container" id="nav-links">
       <a href="/about" class={currentPath === '/about' ? 'active' : ''}>
-        IDENTITY
+        <span class="nav-icon">👤</span> IDENTITY
       </a>
       <a href="/writeups" class={currentPath === '/writeups' ? 'active' : ''}>
-        OPS_LOG
+        <span class="nav-icon">📝</span> OPS_LOG
       </a>
       <a href="/certs" class={currentPath === '/certs' ? 'active' : ''}>
-        ARSENAL
+        <span class="nav-icon">🏅</span> CREDENTIALS
       </a>
       <a href="/wiki" class={currentPath === '/wiki' ? 'active' : ''}>
-        INTELLIGENCE
+        <span class="nav-icon">📚</span> WIKI
       </a>
       <a href="/contact" class={currentPath === '/contact' ? 'active' : ''}>
-        COMMS
+        <span class="nav-icon">📡</span> COMMS
       </a>
       <a href="/cyberflipper" class={currentPath === '/cyberflipper' ? 'active special-link' : 'special-link'}>
-        CYBERFLIPPER
+        <span class="nav-icon">🏴‍☠️</span> CYBERFLIPPER
       </a>
       
       <div class="separator"></div>
@@ -103,17 +108,18 @@ const currentTime = new Date().toISOString().split('T')[0];
 </script>
 
 <style>
-  /* Command Header - Professional Edition */
+  /* Command Header - Verified Layout */
 
   /* HEADER CONTAINER */
   .command-header {
     background: var(--navy);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid;
+    border-image: linear-gradient(90deg, var(--crimson), var(--blue-steel)) 1;
     position: sticky;
     top: 0;
     z-index: 1000;
     font-family: var(--font-mono);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.1);
   }
 
   /* TOP HUD BAR */
@@ -126,6 +132,7 @@ const currentTime = new Date().toISOString().split('T')[0];
     font-size: 0.7rem;
     border-bottom: 1px solid rgba(255,255,255,0.05);
     gap: 1.5rem;
+    letter-spacing: 0.5px;
   }
 
   .hud-item {
@@ -137,6 +144,7 @@ const currentTime = new Date().toISOString().split('T')[0];
   .hud-label { 
     color: var(--slate); 
     font-weight: 600;
+    font-size: 0.65rem;
   }
   
   .hud-value { 
@@ -147,10 +155,22 @@ const currentTime = new Date().toISOString().split('T')[0];
   
   .hud-value.secure { 
     color: var(--gold); 
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
   }
   
   .hud-value.warning { 
     color: var(--crimson); 
+  }
+  
+  .hud-value.blink { 
+    animation: blink 2s infinite; 
+    color: var(--crimson);
+    font-weight: 800;
+  }
+
+  @keyframes blink { 
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; } 
   }
 
   /* MAIN NAV */
@@ -166,30 +186,31 @@ const currentTime = new Date().toISOString().split('T')[0];
   /* BRAND */
   .brand-unit {
     text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 2px;
     display: flex;
-    flex-direction: column;
-    line-height: 1;
-  }
-
-  .brand-text { 
-    color: #fff; 
-    font-weight: 900; 
-    font-size: 1.4rem; 
-    letter-spacing: 1px;
+    align-items: center;
+    gap: 0.5rem;
     font-family: var(--font-sans);
   }
 
-  .unit-code {
-    font-size: 0.7rem;
-    color: var(--slate);
-    letter-spacing: 2px;
-    margin-left: 2px;
+  .bracket { 
+    color: var(--gold); 
+    transition: all 0.3s; 
+    font-weight: normal;
   }
+  .brand-unit:hover .bracket { 
+    text-shadow: 0 0 10px var(--gold); 
+    color: #fff;
+  }
+  .brand-text { color: #fff; }
 
   /* NAV LINKS */
   .nav-links-container {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: center;
   }
 
@@ -202,11 +223,18 @@ const currentTime = new Date().toISOString().split('T')[0];
     padding: 0.5rem 0;
     transition: all 0.2s;
     letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
+
+  .nav-icon { opacity: 0.7; transition: 0.3s; font-size: 1rem; }
+  .nav-links-container a:hover .nav-icon { opacity: 1; transform: scale(1.1); }
 
   .nav-links-container a:hover,
   .nav-links-container a.active {
     color: #fff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
   }
 
   .nav-links-container a::after {
@@ -216,8 +244,8 @@ const currentTime = new Date().toISOString().split('T')[0];
     left: 0;
     width: 0%;
     height: 2px;
-    background: var(--gold);
-    transition: width 0.2s;
+    background: linear-gradient(90deg, var(--gold), var(--crimson));
+    transition: width 0.3s;
   }
 
   .nav-links-container a:hover::after,
@@ -244,11 +272,13 @@ const currentTime = new Date().toISOString().split('T')[0];
     border-radius: 4px;
     transition: all 0.2s;
     opacity: 0.7;
+    color: var(--gold);
   }
 
   .theme-switch:hover {
     border-color: var(--gold);
     opacity: 1;
+    transform: rotate(15deg);
   }
 
   /* MOBILE TOGGLE */
@@ -264,12 +294,12 @@ const currentTime = new Date().toISOString().split('T')[0];
   .bar {
     width: 24px;
     height: 2px;
-    background: #fff;
+    background: var(--gold);
     transition: 0.3s;
   }
 
   /* RESPONSIVE */
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     .only-desktop { display: none; }
     
     .mobile-toggle { display: flex; }
@@ -279,7 +309,7 @@ const currentTime = new Date().toISOString().split('T')[0];
       top: 100%;
       left: 0;
       width: 100%;
-      background: var(--navy);
+      background: rgba(11, 17, 32, 0.98);
       border-bottom: 2px solid var(--gold);
       flex-direction: column;
       padding: 2rem;
@@ -287,6 +317,7 @@ const currentTime = new Date().toISOString().split('T')[0];
       transform: translateY(-150%);
       transition: transform 0.3s ease-in-out;
       z-index: 999;
+      backdrop-filter: blur(10px);
     }
 
     .nav-links-container.open {

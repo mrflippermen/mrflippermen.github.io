@@ -12,46 +12,32 @@ allWiki.sort((a, b) => a.data.title.localeCompare(b.data.title));
   <div class="vault-container">
     
     <div class="vault-header">
-      <div class="classification-strip">
-        // SECRET // NOFORN // ORCON
-      </div>
-      
-      <h1 class="vault-title">INTELLIGENCE VAULT</h1>
+      <h1 class="vault-title"><i class="fas fa-book-dead"></i> INTELLIGENCE VAULT</h1>
       <p class="vault-subtitle">
         Central Repository for Field Tactics, Tradecraft & Exploitation.
       </p>
       
       <div class="vault-meta">
-        <div class="meta-item">
-            <span class="label">RECORDS:</span>
-            <span class="value">{allWiki.length}</span>
-        </div>
-        <div class="meta-item">
-            <span class="label">CLEARANCE:</span>
-            <span class="value">LEVEL 5</span>
-        </div>
-        <div class="meta-item">
-            <span class="label">STATUS:</span>
-            <span class="value active">ONLINE</span>
-        </div>
+        <span class="meta-item">RECORDS: {allWiki.length}</span>
+        <span class="meta-item">CLEARANCE: LEVEL 5</span>
+        <span class="meta-item active">STATUS: ONLINE</span>
       </div>
     </div>
     
     <div class="vault-grid">
       {allWiki.map((entry) => (
-        <a href={`/wiki/${entry.slug}`} class="vault-file">
-            <div class="file-tab">
-                <span class="file-type">DOC</span>
+        <AwardCard
+            title={entry.data.title}
+            subtitle={entry.data.description || 'Classified Document'}
+            link={`/wiki/${entry.slug}`}
+            image={entry.data.image} 
+        >
+            <div class="tags-container">
+                <span class="cert-tag">DOC</span>
+                {entry.data.category && <span class="cert-tag">{entry.data.category}</span>}
+                <span class="cert-id">ID: {entry.slug.substring(0,6).toUpperCase()}</span>
             </div>
-            <div class="file-body">
-                <h3 class="file-title">{entry.data.title}</h3>
-                <p class="file-desc">{entry.data.description}</p>
-                <div class="file-footer">
-                    <span class="file-id">ID: {entry.slug.toUpperCase().substring(0, 6)}</span>
-                    <span class="file-icon">📂</span>
-                </div>
-            </div>
-        </a>
+        </AwardCard>
       ))}
     </div>
 
@@ -74,132 +60,68 @@ allWiki.sort((a, b) => a.data.title.localeCompare(b.data.title));
     padding-bottom: 2rem;
   }
 
-  .classification-strip {
-    background: var(--navy);
-    color: var(--color-text-tertiary);
-    display: inline-block;
-    padding: 0.2rem 1rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    border: 1px solid var(--border-color);
-    margin-bottom: 1.5rem;
-  }
-
   .vault-title {
-    font-size: 3rem;
-    color: var(--color-text);
+    font-size: 2.5rem;
+    color: #fff;
     margin: 0;
     font-weight: 900;
     letter-spacing: -1px;
   }
   
+  .vault-title i { color: var(--gold); margin-right: 0.5rem; }
+
   .vault-subtitle {
     font-size: 1.1rem;
     color: var(--color-text-secondary);
-    margin: 0.5rem 0 2rem 0;
+    margin: 0.5rem 0 1.5rem 0;
     font-family: var(--font-mono);
   }
 
   .vault-meta {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
     font-family: var(--font-mono);
     font-size: 0.9rem;
-    border-top: 1px solid var(--border-color);
-    padding-top: 1.5rem;
+    color: var(--gold);
     display: inline-flex;
+    justify-content: center;
+    gap: 2rem;
+    background: rgba(255, 215, 0, 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
   }
 
-  .meta-item {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .label { color: var(--color-text-tertiary); }
-  .value { color: var(--gold); font-weight: bold; }
-  .active { color: var(--color-badge-easy); }
+  .meta-item.active { color: var(--color-badge-easy); }
 
   /* GRID */
   .vault-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
   }
 
-  /* FILE FOLDER CARD */
-  .vault-file {
-    text-decoration: none;
-    display: block;
-    transition: transform 0.2s;
-  }
-
-  .vault-file:hover {
-    transform: translateY(-4px);
-  }
-
-  .file-tab {
-    background: var(--card-bg); /* darker tab */
-    width: 40%;
-    padding: 0.2rem 1rem;
-    border: 1px solid var(--border-color);
-    border-bottom: none;
-    border-radius: 4px 4px 0 0;
-    font-size: 0.7rem;
-    color: var(--slate);
-    font-family: var(--font-mono);
-  }
-
-  .file-body {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-top: 2px solid var(--gold); /* Highlight bar */
-    padding: 1.5rem;
-    border-radius: 0 4px 4px 4px;
-    min-height: 160px;
+  /* TAGS inside AwardCard slot */
+  .tags-container {
+    margin-top: 1rem;
     display: flex;
-    flex-direction: column;
-    transition: all 0.2s;
-  }
-
-  .vault-file:hover .file-body {
-    border-color: var(--slate);
-    background: rgba(30, 41, 59, 0.9);
-  }
-
-  .file-title {
-    margin: 0 0 0.5rem 0;
-    color: var(--color-text);
-    font-size: 1.1rem;
-    font-weight: 700;
-  }
-
-  .file-desc {
-    color: var(--color-text-secondary);
-    font-size: 0.9rem;
-    flex-grow: 1;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-  }
-
-  .file-footer {
-    display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     align-items: center;
-    margin-top: auto;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255,255,255,0.05);
   }
 
-  .file-id {
-    font-family: var(--font-mono);
+  .cert-tag {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
     font-size: 0.75rem;
-    color: var(--color-text-tertiary);
+    color: var(--slate);
+    border: 1px solid var(--border-color);
   }
-
-  .file-icon {
-    font-size: 1.2rem;
-    opacity: 0.5;
+  
+  .cert-id {
+    font-size: 0.7rem;
+    color: var(--color-text-tertiary);
+    margin-left: auto;
+    font-family: var(--font-mono);
   }
 </style>
