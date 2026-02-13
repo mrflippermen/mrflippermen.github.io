@@ -3,10 +3,8 @@ title: "Certified Active Directory Red Team Specialist (AD-RTS)"
 date: 2026-02-01
 level: "Intermediate"
 platform: "Cyberwarfare Labs"
-category: "Certification"
-duration: "30-Day Campaign"
+description: "30-Day intensive campaign simulating enterprise AD network exploitation, ESXi attacks, and advanced persistence techniques"
 image: "/images/about/cwl-ad-rts.png"
-tags: ["Red Teaming", "Active Directory", "ESXi", "Kerberos", "Lateral Movement"]
 ---
 
 ## 🔒 Confidential Assessment Profile

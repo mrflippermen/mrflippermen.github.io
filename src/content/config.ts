@@ -24,6 +24,9 @@ const certs = defineCollection({
         platform: z.string().optional(),
         image: z.string().optional(),
         certId: z.string().optional(),
+        category: z.string().optional(),
+        duration: z.string().optional(),
+        tags: z.array(z.string()).default([]),
     }).strict(),
 });
 
