@@ -5,6 +5,7 @@ const writeups = defineCollection({
     schema: z.object({
         title: z.string(),
         date: z.coerce.date(), // Coerce string to Date for consistency
+        description: z.string().optional(),
         excerpt: z.string().default(''),
         tags: z.array(z.string()).default([]),
         platform: z.enum(['HTB', 'VulnHub', 'TryHackMe', 'CTF', 'Other']).optional(),
@@ -18,6 +19,7 @@ const certs = defineCollection({
     schema: z.object({
         title: z.string(),
         date: z.coerce.date(),
+        description: z.string().optional(),
         level: z.string().optional(),
         platform: z.string().optional(),
         image: z.string().optional(),

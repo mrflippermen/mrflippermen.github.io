@@ -1,23 +1,11 @@
 ﻿---
 title: "Mission: Jeeves"
-excerpt: "Jeeves presenta una instancia de Jenkins sin autenticación. Abusamos de la consola de scripts para RCE, extraemos una base de datos KeePass y ejecutamos Pass-The-Hash. El flag final se oculta en un Alternate Data Stream (ADS)."
 date: 2020-12-13
-author: "Esteban Jimenez"
+excerpt: "Jeeves presenta una instancia de Jenkins sin autenticación. Abusamos de la consola de scripts para RCE, extraemos una base de datos KeePass y ejecutamos Pass-The-Hash. El flag final se oculta en un Alternate Data Stream (ADS)."
+tags: ["HTB", "Jenkins", "Pass-The-Hash", "KeePass", "ADS", "Windows"]
+platform: "HTB"
 difficulty: "Medium"
-platform: "Hack The Box"
-status: "PWNED"
-header:
-  teaser: /images/htb-jeeves/jeeves.png
-  teaser_home_page: true
-categories:
-  - HackTheBox
-  - Windows
-tags:
-  - Jenkins
-  - Pass-The-Hash
-  - KeePass
-  - ADS
-  - Windows
+image: "/images/htb-jeeves/jeeves.png"
 ---
 
 ## 🎯 Mission Briefing
