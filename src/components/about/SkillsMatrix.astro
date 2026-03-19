@@ -4,10 +4,11 @@
 
 <section class="cv-section">
   <h2 class="section-title"><i class="fas fa-th-large"></i> Matriz de Competencias</h2>
-  
+
   <div class="skills-grid">
-    <div class="skill-group red-team">
-      <h3><i class="fas fa-dragon"></i> Operaciones Ofensivas</h3>
+
+    <div class="skill-group red-team-group">
+      <h3 class="group-title red"><i class="fas fa-skull-crossbones"></i> Operaciones Ofensivas</h3>
       <div class="skill-tags">
         <span>Active Directory Mastery</span>
         <span>Kerberoasting & Delegation</span>
@@ -15,26 +16,81 @@
         <span>EDR/XDR Evasion</span>
         <span>Process Injection</span>
         <span>APT Tactics</span>
+        <span>LSASS Dumping</span>
+        <span>Pass-the-Hash</span>
       </div>
     </div>
 
-    <div class="skill-group rnd">
-      <h3><i class="fas fa-microchip"></i> I+D & Hardware</h3>
+    <div class="skill-group rnd-group">
+      <h3 class="group-title purple"><i class="fas fa-microchip"></i> I+D & Hardware</h3>
       <div class="skill-tags">
         <span>Flipper Zero Ops</span>
         <span>SDR & Wireless</span>
-        <span>Exploit Dev (Py/Ps1)</span>
+        <span>Exploit Dev (Py/PS1)</span>
         <span>Custom C2</span>
+        <span>Shellcode Crafting</span>
+        <span>RF / BadUSB</span>
       </div>
     </div>
 
-    <div class="skill-group ics">
-      <h3><i class="fas fa-industry"></i> OT/ICS Security</h3>
+    <div class="skill-group ics-group">
+      <h3 class="group-title blue"><i class="fas fa-shield-alt"></i> Blue Team & OT/ICS</h3>
       <div class="skill-tags">
+        <span>Threat Hunting</span>
+        <span>DFIR</span>
         <span>PLC Auditing</span>
         <span>SCADA Protection</span>
-        <span>Siemens/Schneider</span>
+        <span>Siemens / Schneider</span>
+        <span>Log Analysis (EVTX)</span>
       </div>
     </div>
+
   </div>
 </section>
+
+<style>
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .skill-group {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-top: 3px solid var(--border-color);
+    padding: 1.5rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .skill-group:hover { box-shadow: var(--shadow-md); }
+
+  .red-team-group  { border-top-color: var(--red-team); }
+  .red-team-group:hover  { box-shadow: var(--shadow-glow-red); }
+
+  .rnd-group { border-top-color: var(--purple-team); }
+  .rnd-group:hover { box-shadow: var(--shadow-glow-purple); }
+
+  .ics-group { border-top-color: var(--blue-team); }
+  .ics-group:hover { box-shadow: var(--shadow-glow-blue); }
+
+  .group-title {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 1.2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .group-title.red    { color: var(--red-team); }
+  .group-title.purple { color: var(--purple-team); }
+  .group-title.blue   { color: var(--blue-team); }
+
+  @media (max-width: 900px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>

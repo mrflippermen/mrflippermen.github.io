@@ -62,9 +62,12 @@ $border-radius-lg: 0px; // Sharp technical edges
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 
-    // Tech Glows (Subtler for Light Mode)
-    --shadow-glow-red: 0 0 10px rgba(217, 4, 41, 0.2);
-    --shadow-glow-blue: 0 0 10px rgba(0, 240, 255, 0.2);
+    // Tech Glows — intensos para estética hacker
+    --shadow-glow-red: 0 0 12px rgba(217, 4, 41, 0.7), 0 0 24px rgba(217, 4, 41, 0.3);
+    --shadow-glow-blue: 0 0 12px rgba(0, 240, 255, 0.7), 0 0 24px rgba(0, 240, 255, 0.3);
+    --shadow-glow-purple: 0 0 12px rgba(114, 9, 183, 0.7), 0 0 24px rgba(114, 9, 183, 0.3);
+    --shadow-glow-green: 0 0 12px rgba(16, 185, 129, 0.7), 0 0 24px rgba(16, 185, 129, 0.3);
+    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.6);
 
     // Fonts
     --font-mono: #{$font-mono};

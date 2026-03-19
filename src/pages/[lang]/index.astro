@@ -105,8 +105,19 @@ const t = useTranslations(lang);
     <footer class="dashboard-footer">
       <div class="footer-ticker">
         <span>{t('footer.encrypted')}</span>
-        <span>> NODE: US-EAST-1</span>
-        <span>> LATENCY: 2ms</span>
+        <span>/// NODE: US-EAST-1</span>
+        <span>/// LATENCY: 2ms</span>
+        <span>/// TLS 1.3 ACTIVE</span>
+        <span>/// HTB #1 ECUADOR</span>
+        <span>/// RED TEAM OPERATOR</span>
+        <span>/// DEFCON 3</span>
+        <span>{t('footer.encrypted')}</span>
+        <span>/// NODE: US-EAST-1</span>
+        <span>/// LATENCY: 2ms</span>
+        <span>/// TLS 1.3 ACTIVE</span>
+        <span>/// HTB #1 ECUADOR</span>
+        <span>/// RED TEAM OPERATOR</span>
+        <span>/// DEFCON 3</span>
       </div>
     </footer>
 
@@ -232,9 +243,9 @@ const t = useTranslations(lang);
   }
 
   .grid-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
     box-shadow: var(--shadow-md);
-    background: #fff;
+    background: var(--bg-panel);
   }
 
   .card-icon {
@@ -283,21 +294,40 @@ const t = useTranslations(lang);
     border: 1px solid var(--border-color);
   }
 
-  /* Specific Card Accents on Hover */
-  .identity-card:hover { border-top-color: var(--blue-team); }
-  .identity-card:hover .card-icon { color: var(--blue-team); }
-  
-  .ops-card:hover { border-top-color: var(--text-primary); }
-  .ops-card:hover .card-icon { color: var(--text-primary); }
-  
-  .arsenal-card:hover { border-top-color: var(--red-team); }
-  .arsenal-card:hover .card-icon { color: var(--red-team); }
-  
-  .intel-card:hover { border-top-color: var(--purple-team); }
-  .intel-card:hover .card-icon { color: var(--purple-team); }
-  
-  .unit-card:hover { border-top-color: var(--success-color, #10B981); }
-  .unit-card:hover .card-icon { color: var(--success-color, #10B981); }
+  /* Specific Card Accents on Hover — faction glows */
+  .identity-card:hover {
+    border-top-color: var(--blue-team);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6), var(--shadow-glow-blue);
+  }
+  .identity-card:hover .card-icon { color: var(--blue-team); text-shadow: 0 0 10px var(--blue-team); }
+  .identity-card:hover .access-level { color: var(--blue-team); border-color: var(--blue-team); }
+
+  .ops-card:hover {
+    border-top-color: var(--text-primary);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 16px rgba(255,255,255,0.1);
+  }
+  .ops-card:hover .card-icon { color: var(--text-primary); text-shadow: 0 0 10px rgba(255,255,255,0.6); }
+
+  .arsenal-card:hover {
+    border-top-color: var(--red-team);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6), var(--shadow-glow-red);
+  }
+  .arsenal-card:hover .card-icon { color: var(--red-team); text-shadow: 0 0 10px var(--red-team); }
+  .arsenal-card:hover .access-level { color: var(--red-team); border-color: var(--red-team); }
+
+  .intel-card:hover {
+    border-top-color: var(--purple-team);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6), var(--shadow-glow-purple);
+  }
+  .intel-card:hover .card-icon { color: var(--purple-team); text-shadow: 0 0 10px var(--purple-team); }
+  .intel-card:hover .access-level { color: var(--purple-team); border-color: var(--purple-team); }
+
+  .unit-card:hover {
+    border-top-color: #10B981;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6), var(--shadow-glow-green);
+  }
+  .unit-card:hover .card-icon { color: #10B981; text-shadow: 0 0 10px #10B981; }
+  .unit-card:hover .access-level { color: #10B981; border-color: #10B981; }
 
   /* FOOTER */
   .dashboard-footer {
@@ -307,11 +337,19 @@ const t = useTranslations(lang);
     font-family: var(--font-mono);
     color: var(--text-muted);
     font-size: 0.8rem;
+    overflow: hidden;
   }
 
   .footer-ticker {
     display: flex;
-    gap: 2rem;
+    gap: 4rem;
+    white-space: nowrap;
+    animation: ticker-scroll 18s linear infinite;
+  }
+
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   /* MEDIA QUERIES */

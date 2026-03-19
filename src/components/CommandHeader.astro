@@ -215,12 +215,14 @@ const currentTime = new Date().toISOString().split('T')[0];
     gap: 0.5rem;
   }
 
-  .bracket { 
-    color: var(--blue-team); 
-    transition: all 0.3s; 
+  .bracket {
+    color: var(--blue-team);
+    transition: all 0.3s;
+    text-shadow: 0 0 6px rgba(0, 240, 255, 0.5);
   }
-  .brand-unit:hover .bracket { 
+  .brand-unit:hover .bracket {
     color: var(--red-team);
+    text-shadow: 0 0 10px rgba(217, 4, 41, 0.7);
   }
 
   /* NAV LINKS */
@@ -247,9 +249,13 @@ const currentTime = new Date().toISOString().split('T')[0];
   .nav-icon { opacity: 0.7; transition: 0.3s; font-size: 1rem; }
   .nav-links-container a:hover .nav-icon { opacity: 1; color: var(--blue-team); }
 
-  .nav-links-container a:hover,
-  .nav-links-container a.active {
+  .nav-links-container a:hover {
     color: var(--text-primary);
+  }
+
+  .nav-links-container a.active {
+    color: var(--blue-team);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
   }
 
   .nav-links-container a::after {
@@ -261,6 +267,7 @@ const currentTime = new Date().toISOString().split('T')[0];
     height: 2px;
     background: var(--blue-team);
     transition: width 0.3s;
+    box-shadow: 0 0 6px var(--blue-team);
   }
 
   .nav-links-container a:hover::after,

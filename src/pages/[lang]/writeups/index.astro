@@ -35,7 +35,7 @@ const totalMissions = allWriteups.length;
       <div class="header-content">
         <h1 class="glitch" data-text="OPERATIONS LOG">OPERATIONS LOG</h1>
         <div class="terminal-line">
-           <span class="prompt">root@flippermen:~/missions#</span> <span class="cmd">ls -la --sort=date</span>
+           <span class="prompt">root@flippermen:~/missions#</span> <span class="cmd typing-cursor">ls -la --sort=date</span>
         </div>
       </div>
       
@@ -108,13 +108,15 @@ const totalMissions = allWriteups.length;
           </div>
           <div class="card-body">
             <div class="card-meta">
-               <span class="mission-id">OP-{Math.floor(Math.random() * 9000) + 1000}</span>
+               <span class="mission-id">OP-{post.slug.split('').reduce((a, c) => (a + c.charCodeAt(0)) & 0xffff, 0).toString().padStart(4, '0')}</span>
                <span class="mission-date">{post.data.date && new Date(post.data.date).toLocaleDateString()}</span>
             </div>
             <h3><a href={`/${lang}/writeups/${post.slug}`}>{post.data.title}</a></h3>
             <div class="tags">
-               <span class="tag">#CTF</span>
-               <span class="tag">#Security</span>
+              {post.data.tags?.length
+                ? post.data.tags.map((tag: string) => <span class="tag">#{tag}</span>)
+                : <span class="tag">#{post.data.platform || 'Security'}</span>
+              }
             </div>
             <a href={`/${lang}/writeups/${post.slug}`} class="read-more">View Log &rarr;</a>
           </div>
@@ -401,18 +403,23 @@ const totalMissions = allWriteups.length;
   .access-btn {
     display: inline-block;
     padding: 0.8rem 1.5rem;
-    background: var(--text-primary);
-    color: #fff;
+    background: transparent;
+    color: var(--blue-team);
+    border: 1px solid var(--blue-team);
     text-decoration: none;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
     width: fit-content;
     transition: all 0.3s;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
   }
-  
+
   .access-btn:hover {
     background: var(--blue-team);
+    color: #000;
+    box-shadow: var(--shadow-glow-blue);
     transform: translateX(5px);
   }
 
@@ -516,8 +523,13 @@ const totalMissions = allWriteups.length;
     font-size: 0.9rem;
     font-weight: bold;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
   }
-  
-  .read-more:hover { text-decoration: underline; }
+
+  .read-more:hover {
+    text-shadow: var(--shadow-glow-blue);
+    letter-spacing: 2px;
+  }
 
 </style>

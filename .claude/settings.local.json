@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//d D:/**)",
+      "Bash(cmd /c \"npm run build\")",
+      "Bash(cmd /c \"cd /d D:\\\\mrflippermen.github.io && npm run build\")",
+      "Bash(cmd.exe /c \"cd /d D:\\\\mrflippermen.github.io && npm run build 2>&1\")",
+      "Bash(powershell.exe -Command \"Set-Location ''D:\\\\mrflippermen.github.io''; npm run build\")",
+      "Bash(powershell.exe -Command \"Get-ChildItem ''C:\\\\Program Files\\\\nodejs'' -ErrorAction SilentlyContinue | Select-Object Name; Get-ChildItem ''C:\\\\Users\\\\Michael\\\\AppData\\\\Roaming\\\\nvm'' -ErrorAction SilentlyContinue | Select-Object Name\")"
+    ]
+  }
+}

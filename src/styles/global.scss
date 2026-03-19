@@ -71,19 +71,86 @@ a {
 // ANIMATIONS
 // -----------------------------------------------------------------------------
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .fade-in-up {
     animation: fadeInUp 0.5s ease-out forwards;
+}
+
+// --- Glitch Effect ---
+@keyframes glitch-clip-1 {
+    0%   { clip-path: inset(40% 0 61% 0); transform: translate(-4px, 0); }
+    20%  { clip-path: inset(92% 0 1% 0);  transform: translate(4px, 0); }
+    40%  { clip-path: inset(43% 0 1% 0);  transform: translate(-4px, 0); }
+    60%  { clip-path: inset(25% 0 58% 0); transform: translate(4px, 0); }
+    80%  { clip-path: inset(54% 0 7% 0);  transform: translate(-4px, 0); }
+    100% { clip-path: inset(58% 0 43% 0); transform: translate(4px, 0); }
+}
+
+@keyframes glitch-clip-2 {
+    0%   { clip-path: inset(24% 0 29% 0); transform: translate(4px, 0); }
+    20%  { clip-path: inset(54% 0 7% 0);  transform: translate(-4px, 0); }
+    40%  { clip-path: inset(73% 0 4% 0);  transform: translate(4px, 0); }
+    60%  { clip-path: inset(10% 0 50% 0); transform: translate(-4px, 0); }
+    80%  { clip-path: inset(80% 0 5% 0);  transform: translate(4px, 0); }
+    100% { clip-path: inset(40% 0 15% 0); transform: translate(-4px, 0); }
+}
+
+.glitch {
+    position: relative;
+
+    &::before,
+    &::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    &::before {
+        color: var(--red-team);
+        animation: glitch-clip-1 4s infinite linear alternate-reverse;
+        opacity: 0.8;
+    }
+
+    &::after {
+        color: var(--blue-team);
+        animation: glitch-clip-2 3s infinite linear alternate-reverse;
+        opacity: 0.8;
+    }
+}
+
+// --- Typing cursor ---
+@keyframes blink-cursor {
+    50% { border-color: transparent; }
+}
+
+.typing-cursor::after {
+    content: '_';
+    color: var(--blue-team);
+    animation: blink-cursor 1s step-end infinite;
+    font-weight: bold;
+}
+
+// --- Scanline overlay en main ---
+main::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 240, 255, 0.018) 2px,
+        rgba(0, 240, 255, 0.018) 4px
+    );
+    pointer-events: none;
+    z-index: 9998;
 }
 
 // -----------------------------------------------------------------------------
