@@ -4,411 +4,1035 @@ import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
 export function getStaticPaths() {
   return [
-    {params: {lang: 'en'}},
-    {params: {lang: 'es'}},
+    { params: { lang: 'en' } },
+    { params: { lang: 'es' } },
   ];
 }
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const t    = useTranslations(lang);
+const es   = lang === 'es';
 
-// Data could be moved to a JSON/TS file later
-const stats = {
-  operatives: 10,
-  kills: 136,
-  affiliation: { es: 'CELULA AUTONOMA', en: 'AUTONOMOUS CELL' }
-};
+// ─── Roster data ──────────────────────────────────────────────────────────────
+const roster = [
+  {
+    handle:   'flippermen',
+    role:     es ? 'COMANDANTE DE UNIDAD' : 'UNIT COMMANDER',
+    rank:     'O-5',
+    spec:     es ? 'ARQUITECTURA DE INFRAESTRUCTURA AD' : 'AD INFRASTRUCTURE ARCHITECT',
+    faction:  'red',
+    htb:      '#1 Ecuador',
+    desc:     es
+      ? 'Arquitecto de la unidad. Especialista en ataques full-spectrum contra Active Directory y Purple Team. Llevó a Ecuador al Top 1 de HTB. Diseña y lidera escenarios de adversarios reales en CTFs internacionales.'
+      : 'Unit architect. Full-spectrum AD attacks and Purple Team operations specialist. Led Ecuador to HTB Top 1. Designs and leads real-world adversary scenarios in international CTFs.',
+    captain: true,
+  },
+  {
+    handle:   'MarcGMN1403',
+    role:     es ? 'LÍDER DE CRIPTOANÁLISIS' : 'CRYPTANALYSIS LEAD',
+    rank:     'E-5',
+    spec:     es ? 'ESTEGANOGRAFÍA & CRIPTOGRAFÍA CUSTOM' : 'STEGANOGRAPHY & CUSTOM CRYPTO',
+    faction:  'purple',
+    desc:     es
+      ? 'Maestro de los datos ocultos. Rompe esquemas de cifrado personalizados y extrae mensajes de ruido de imagen y audio con precisión quirúrgica.'
+      : 'Master of hidden data. Breaks custom encryption schemes and extracts messages from image and audio noise with surgical precision.',
+  },
+  {
+    handle:   'AngelDustX',
+    role:     es ? 'EXPLOTACIÓN WEB' : 'WEB EXPLOITATION',
+    rank:     'E-4',
+    spec:     es ? 'SQLi / XSS / SSTI / SSRF' : 'SQLi / XSS / SSTI / SSRF',
+    faction:  'red',
+    desc:     es
+      ? 'Primero en entrar en objetivos web. Encadena XSS→CSRF→RCE con precisión quirúrgica y trabaja a nivel de código fuente.'
+      : 'First through the door on web targets. Chains XSS→CSRF→RCE with surgical precision and operates at source-code level.',
+  },
+  {
+    handle:   'KomiGath',
+    role:     es ? 'FORENSE DIGITAL' : 'DIGITAL FORENSICS',
+    rank:     'E-4',
+    spec:     es ? 'INGENIERÍA INVERSA DE MALWARE' : 'MALWARE REVERSE ENGINEERING',
+    faction:  'blue',
+    desc:     es
+      ? 'El cirujano de memoria del equipo. Extrae artefactos volátiles de sistemas comprometidos y desmonta malware en IDA Pro como si leyera prosa.'
+      : 'Team memory surgeon. Extracts volatile artifacts from compromised systems and disassembles malware in IDA Pro like reading prose.',
+  },
+  {
+    handle:   'ch1l1',
+    role:     es ? 'OPERATIVO DE INTELIGENCIA' : 'INTEL OPERATIVE',
+    rank:     'E-4',
+    spec:     es ? 'OSINT & INGENIERÍA SOCIAL' : 'OSINT & SOCIAL ENGINEERING',
+    faction:  'purple',
+    desc:     es
+      ? 'Operativo fantasma. Mapea organizaciones enteras a través de señales de fuentes abiertas antes de que se envíe un solo paquete al objetivo.'
+      : 'Ghost operative. Maps entire organizations through open-source signals before a single packet is sent to the target.',
+  },
+  {
+    handle:   'crrlla',
+    role:     es ? 'OPERADOR' : 'OPERATOR',
+    rank:     'E-3',
+    spec:     es ? 'ASALTO DE RED & PIVOTING' : 'NETWORK ASSAULT & PIVOTING',
+    faction:  'red',
+    desc:     es
+      ? 'Táctico de red. Pivota a través de entornos segmentados usando scripts de tunelización propios y mantiene persistencia silenciosa.'
+      : 'Network tactician. Pivots through segmented environments using custom tunneling scripts and maintains silent persistence.',
+  },
+  {
+    handle:   'AdrianX',
+    role:     es ? 'OPERADOR' : 'OPERATOR',
+    rank:     'E-3',
+    spec:     es ? 'PRIVESC LINUX & KERNEL EXPLOITS' : 'LINUX PRIVESC & KERNEL EXPLOITS',
+    faction:  'red',
+    desc:     es
+      ? 'Susurrador del kernel Linux. Encuentra misconfigs de SUID dormido y escala privilegios sin tocar disco. Especialista en hardening bypass.'
+      : 'Linux kernel whisperer. Finds SUID misconfigs in his sleep and escalates privileges without touching disk. Hardening bypass specialist.',
+  },
+  {
+    handle:   'DiegoJr',
+    role:     es ? 'OPERADOR' : 'OPERATOR',
+    rank:     'E-3',
+    spec:     es ? 'WINDOWS INTERNALS & TOKEN ABUSE' : 'WINDOWS INTERNALS & TOKEN ABUSE',
+    faction:  'red',
+    desc:     es
+      ? 'Experto en internals de Windows. Lee el registro como un libro y abusa de la impersonación de tokens con fluidez. Especialista en Pass-the-Hash.'
+      : 'Windows internals expert. Reads the registry like a book and abuses token impersonation fluently. Pass-the-Hash specialist.',
+  },
+  {
+    handle:   '0s0bit',
+    role:     es ? 'OPERADOR' : 'OPERATOR',
+    rank:     'E-3',
+    spec:     es ? 'SCRIPTING & AUTOMATIZACIÓN' : 'SCRIPTING & AUTOMATION',
+    faction:  'purple',
+    desc:     es
+      ? 'La forja de herramientas del equipo. Automatiza lo repetitivo y construye utilidades a velocidad CTF. Si hay un patrón, él lo scriptea.'
+      : 'Team\'s tool forge. Automates the repetitive and builds utilities at CTF speed. If there\'s a pattern, he scripts it.',
+  },
+  {
+    handle:   'N01syb0y',
+    role:     es ? 'OPERADOR' : 'OPERATOR',
+    rank:     'E-3',
+    spec:     es ? 'HACKING DE HARDWARE & RF' : 'HARDWARE HACKING & RF',
+    faction:  'purple',
+    desc:     es
+      ? 'El hardware no es una barrera. Clona RFID, reproduce señales RF y convierte el Flipper Zero en un arma táctica. Experto en BadUSB y SDR.'
+      : 'Hardware is no barrier. Clones RFID, replays RF signals, and turns Flipper Zero into a tactical weapon. BadUSB and SDR expert.',
+  },
+];
 
+// ─── Deployments ──────────────────────────────────────────────────────────────
+const deployments = [
+  {
+    tier:   'gold',
+    icon:   'fa-trophy',
+    event:  'HACK THE BOX',
+    year:   '2024–2025',
+    result: es ? '#1 ECUADOR — TOP 50 MUNDIAL' : '#1 ECUADOR — GLOBAL TOP 50',
+    detail: es ? 'Ranking nacional sostenido. Hall of Fame de HTB.' : 'Sustained national ranking. HTB Hall of Fame.',
+  },
+  {
+    tier:   'gold',
+    icon:   'fa-flag',
+    event:  'LACC 2025 — COLOMBIA',
+    year:   '2025',
+    result: es ? '4.º LUGAR REGIONAL' : '4TH PLACE REGIONAL',
+    detail: es ? 'Capitán del Equipo Ecuador. Competencia más grande de LatAm.' : 'Captain of Team Ecuador. Largest LatAm cybersecurity championship.',
+  },
+  {
+    tier:   'blue',
+    icon:   'fa-shield-halved',
+    event:  'HOLMES CTF 2025',
+    year:   '2025',
+    result: es ? 'MEJOR BLUE TEAM LATAM' : 'BEST LATAM BLUE TEAM',
+    detail: es ? 'Rank 66 global. DFIR y respuesta a incidentes en vivo.' : 'Global rank 66. Live DFIR and incident response challenge.',
+  },
+  {
+    tier:   'purple',
+    icon:   'fa-crosshairs',
+    event:  'FLUID ATTACKS CTF 2026',
+    year:   '2026',
+    result: es ? 'TOP 5 NACIONAL' : 'NATIONAL TOP 5',
+    detail: es ? 'Full-spectrum: pwn, web, crypto y forense.' : 'Full-spectrum: pwn, web, crypto and forensics.',
+  },
+];
 ---
 
-<BaseLayout title={`CyberFlipper Initiative | ${t('nav.cyberflipper')}`}>
-  <div class="fob-container">
-    
-    <!-- HEADER SECTION -->
-    <section class="fob-header fade-in-up">
-      <div class="header-content">
-        <div class="hero-image-container">
-            <img src="/images/cyberflipper_hero.png" alt="CyberFlipper Emblem" class="team-emblem" width="250" height="250" />
-        </div>
-        
-        <div class="title-block">
-          <h1 class="stamped-title">CYBERFLIPPERS</h1>
-          <div class="unit-designation">SPECIAL OPERATIONS UNIT - ECUADOR</div>
-        </div>
+<BaseLayout title={`CyberFlippers | ${t('nav.cyberflipper')}`}>
+<div class="cf-page">
 
-        <div class="origin-story">
-            <h3>{lang === 'es' ? 'ORIGIN_STORY: THE "ZERO-BUDGET" CAMPAIGN' : 'ORIGIN_STORY: THE "ZERO-BUDGET" CAMPAIGN'}</h3>
-            <p>
-                {lang === 'es' 
-                    ? 'En 2025, clasificamos al torno más importante de la región en Brasil. Solicitamos respaldo a nuestra institución. Su respuesta oficial fue: "Tomen una gorra y una camiseta. Suerte."'
-                    : 'In 2025, we qualified for the most important tournament in the region in Brazil. We asked our institution for support. Their official response was: "Take a cap and a t-shirt. Good luck."'}
-            </p>
-            <p>
-                {lang === 'es'
-                    ? 'En ese momento entendimos que estábamos solos. Y nos encantó. Sin presupuesto, sin laboratorios patrocinados y sin mentores corporativos, CyberFlippers se convirtió en una célula autónoma. Convertimos la falta de recursos en nuestro mayor exploit. Mientras otros equipos viajaban con viáticos, nosotros estudiábamos kernels hasta las 4 AM.'
-                    : 'At that moment we understood we were alone. And we loved it. With no budget, no sponsored labs, and no corporate mentors, CyberFlippers became an autonomous cell. We turned lack of resources into our greatest exploit. While other teams traveled with per diems, we studied kernels until 4 AM.'}
-            </p>
-            <blockquote class="quote">
-                {lang === 'es'
-                    ? 'Resultado: Top 1 Nacional, Top Regional y Respeto Global. No necesitamos su dinero. Necesitábamos un enemigo común. Gracias por la gorra.'
-                    : 'Result: National Top 1, Regional Top Tier, and Global Respect. We didn\'t need their money. We needed a common enemy. Thanks for the cap.'}
-            </blockquote>
-        </div>
+  <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+  <section class="cf-hero">
+    <div class="cf-hero-inner">
+
+      <div class="cf-emblem-wrap">
+        <img
+          src="/images/cyberflipper_hero.png"
+          alt="CyberFlippers Emblem"
+          class="cf-emblem"
+          width="200" height="200"
+        />
+        <div class="emblem-scan"></div>
+        <div class="emblem-ring"></div>
       </div>
-    </section>
 
-    <!-- STATS GRID -->
-    <section class="achievements-section fade-in-up">
-      <h3 class="section-label">UNIT_STATISTICS</h3>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="label">OPERATIVES</div>
-          <div class="number">{stats.operatives}</div>
-          <div class="sub-label">ACTIVE DUTY</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">CONFIRMED KILLS</div>
-          <div class="number">{stats.kills}</div>
-          <div class="sub-label">FLAGS CAPTURED</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">AFFILIATION</div>
-          <div class="number">INDIE</div>
-          <div class="sub-label">{lang === 'es' ? stats.affiliation.es : stats.affiliation.en}</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ROSTER -->
-    <section class="roster-section fade-in-up">
-      <div class="section-header-row">
-        <h2 class="section-title">ACTIVE_ROSTER</h2>
-        <div class="status-indicator">
-          <span class="status-dot"></span> OPERATIONAL
-        </div>
-      </div>
-      
-      <div class="roster-grid">
-        <!-- CAPTAIN -->
-        <div class="operator-card captain">
-          <div class="card-header">
-            <span class="role">UNIT COMMANDER</span>
-            <span class="rank">O-5</span>
-          </div>
-          <div class="op-name">flippermen</div>
-          <div class="op-stats">
-            <div><span class="stat-label">SPECIALTY:</span> AD INFRASTRUCTURE ARCHITECT</div>
-            <div class="faction-tag red">RED TEAM LEAD</div>
-          </div>
-        </div>
-
-        <!-- SPECIALISTS -->
-        {[
-            { name: "MarcGMN1403", role: "CRYPTANALYSIS LEAD", rank: "E-5", spec: "STEGANOGRAPHY" },
-            { name: "AngelDustX", role: "WEB EXPLOITATION", rank: "E-4", spec: "SQLi/XSS EXPERT" },
-            { name: "KomiGath", role: "DIGITAL FORENSICS", rank: "E-4", spec: "MALWARE REVERSE ENG" },
-            { name: "ch1l1", role: "INTEL OPERATIVE", rank: "E-4", spec: "OSINT & SOCIAL ENG" },
-            { name: "crrlla", role: "OPERATOR", rank: "E-3", spec: "NETWORK ASSAULT" },
-            { name: "AdrianX", role: "OPERATOR", rank: "E-3", spec: "LINUX PRIVESC" },
-            { name: "DiegoJr", role: "OPERATOR", rank: "E-3", spec: "WINDOWS INTERNALS" },
-            { name: "0s0bit", role: "OPERATOR", rank: "E-3", spec: "SCRIPTING" },
-            { name: "N01syb0y", role: "OPERATOR", rank: "E-3", spec: "HARDWARE HACKING" }
-        ].map((op) => (
-          <div class="operator-card">
-            <div class="card-header">
-              <span class="role">{op.role}</span>
-              <span class="rank">{op.rank}</span>
-            </div>
-            <div class="op-name">{op.name}</div>
-            <div class="op-stats">
-              <div><span class="stat-label">SPEC:</span> {op.spec}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- INTERNATIONAL REPRESENTATION -->
-    <section class="representation-section fade-in-up">
-      <h2 class="section-title">GLOBAL_DEPLOYMENTS</h2>
-      
-      <div class="achievements-list">
-        <div class="achievement-item gold-tier">
-          <div class="achievement-header">
-            <span class="flag">🥇</span>
-            <span class="event">LACC 2025 - COLOMBIA</span>
-          </div>
-          <div class="achievement-details">
-            <span class="highlight">4TH PLACE REGIONAL</span> <br/> TEAM ECUADOR CAPTAIN
-          </div>
-        </div>
-
-        <div class="achievement-item blue-tier">
-          <div class="achievement-header">
-            <span class="flag">🛡️</span>
-            <span class="event">HOLMES CTF 2025</span>
-          </div>
-          <div class="achievement-details">
-            <span class="highlight">BEST LATAM BLUE TEAM</span> <br/> GLOBAL RANK 66
-          </div>
-        </div>
-
-        <div class="achievement-item gold-tier">
-          <div class="achievement-header">
-            <span class="flag">🏆</span>
-            <span class="event">HACK THE BOX</span>
-          </div>
-          <div class="achievement-details">
-            <span class="highlight">#1 ECUADOR</span> <br/> TOP 50 HALL OF FAME
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- RECRUITMENT -->
-    <section class="recruitment-section fade-in-up">
-      <div class="recruit-frame">
-        <h2 class="recruit-title">ENLISTMENT_PROTOCOL</h2>
-        <p class="recruit-text">
-          {lang === 'es' ? 'No buscamos certificados. Buscamos ' : 'We do not seek certificates. We seek '}
-          <strong>{lang === 'es' ? 'obsesión' : 'obsession'}</strong>.
+      <div class="cf-title-block">
+        <p class="cf-overtitle">// SPECIAL OPERATIONS UNIT — ECUADOR //</p>
+        <h1 class="cf-title glitch" data-text="CYBERFLIPPERS">CYBERFLIPPERS</h1>
+        <p class="cf-tagline">
+          {es
+            ? 'Célula autónoma. Sin presupuesto. Sin excusas. Pura obsesión técnica.'
+            : 'Autonomous cell. No budget. No excuses. Pure technical obsession.'}
         </p>
-        
-        <div class="action-buttons">
-          <a href="/contact" class="cta-btn primary">
-            CONTACT COMMAND
-          </a>
+        <div class="cf-badges">
+          <span class="cf-badge red"><i class="fas fa-skull-crossbones"></i> RED TEAM</span>
+          <span class="cf-badge blue"><i class="fas fa-shield-halved"></i> BLUE TEAM</span>
+          <span class="cf-badge green"><i class="fas fa-satellite-dish"></i> CTF OPS</span>
         </div>
       </div>
-    </section>
 
-  </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ ORIGIN STORY ═══════════════════════════ -->
+  <section class="cf-section reveal">
+    <h2 class="cf-section-title">
+      <i class="fas fa-book-skull"></i>
+      {es ? 'HISTORIA DE ORIGEN' : 'ORIGIN STORY'}
+    </h2>
+    <div class="origin-block">
+      <div class="origin-terminal">
+        <div class="term-bar">
+          <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+          <span class="term-title">incident_report.log</span>
+        </div>
+        <div class="term-body">
+          <p class="term-line"><span class="term-prompt">$</span> {es ? 'cat historia.txt' : 'cat history.txt'}</p>
+          <p class="term-out">
+            {es
+              ? 'En 2025, clasificamos al torneo más importante de la región en Brasil. Solicitamos respaldo institucional. La respuesta oficial fue: "Tomen una gorra y una camiseta. Suerte."'
+              : 'In 2025, we qualified for the largest regional tournament in Brazil. We asked for institutional support. The official response was: "Take a cap and a t-shirt. Good luck."'}
+          </p>
+          <p class="term-out">
+            {es
+              ? 'En ese momento entendimos que estábamos solos. Y nos encantó. Sin presupuesto, sin laboratorios patrocinados, sin mentores corporativos. CyberFlippers se convirtió en una célula autónoma. Convertimos la falta de recursos en nuestro mayor exploit: mientras otros equipos viajaban con viáticos, nosotros estudiábamos kernels hasta las 4 AM.'
+              : 'At that moment we understood we were alone. And we loved it. No budget, no sponsored labs, no corporate mentors. CyberFlippers became an autonomous cell. We turned the lack of resources into our greatest exploit: while other teams traveled with per diems, we studied kernels until 4 AM.'}
+          </p>
+          <blockquote class="term-quote">
+            <i class="fas fa-terminal quote-icon"></i>
+            {es
+              ? 'Resultado: Top 1 Nacional, Top Regional y Respeto Global. No necesitábamos su dinero. Necesitábamos un enemigo común. Gracias por la gorra.'
+              : 'Result: National Top 1, Regional Top Tier, Global Respect. We didn\'t need their money. We needed a common enemy. Thanks for the cap.'}
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ STATS ═══════════════════════════ -->
+  <section class="cf-section reveal">
+    <h2 class="cf-section-title">
+      <i class="fas fa-chart-line"></i>
+      {es ? 'ESTADÍSTICAS DE UNIDAD' : 'UNIT STATISTICS'}
+    </h2>
+    <div class="cf-stats-grid">
+      <div class="cf-stat-card">
+        <i class="fas fa-users stat-icon green"></i>
+        <span class="stat-num">10</span>
+        <span class="stat-name">{es ? 'OPERATIVOS' : 'OPERATIVES'}</span>
+        <span class="stat-sub">{es ? 'SERVICIO ACTIVO' : 'ACTIVE DUTY'}</span>
+      </div>
+      <div class="cf-stat-card">
+        <i class="fas fa-flag stat-icon red"></i>
+        <span class="stat-num">136+</span>
+        <span class="stat-name">{es ? 'KILLS CONFIRMADOS' : 'CONFIRMED KILLS'}</span>
+        <span class="stat-sub">{es ? 'FLAGS CAPTURADAS' : 'FLAGS CAPTURED'}</span>
+      </div>
+      <div class="cf-stat-card">
+        <i class="fas fa-trophy stat-icon gold"></i>
+        <span class="stat-num">#1</span>
+        <span class="stat-name">ECUADOR</span>
+        <span class="stat-sub">HACK THE BOX</span>
+      </div>
+      <div class="cf-stat-card">
+        <i class="fas fa-globe stat-icon blue"></i>
+        <span class="stat-num">4+</span>
+        <span class="stat-name">{es ? 'CTFs INTERNACIONALES' : 'INTERNATIONAL CTFs'}</span>
+        <span class="stat-sub">{es ? 'REPRESENTANDO ECUADOR' : 'REPRESENTING ECUADOR'}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ ROSTER ═══════════════════════════ -->
+  <section class="cf-section reveal">
+    <div class="section-header-row">
+      <h2 class="cf-section-title no-margin">
+        <i class="fas fa-id-card-clip"></i>
+        {es ? 'ROSTER ACTIVO' : 'ACTIVE ROSTER'}
+      </h2>
+      <div class="op-indicator">
+        <span class="op-dot"></span>
+        <span>{es ? 'OPERACIONAL' : 'OPERATIONAL'}</span>
+      </div>
+    </div>
+
+    <div class="roster-grid">
+      {roster.map((op) => (
+        <article class={`op-card faction-${op.faction}${op.captain ? ' captain-card' : ''}`}>
+
+          {op.captain && (
+            <div class="captain-banner">
+              <i class="fas fa-star"></i>
+              {es ? 'CAPITÁN' : 'CAPTAIN'}
+              <i class="fas fa-star"></i>
+            </div>
+          )}
+
+          <div class="op-header">
+            <span class={`faction-dot dot-${op.faction}`}></span>
+            <span class="op-role">{op.role}</span>
+            <span class="op-rank">{op.rank}</span>
+          </div>
+
+          <div class="op-handle">{op.handle}</div>
+
+          <div class="op-spec">
+            <i class="fas fa-crosshairs spec-icon"></i>
+            {op.spec}
+          </div>
+
+          <p class="op-desc">{op.desc}</p>
+
+          {op.htb && (
+            <div class="op-badge htb-badge">
+              <i class="fas fa-trophy"></i> HTB {op.htb}
+            </div>
+          )}
+
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ DEPLOYMENTS ═══════════════════════════ -->
+  <section class="cf-section reveal">
+    <h2 class="cf-section-title">
+      <i class="fas fa-rocket"></i>
+      {es ? 'DESPLIEGUES GLOBALES' : 'GLOBAL DEPLOYMENTS'}
+    </h2>
+
+    <div class="deployments-list">
+      {deployments.map((d) => (
+        <div class={`deploy-item tier-${d.tier}`}>
+          <div class="deploy-icon">
+            <i class={`fas ${d.icon}`}></i>
+          </div>
+          <div class="deploy-body">
+            <div class="deploy-event">{d.event}</div>
+            <div class="deploy-result">{d.result}</div>
+            <div class="deploy-detail">{d.detail}</div>
+          </div>
+          <div class="deploy-year">{d.year}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ DOCTRINE ═══════════════════════════ -->
+  <section class="cf-section reveal">
+    <h2 class="cf-section-title">
+      <i class="fas fa-scroll"></i>
+      {es ? 'DOCTRINA OPERACIONAL' : 'OPERATIONAL DOCTRINE'}
+    </h2>
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <i class="fas fa-brain doctrine-icon red"></i>
+        <h3>{es ? 'MENTALIDAD ADVERSARIA' : 'ADVERSARIAL MINDSET'}</h3>
+        <p>{es
+          ? 'Pensamos como el atacante incluso cuando defendemos. Ningún sistema es sacrosanto: todo tiene una superficie de ataque.'
+          : 'We think like the attacker even when defending. No system is sacrosanct: everything has an attack surface.'}</p>
+      </div>
+      <div class="doctrine-card">
+        <i class="fas fa-code-branch doctrine-icon blue"></i>
+        <h3>{es ? 'AUTONOMÍA TÉCNICA' : 'TECHNICAL AUTONOMY'}</h3>
+        <p>{es
+          ? 'No dependemos de herramientas prefabricadas. Si no existe la herramienta que necesitamos, la construimos. El código es nuestra munición.'
+          : 'We don\'t depend on off-the-shelf tools. If the tool we need doesn\'t exist, we build it. Code is our ammunition.'}</p>
+      </div>
+      <div class="doctrine-card">
+        <i class="fas fa-shield-halved doctrine-icon green"></i>
+        <h3>{es ? 'FULL-SPECTRUM' : 'FULL-SPECTRUM'}</h3>
+        <p>{es
+          ? 'Red Team, Blue Team, DFIR, hardware y criptografía. No somos especialistas de nicho: somos operadores de espectro completo.'
+          : 'Red Team, Blue Team, DFIR, hardware, and cryptography. We are not niche specialists: we are full-spectrum operators.'}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ RECRUITMENT ═══════════════════════════ -->
+  <section class="cf-section reveal">
+    <div class="recruit-box">
+      <div class="recruit-corner tl"></div>
+      <div class="recruit-corner tr"></div>
+      <div class="recruit-corner bl"></div>
+      <div class="recruit-corner br"></div>
+
+      <p class="recruit-label">// ENLISTMENT_PROTOCOL //</p>
+      <h2 class="recruit-title">
+        {es ? '¿CREES QUE PUEDES ENTRAR?' : 'THINK YOU CAN MAKE IT?'}
+      </h2>
+      <p class="recruit-text">
+        {es
+          ? 'No buscamos certificados. No buscamos CVs impresionantes. Buscamos '
+          : 'We don\'t seek certificates. We don\'t seek impressive CVs. We seek '}
+        <strong class="highlight-word">{es ? 'obsesión' : 'obsession'}</strong>.
+        {es
+          ? ' Si eres capaz de quedarte despierto hasta las 4 AM por un flag, eres de los nuestros.'
+          : ' If you\'re willing to stay up until 4 AM for a flag, you\'re one of us.'}
+      </p>
+      <a href={`/${lang}/contact`} class="recruit-btn">
+        <i class="fas fa-terminal"></i>
+        {es ? 'CONTACTAR COMANDO' : 'CONTACT COMMAND'}
+      </a>
+    </div>
+  </section>
+
+</div>
 </BaseLayout>
 
 <style>
-  /* Use global variables from Bright Cyber-Ops theme */
-  .fob-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 3rem 1rem;
-    font-family: var(--font-sans);
-    color: var(--text-primary);
-  }
+/* ═══════════════════════════════════════════════════
+   PAGE WRAPPER
+═══════════════════════════════════════════════════ */
+.cf-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
 
-  /* HEADER */
-  .fob-header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
+/* ═══════════════════════════════════════════════════
+   SHARED SECTION STYLES
+═══════════════════════════════════════════════════ */
+.cf-section { }
 
-  .hero-image-container img {
-    margin: 0 auto 1.5rem;
-    display: block;
-    max-width: 100%;
-    height: auto;
-    filter: drop-shadow(0 0 15px rgba(0,0,0,0.2));
-  }
+.cf-section-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
 
-  .stamped-title {
-    font-size: 3rem;
-    font-weight: 900;
-    margin: 0;
-    color: var(--text-primary);
-    letter-spacing: -1px;
-    text-transform: uppercase;
-    font-family: 'Share Tech Mono', monospace;
-  }
+.cf-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 60px; height: 2px;
+  background: linear-gradient(to right, var(--red-team), transparent);
+}
 
-  .unit-designation {
-    color: var(--red-team);
-    font-family: var(--font-mono);
-    letter-spacing: 2px;
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
-    font-weight: bold;
-  }
+.cf-section-title i { color: var(--red-team); font-size: 1rem; }
+.cf-section-title.no-margin { margin-bottom: 0; }
 
-  /* NARRATIVE */
-  .origin-story {
-    max-width: 700px;
-    margin: 2rem auto;
-    text-align: left;
-    background: rgba(255, 255, 255, 0.03); /* Subtle background */
-    padding: 2rem;
-    border-left: 4px solid var(--red-team);
-    border-radius: 4px;
-  }
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
 
-  .origin-story h3 {
-      font-family: 'Share Tech Mono', monospace;
-      color: var(--red-team);
-      margin-top: 0;
-      font-size: 1.2rem;
-  }
+.section-header-row::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 60px; height: 2px;
+  background: linear-gradient(to right, var(--red-team), transparent);
+}
 
-  .origin-story p {
-      color: var(--text-secondary);
-      margin-bottom: 1rem;
-      line-height: 1.7;
-  }
+.op-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--success-color);
+  letter-spacing: 2px;
+}
 
-  .origin-story .quote {
-      font-style: italic;
-      color: var(--text-primary);
-      font-weight: bold;
-      margin: 1.5rem 0 0 0;
-      padding-left: 1rem;
-      border-left: 2px solid var(--blue-team);
-  }
+.op-dot {
+  width: 8px; height: 8px;
+  background: var(--success-color);
+  border-radius: 50%;
+  animation: pulse-ring 2s infinite;
+}
 
-  /* STATS */
-  .section-label {
-    text-align: center;
-    font-family: var(--font-mono);
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.5rem;
-  }
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0   rgba(16,185,129,0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0   rgba(16,185,129,0); }
+}
 
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 4rem;
-  }
+/* ═══════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════ */
+.cf-hero {
+  padding: 2rem 0 0;
+}
 
-  .stat-card {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    padding: 1.5rem;
-    text-align: center;
-    border-radius: 2px;
-  }
+.cf-hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 3rem;
+}
 
-  .stat-card .label { font-size: 0.8rem; color: var(--text-secondary); font-family: var(--font-mono); }
-  .stat-card .number { font-size: 2rem; font-weight: bold; color: var(--text-primary); margin: 0.5rem 0; font-family: 'Share Tech Mono'; }
-  .stat-card .sub-label { font-size: 0.7rem; color: var(--blue-team); font-weight: bold; }
+/* Emblem */
+.cf-emblem-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 180px; height: 180px;
+}
 
-  /* ROSTER */
-  .roster-section { margin-bottom: 4rem; }
-  
-  .section-header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 0.5rem;
-  }
+.cf-emblem {
+  width: 180px; height: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(217,4,41,0.4)) grayscale(0.2);
+  transition: filter 0.4s;
+}
 
-  .section-title { 
-      font-size: 1.5rem; 
-      font-weight: 800; 
-      color: var(--text-primary); 
-      margin: 0; 
-      font-family: 'Share Tech Mono';
-  }
-  
-  .status-indicator { 
-    color: var(--success-color, #10B981); 
-    font-family: var(--font-mono); 
-    font-size: 0.8rem; 
-    display: flex; 
-    align-items: center; 
-    gap: 0.5rem; 
-  }
-  
-  .status-dot { width: 8px; height: 8px; background: var(--success-color, #10B981); border-radius: 50%; box-shadow: 0 0 5px var(--success-color, #10B981); }
+.cf-emblem-wrap:hover .cf-emblem {
+  filter: drop-shadow(0 0 30px rgba(217,4,41,0.7)) grayscale(0);
+}
 
-  .roster-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
-  }
+/* rotating ring */
+.emblem-ring {
+  position: absolute;
+  inset: -10px;
+  border: 1px solid rgba(217,4,41,0.2);
+  border-radius: 50%;
+  animation: ring-spin 20s linear infinite;
+}
+@keyframes ring-spin { to { transform: rotate(360deg); } }
 
-  .operator-card {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    padding: 1rem;
-    border-radius: 2px;
-    transition: all 0.3s;
-  }
+/* scan line */
+.emblem-scan {
+  position: absolute;
+  top: -100%; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(transparent, var(--blue-team), transparent);
+  animation: emblem-scan 3s ease-in-out infinite;
+  opacity: 0.6;
+}
+@keyframes emblem-scan {
+  0%   { top: -5%; }
+  100% { top: 105%; }
+}
 
-  .operator-card:hover {
-      border-color: var(--blue-team);
-      transform: translateY(-2px);
-  }
+/* Title block */
+.cf-title-block { flex: 1; }
 
-  .operator-card.captain { 
-      border-color: var(--red-team); 
-      background: rgba(217, 4, 41, 0.05); 
-  }
+.cf-overtitle {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--red-team);
+  letter-spacing: 3px;
+  margin-bottom: 0.75rem;
+  opacity: 0.8;
+}
 
-  .card-header { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-secondary); font-family: var(--font-mono); margin-bottom: 0.5rem; }
-  .op-name { font-weight: bold; color: var(--text-primary); font-size: 1.1rem; }
-  .op-stats { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; font-family: var(--font-mono); }
-  
-  .faction-tag {
-      display: inline-block;
-      margin-top: 5px;
-      font-size: 0.7rem;
-      font-weight: bold;
-      color: var(--red-team);
-  }
+.cf-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: var(--text-primary);
+  margin: 0 0 1rem;
+}
 
-  /* REPRESENTATION */
-  .representation-section { margin-bottom: 4rem; }
-  
-  .achievements-list { display: flex; flex-direction: column; gap: 1rem; }
-  
-  .achievement-item {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s;
-  }
-  
-  .achievement-item:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateX(5px);
-  }
+.cf-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  border-left: 3px solid var(--red-team);
+  padding-left: 1rem;
+  line-height: 1.6;
+}
 
-  .achievement-header { display: flex; align-items: center; gap: 1rem; font-weight: bold; color: var(--text-primary); }
-  .achievement-details { text-align: right; font-size: 0.9rem; color: var(--text-secondary); font-family: var(--font-mono); }
-  .highlight { color: var(--blue-team); font-weight: bold; }
-  
-  .gold-tier { border-left: 3px solid #F59E0B; }
-  .blue-tier { border-left: 3px solid var(--blue-team); }
+.cf-badges { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 
-  /* RECRUITMENT */
-  .recruitment-section { text-align: center; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-color); }
-  .recruit-title { color: var(--text-primary); font-size: 1.5rem; margin-bottom: 1rem; font-family: 'Share Tech Mono'; }
-  .recruit-text { color: var(--text-secondary); margin-bottom: 1.5rem; }
-  
-  .cta-btn {
-    display: inline-block;
-    padding: 0.8rem 2rem;
-    background: var(--red-team); /* Fix Ghost Button */
-    color: #fff;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 2px;
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    transition: all 0.3s;
-  }
-  
-  .cta-btn:hover { 
-      background: var(--blue-team); 
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-  }
+.cf-badge {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
 
-  @media (max-width: 768px) {
-    .achievement-item { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .achievement-details { text-align: left; }
-  }
+.cf-badge.red   { color: var(--red-team);    border-color: var(--red-team);    background: rgba(217,4,41,0.06);  }
+.cf-badge.blue  { color: var(--blue-team);   border-color: var(--blue-team);   background: rgba(0,240,255,0.06); }
+.cf-badge.green { color: var(--success-color); border-color: var(--success-color); background: rgba(16,185,129,0.06); }
+
+/* ═══════════════════════════════════════════════════
+   ORIGIN TERMINAL
+═══════════════════════════════════════════════════ */
+.origin-terminal {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--red-team);
+}
+
+.term-bar {
+  background: #1a1a1a;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.term-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.term-dot.r { background: #ff5f57; }
+.term-dot.y { background: #febc2e; }
+.term-dot.g { background: #28c840; }
+
+.term-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-left: 0.5rem;
+}
+
+.term-body {
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.term-line {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.term-prompt {
+  color: var(--success-color);
+  margin-right: 0.5rem;
+}
+
+.term-out {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  padding-left: 1rem;
+  border-left: 1px solid var(--border-color);
+}
+
+.term-quote {
+  font-style: italic;
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border: 1px solid rgba(0,240,255,0.2);
+  background: rgba(0,240,255,0.03);
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.quote-icon { color: var(--blue-team); margin-top: 3px; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════════ */
+.cf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.cf-stat-card {
+  background: var(--bg-panel);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.cf-stat-card:hover { background: rgba(255,255,255,0.02); }
+
+.stat-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.stat-icon.red   { color: var(--red-team);   text-shadow: var(--shadow-glow-red); }
+.stat-icon.green { color: var(--success-color); text-shadow: var(--shadow-glow-green); }
+.stat-icon.gold  { color: #F59E0B; text-shadow: 0 0 10px rgba(245,158,11,0.5); }
+.stat-icon.blue  { color: var(--blue-team);  text-shadow: var(--shadow-glow-blue); }
+
+.stat-num  {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.stat-name {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.stat-sub {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════
+   ROSTER
+═══════════════════════════════════════════════════ */
+.roster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.op-card {
+  background: var(--bg-panel);
+  padding: 1.5rem;
+  position: relative;
+  transition: background 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.op-card:hover { background: rgba(255,255,255,0.015); }
+
+/* faction left border */
+.op-card.faction-red    { border-left: 2px solid var(--red-team); }
+.op-card.faction-blue   { border-left: 2px solid var(--blue-team); }
+.op-card.faction-purple { border-left: 2px solid var(--purple-team); }
+
+/* captain highlight */
+.op-card.captain-card {
+  background: rgba(217,4,41,0.04);
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 700px) {
+  .op-card.captain-card { grid-column: auto; }
+}
+
+.captain-banner {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--red-team);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.op-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.faction-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-red    { background: var(--red-team);    box-shadow: 0 0 5px var(--red-team); }
+.dot-blue   { background: var(--blue-team);   box-shadow: 0 0 5px var(--blue-team); }
+.dot-purple { background: var(--purple-team); box-shadow: 0 0 5px var(--purple-team); }
+
+.op-role { flex: 1; text-transform: uppercase; }
+.op-rank { color: var(--text-muted); opacity: 0.7; }
+
+.op-handle {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.op-spec {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--blue-team);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.spec-icon { opacity: 0.6; font-size: 0.65rem; }
+
+.op-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.htb-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #F59E0B;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════════════════
+   DEPLOYMENTS
+═══════════════════════════════════════════════════ */
+.deployments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.deploy-item {
+  background: var(--bg-panel);
+  padding: 1.5rem 2rem;
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.deploy-item:hover {
+  background: rgba(255,255,255,0.015);
+  transform: translateX(4px);
+}
+
+.deploy-item.tier-gold   { border-left: 3px solid #F59E0B; }
+.deploy-item.tier-blue   { border-left: 3px solid var(--blue-team); }
+.deploy-item.tier-purple { border-left: 3px solid var(--purple-team); }
+
+.deploy-icon {
+  font-size: 1.5rem;
+  text-align: center;
+}
+.tier-gold   .deploy-icon { color: #F59E0B; text-shadow: 0 0 10px rgba(245,158,11,0.5); }
+.tier-blue   .deploy-icon { color: var(--blue-team);  text-shadow: var(--shadow-glow-blue); }
+.tier-purple .deploy-icon { color: var(--purple-team); text-shadow: var(--shadow-glow-purple); }
+
+.deploy-event {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.deploy-result {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.deploy-detail {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.deploy-year {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════
+   DOCTRINE
+═══════════════════════════════════════════════════ */
+.doctrine-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.doctrine-card {
+  background: var(--bg-panel);
+  padding: 2rem 1.5rem;
+  transition: background 0.3s;
+}
+
+.doctrine-card:hover { background: rgba(255,255,255,0.02); }
+
+.doctrine-icon {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.doctrine-icon.red   { color: var(--red-team);    text-shadow: var(--shadow-glow-red); }
+.doctrine-icon.blue  { color: var(--blue-team);   text-shadow: var(--shadow-glow-blue); }
+.doctrine-icon.green { color: var(--success-color); text-shadow: var(--shadow-glow-green); }
+
+.doctrine-card h3 {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.doctrine-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════════════════════════════
+   RECRUITMENT BOX
+═══════════════════════════════════════════════════ */
+.recruit-box {
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  padding: 3rem;
+  text-align: center;
+  position: relative;
+}
+
+.recruit-corner {
+  position: absolute;
+  width: 14px; height: 14px;
+  border-color: var(--red-team);
+}
+.recruit-corner.tl { top: 12px; left: 12px;  border-top: 2px solid; border-left: 2px solid; }
+.recruit-corner.tr { top: 12px; right: 12px; border-top: 2px solid; border-right: 2px solid; }
+.recruit-corner.bl { bottom: 12px; left: 12px;  border-bottom: 2px solid; border-left: 2px solid; }
+.recruit-corner.br { bottom: 12px; right: 12px; border-bottom: 2px solid; border-right: 2px solid; }
+
+.recruit-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--red-team);
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.recruit-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+  font-weight: 400;
+}
+
+.recruit-text {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 550px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+
+.highlight-word {
+  color: var(--red-team);
+  font-style: normal;
+  text-shadow: 0 0 10px rgba(217,4,41,0.4);
+}
+
+.recruit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  color: var(--red-team);
+  border: 1px solid var(--red-team);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.recruit-btn:hover {
+  background: var(--red-team);
+  color: #fff;
+  box-shadow: var(--shadow-glow-red);
+  text-shadow: none;
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .cf-hero-inner      { flex-direction: column; text-align: center; }
+  .cf-emblem-wrap     { margin: 0 auto; }
+  .cf-tagline         { border-left: none; border-top: 3px solid var(--red-team); padding-left: 0; padding-top: 0.75rem; }
+  .cf-badges          { justify-content: center; }
+  .cf-stats-grid      { grid-template-columns: repeat(2, 1fr); }
+  .doctrine-grid      { grid-template-columns: 1fr; }
+  .deploy-item        { grid-template-columns: 40px 1fr; }
+  .deploy-year        { display: none; }
+}
+
+@media (max-width: 600px) {
+  .cf-stats-grid { grid-template-columns: 1fr 1fr; }
+  .roster-grid   { grid-template-columns: 1fr; }
+  .recruit-box   { padding: 2rem 1.5rem; }
+}
 </style>

@@ -17,6 +17,7 @@ export const ui = {
 
         // Dashboard
         'role.red': 'RED TEAM OPERATOR',
+        'role.blue': 'BLUE TEAM OPERATOR & SOC',
         'role.purple': 'PURPLE TEAM STRATEGIST',
         'system.status': 'SYSTEM OPERATIONAL',
         'card.identity': 'IDENTITY',
@@ -42,6 +43,7 @@ export const ui = {
 
         // Dashboard
         'role.red': 'OPERADOR RED TEAM',
+        'role.blue': 'OPERADOR BLUE TEAM & SOC',
         'role.purple': 'ESTRATEGA PURPLE TEAM',
         'system.status': 'SISTEMA OPERATIVO',
         'card.identity': 'IDENTIDAD',
