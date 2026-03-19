@@ -14,8 +14,8 @@ interface Props {
 
 const lang = getLangFromUrl(Astro.url);
 
-const { 
-  title = "Flippermen | CyberSec",
+const {
+  title       = "Flippermen | CyberSec",
   description = "Red Team Operator | HTB Top 1 Ecuador | Senior Cybersecurity Researcher especializado en Active Directory, EDR Evasion y Exploit Development",
   image,
   type
@@ -26,9 +26,10 @@ const {
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    
+    <meta name="theme-color" content="#050505" />
+
     <!-- Content Security Policy -->
     <meta http-equiv="Content-Security-Policy"
       content="
@@ -40,59 +41,77 @@ const {
         connect-src 'self';
       "
     />
-    
+
     <!-- Security Headers -->
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <meta name="X-Content-Type-Options" content="nosniff" />
-    
-    <!-- Google Fonts Preconnect for Performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts — Inter + JetBrains Mono + Share Tech Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&family=Share+Tech+Mono&display=swap"
       crossorigin="anonymous"
-    >
-    <!-- Font Awesome -->
+    />
+
+    <!-- Font Awesome 6 -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       crossorigin="anonymous"
-    >
-    
+    />
+
     <title>{title}</title>
-    
-    <SEOHead 
-      title={title} 
+
+    <SEOHead
+      title={title}
       description={description}
       image={image}
       type={type}
     />
-    
-    <!-- View Transitions for smooth page navigation -->
+
     <ViewTransitions />
   </head>
+
   <body>
-    <!-- Skip Navigation for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    
+
     <CommandHeader />
-    
-    <!-- Main content with ARIA landmark and ID for skip link -->
+
     <main id="main-content" role="main">
       <slot />
     </main>
-    
+
     <footer role="contentinfo">
       <div class="container">
-        <p>&copy; {new Date().getFullYear()} Flippermen. Built with Astro.</p>
+        <p>
+          &copy; {new Date().getFullYear()}
+          <span style="color: var(--red-team); font-family: var(--font-mono);">FLIPPERMEN</span>
+          &nbsp;//&nbsp; Built with Astro
+        </p>
       </div>
     </footer>
   </body>
 </html>
 
+<!-- IntersectionObserver — anima elementos con clase .reveal al hacer scroll -->
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>
+
 <style>
-  /* Skip Navigation Link for Accessibility */
   .skip-link {
     position: absolute;
     top: -40px;
@@ -102,12 +121,12 @@ const {
     padding: 8px 16px;
     z-index: 10000;
     text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     font-weight: 600;
-    border-radius: 0 0 4px 0;
+    letter-spacing: 1px;
     transition: top 0.2s;
   }
-  
-  .skip-link:focus {
-    top: 0;
-  }
+
+  .skip-link:focus { top: 0; }
 </style>

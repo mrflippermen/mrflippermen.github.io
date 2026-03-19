@@ -1,101 +1,118 @@
 @use 'tokens';
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&family=Share+Tech+Mono&display=swap');
 
-// -----------------------------------------------------------------------------
+// =============================================================================
 // RESET & BASE
-// -----------------------------------------------------------------------------
+// =============================================================================
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 120px;
+}
+
 body {
     font-family: var(--font-sans);
     background-color: var(--bg-main);
     color: var(--text-primary);
-    margin: 0;
     line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+
+    // Circuit grid background
     background-image:
-        linear-gradient(rgba(26, 29, 33, var(--pattern-opacity)) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(26, 29, 33, var(--pattern-opacity)) 1px, transparent 1px);
-    background-size: 40px 40px;
+        linear-gradient(rgba(0, 240, 255, var(--pattern-opacity)) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, var(--pattern-opacity)) 1px, transparent 1px);
+    background-size: 48px 48px;
     background-attachment: fixed;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-html {
-    scroll-padding-top: 120px;
-    /* Parche 2: Evita que el header tape los títulos */
+// Text selection
+::selection {
+    background: rgba(0, 240, 255, 0.18);
+    color: #fff;
 }
 
-/* Parche 3: Listas Hacker */
+// Custom scrollbar
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 0;
+    &:hover { background: var(--blue-team); }
+}
+
+// Hacker list style
 ul {
     list-style: none;
-    /* Quitamos los puntos aburridos */
     padding-left: 1rem;
+
+    li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.5rem;
+
+        &::before {
+            content: ">>";
+            position: absolute;
+            left: 0;
+            color: var(--red-team);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.85em;
+        }
+    }
 }
 
-ul li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-ul li::before {
-    content: ">>";
-    position: absolute;
-    left: 0;
-    color: var(--red-team);
-    /* Color ofensivo */
-    font-family: var(--font-mono);
-    font-weight: bold;
-    font-size: 0.9em;
-}
-
+// Links
 a {
     color: var(--blue-team);
     text-decoration: none;
-    transition: all 0.2s;
+    transition: color 0.2s, text-shadow 0.2s;
     font-weight: 600;
 
     &:hover {
         color: var(--red-team);
-        text-decoration: none;
-        background: rgba(217, 4, 41, 0.05);
+        text-shadow: 0 0 8px rgba(217, 4, 41, 0.4);
     }
 }
 
+// Layout helper
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
 }
 
-// -----------------------------------------------------------------------------
+// =============================================================================
 // ANIMATIONS
-// -----------------------------------------------------------------------------
+// =============================================================================
+
+// --- Fade In Up ---
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+.fade-in-up { animation: fadeInUp 0.6s ease-out both; }
 
-.fade-in-up {
-    animation: fadeInUp 0.5s ease-out forwards;
+// --- Glitch (intermitente — dispara brevemente cada ~7s) ---
+@keyframes glitch-1 {
+    0%, 90%, 100% { clip-path: none; transform: none; }
+    91%  { clip-path: inset(30% 0 65% 0); transform: translate(-6px, 1px);  color: var(--red-team); }
+    92%  { clip-path: inset(70% 0 10% 0); transform: translate(6px, -1px); color: var(--red-team); }
+    93%  { clip-path: inset(45% 0 42% 0); transform: translate(-3px, 2px);  color: var(--red-team); }
+    94%  { clip-path: none; transform: none; }
+    96%  { clip-path: inset(20% 0 75% 0); transform: translate(4px);  color: var(--blue-team); }
+    97%  { clip-path: inset(60% 0 25% 0); transform: translate(-4px); color: var(--blue-team); }
+    98%  { clip-path: none; transform: none; }
 }
 
-// --- Glitch Effect ---
-@keyframes glitch-clip-1 {
-    0%   { clip-path: inset(40% 0 61% 0); transform: translate(-4px, 0); }
-    20%  { clip-path: inset(92% 0 1% 0);  transform: translate(4px, 0); }
-    40%  { clip-path: inset(43% 0 1% 0);  transform: translate(-4px, 0); }
-    60%  { clip-path: inset(25% 0 58% 0); transform: translate(4px, 0); }
-    80%  { clip-path: inset(54% 0 7% 0);  transform: translate(-4px, 0); }
-    100% { clip-path: inset(58% 0 43% 0); transform: translate(4px, 0); }
-}
-
-@keyframes glitch-clip-2 {
-    0%   { clip-path: inset(24% 0 29% 0); transform: translate(4px, 0); }
-    20%  { clip-path: inset(54% 0 7% 0);  transform: translate(-4px, 0); }
-    40%  { clip-path: inset(73% 0 4% 0);  transform: translate(4px, 0); }
-    60%  { clip-path: inset(10% 0 50% 0); transform: translate(-4px, 0); }
-    80%  { clip-path: inset(80% 0 5% 0);  transform: translate(4px, 0); }
-    100% { clip-path: inset(40% 0 15% 0); transform: translate(-4px, 0); }
+@keyframes glitch-2 {
+    0%, 89%, 100% { clip-path: none; transform: none; }
+    90%  { clip-path: inset(50% 0 40% 0); transform: translate(5px,  2px); }
+    91%  { clip-path: inset(15% 0 70% 0); transform: translate(-5px, -2px); }
+    92%  { clip-path: inset(80% 0 5%  0); transform: translate(3px); }
+    93%  { clip-path: none; transform: none; }
 }
 
 .glitch {
@@ -106,257 +123,296 @@ a {
         content: attr(data-text);
         position: absolute;
         top: 0; left: 0;
-        width: 100%;
-        height: 100%;
+        width: 100%; height: 100%;
         pointer-events: none;
     }
 
     &::before {
-        color: var(--red-team);
-        animation: glitch-clip-1 4s infinite linear alternate-reverse;
-        opacity: 0.8;
+        animation: glitch-1 7s infinite;
     }
 
     &::after {
-        color: var(--blue-team);
-        animation: glitch-clip-2 3s infinite linear alternate-reverse;
-        opacity: 0.8;
+        animation: glitch-2 7s 0.4s infinite;
     }
 }
 
-// --- Typing cursor ---
-@keyframes blink-cursor {
-    50% { border-color: transparent; }
-}
+// --- Cursor blink ---
+@keyframes cursor-blink { 50% { opacity: 0; } }
 
 .typing-cursor::after {
-    content: '_';
+    content: '█';
     color: var(--blue-team);
-    animation: blink-cursor 1s step-end infinite;
-    font-weight: bold;
+    animation: cursor-blink 1s step-end infinite;
+    font-size: 0.85em;
+    margin-left: 2px;
 }
 
-// --- Scanline overlay en main ---
+// --- Scanline overlay ---
 main::before {
     content: '';
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    inset: 0;
     background: repeating-linear-gradient(
         0deg,
         transparent,
-        transparent 2px,
-        rgba(0, 240, 255, 0.018) 2px,
-        rgba(0, 240, 255, 0.018) 4px
+        transparent 3px,
+        rgba(0, 0, 0, 0.1) 3px,
+        rgba(0, 0, 0, 0.1) 4px
     );
     pointer-events: none;
-    z-index: 9998;
+    z-index: 9997;
 }
 
-// -----------------------------------------------------------------------------
-// LAYOUT COMPONENTS
-// -----------------------------------------------------------------------------
+// --- Scroll reveal ---
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+
+    &.visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// --- Pulse ring ---
+@keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0   rgba(16, 185, 129, 0.6); }
+    70%  { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0   rgba(16, 185, 129, 0); }
+}
+
+// =============================================================================
+// LAYOUT
+// =============================================================================
 header {
-    background: var(--bg-panel) !important;
-    /* Fix Flashbang */
+    background: rgba(10, 10, 10, 0.95) !important;
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 }
 
 footer {
     text-align: center;
     padding: 3rem 0;
     margin-top: 4rem;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     border-top: 1px solid var(--border-color);
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
 }
 
-// -----------------------------------------------------------------------------
-// UI COMPONENTS
-// -----------------------------------------------------------------------------
+// =============================================================================
+// BUTTONS
+// =============================================================================
 .btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    background: var(--bg-panel);
+    gap: 0.5rem;
+    background: transparent;
     color: var(--text-primary);
-    padding: 0.8rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     border: 1px solid var(--border-color);
-    border-radius: 2px; // Tactical square
     font-family: var(--font-mono);
+    font-size: 0.85rem;
     font-weight: 600;
     transition: all 0.2s;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    text-decoration: none;
 
     &:hover {
         border-color: var(--blue-team);
         color: var(--blue-team);
-        box-shadow: 0 2px 8px rgba(0, 240, 255, 0.15);
-        transform: translateY(-1px);
+        box-shadow: var(--shadow-glow-blue);
+        background: rgba(0, 240, 255, 0.04);
+        transform: translateY(-2px);
+        text-shadow: none;
     }
 
-    &.primary {
-        background: var(--blue-team);
-        color: #fff;
-        border-color: var(--blue-team);
+    &.btn-red {
+        border-color: var(--red-team);
+        color: var(--red-team);
 
         &:hover {
-            background: darken(#00F0FF, 10%);
+            box-shadow: var(--shadow-glow-red);
+            background: rgba(217, 4, 41, 0.04);
         }
     }
 }
 
+// =============================================================================
+// CARD BASE
+// =============================================================================
 .card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 2px;
     overflow: hidden;
-    transition: all 0.3s;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
     position: relative;
 
     &:hover {
-        border-color: var(--blue-team);
-        transform: translateY(-2px);
+        border-color: rgba(0, 240, 255, 0.25);
+        transform: translateY(-3px);
         box-shadow: var(--shadow-md);
-    }
-
-    // Tactical Corner Accent
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 0 20px 20px 0;
-        border-color: transparent var(--bg-main) transparent transparent;
-        transition: border-color 0.3s;
     }
 }
 
-// -----------------------------------------------------------------------------
-// SECTIONS (Hero, CV, etc)
-// -----------------------------------------------------------------------------
+// =============================================================================
+// SECTIONS
+// =============================================================================
 .hero {
     text-align: left;
-    padding: 6rem 1rem;
+    padding: 5rem 1.5rem;
     background: var(--bg-main);
     border-bottom: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
 
     h1 {
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 3.5rem;
+        font-family: var(--font-display);
+        font-size: clamp(2.5rem, 6vw, 5rem);
         color: var(--text-primary);
         margin-bottom: 1rem;
         letter-spacing: -1px;
+        line-height: 1.1;
 
-        .highlight {
-            color: var(--blue-team);
-        }
+        .highlight { color: var(--blue-team); }
     }
 
     p {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         max-width: 600px;
         color: var(--text-secondary);
         border-left: 3px solid var(--red-team);
         padding-left: 1rem;
+        margin-top: 1.5rem;
     }
 }
 
 .cv-section {
-    margin-bottom: 4rem;
+    margin-bottom: 4.5rem;
 
-    h2 {
-        font-family: 'Share Tech Mono', monospace;
-        border-bottom: 2px solid var(--border-color);
-        padding-bottom: 0.5rem;
+    h2, .section-title {
+        font-family: var(--font-display);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.75rem;
         margin-bottom: 2rem;
         text-transform: uppercase;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+        font-weight: 400;
         color: var(--text-primary);
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.75rem;
+        position: relative;
+        letter-spacing: 2px;
 
+        // "//" prefix
         &::before {
-            content: '>';
+            content: '//';
             color: var(--red-team);
-            font-weight: bold;
+            font-size: 1rem;
+            font-family: var(--font-mono);
         }
+
+        // colored underline accent
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(to right, var(--red-team), transparent);
+        }
+
+        i { color: var(--blue-team); margin-right: 0.25rem; }
     }
 }
 
+// =============================================================================
+// SKILL TAGS
+// =============================================================================
 .skill-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: 0.5rem;
 
     span {
-        background: var(--bg-panel);
+        background: rgba(0, 240, 255, 0.03);
         border: 1px solid var(--border-color);
-        padding: 0.3rem 0.8rem;
+        padding: 0.3rem 0.75rem;
         font-family: var(--font-mono);
-        font-size: 0.8rem;
+        font-size: 0.76rem;
         color: var(--text-secondary);
-        border-radius: 2px;
+        letter-spacing: 0.5px;
+        transition: all 0.2s;
+        cursor: default;
 
         &:hover {
             border-color: var(--blue-team);
             color: var(--blue-team);
-            background: rgba(0, 240, 255, 0.05);
+            background: rgba(0, 240, 255, 0.06);
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.12);
         }
     }
 }
 
+// =============================================================================
+// TIMELINE
+// =============================================================================
 .timeline-item {
     border-left: 1px solid var(--border-color);
     padding-left: 1.5rem;
     margin-bottom: 2.5rem;
     position: relative;
+    transition: border-color 0.3s;
+
+    &:hover { border-left-color: var(--blue-team); }
 
     &::before {
         content: '';
         position: absolute;
         left: -4px;
-        top: 8px;
+        top: 10px;
         width: 7px;
         height: 7px;
         background: var(--blue-team);
         border-radius: 50%;
+        box-shadow: 0 0 6px var(--blue-team);
+        transition: box-shadow 0.3s;
     }
 
+    &:hover::before { box-shadow: var(--shadow-glow-blue); }
+
     h3 {
-        margin: 0;
         font-family: var(--font-mono);
         color: var(--text-primary);
-        font-size: 1.2rem;
+        font-size: 1.05rem;
+        margin-bottom: 0.3rem;
     }
 
     .period {
         font-family: var(--font-mono);
         color: var(--red-team);
-        font-size: 0.85rem;
-        margin-bottom: 0.5rem;
+        font-size: 0.8rem;
+        margin-bottom: 0.4rem;
         display: block;
+        letter-spacing: 1px;
     }
 
     .institution {
         font-weight: 600;
         color: var(--text-secondary);
+        font-size: 0.85rem;
         display: block;
         margin-bottom: 0.5rem;
+        letter-spacing: 0.5px;
     }
 }

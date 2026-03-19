@@ -1,84 +1,71 @@
 // =============================================================================
-// DESIGN TOKENS - BRIGHT CYBER-OPS
+// DESIGN TOKENS — FLIPPERMEN CYBER-OPS
 // =============================================================================
-// Single Source of Truth for "Flippermen" Rebrand.
-// Aesthetics: Military/Gov Command Center, High-Tech, Light Theme.
-// Palette: Platinum / Electric Crimson / Sapphire / Deep Purple.
 
 // -----------------------------------------------------------------------------
-// Colors - The War Palette
+// SCSS Variables (para uso interno en SCSS)
 // -----------------------------------------------------------------------------
-$color-platinum: #E6E8EB; // Main Background (Bone/Tech White)
-$color-bone: #F4F6F8; // Secondary/Surface Background
-$color-gunmetal: #1A1D21; // Primary Text (Deep Charcoal - High Contrast)
-$color-slate: #5C6B7F; // Secondary Text (Technical Grey)
-$color-border: #D1D5DB; // Tech Borders
+$color-crimson:  #D90429;
+$color-sapphire: #00F0FF;
+$color-purple:   #7209B7;
+$color-emerald:  #10B981;
+$color-amber:    #F59E0B;
 
-// FACTIONS
-$color-crimson: #D90429; // RED TEAM (Offensive) - Electric Crimson
-$color-sapphire: #00F0FF; // BLUE TEAM (Defensive) - Neon Cyan/Sapphire
-$color-purple: #7209B7; // PURPLE TEAM (Strategy) - Vibranium
-
-// STATUS
-$color-success: #10B981; // Emerald
-$color-warning: #F59E0B; // Amber
-$color-danger: $color-crimson;
+$font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+$font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+$font-display: 'Share Tech Mono', monospace;
 
 // -----------------------------------------------------------------------------
-// Typography
-// -----------------------------------------------------------------------------
-$font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; // Data/Headers
-$font-sans: 'Inter', system-ui, -apple-system, sans-serif; // Body
-
-// -----------------------------------------------------------------------------
-// Spacing & Layout
-// -----------------------------------------------------------------------------
-$border-radius-sm: 2px;
-$border-radius-md: 4px;
-$border-radius-lg: 0px; // Sharp technical edges
-
-// -----------------------------------------------------------------------------
-// Export as CSS Custom Properties
+// CSS Custom Properties
 // -----------------------------------------------------------------------------
 :root {
-    // Backgrounds
-    --bg-main: #050505; // Deep Black
-    --bg-card: #0A0A0A; // Slightly lighter black
-    --bg-panel: #111111; // Dark Grey panel
+    // --- Backgrounds ---
+    --bg-main:   #050505;
+    --bg-card:   #0A0A0A;
+    --bg-panel:  #0f0f0f;
+    --bg-glass:  rgba(15, 15, 15, 0.8);
 
-    // Text
-    --text-primary: #FFFFFF; // White
-    --text-secondary: #AAAAAA; // Light Grey
-    --text-muted: #666666; // Darker Grey
+    // --- Text ---
+    --text-primary:   #FFFFFF;
+    --text-secondary: #AAAAAA;
+    --text-muted:     #555555;
 
-    // Factions (The Core Identity)
-    --red-team: #{$color-crimson};
-    --blue-team: #{$color-sapphire};
+    // --- Faction Colors ---
+    --red-team:    #{$color-crimson};
+    --blue-team:   #{$color-sapphire};
     --purple-team: #{$color-purple};
 
-    // UI Elements
-    --border-color: #333333; // Darker border for dark mode harmony
-    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    // --- Status Colors ---
+    --success-color: #{$color-emerald};
+    --warning-color: #{$color-amber};
+    --danger-color:  #{$color-crimson};
 
-    // Tech Glows — intensos para estética hacker
-    --shadow-glow-red: 0 0 12px rgba(217, 4, 41, 0.7), 0 0 24px rgba(217, 4, 41, 0.3);
-    --shadow-glow-blue: 0 0 12px rgba(0, 240, 255, 0.7), 0 0 24px rgba(0, 240, 255, 0.3);
-    --shadow-glow-purple: 0 0 12px rgba(114, 9, 183, 0.7), 0 0 24px rgba(114, 9, 183, 0.3);
-    --shadow-glow-green: 0 0 12px rgba(16, 185, 129, 0.7), 0 0 24px rgba(16, 185, 129, 0.3);
-    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.6);
+    // --- Borders ---
+    --border-color:  #252525;
+    --border-bright: #3a3a3a;
 
-    // Fonts
-    --font-mono: #{$font-mono};
-    --font-sans: #{$font-sans};
+    // --- Shadows ---
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.7);
+    --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.8);
 
-    // Legacy/Compat (Mapping old neon vars to new scheme)
-    --neon-red: var(--red-team);
-    --neon-blue: var(--blue-team);
+    // --- Neon Glows ---
+    --shadow-glow-red:    0 0 8px rgba(217, 4, 41, 0.6),  0 0 24px rgba(217, 4, 41, 0.25);
+    --shadow-glow-blue:   0 0 8px rgba(0, 240, 255, 0.6),  0 0 24px rgba(0, 240, 255, 0.25);
+    --shadow-glow-purple: 0 0 8px rgba(114, 9, 183, 0.6),  0 0 24px rgba(114, 9, 183, 0.25);
+    --shadow-glow-green:  0 0 8px rgba(16, 185, 129, 0.6), 0 0 24px rgba(16, 185, 129, 0.25);
+
+    // --- Fonts ---
+    --font-mono:    #{$font-mono};
+    --font-sans:    #{$font-sans};
+    --font-display: #{$font-display};
+
+    // --- Legacy aliases (compatibilidad) ---
+    --neon-red:    var(--red-team);
+    --neon-blue:   var(--blue-team);
     --neon-purple: var(--purple-team);
-    --neon-green: #{$color-success};
+    --neon-green:  var(--success-color);
 
-    // Grid/Circuit Pattern Opacity
-    --pattern-opacity: 0.1;
+    // --- Circuit Pattern ---
+    --pattern-opacity: 0.06;
 }
