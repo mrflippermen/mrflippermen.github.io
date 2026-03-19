@@ -12,9 +12,9 @@ export function getStaticPaths() {
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const es = lang === 'es';
 
 const allWriteups = await getCollection('writeups');
-// Sort by date desc
 allWriteups.sort((a, b) => {
   if (a.data.date && b.data.date) {
     return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
@@ -22,514 +22,643 @@ allWriteups.sort((a, b) => {
   return 0;
 });
 
-const latestMission = allWriteups[0];
-const pastMissions = allWriteups.slice(1);
 const totalMissions = allWriteups.length;
+
+// Extract unique platforms for filter buttons
+const platforms = ['ALL', ...Array.from(new Set(allWriteups.map(p => (p.data.platform || 'OTHER').toUpperCase())))];
+
+// Difficulty color map
+const diffColors: Record<string, string> = {
+  easy:   'var(--success-color)',
+  medium: '#F59E0B',
+  hard:   'var(--red-team)',
+  insane: '#9333EA',
+};
 ---
 
-<BaseLayout title={`Operations Log | ${t('nav.writeups')}`}>
+<BaseLayout title={`${es ? 'Registro de Operaciones' : 'Operations Log'} | ${t('nav.writeups')}`}>
   <div class="ops-container">
-    
-    <!-- DASHBOARD HEADER -->
-    <div class="ops-header">
-      <div class="header-content">
-        <h1 class="glitch" data-text="OPERATIONS LOG">OPERATIONS LOG</h1>
+
+    <!-- ── PAGE HEADER ── -->
+    <div class="ops-header reveal">
+      <div class="header-left">
+        <p class="header-pre">// {es ? 'ARCHIVO CLASIFICADO' : 'CLASSIFIED ARCHIVE'} //</p>
+        <h1 class="ops-title glitch" data-text="OPERATIONS LOG">OPERATIONS LOG</h1>
         <div class="terminal-line">
-           <span class="prompt">root@flippermen:~/missions#</span> <span class="cmd typing-cursor">ls -la --sort=date</span>
+          <span class="prompt">root@flippermen:~/ops#</span>
+          <span class="cmd"> ls -la --sort=date --filter=pwned</span><span class="blink-cursor">█</span>
         </div>
       </div>
-      
-      <div class="stats-panel">
-        <div class="stat-box">
-          <span class="stat-label">TOTAL MISSIONS</span>
-          <span class="stat-value" id="mission-count">{totalMissions}</span>
+      <div class="stats-row">
+        <div class="stat-cell">
+          <span class="stat-num" id="mission-count">{totalMissions}</span>
+          <span class="stat-lbl">{es ? 'MISIONES' : 'MISSIONS'}</span>
         </div>
-        <div class="stat-box success">
-          <span class="stat-label">STATUS</span>
-          <span class="stat-value">ACTIVE</span>
+        <div class="stat-cell success">
+          <span class="stat-num">100%</span>
+          <span class="stat-lbl">PWNED</span>
         </div>
-        <div class="stat-box warning">
-          <span class="stat-label">DEFCON</span>
-          <span class="stat-value">3</span>
+        <div class="stat-cell warn">
+          <span class="stat-num">3</span>
+          <span class="stat-lbl">DEFCON</span>
         </div>
-      </div>
-    </div>
-
-    <!-- SEARCH BAR -->
-    <div class="search-bar-container">
-      <div class="search-icon"><i class="fas fa-search"></i></div>
-      <input type="text" id="search-input" class="search-input" placeholder="Search target system, CVE or technique..." />
-      <div class="filter-controls" id="filter-controls">
-        <span class="filter-label">FILTER:</span>
-        <button class="filter-btn active" data-filter="ALL">ALL</button>
-        <button class="filter-btn" data-filter="HTB">HTB</button>
-        <button class="filter-btn" data-filter="CTF">CTF</button>
+        <div class="stat-cell">
+          <span class="stat-num">{platforms.length - 1}</span>
+          <span class="stat-lbl">{es ? 'PLATAFORMAS' : 'PLATFORMS'}</span>
+        </div>
       </div>
     </div>
 
-    <!-- HERO MISSION (LATEST) -->
-    {latestMission && (
-      <section class="hero-mission searchable-item" data-title={latestMission.data.title.toLowerCase()} data-platform={latestMission.data.platform?.toUpperCase() || 'OTHER'} data-tags={latestMission.data.tags?.join(' ').toLowerCase() || ''}>
-        <div class="mission-label">>>> LATEST OPERATION ({lang.toUpperCase()}) <<<</div>
-        <div class="hero-card">
-          <div class="hero-image">
-             {latestMission.data.image || latestMission.data.header?.teaser ? (
-               <img src={latestMission.data.image || latestMission.data.header.teaser.replace('/assets/', '/')} alt={latestMission.data.title} />
-             ) : (
-               <div class="placeholder-hero">CLASSIFIED IMAGE</div>
-             )}
-             <div class="overlay"></div>
-          </div>
-          <div class="hero-content">
-            <div class="hero-meta">
-              <span class="date-badge">{latestMission.data.date && new Date(latestMission.data.date).toLocaleDateString()}</span>
-              <span class="status-badge">PWNED</span>
-            </div>
-            <h2><a href={`/${lang}/writeups/${latestMission.slug}`}>{latestMission.data.title}</a></h2>
-            <p class="hero-excerpt">{latestMission.data.excerpt ? latestMission.data.excerpt : "Mission details classified. Authorized personnel only."}</p>
-            <a href={`/${lang}/writeups/${latestMission.slug}`} class="access-btn">ACCESS REPORT_</a>
-          </div>
-        </div>
-      </section>
-    )}
+    <!-- ── SEARCH + FILTERS ── -->
+    <div class="control-bar reveal">
+      <div class="search-wrap">
+        <i class="fas fa-search search-ico"></i>
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder={es ? 'Buscar objetivo, CVE, técnica...' : 'Search target, CVE, technique...'}
+          autocomplete="off"
+        />
+        <span class="search-hits" id="search-hits"></span>
+      </div>
+      <div class="filter-wrap" id="filter-controls">
+        {platforms.map(p => (
+          <button class={`filter-btn${p === 'ALL' ? ' active' : ''}`} data-filter={p}>
+            {p === 'ALL' ? (es ? 'TODOS' : 'ALL') : p}
+          </button>
+        ))}
+      </div>
+    </div>
 
-    <!-- MISSION GRID -->
-    <div class="grid-label">>>> ARCHIVED OPERATIONS</div>
-    <div class="mission-grid">
-      {pastMissions.map((post) => (
-        <article class="mission-card searchable-item" data-title={post.data.title.toLowerCase()} data-platform={post.data.platform?.toUpperCase() || 'OTHER'} data-tags={post.data.tags?.join(' ').toLowerCase() || ''}>
-          <div class="card-media">
-             {post.data.image || post.data.header?.teaser ? (
-               <img src={post.data.image || post.data.header.teaser.replace('/assets/', '/')} alt={post.data.title} />
-             ) : (
-               <div class="placeholder-grid">NO SIGNAL</div>
-             )}
-             <div class="card-status"><i class="fas fa-check-circle"></i></div>
-          </div>
-          <div class="card-body">
-            <div class="card-meta">
-               <span class="mission-id">OP-{post.slug.split('').reduce((a, c) => (a + c.charCodeAt(0)) & 0xffff, 0).toString().padStart(4, '0')}</span>
-               <span class="mission-date">{post.data.date && new Date(post.data.date).toLocaleDateString()}</span>
+    <!-- ── MISSION LIST ── -->
+    <div class="missions-list" id="missions-list">
+      {allWriteups.map((post, idx) => {
+        const platform  = (post.data.platform || 'OTHER').toUpperCase();
+        const diff      = (post.data.difficulty || '').toLowerCase();
+        const diffColor = diffColors[diff] || 'var(--text-muted)';
+        const opId      = post.slug.split('').reduce((a, c) => (a + c.charCodeAt(0)) & 0xffff, 0).toString().padStart(4, '0');
+        const hasImg    = !!(post.data.image || post.data.header?.teaser);
+        const imgSrc    = post.data.image || (post.data.header?.teaser ? post.data.header.teaser.replace('/assets/', '/') : '');
+        const dateStr   = post.data.date ? new Date(post.data.date).toLocaleDateString(lang === 'es' ? 'es-EC' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '—';
+        return (
+          <article
+            class="mission-row searchable-item"
+            data-title={post.data.title.toLowerCase()}
+            data-platform={platform}
+            data-tags={(post.data.tags?.join(' ') || '').toLowerCase()}
+            data-diff={diff}
+            style={`animation-delay: ${idx * 40}ms`}
+          >
+            <!-- Thumb -->
+            <div class="row-thumb">
+              {hasImg ? (
+                <img src={imgSrc} alt={post.data.title} loading="lazy" />
+              ) : (
+                <div class="thumb-placeholder">
+                  <i class="fas fa-terminal"></i>
+                </div>
+              )}
+              <span class="platform-badge" data-platform={platform}>{platform}</span>
             </div>
-            <h3><a href={`/${lang}/writeups/${post.slug}`}>{post.data.title}</a></h3>
-            <div class="tags">
-              {post.data.tags?.length
-                ? post.data.tags.map((tag: string) => <span class="tag">#{tag}</span>)
-                : <span class="tag">#{post.data.platform || 'Security'}</span>
-              }
+
+            <!-- Body -->
+            <div class="row-body">
+              <div class="row-meta">
+                <span class="op-id">OP-{opId}</span>
+                <span class="row-date"><i class="fas fa-calendar-alt"></i> {dateStr}</span>
+                {diff && (
+                  <span class="diff-badge" style={`color: ${diffColor}; border-color: ${diffColor};`}>
+                    {diff.toUpperCase()}
+                  </span>
+                )}
+              </div>
+
+              <h2 class="row-title">
+                <a href={`/${lang}/writeups/${post.slug}`}>{post.data.title}</a>
+              </h2>
+
+              {post.data.excerpt && (
+                <p class="row-excerpt">{post.data.excerpt}</p>
+              )}
+
+              <div class="row-footer">
+                <div class="tag-list">
+                  {post.data.tags?.length
+                    ? post.data.tags.map((tag: string) => <span class="tag">#{tag}</span>)
+                    : <span class="tag">#{platform}</span>
+                  }
+                </div>
+                <a href={`/${lang}/writeups/${post.slug}`} class="access-btn">
+                  {es ? 'VER REPORTE' : 'VIEW REPORT'} <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
             </div>
-            <a href={`/${lang}/writeups/${post.slug}`} class="read-more">View Log &rarr;</a>
-          </div>
-        </article>
-      ))}
+
+            <!-- Status indicator -->
+            <div class="row-status">
+              <i class="fas fa-check-circle status-icon"></i>
+              <span class="status-text">PWNED</span>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    <!-- ── EMPTY STATE ── -->
+    <div class="empty-state" id="empty-state" style="display:none">
+      <i class="fas fa-satellite-dish"></i>
+      <p>{es ? 'No se encontraron operaciones.' : 'No operations found.'}</p>
+      <span>{es ? 'Ajusta los filtros de búsqueda.' : 'Adjust your search filters.'}</span>
     </div>
 
   </div>
 </BaseLayout>
 
 <script>
-  // CLIENT-SIDE SEARCH & FILTER LOGIC
-  const searchInput = document.getElementById('search-input') as HTMLInputElement;
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const items = document.querySelectorAll('.searchable-item');
-  const countDisplay = document.getElementById('mission-count');
-  
-  let currentFilter = 'ALL';
-  let currentSearch = '';
+  document.addEventListener('astro:page-load', () => {
+    const searchInput  = document.getElementById('search-input') as HTMLInputElement | null;
+    const filterBtns   = document.querySelectorAll('.filter-btn');
+    const items        = document.querySelectorAll('.searchable-item');
+    const countEl      = document.getElementById('mission-count');
+    const hitsEl       = document.getElementById('search-hits');
+    const emptyState   = document.getElementById('empty-state');
 
-  function filterItems() {
-    let visibleCount = 0;
+    let currentFilter = 'ALL';
+    let currentSearch = '';
 
-    items.forEach(item => {
-      const el = item as HTMLElement;
-      const title = el.dataset.title || '';
-      const tags = el.dataset.tags || '';
-      const platform = el.dataset.platform || 'OTHER';
-      
-      const searchMatch = title.includes(currentSearch) || tags.includes(currentSearch);
-      
-      const filterMatch = currentFilter === 'ALL' || 
-                          platform === currentFilter || 
-                          tags.includes(currentFilter.toLowerCase());
+    function filterItems() {
+      let visible = 0;
 
-      if (searchMatch && filterMatch) {
-        el.style.display = ''; 
-        visibleCount++;
-      } else {
-        el.style.display = 'none';
-      }
-    });
+      items.forEach(item => {
+        const el       = item as HTMLElement;
+        const title    = el.dataset.title    || '';
+        const tags     = el.dataset.tags     || '';
+        const platform = el.dataset.platform || 'OTHER';
+        const diff     = el.dataset.diff     || '';
 
-    if (countDisplay) countDisplay.innerText = visibleCount.toString();
-  }
+        const searchMatch =
+          !currentSearch ||
+          title.includes(currentSearch) ||
+          tags.includes(currentSearch)  ||
+          diff.includes(currentSearch)  ||
+          platform.toLowerCase().includes(currentSearch);
 
-  if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      currentSearch = (e.target as HTMLInputElement).value.toLowerCase();
-      filterItems();
-    });
-  }
+        const filterMatch =
+          currentFilter === 'ALL' ||
+          platform === currentFilter ||
+          tags.includes(currentFilter.toLowerCase());
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const target = btn as HTMLElement;
-      currentFilter = target.dataset.filter || 'ALL';
-      filterItems();
+        const show = searchMatch && filterMatch;
+        el.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      if (countEl) countEl.textContent = String(visible);
+      if (hitsEl)  hitsEl.textContent  = currentSearch ? `${visible} result${visible !== 1 ? 's' : ''}` : '';
+      if (emptyState) emptyState.style.display = visible === 0 ? 'flex' : 'none';
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', e => {
+        currentSearch = (e.target as HTMLInputElement).value.toLowerCase().trim();
+        filterItems();
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = (btn as HTMLElement).dataset.filter || 'ALL';
+        filterItems();
+      });
     });
   });
 </script>
 
 <style>
-  /* Reuse Global "Bright Cyber-Ops" Variables */
-  .ops-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-    font-family: var(--font-mono);
-  }
+/* ══════════════════════════════════════════
+   OPS CONTAINER
+══════════════════════════════════════════ */
+.ops-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
 
-  /* HEADER */
-  .ops-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 2rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    gap: 2rem;
-  }
+/* ── Header ── */
+.ops-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
 
-  h1.glitch {
-    font-size: 3rem;
-    color: var(--text-primary);
-    margin: 0;
-    font-family: 'Share Tech Mono', sans-serif;
-    font-weight: 900;
-  }
+.header-pre {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--red-team);
+  letter-spacing: 3px;
+  margin-bottom: 0.4rem;
+}
 
-  .terminal-line {
-    font-family: var(--font-mono);
-    color: var(--text-secondary);
-    margin-top: 0.5rem;
-    background: var(--bg-card);
-    padding: 0.5rem;
-    border-radius: 4px;
-    display: inline-block;
-    border: 1px solid var(--border-color);
-  }
-  .prompt { color: var(--success-color, #10B981); }
-  .cmd { color: var(--text-primary); }
+.ops-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: -1px;
+  margin: 0 0 1rem;
+  line-height: 1;
+}
 
-  .stats-panel {
-    display: flex;
-    gap: 1rem;
-  }
+.terminal-line {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
 
-  .stat-box {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    padding: 0.5rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 80px;
-  }
-  
-  .stat-label { font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 1px; }
-  .stat-value { font-size: 1.2rem; color: var(--text-primary); font-weight: bold; }
-  .stat-box.success .stat-value { color: var(--success-color, #10B981); }
-  .stat-box.warning .stat-value { color: #F59E0B; }
+.prompt  { color: var(--success-color); }
+.cmd     { color: var(--text-primary); }
 
-  /* COMPONENT: SEARCH BAR */
-  .search-bar-container {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    margin-bottom: 3rem;
-  }
-  
-  .search-icon { color: var(--text-secondary); margin-right: 1rem; }
-  .search-input {
-    background: transparent;
-    border: none;
-    color: var(--text-primary);
-    width: 100%;
-    font-family: var(--font-mono);
-    font-size: 1.1rem;
-    outline: none;
-  }
+.blink-cursor {
+  color: var(--blue-team);
+  animation: blink-op 1s step-end infinite;
+  margin-left: 2px;
+}
+@keyframes blink-op { 50% { opacity: 0; } }
 
-  /* FILTERS */
-  .filter-controls { display: flex; align-items: center; gap: 0.5rem; }
-  .filter-label { color: var(--text-secondary); font-size: 0.8rem; font-weight: bold; margin-right: 0.5rem; }
-  
-  .filter-btn {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    padding: 2px 8px;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  
-  .filter-btn:hover, .filter-btn.active {
-    color: var(--text-primary);
-    border-color: var(--blue-team);
-    background: rgba(0, 240, 255, 0.1);
-  }
+/* Stats row */
+.stats-row {
+  display: flex;
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
 
-  /* SECTION LABELS */
-  .mission-label, .grid-label {
-    color: var(--blue-team);
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-    letter-spacing: 2px;
-    opacity: 0.8;
-  }
+.stat-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-panel);
+  gap: 0.2rem;
+}
 
-  /* HERO MISSION */
-  .hero-mission {
-    margin-bottom: 4rem;
-  }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  line-height: 1;
+}
 
-  .hero-card {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    min-height: 350px;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  @media (max-width: 768px) {
-    .hero-card { grid-template-columns: 1fr; }
-  }
+.stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+}
 
-  .hero-image {
-    position: relative;
-    background: #000;
-  }
-  
-  .hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.9;
-    filter: grayscale(20%);
-    transition: all 0.5s;
-  }
-  
-  .hero-card:hover .hero-image img {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.02);
-  }
+.stat-cell.success .stat-num { color: var(--success-color); }
+.stat-cell.warn    .stat-num { color: #F59E0B; }
 
-  .placeholder-hero {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    font-size: 2rem;
-    font-weight: bold;
-    letter-spacing: 5px;
-    background: var(--bg-card);
-  }
+/* ── Control bar ── */
+.control-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
 
-  .hero-content {
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-left: 1px solid var(--border-color);
-    position: relative;
-  }
+.search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 1rem;
+  transition: border-color 0.2s;
+}
 
-  .hero-meta {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
+.search-wrap:focus-within {
+  border-color: var(--blue-team);
+  box-shadow: 0 0 0 1px rgba(0,240,255,0.15);
+}
 
-  .date-badge {
-    background: var(--bg-main);
-    color: var(--text-secondary);
-    padding: 0.2rem 0.5rem;
-    font-size: 0.8rem;
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
-  }
-  
-  .status-badge {
-    background: rgba(0, 255, 65, 0.2);
-    color: var(--success-color, #10B981);
-    padding: 0.2rem 0.5rem;
-    font-size: 0.8rem;
-    border: 1px solid var(--success-color, #10B981);
-    font-weight: bold;
-  }
+.search-ico { color: var(--text-muted); font-size: 0.85rem; }
 
-  .hero-content h2 {
-    font-size: 2rem;
-    margin: 0 0 1rem 0;
-    font-family: 'Share Tech Mono', sans-serif;
-  }
-  
-  .hero-content h2 a {
-    color: var(--text-primary);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .hero-content h2 a:hover { color: var(--blue-team); }
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  outline: none;
+}
 
-  .hero-excerpt {
-    color: var(--text-secondary);
-    font-family: var(--font-sans);
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
+.search-input::placeholder { color: var(--text-muted); }
 
-  .access-btn {
-    display: inline-block;
-    padding: 0.8rem 1.5rem;
-    background: transparent;
-    color: var(--blue-team);
-    border: 1px solid var(--blue-team);
-    text-decoration: none;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    width: fit-content;
-    transition: all 0.3s;
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-  }
+.search-hits {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--blue-team);
+  white-space: nowrap;
+}
 
-  .access-btn:hover {
-    background: var(--blue-team);
-    color: #000;
-    box-shadow: var(--shadow-glow-blue);
-    transform: translateX(5px);
-  }
+.filter-wrap {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
 
-  /* MISSION GRID */
-  .mission-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-  }
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.75rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
 
-  .mission-card {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    transition: transform 0.3s, border-color 0.3s;
-  }
-  
-  .mission-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--blue-team);
-  }
+.filter-btn:hover {
+  border-color: var(--blue-team);
+  color: var(--blue-team);
+}
 
-  .card-media {
-    height: 180px;
-    position: relative;
-    overflow: hidden;
-    background: var(--bg-card);
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .card-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.8;
-    transition: opacity 0.3s;
-  }
-  
-  .mission-card:hover .card-media img { opacity: 1; }
+.filter-btn.active {
+  background: rgba(0,240,255,0.08);
+  border-color: var(--blue-team);
+  color: var(--blue-team);
+}
 
-  .card-status {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: var(--success-color, #10B981);
-    background: var(--bg-main);
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+/* ══════════════════════════════════════════
+   MISSION ROWS
+══════════════════════════════════════════ */
+.missions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
 
-  .placeholder-grid {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    font-size: 1.5rem;
-    background: var(--bg-card);
-  }
+.mission-row {
+  display: grid;
+  grid-template-columns: 160px 1fr auto;
+  background: var(--bg-panel);
+  transition: background 0.2s;
+  animation: row-in 0.4s ease both;
+}
 
-  .card-body {
-    padding: 1.5rem;
-  }
+@keyframes row-in {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: none; }
+}
 
-  .card-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    margin-bottom: 0.5rem;
-    font-family: var(--font-mono);
-  }
+.mission-row:hover {
+  background: rgba(255,255,255,0.02);
+}
 
-  .mission-card h3 {
-    margin: 0 0 1rem 0;
-    font-size: 1.3rem;
-    font-family: 'Share Tech Mono', sans-serif;
-  }
-  
-  .mission-card h3 a {
-    color: var(--text-primary);
-    text-decoration: none;
-  }
+/* Thumb */
+.row-thumb {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  flex-shrink: 0;
+}
 
-  .tags {
-    margin-bottom: 1.5rem;
-  }
-  
-  .tag {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    margin-right: 0.5rem;
-  }
+.row-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  filter: grayscale(50%);
+  transition: all 0.4s;
+  display: block;
+}
 
-  .read-more {
-    color: var(--blue-team);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.2s;
-  }
+.mission-row:hover .row-thumb img {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.04);
+}
 
-  .read-more:hover {
-    text-shadow: var(--shadow-glow-blue);
-    letter-spacing: 2px;
-  }
+.thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--border-color);
+  font-size: 2rem;
+}
 
+.platform-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-align: center;
+  padding: 0.25rem;
+  background: rgba(0,0,0,0.85);
+  color: var(--text-muted);
+}
+
+.platform-badge[data-platform="HTB"]     { color: #9FEF00; }
+.platform-badge[data-platform="CTF"]     { color: var(--blue-team); }
+.platform-badge[data-platform="TRYHACKME"] { color: #E8405A; }
+.platform-badge[data-platform="VULNHUB"] { color: #F59E0B; }
+.platform-badge[data-platform="HACKTHEBOX"] { color: #9FEF00; }
+
+/* Body */
+.row-body {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.row-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.op-id {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--red-team);
+  letter-spacing: 1.5px;
+}
+
+.row-date {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.diff-badge {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid;
+}
+
+.row-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.row-title a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.mission-row:hover .row-title a {
+  color: var(--blue-team);
+}
+
+.row-excerpt {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.row-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tag-list {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-color);
+  padding: 0.1rem 0.4rem;
+}
+
+.access-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--blue-team);
+  border: 1px solid var(--blue-team);
+  padding: 0.35rem 0.8rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.access-btn:hover {
+  background: var(--blue-team);
+  color: #000;
+  box-shadow: var(--shadow-glow-blue);
+}
+
+/* Status column */
+.row-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.25rem;
+  gap: 0.3rem;
+  min-width: 70px;
+}
+
+.status-icon {
+  color: var(--success-color);
+  font-size: 1.1rem;
+}
+
+.status-text {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--success-color);
+  letter-spacing: 1.5px;
+}
+
+/* ── Empty state ── */
+.empty-state {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  text-align: center;
+}
+
+.empty-state i   { font-size: 2.5rem; opacity: 0.3; }
+.empty-state p   { font-size: 1rem; margin: 0; }
+.empty-state span { font-size: 0.8rem; opacity: 0.6; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .mission-row   { grid-template-columns: 1fr; }
+  .row-thumb     { height: 140px; }
+  .row-body      { border-left: none; border-right: none; }
+  .row-status    { flex-direction: row; padding: 0.75rem 1.25rem; border-top: 1px solid var(--border-color); }
+  .ops-header    { flex-direction: column; align-items: flex-start; }
+  .stats-row     { width: 100%; }
+  .stat-cell     { flex: 1; padding: 0.6rem; }
+}
+
+@media (max-width: 480px) {
+  .stats-row  { flex-wrap: wrap; }
+  .stat-cell  { flex: 0 1 50%; }
+}
 </style>

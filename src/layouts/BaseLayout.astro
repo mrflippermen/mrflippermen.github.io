@@ -94,21 +94,25 @@ const {
   </body>
 </html>
 
-<!-- IntersectionObserver — anima elementos con clase .reveal al hacer scroll -->
+<!-- IntersectionObserver — fires on every View Transitions navigation AND initial load -->
 <script>
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
+  function setupRevealObserver() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  }
 
-  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  // astro:page-load fires on initial load AND every client-side navigation
+  document.addEventListener('astro:page-load', setupRevealObserver);
 </script>
 
 <style>

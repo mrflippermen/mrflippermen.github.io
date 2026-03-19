@@ -86,43 +86,53 @@ const currentDate = new Date().toISOString().split('T')[0];
 </header>
 
 <script>
-  // ── User Agent detection ──────────────────────────
-  const uaEl = document.getElementById('ua-display');
-  if (uaEl) {
-    const ua = navigator.userAgent;
-    let display = 'UNKNOWN_OS';
-    if      (ua.includes('Windows')) display = 'WIN_NT_KERNEL';
-    else if (ua.includes('Mac'))     display = 'DARWIN_OS';
-    else if (ua.includes('Linux'))   display = 'ELF64_LINUX';
-    else if (ua.includes('Android')) display = 'ANDROID_ARM';
-    else if (ua.includes('iPhone') || ua.includes('iPad')) display = 'IOS_MOBI';
+  let clockInterval: ReturnType<typeof setInterval> | null = null;
 
-    setTimeout(() => {
-      uaEl.textContent = display;
-      uaEl.classList.add('scanned');
-    }, 700);
+  function initHeader() {
+    // ── User Agent detection ──────────────────────
+    const uaEl = document.getElementById('ua-display');
+    if (uaEl) {
+      uaEl.textContent = 'SCANNING...';
+      uaEl.classList.remove('scanned');
+      const ua = navigator.userAgent;
+      let display = 'UNKNOWN_OS';
+      if      (ua.includes('Windows')) display = 'WIN_NT_KERNEL';
+      else if (ua.includes('Mac'))     display = 'DARWIN_OS';
+      else if (ua.includes('Linux'))   display = 'ELF64_LINUX';
+      else if (ua.includes('Android')) display = 'ANDROID_ARM';
+      else if (ua.includes('iPhone') || ua.includes('iPad')) display = 'IOS_MOBI';
+      setTimeout(() => {
+        uaEl.textContent = display;
+        uaEl.classList.add('scanned');
+      }, 700);
+    }
+
+    // ── Live clock ────────────────────────────────
+    if (clockInterval) clearInterval(clockInterval);
+    const timeEl = document.getElementById('live-time');
+    function updateClock() {
+      if (!timeEl) return;
+      timeEl.textContent = new Date().toTimeString().slice(0, 8);
+    }
+    updateClock();
+    clockInterval = setInterval(updateClock, 1000);
+
+    // ── Mobile menu ──────────────────────────────
+    const btn      = document.getElementById('mob-btn');
+    const navLinks = document.getElementById('nav-links');
+    if (btn && navLinks) {
+      // Clone to remove any stale listeners from prior navigations
+      const newBtn = btn.cloneNode(true) as HTMLElement;
+      btn.replaceWith(newBtn);
+      newBtn.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        newBtn.classList.toggle('active', open);
+        newBtn.setAttribute('aria-expanded', String(open));
+      });
+    }
   }
 
-  // ── Live clock ────────────────────────────────────
-  const timeEl = document.getElementById('live-time');
-  function updateClock() {
-    if (!timeEl) return;
-    const now = new Date();
-    timeEl.textContent = now.toTimeString().slice(0, 8);
-  }
-  updateClock();
-  setInterval(updateClock, 1000);
-
-  // ── Mobile menu ──────────────────────────────────
-  const btn      = document.getElementById('mob-btn');
-  const navLinks = document.getElementById('nav-links');
-  if (btn && navLinks) {
-    btn.addEventListener('click', () => {
-      const open = navLinks.classList.toggle('open');
-      btn.classList.toggle('active', open);
-      btn.setAttribute('aria-expanded', String(open));
-    });
-  }
+  document.addEventListener('astro:page-load', initHeader);
 </script>
 
 <style>
