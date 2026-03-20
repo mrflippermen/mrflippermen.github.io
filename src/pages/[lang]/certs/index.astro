@@ -1,134 +1,645 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import AwardCard from '../../../components/AwardCard.astro';
-import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
+import { getLangFromUrl } from '../../../i18n/utils';
 
 export function getStaticPaths() {
   return [
-    {params: {lang: 'en'}},
-    {params: {lang: 'es'}},
+    { params: { lang: 'en' } },
+    { params: { lang: 'es' } },
   ];
 }
 
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const es   = lang === 'es';
 
 const allCerts = await getCollection('certs');
-// Sort by date descending (newest first)
 allCerts.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
+
+// Exclude guide-only entries (no platform = not a real cert)
+const realCerts = allCerts.filter(c => c.data.platform);
+
+// Faction helper
+function getFaction(cert: typeof realCerts[0]): 'blue' | 'red' | 'htb' {
+  const platform = cert.data.platform || '';
+  const category = cert.data.category || '';
+  if (category === 'Blue Team' || platform === 'Blue Team Labs') return 'blue';
+  if (platform === 'Hack The Box') return 'htb';
+  return 'red';
+}
+
+// Level color helper
+function getLevelColor(level: string = ''): string {
+  switch (level.toLowerCase()) {
+    case 'insane':       return '#9333EA';
+    case 'hard':         return '#D90429';
+    case 'intermediate': return '#F59E0B';
+    case 'beginner':     return '#10B981';
+    default:             return '#888';
+  }
+}
+
+const officialCerts = realCerts.filter(c => c.data.category !== 'Pro Lab');
+const proLabs       = realCerts.filter(c => c.data.category === 'Pro Lab');
+
+const stats = {
+  total: realCerts.length,
+  red:   realCerts.filter(c => getFaction(c) === 'red').length,
+  blue:  realCerts.filter(c => getFaction(c) === 'blue').length,
+  labs:  proLabs.length,
+};
 ---
 
-<BaseLayout title={`Credentials Vault | ${t('nav.certs')}`}>
-  <div class="vault-container">
-    
-    <div class="vault-header">
-      <h1 class="vault-title"><i class="fas fa-lock-open"></i> CREDENTIALS VAULT ({lang.toUpperCase()})</h1>
+<BaseLayout title={es ? 'Bóveda de Credenciales' : 'Credentials Vault'}>
+<div class="vault">
+
+  <!-- ── HEADER ── -->
+  <div class="vault-header reveal">
+    <div class="header-left">
+      <p class="header-pre">// {es ? 'ACCESO CLASIFICADO' : 'CLASSIFIED ACCESS'} — TOP SECRET //</p>
+      <h1 class="vault-title glitch" data-text="CREDENTIALS VAULT">CREDENTIALS VAULT</h1>
       <p class="vault-subtitle">
-        {lang === 'es' ? 'Certificaciones Oficiales & Laboratorios Avanzados' : 'Official Certifications & Advanced Laboratories'}
+        {es
+          ? 'Certificaciones oficiales y laboratorios avanzados completados en entornos hostiles reales.'
+          : 'Official certifications and advanced labs completed in real hostile environments.'
+        }
       </p>
-      <div class="vault-meta">
-        <span>{lang === 'es' ? 'TOTAL ACTIVOS' : 'TOTAL ASSETS'}: {allCerts.length}</span>
-        <span>{lang === 'es' ? 'ACCESO' : 'CLEARANCE'}: TOP_SECRET</span>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-cell">
+        <span class="stat-n">{stats.total}</span>
+        <span class="stat-l">{es ? 'TOTAL' : 'TOTAL'}</span>
+      </div>
+      <div class="stat-cell red">
+        <span class="stat-n">{stats.red}</span>
+        <span class="stat-l">RED TEAM</span>
+      </div>
+      <div class="stat-cell blue">
+        <span class="stat-n">{stats.blue}</span>
+        <span class="stat-l">BLUE TEAM</span>
+      </div>
+      <div class="stat-cell htb">
+        <span class="stat-n">{stats.labs}</span>
+        <span class="stat-l">PRO LABS</span>
       </div>
     </div>
-    
-    <div class="vault-grid">
-      {allCerts.map((cert) => (
-        <AwardCard
-          title={cert.data.title}
-          subtitle={`${cert.data.platform} | ${cert.data.level}`}
-          image={cert.data.image}
-          link={`/${lang}/certs/${cert.slug}`}
-        >
-          <div class="tags-container">
-            {cert.data.tags && cert.data.tags.map(tag => (
-              <span class="cert-tag">{tag}</span>
-            ))}
-          </div>
-        </AwardCard>
-      ))}
+  </div>
+
+  <!-- ── OFFICIAL CERTIFICATIONS ── -->
+  <section class="vault-section reveal">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-id-badge"></i>
+        {es ? 'Certificaciones Oficiales' : 'Official Certifications'}
+      </h2>
+      <span class="section-count">{officialCerts.length} {es ? 'credencial(es)' : 'credential(s)'}</span>
     </div>
 
-  </div>
+    <div class="cert-grid">
+      {officialCerts.map(cert => {
+        const faction    = getFaction(cert);
+        const levelColor = getLevelColor(cert.data.level || '');
+        const dateStr    = new Date(cert.data.date).toLocaleDateString(
+          es ? 'es-EC' : 'en-US',
+          { year: 'numeric', month: 'short' }
+        );
+        return (
+          <a href={`/${lang}/certs/${cert.slug}`} class={`cert-card faction-${faction}`}>
+
+            <!-- Image -->
+            <div class="cert-img-wrap">
+              {cert.data.image
+                ? <img src={cert.data.image} alt={cert.data.title} loading="lazy" />
+                : <div class="cert-img-placeholder"><i class="fas fa-certificate"></i></div>
+              }
+              <div class="cert-img-overlay"></div>
+              <!-- Platform badge -->
+              <span class={`platform-badge pb-${faction}`}>{cert.data.platform}</span>
+            </div>
+
+            <!-- Body -->
+            <div class="cert-body">
+              <div class="cert-top-meta">
+                {cert.data.level && (
+                  <span class="level-pill" style={`color:${levelColor}; border-color:${levelColor};`}>
+                    {cert.data.level.toUpperCase()}
+                  </span>
+                )}
+                <span class="cert-date"><i class="fas fa-calendar-check"></i> {dateStr}</span>
+              </div>
+
+              <h3 class="cert-title">{cert.data.title}</h3>
+
+              {cert.data.tags?.length > 0 && (
+                <div class="cert-tags">
+                  {cert.data.tags.slice(0, 4).map((tag: string) => (
+                    <span class="ctag">#{tag}</span>
+                  ))}
+                </div>
+              )}
+
+              <div class="cert-footer">
+                <span class={`faction-label fl-${faction}`}>
+                  {faction === 'blue' ? <><i class="fas fa-shield-halved"></i> BLUE TEAM</> : faction === 'red' ? <><i class="fas fa-skull-crossbones"></i> RED TEAM</> : <><i class="fas fa-dragon"></i> PRO LAB</>}
+                </span>
+                <span class="view-link">{es ? 'VER CREDENCIAL' : 'VIEW CREDENTIAL'} <i class="fas fa-arrow-right"></i></span>
+              </div>
+            </div>
+
+            <!-- Corner accents -->
+            <span class="corner tl"></span>
+            <span class="corner br"></span>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- ── HTB PRO LABS ── -->
+  <section class="vault-section reveal">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-flask"></i>
+        Hack The Box — Pro Labs
+        <span class="htb-dot"></span>
+      </h2>
+      <span class="section-count">{proLabs.length} {es ? 'laboratorio(s)' : 'lab(s)'} — 100% {es ? 'completados' : 'completed'}</span>
+    </div>
+
+    <div class="labs-grid">
+      {proLabs.map(cert => {
+        const levelColor = getLevelColor(cert.data.level || '');
+        const dateStr = new Date(cert.data.date).toLocaleDateString(
+          es ? 'es-EC' : 'en-US',
+          { year: 'numeric', month: 'short' }
+        );
+        return (
+          <a href={`/${lang}/certs/${cert.slug}`} class="lab-card">
+            <div class="lab-img-wrap">
+              {cert.data.image
+                ? <img src={cert.data.image} alt={cert.data.title} loading="lazy" />
+                : <div class="lab-img-placeholder"><i class="fas fa-flask"></i></div>
+              }
+              <div class="lab-pwned-badge"><i class="fas fa-check"></i> PWNED</div>
+            </div>
+            <div class="lab-body">
+              <div class="lab-meta">
+                {cert.data.level && (
+                  <span class="level-pill" style={`color:${levelColor}; border-color:${levelColor};`}>
+                    {cert.data.level.toUpperCase()}
+                  </span>
+                )}
+                <span class="cert-date"><i class="fas fa-calendar-check"></i> {dateStr}</span>
+              </div>
+              <h3 class="lab-title">{cert.data.title}</h3>
+              {cert.data.tags?.length > 0 && (
+                <div class="cert-tags">
+                  {cert.data.tags.slice(0, 3).map((tag: string) => (
+                    <span class="ctag">#{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+</div>
 </BaseLayout>
 
 <style>
-  .vault-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 3rem 1rem;
-    font-family: var(--font-sans);
-  }
+/* ══════════════════════════════════════
+   VAULT LAYOUT
+══════════════════════════════════════ */
+.vault {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
 
-  /* HEADER */
-  .vault-header {
-    text-align: center;
-    margin-bottom: 4rem;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 2rem;
-  }
+/* ── Header ── */
+.vault-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
 
-  .vault-title {
-    font-size: 2.5rem;
-    color: var(--text-primary);
-    margin: 0;
-    font-weight: 800;
-    letter-spacing: -1px;
-    font-family: 'Share Tech Mono', monospace;
-  }
-  
-  .vault-title i { color: var(--success-color, #10B981); margin-right: 0.5rem; }
+.header-pre {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--success-color);
+  letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+}
 
-  .vault-subtitle {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    margin: 0.5rem 0 1.5rem 0;
-    font-family: var(--font-mono);
-  }
+.vault-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem;
+  letter-spacing: -1px;
+  line-height: 1;
+}
 
-  .vault-meta {
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    color: var(--success-color, #10B981);
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    background: rgba(16, 185, 129, 0.05); /* Emerald tint */
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    border: 1px solid rgba(16, 185, 129, 0.2);
-  }
+.vault-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  max-width: 520px;
+  line-height: 1.6;
+}
 
-  /* GRID */
-  .vault-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-  }
+/* Stats bar */
+.stats-bar {
+  display: flex;
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
 
-  /* TAGS */
-  .tags-container {
-    margin-top: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
+.stat-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.8rem 1.4rem;
+  background: var(--bg-panel);
+  gap: 0.2rem;
+  min-width: 70px;
+}
 
-  .cert-tag {
-    display: inline-block;
-    background: var(--bg-main);
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    border: 1px solid var(--border-color);
-    transition: all 0.3s;
-  }
-  
-  .cert-tag:hover {
-    border-color: var(--success-color, #10B981);
-    color: var(--text-primary);
-  }
+.stat-n {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.stat-l {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+
+.stat-cell.red  .stat-n { color: var(--red-team); }
+.stat-cell.blue .stat-n { color: var(--blue-team); }
+.stat-cell.htb  .stat-n { color: #9FEF00; }
+
+/* ── Section ── */
+.vault-section { margin-bottom: 4rem; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+}
+
+.section-title i { color: var(--blue-team); font-size: 1.1rem; }
+
+.htb-dot {
+  width: 8px; height: 8px;
+  background: #9FEF00;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #9FEF00;
+  animation: htb-pulse 2s ease-in-out infinite;
+}
+@keyframes htb-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+.section-count {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* ══════════════════════════════════════
+   CERTIFICATION CARDS
+══════════════════════════════════════ */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.cert-card {
+  position: relative;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  overflow: hidden;
+}
+
+.cert-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Faction left border + hover glow */
+.cert-card.faction-red  { border-left: 3px solid var(--red-team); }
+.cert-card.faction-blue { border-left: 3px solid var(--blue-team); }
+.cert-card.faction-htb  { border-left: 3px solid #9FEF00; }
+
+.cert-card.faction-red:hover  { box-shadow: var(--shadow-glow-red); border-color: var(--red-team); }
+.cert-card.faction-blue:hover { box-shadow: var(--shadow-glow-blue); border-color: var(--blue-team); }
+.cert-card.faction-htb:hover  { box-shadow: 0 0 12px rgba(159,239,0,0.4); border-color: #9FEF00; }
+
+/* Corner accents */
+.corner {
+  position: absolute;
+  width: 10px; height: 10px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.cert-card:hover .corner { opacity: 0.7; }
+
+.corner.tl { top: 4px; left: 4px;   border-top: 2px solid currentColor; border-left: 2px solid currentColor; }
+.corner.br { bottom: 4px; right: 4px; border-bottom: 2px solid currentColor; border-right: 2px solid currentColor; }
+
+.cert-card.faction-red  .corner { color: var(--red-team); }
+.cert-card.faction-blue .corner { color: var(--blue-team); }
+.cert-card.faction-htb  .corner { color: #9FEF00; }
+
+/* Image */
+.cert-img-wrap {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  background: #000;
+}
+
+.cert-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(30%);
+  transition: filter 0.4s, transform 0.4s;
+  display: block;
+}
+
+.cert-card:hover .cert-img-wrap img {
+  filter: grayscale(0%);
+  transform: scale(1.04);
+}
+
+.cert-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%);
+  pointer-events: none;
+}
+
+.cert-img-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--border-color);
+  font-size: 3rem;
+}
+
+.platform-badge {
+  position: absolute;
+  top: 10px; right: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 0.2rem 0.5rem;
+  background: rgba(0,0,0,0.85);
+  border: 1px solid;
+}
+
+.pb-red  { color: var(--red-team);  border-color: var(--red-team); }
+.pb-blue { color: var(--blue-team); border-color: var(--blue-team); }
+.pb-htb  { color: #9FEF00;          border-color: #9FEF00; }
+
+/* Body */
+.cert-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+}
+
+.cert-top-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.level-pill {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 1px;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid;
+}
+
+.cert-date {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.cert-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.cert-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.ctag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-color);
+  padding: 0.1rem 0.35rem;
+}
+
+.cert-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color);
+  gap: 0.5rem;
+}
+
+.faction-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.fl-red    { color: var(--red-team); }
+.fl-blue   { color: var(--blue-team); }
+.fl-htb    { color: #9FEF00; }
+
+.view-link {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color 0.2s;
+}
+
+.cert-card:hover .view-link { color: var(--text-primary); }
+
+/* ══════════════════════════════════════
+   PRO LABS GRID
+══════════════════════════════════════ */
+.labs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.lab-card {
+  position: relative;
+  background: var(--bg-panel);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.2s;
+  overflow: hidden;
+}
+
+.lab-card:hover { background: rgba(159,239,0,0.03); }
+
+.lab-img-wrap {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+  background: #000;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.lab-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(40%) brightness(0.85);
+  transition: filter 0.4s, transform 0.4s;
+  display: block;
+}
+
+.lab-card:hover .lab-img-wrap img {
+  filter: grayscale(0%) brightness(1);
+  transform: scale(1.05);
+}
+
+.lab-img-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--border-color);
+  font-size: 2.5rem;
+}
+
+.lab-pwned-badge {
+  position: absolute;
+  bottom: 8px; left: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #9FEF00;
+  background: rgba(0,0,0,0.85);
+  border: 1px solid #9FEF00;
+  padding: 0.15rem 0.45rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.lab-body {
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lab-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.lab-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.lab-card:hover .lab-title { color: #9FEF00; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .vault-header { flex-direction: column; align-items: flex-start; }
+  .stats-bar    { width: 100%; }
+  .stat-cell    { flex: 1; }
+  .cert-grid    { grid-template-columns: 1fr; }
+  .labs-grid    { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .labs-grid { grid-template-columns: 1fr; }
+}
 </style>
