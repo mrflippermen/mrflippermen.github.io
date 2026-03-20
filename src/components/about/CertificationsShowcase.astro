@@ -1,9 +1,15 @@
 ---
 import AwardCard from '../AwardCard.astro';
+import { getLangFromUrl } from '../../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const es   = lang === 'es';
 ---
 
 <section class="cv-section">
-  <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Formación Elite</h2>
+  <h2 class="section-title">
+    <i class="fas fa-graduation-cap"></i>
+    {es ? 'Formación Elite' : 'Elite Training'}
+  </h2>
   
   <!-- CBTeamer Showcase -->
   <div class="cert-showcase">
@@ -13,7 +19,7 @@ import AwardCard from '../AwardCard.astro';
       image="/images/about/cbteamer.png"
       link="/certs/cbteamer"
     >
-      <p>Dominio en DFIR, Threat Hunting y defensa en AD.</p>
+      <p>{es ? 'Dominio en DFIR, Threat Hunting y defensa en AD.' : 'Expertise in DFIR, Threat Hunting and AD defense.'}</p>
     </AwardCard>
   </div>
 
@@ -47,7 +53,7 @@ import AwardCard from '../AwardCard.astro';
   </div>
 
   <!-- HTB Pro Labs Matrix -->
-  <h3 class="subsection-title">Hack The Box Pro Labs (100% Completados)</h3>
+  <h3 class="subsection-title">Hack The Box Pro Labs (100% {es ? 'Completados' : 'Completed'})</h3>
   <div class="feature-grid">
     <AwardCard title='Cybernetics' subtitle="APT & Phishing" image="/images/about/Cybernetics.jpg" link="/certs/cybernetics" />
     <AwardCard title='APTLabs' subtitle="Lateral Movement" image="/images/about/aptlabs.jpg" link="/certs/aptlabs" />

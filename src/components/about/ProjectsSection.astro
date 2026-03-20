@@ -1,84 +1,130 @@
 ---
 import TimelineItem from '../TimelineItem.astro';
+import { getLangFromUrl } from '../../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const es   = lang === 'es';
 ---
 
 <section class="cv-section">
-  <h2 class="section-title"><i class="fas fa-code"></i> Arsenal & Proyectos de Autoría</h2>
+  <h2 class="section-title">
+    <i class="fas fa-code"></i>
+    {es ? 'Arsenal & Proyectos de Autoría' : 'Arsenal & Authored Projects'}
+  </h2>
   <div class="projects-container">
-    <TimelineItem 
+
+    <TimelineItem
       title='Flipper CyberAttack Suite <span class="tag">Flagship</span>'
-      institution='PowerShell | Hardware Offense'
+      institution="PowerShell | Hardware Offense"
       faction="red"
     >
-      <p>Infraestructura de ataque portátil. <strong>Reduce el tiempo de despliegue de payloads físicos en un 60%</strong>, permitiendo exfiltración de credenciales SAM/SYSTEM en menos de 30 segundos en entornos restringidos.</p>
-      <a href="https://github.com/mrflippermen/flipper-atack" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
+      <p>{es
+        ? <>Infraestructura de ataque portátil. <strong>Reduce el tiempo de despliegue de payloads físicos en un 60%</strong>, permitiendo exfiltración de credenciales SAM/SYSTEM en menos de 30 segundos en entornos restringidos.</>
+        : <>Portable attack infrastructure. <strong>Reduces physical payload deployment time by 60%</strong>, enabling SAM/SYSTEM credential exfiltration in under 30 seconds in restricted environments.</>
+      }</p>
+      <a href="https://github.com/mrflippermen/flipper-atack" target="_blank" rel="noopener noreferrer" class="project-link">
+        <i class="fab fa-github"></i> {es ? 'Ver Código Fuente' : 'View Source Code'}
+      </a>
     </TimelineItem>
 
-    <TimelineItem 
+    <TimelineItem
       title="Shellcode-Evasion-Suite"
       institution="Python | Defense Evasion"
       faction="purple"
     >
-      <p>Motor de ofuscación polimórfico. Logra una <strong>tasa de evasión del 90% frente a EDRs comerciales</strong> mediante cifrado XOR/RC4 rotativo, facilitando simulaciones de adversarios realistas sin detección inmediata.</p>
-      <a href="https://github.com/mrflippermen/Shellcode-Evasion-Suite" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
+      <p>{es
+        ? <>Motor de ofuscación polimórfico. Logra una <strong>tasa de evasión del 90% frente a EDRs comerciales</strong> mediante cifrado XOR/RC4 rotativo, facilitando simulaciones de adversarios realistas sin detección inmediata.</>
+        : <>Polymorphic obfuscation engine. Achieves a <strong>90% evasion rate against commercial EDRs</strong> via rotating XOR/RC4 encryption, enabling realistic adversary simulations without immediate detection.</>
+      }</p>
+      <a href="https://github.com/mrflippermen/Shellcode-Evasion-Suite" target="_blank" rel="noopener noreferrer" class="project-link">
+        <i class="fab fa-github"></i> {es ? 'Ver Código Fuente' : 'View Source Code'}
+      </a>
     </TimelineItem>
 
-    <TimelineItem 
+    <TimelineItem
       title="BloodHound-Parser"
       institution="Python | Active Directory Audit"
       faction="blue"
     >
-      <p>Analizador automatizado de rutas de ataque. <strong>Identifica y prioriza el 100% de las rutas críticas hacia Domain Admin</strong>, reduciendo el tiempo de análisis de grafos complejos de horas a minutos.</p>
-      <a href="https://github.com/mrflippermen/BloodHound-Parser" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
+      <p>{es
+        ? <>Analizador automatizado de rutas de ataque. <strong>Identifica y prioriza el 100% de las rutas críticas hacia Domain Admin</strong>, reduciendo el tiempo de análisis de grafos complejos de horas a minutos.</>
+        : <>Automated attack path analyzer. <strong>Identifies and prioritizes 100% of critical paths to Domain Admin</strong>, reducing complex graph analysis from hours to minutes.</>
+      }</p>
+      <a href="https://github.com/mrflippermen/BloodHound-Parser" target="_blank" rel="noopener noreferrer" class="project-link">
+        <i class="fab fa-github"></i> {es ? 'Ver Código Fuente' : 'View Source Code'}
+      </a>
     </TimelineItem>
 
-    <TimelineItem 
+    <TimelineItem
       title="Shodan-Intel-Reporter"
       institution="Python | Threat Intelligence"
       faction="blue"
     >
-      <p>Inteligencia de amenazas automatizada. <strong>Monitoriza activos expuestos 24/7</strong>, reduciendo la ventana de exposición a CVEs críticos mediante alertas tempranas y correlación de vulnerabilidades.</p>
-      <a href="https://github.com/mrflippermen/Shodan-Intel-Reporter" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
+      <p>{es
+        ? <>Inteligencia de amenazas automatizada. <strong>Monitoriza activos expuestos 24/7</strong>, reduciendo la ventana de exposición a CVEs críticos mediante alertas tempranas y correlación de vulnerabilidades.</>
+        : <>Automated threat intelligence. <strong>Monitors exposed assets 24/7</strong>, reducing critical CVE exposure windows through early alerts and vulnerability correlation.</>
+      }</p>
+      <a href="https://github.com/mrflippermen/Shodan-Intel-Reporter" target="_blank" rel="noopener noreferrer" class="project-link">
+        <i class="fab fa-github"></i> {es ? 'Ver Código Fuente' : 'View Source Code'}
+      </a>
     </TimelineItem>
 
-    <TimelineItem 
+    <TimelineItem
       title="BugBounty-Automation-Setup"
       institution="Shell | DevSecOps"
       faction="red"
     >
-      <p>Aprovisionamiento de infraestructura de reconocimiento. <strong>Acelera el setup de entornos de pentesting en un 400%</strong>, transformando instancias vanilla en plataformas de combate operativas en menos de 5 minutos.</p>
-      <a href="https://github.com/mrflippermen/BugBounty-Automation-Setup" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fab fa-github"></i> Ver Código Fuente</a>
+      <p>{es
+        ? <>Aprovisionamiento de infraestructura de reconocimiento. <strong>Acelera el setup de entornos de pentesting en un 400%</strong>, transformando instancias vanilla en plataformas de combate operativas en menos de 5 minutos.</>
+        : <>Reconnaissance infrastructure provisioning. <strong>Accelerates pentesting environment setup by 400%</strong>, transforming vanilla instances into operational combat platforms in under 5 minutes.</>
+      }</p>
+      <a href="https://github.com/mrflippermen/BugBounty-Automation-Setup" target="_blank" rel="noopener noreferrer" class="project-link">
+        <i class="fab fa-github"></i> {es ? 'Ver Código Fuente' : 'View Source Code'}
+      </a>
     </TimelineItem>
-    
-    <TimelineItem 
+
+    <TimelineItem
       title="RAM Keylogger (Resillience)"
       institution="C++ | Forensics Counter-Measures"
       faction="purple"
     >
-      <p>Implante residente en memoria. Diseñado para <strong>testear capacidades de memoria forense</strong>, operando sin tocar disco para simular amenazas APT avanzadas que evaden análisis estático tradicional.</p>
+      <p>{es
+        ? <>Implante residente en memoria. Diseñado para <strong>testear capacidades de memoria forense</strong>, operando sin tocar disco para simular amenazas APT avanzadas que evaden análisis estático tradicional.</>
+        : <>Memory-resident implant. Designed to <strong>test forensic memory capabilities</strong>, operating disklessly to simulate advanced APT threats that evade traditional static analysis.</>
+      }</p>
     </TimelineItem>
-    <TimelineItem 
+
+    <TimelineItem
       title="Kerberos-Sentinel"
       institution="Python | Blue Team"
       faction="blue"
     >
-      <p>Monitor de seguridad de Identity en tiempo real. <strong>Detecta ataques de Kerberoasting y AS-REP Roasting</strong> al instante analizando logs EVTX y enviando alertas cifradas a canales de C2/Discord.</p>
+      <p>{es
+        ? <>Monitor de seguridad de Identity en tiempo real. <strong>Detecta ataques de Kerberoasting y AS-REP Roasting</strong> al instante analizando logs EVTX y enviando alertas cifradas a canales de C2/Discord.</>
+        : <>Real-time Identity security monitor. <strong>Detects Kerberoasting and AS-REP Roasting attacks</strong> instantly by analyzing EVTX logs and sending encrypted alerts to C2/Discord channels.</>
+      }</p>
     </TimelineItem>
 
-    <TimelineItem 
+    <TimelineItem
       title="C2-Malleable-Profile-Generator"
       institution="Python | Red Team"
       faction="red"
     >
-      <p>Generador de perfiles de tráfico evasivos. <strong>Automatiza la creación de perfiles Cobalt Strike/Empire</strong> que imitan tráfico legítimo de Amazon/Google, logrando evasión de Firewalls de Capa 7.</p>
+      <p>{es
+        ? <>Generador de perfiles de tráfico evasivos. <strong>Automatiza la creación de perfiles Cobalt Strike/Empire</strong> que imitan tráfico legítimo de Amazon/Google, logrando evasión de Firewalls de Capa 7.</>
+        : <>Evasive traffic profile generator. <strong>Automates the creation of Cobalt Strike/Empire profiles</strong> that mimic legitimate Amazon/Google traffic, achieving Layer 7 Firewall evasion.</>
+      }</p>
     </TimelineItem>
 
-    <TimelineItem 
+    <TimelineItem
       title="Docker-Forensics-Auto"
       institution="Bash | DFIR"
       faction="purple"
     >
-      <p>Respuesta automática a incidentes en contenedores. <strong>Congela, vuelca memoria y sistema de archivos</strong> de contenedores comprometidos en segundos para análisis forense post-mortem sin contaminar evidencia.</p>
+      <p>{es
+        ? <>Respuesta automática a incidentes en contenedores. <strong>Congela, vuelca memoria y sistema de archivos</strong> de contenedores comprometidos en segundos para análisis forense post-mortem sin contaminar evidencia.</>
+        : <>Automated container incident response. <strong>Freezes, dumps memory and filesystem</strong> of compromised containers in seconds for post-mortem forensic analysis without evidence contamination.</>
+      }</p>
     </TimelineItem>
+
   </div>
 </section>

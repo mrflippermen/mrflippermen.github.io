@@ -1,4 +1,7 @@
 ---
+import { getLangFromUrl } from '../../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const es   = lang === 'es';
 ---
 
 <header class="profile-header">
@@ -36,7 +39,7 @@
 
       <!-- Name + title -->
       <div class="identity-block">
-        <p class="identity-overtitle">// OPERATIVE DOSSIER //</p>
+        <p class="identity-overtitle">// {es ? 'DOSIER OPERATIVO' : 'OPERATIVE DOSSIER'} //</p>
         <h1 class="identity-name">ESTEBAN JIMENEZ</h1>
         <p class="identity-title">
           RED TEAM OPERATOR <span class="sep">//</span>
@@ -47,32 +50,32 @@
 
       <!-- Summary -->
       <p class="identity-summary">
-        Especialista en ciberseguridad ofensiva y defensiva con enfoque en protección de
-        infraestructura crítica. Liderazgo probado en simulaciones de adversarios (Red Team),
-        respuesta a incidentes (Blue Team / SOC) y desarrollo de capacidades full-spectrum
-        (Purple Team). Top 1 HTB Ecuador. Capitán CyberFlippers.
+        {es
+          ? 'Especialista en ciberseguridad ofensiva y defensiva con enfoque en protección de infraestructura crítica. Liderazgo probado en simulaciones de adversarios (Red Team), respuesta a incidentes (Blue Team / SOC) y desarrollo de capacidades full-spectrum (Purple Team). Top 1 HTB Ecuador. Capitán CyberFlippers.'
+          : 'Offensive and defensive cybersecurity specialist focused on critical infrastructure protection. Proven leadership in adversary simulations (Red Team), incident response (Blue Team / SOC), and full-spectrum capability development (Purple Team). HTB Top 1 Ecuador. CyberFlippers Captain.'
+        }
       </p>
 
       <!-- Meta grid -->
       <div class="meta-grid">
         <div class="meta-item">
-          <span class="meta-key"><i class="fas fa-location-dot"></i> LOCATION</span>
+          <span class="meta-key"><i class="fas fa-location-dot"></i> {es ? 'UBICACIÓN' : 'LOCATION'}</span>
           <span class="meta-val">Quito, Ecuador · Remote Global</span>
         </div>
         <div class="meta-item">
-          <span class="meta-key"><i class="fas fa-shield-halved"></i> UNIT</span>
-          <span class="meta-val">CyberFlippers — Captain</span>
+          <span class="meta-key"><i class="fas fa-shield-halved"></i> {es ? 'UNIDAD' : 'UNIT'}</span>
+          <span class="meta-val">CyberFlippers — {es ? 'Capitán' : 'Captain'}</span>
         </div>
         <div class="meta-item">
-          <span class="meta-key"><i class="fas fa-trophy"></i> RANK</span>
+          <span class="meta-key"><i class="fas fa-trophy"></i> {es ? 'RANGO' : 'RANK'}</span>
           <span class="meta-val">#1 Ecuador — HTB</span>
         </div>
         <div class="meta-item">
-          <span class="meta-key"><i class="fas fa-graduation-cap"></i> AFFILIATION</span>
-          <span class="meta-val">UDLA Ecuador — Teaching Assistant</span>
+          <span class="meta-key"><i class="fas fa-graduation-cap"></i> {es ? 'AFILIACIÓN' : 'AFFILIATION'}</span>
+          <span class="meta-val">UDLA Ecuador — {es ? 'Asistente de Cátedra' : 'Teaching Assistant'}</span>
         </div>
         <div class="meta-item">
-          <span class="meta-key"><i class="fas fa-satellite-dish"></i> CONTACT</span>
+          <span class="meta-key"><i class="fas fa-satellite-dish"></i> {es ? 'CONTACTO' : 'CONTACT'}</span>
           <div class="social-links">
             <a href="https://linkedin.com/in/esteban-jimenez-994868249/"
                target="_blank" rel="noopener noreferrer"

@@ -1,14 +1,22 @@
 ---
-
+import { getLangFromUrl } from '../../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const es   = lang === 'es';
 ---
 
 <section class="cv-section">
-  <h2 class="section-title"><i class="fas fa-th-large"></i> Matriz de Competencias</h2>
+  <h2 class="section-title">
+    <i class="fas fa-th-large"></i>
+    {es ? 'Matriz de Competencias' : 'Competency Matrix'}
+  </h2>
 
   <div class="skills-grid">
 
     <div class="skill-group red-team-group">
-      <h3 class="group-title red"><i class="fas fa-skull-crossbones"></i> Operaciones Ofensivas</h3>
+      <h3 class="group-title red">
+        <i class="fas fa-skull-crossbones"></i>
+        {es ? 'Operaciones Ofensivas' : 'Offensive Operations'}
+      </h3>
       <div class="skill-tags">
         <span>Active Directory Mastery</span>
         <span>Kerberoasting & Delegation</span>
@@ -22,7 +30,10 @@
     </div>
 
     <div class="skill-group rnd-group">
-      <h3 class="group-title purple"><i class="fas fa-microchip"></i> I+D & Hardware</h3>
+      <h3 class="group-title purple">
+        <i class="fas fa-microchip"></i>
+        {es ? 'I+D & Hardware' : 'R&D & Hardware'}
+      </h3>
       <div class="skill-tags">
         <span>Flipper Zero Ops</span>
         <span>SDR & Wireless</span>
@@ -34,7 +45,10 @@
     </div>
 
     <div class="skill-group ics-group">
-      <h3 class="group-title blue"><i class="fas fa-shield-alt"></i> Blue Team & OT/ICS</h3>
+      <h3 class="group-title blue">
+        <i class="fas fa-shield-alt"></i>
+        Blue Team & OT/ICS
+      </h3>
       <div class="skill-tags">
         <span>Threat Hunting</span>
         <span>DFIR</span>
