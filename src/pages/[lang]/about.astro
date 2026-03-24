@@ -40,6 +40,22 @@ import CertificationsShowcase from '../../components/about/CertificationsShowcas
 
       <div class="timeline-list">
 
+        <!-- Telefónica ── CURRENT POSITION -->
+        <div class="timeline-item current">
+          <span class="period">
+            2025 — <span class="live-badge"><i class="fas fa-circle"></i> {es ? 'EN CURSO' : 'ACTIVE'}</span>
+          </span>
+          <h3>
+            {es ? 'Analista de Seguridad Ofensiva' : 'Offensive Security Analyst'}
+            <span class="pending-tag">{es ? '▸ PENTESTER DESIGNADO' : '▸ PENTESTER TRACK'}</span>
+          </h3>
+          <span class="institution">Telefónica Ecuador <span class="institution-note">{es ? '(en integración a' : '(transitioning to'} Millicom · Tigo Ecuador)</span></span>
+          <p>{es
+            ? 'Embedded en el equipo de Ciberseguridad Corporativa realizando evaluaciones de amenazas activas, análisis de superficie de ataque y ejercicios de adversario sobre infraestructura de telecomunicaciones crítica. Validación de controles de seguridad, revisión de arquitecturas de red y soporte en respuesta a incidentes. Posición de alta visibilidad con designación confirmada a rol de Penetration Tester interno al completar las horas de certificación académica.'
+            : 'Embedded within the Corporate Cybersecurity team conducting active threat assessments, attack surface analysis, and adversary exercises against critical telecommunications infrastructure. Security control validation, network architecture review, and incident response support. High-visibility position with confirmed designation to internal Penetration Tester role upon academic certification completion.'
+          }</p>
+        </div>
+
         <div class="timeline-item">
           <span class="period">2023 — {es ? 'Presente' : 'Present'}</span>
           <h3>{es ? 'Pentester & Operador Red Team' : 'Pentester & Red Team Operator'}</h3>
@@ -101,5 +117,53 @@ import CertificationsShowcase from '../../components/about/CertificationsShowcas
 .timeline-list {
   display: flex;
   flex-direction: column;
+}
+
+/* Current position highlight */
+:global(.timeline-item.current) {
+  border-left-color: var(--blue-team) !important;
+  background: rgba(0, 240, 255, 0.025) !important;
+}
+
+:global(.timeline-item.current h3) {
+  color: var(--text-primary);
+}
+
+:global(.live-badge) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--success-color);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 1.5px;
+  animation: live-pulse 2s ease-in-out infinite;
+}
+
+:global(.live-badge i) {
+  font-size: 0.5rem;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+:global(.pending-tag) {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--blue-team);
+  letter-spacing: 1px;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 0.1rem 0.4rem;
+  margin-left: 0.6rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+:global(.institution-note) {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: 0.3rem;
 }
 </style>

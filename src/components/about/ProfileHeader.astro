@@ -51,8 +51,8 @@ const es   = lang === 'es';
       <!-- Summary -->
       <p class="identity-summary">
         {es
-          ? 'Especialista en ciberseguridad ofensiva y defensiva con enfoque en protección de infraestructura crítica. Liderazgo probado en simulaciones de adversarios (Red Team), respuesta a incidentes (Blue Team / SOC) y desarrollo de capacidades full-spectrum (Purple Team). Top 1 HTB Ecuador. Capitán CyberFlippers.'
-          : 'Offensive and defensive cybersecurity specialist focused on critical infrastructure protection. Proven leadership in adversary simulations (Red Team), incident response (Blue Team / SOC), and full-spectrum capability development (Purple Team). HTB Top 1 Ecuador. CyberFlippers Captain.'
+          ? 'Especialista en ciberseguridad ofensiva y defensiva actualmente embedded en el equipo de Ciberseguridad de Telefónica Ecuador (en transición a Millicom · Tigo). Liderazgo probado en simulaciones de adversarios (Red Team), respuesta a incidentes (Blue Team / SOC) y estrategia full-spectrum (Purple Team). Top 1 HTB Ecuador. Capitán CyberFlippers.'
+          : 'Offensive and defensive cybersecurity specialist currently embedded in Telefónica Ecuador\'s Cybersecurity team (transitioning to Millicom · Tigo). Proven track record in adversary simulations (Red Team), incident response (Blue Team / SOC), and full-spectrum strategy (Purple Team). HTB Top 1 Ecuador. CyberFlippers Captain.'
         }
       </p>
 
@@ -71,7 +71,11 @@ const es   = lang === 'es';
           <span class="meta-val">#1 Ecuador — HTB</span>
         </div>
         <div class="meta-item">
-          <span class="meta-key"><i class="fas fa-graduation-cap"></i> {es ? 'AFILIACIÓN' : 'AFFILIATION'}</span>
+          <span class="meta-key"><i class="fas fa-building-shield"></i> {es ? 'POSICIÓN ACTUAL' : 'CURRENT POSITION'}</span>
+          <span class="meta-val">Telefónica → Tigo Ecuador <span class="meta-sub">{es ? '· Ciberseguridad' : '· Cybersecurity'}</span></span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key"><i class="fas fa-graduation-cap"></i> {es ? 'ACADEMIA' : 'ACADEMY'}</span>
           <span class="meta-val">UDLA Ecuador — {es ? 'Asistente de Cátedra' : 'Teaching Assistant'}</span>
         </div>
         <div class="meta-item">
@@ -327,6 +331,12 @@ const es   = lang === 'es';
   font-size: 0.88rem;
   color: var(--text-primary);
   font-weight: 500;
+}
+
+.meta-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
 }
 
 /* Social links */
