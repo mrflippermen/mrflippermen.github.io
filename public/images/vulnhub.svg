@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="VulnHub">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00ff9d"/>
+      <stop offset="1" stop-color="#1f6feb"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g fill="none" stroke="#00ff9d" stroke-opacity="0.06">
+    <path d="M0 158 H1200 M0 316 H1200 M0 474 H1200 M300 0 V630 M600 0 V630 M900 0 V630"/>
+  </g>
+  <text x="80" y="300" font-family="'Courier New',monospace" font-size="118" font-weight="700" fill="url(#ac)">VulnHub</text>
+  <text x="86" y="370" font-family="'Courier New',monospace" font-size="34" fill="#8b949e">boot2root · privilege escalation · CTF</text>
+  <text x="86" y="540" font-family="'Courier New',monospace" font-size="28" fill="#00ff9d">&gt; mrflippermen@parrot:~$ ./pwn.sh</text>
+  <circle cx="1060" cy="120" r="10" fill="#ff5f56"/>
+  <circle cx="1100" cy="120" r="10" fill="#ffbd2e"/>
+  <circle cx="1140" cy="120" r="10" fill="#27c93f"/>
+</svg>
