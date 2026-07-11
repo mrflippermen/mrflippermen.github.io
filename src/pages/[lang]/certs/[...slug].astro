@@ -1,0 +1,446 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getLangFromUrl } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const certEntries = await getCollection('certs');
+  return certEntries.flatMap(entry => [
+    { params: { lang: 'en', slug: entry.slug }, props: { entry } },
+    { params: { lang: 'es', slug: entry.slug }, props: { entry } },
+  ]);
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const lang = getLangFromUrl(Astro.url);
+const es   = lang === 'es';
+
+// Faction
+const platform = entry.data.platform || '';
+const category = entry.data.category || '';
+let faction: 'blue' | 'red' | 'htb' = 'red';
+if (category === 'Blue Team' || platform === 'Blue Team Labs') faction = 'blue';
+else if (platform === 'Hack The Box') faction = 'htb';
+
+const factionColor = faction === 'blue' ? 'var(--blue-team)' : faction === 'htb' ? '#9FEF00' : 'var(--red-team)';
+
+// Level color
+function getLevelColor(level: string = '') {
+  switch (level.toLowerCase()) {
+    case 'insane':       return '#9333EA';
+    case 'hard':         return '#D90429';
+    case 'intermediate': return '#F59E0B';
+    case 'beginner':     return '#10B981';
+    default:             return '#888';
+  }
+}
+const levelColor = getLevelColor(entry.data.level || '');
+
+const dateStr = new Date(entry.data.date).toLocaleDateString(
+  es ? 'es-EC' : 'en-US',
+  { year: 'numeric', month: 'long', day: 'numeric' }
+);
+---
+
+<BaseLayout title={`${entry.data.title} | Credentials`}>
+<div class="cert-detail">
+
+  <!-- ── HERO HEADER ── -->
+  <div class={`cert-hero faction-${faction}`}>
+
+    <!-- Background image (blurred) -->
+    {entry.data.image && (
+      <div class="hero-bg">
+        <img src={entry.data.image} alt="" aria-hidden="true" />
+      </div>
+    )}
+
+    <div class="hero-inner">
+      <!-- Back link -->
+      <a href={`/${lang}/certs`} class="back-link">
+        <i class="fas fa-chevron-left"></i>
+        {es ? 'BÓVEDA DE CREDENCIALES' : 'CREDENTIALS VAULT'}
+      </a>
+
+      <div class="hero-content">
+        <!-- Cert image / badge -->
+        {entry.data.image && (
+          <div class="hero-img-wrap">
+            <img src={entry.data.image} alt={entry.data.title} />
+            <div class="hero-img-scan"></div>
+          </div>
+        )}
+
+        <div class="hero-text">
+          <div class="hero-badges">
+            {entry.data.platform && (
+              <span class="badge-platform" style={`color:${factionColor}; border-color:${factionColor};`}>
+                {entry.data.platform}
+              </span>
+            )}
+            {entry.data.level && (
+              <span class="badge-level" style={`color:${levelColor}; border-color:${levelColor};`}>
+                {entry.data.level.toUpperCase()}
+              </span>
+            )}
+            {entry.data.category && (
+              <span class="badge-category">{entry.data.category}</span>
+            )}
+          </div>
+
+          <h1 class="hero-title">{entry.data.title}</h1>
+
+          <div class="hero-meta-row">
+            <span class="meta-item">
+              <i class="fas fa-calendar-check"></i>
+              {es ? 'Obtenido:' : 'Earned:'} {dateStr}
+            </span>
+            {entry.data.duration && (
+              <span class="meta-item">
+                <i class="fas fa-clock"></i>
+                {entry.data.duration}
+              </span>
+            )}
+            {entry.data.certId && (
+              <span class="meta-item mono">
+                <i class="fas fa-fingerprint"></i>
+                ID: {entry.data.certId}
+              </span>
+            )}
+          </div>
+
+          {entry.data.tags && entry.data.tags.length > 0 && (
+            <div class="hero-tags">
+              {entry.data.tags.map((tag: string) => (
+                <span class="htag">#{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <!-- Faction accent bar -->
+    <div class="faction-bar" style={`background: ${factionColor};`}></div>
+  </div>
+
+  <!-- ── CONTENT ── -->
+  <div class="cert-body-wrap">
+    <div class="cert-content">
+      <Content />
+    </div>
+  </div>
+
+  <!-- ── FOOTER NAV ── -->
+  <div class="cert-nav">
+    <a href={`/${lang}/certs`} class="nav-btn">
+      <i class="fas fa-arrow-left"></i>
+      {es ? 'Volver a Credenciales' : 'Back to Credentials'}
+    </a>
+    <a href={`/${lang}/about`} class="nav-btn secondary">
+      <i class="fas fa-user-secret"></i>
+      {es ? 'Ver Perfil Completo' : 'View Full Profile'}
+    </a>
+  </div>
+
+</div>
+</BaseLayout>
+
+<style>
+/* ══════════════════════════════════════
+   CERT DETAIL
+══════════════════════════════════════ */
+.cert-detail {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem 5rem;
+}
+
+/* ── Hero ── */
+.cert-hero {
+  position: relative;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+}
+
+.cert-hero.faction-red  { border-color: rgba(217, 4, 41, 0.45);  }
+.cert-hero.faction-blue { border-color: rgba(0, 240, 255, 0.40); }
+.cert-hero.faction-htb  { border-color: rgba(159, 239, 0, 0.40); }
+
+/* Blurred bg */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: blur(20px) brightness(0.12) grayscale(60%);
+  transform: scale(1.1);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 1.75rem;
+  transition: color 0.2s;
+}
+
+.back-link:hover { color: var(--text-primary); }
+
+.hero-content {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+/* Cert image */
+.hero-img-wrap {
+  flex-shrink: 0;
+  width: 220px;
+  position: relative;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  background: #000;
+}
+
+.hero-img-wrap img {
+  width: 100%;
+  display: block;
+  filter: grayscale(10%);
+  transition: filter 0.4s;
+}
+
+.hero-img-wrap:hover img { filter: grayscale(0%); }
+
+.hero-img-scan {
+  position: absolute;
+  top: -100%; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(transparent, rgba(0,240,255,0.5), transparent);
+  animation: scan-line 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes scan-line {
+  0%   { top: -5%; }
+  100% { top: 105%; }
+}
+
+/* Text side */
+.hero-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hero-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge-platform,
+.badge-level,
+.badge-category {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 1.5px;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid;
+}
+
+.badge-category {
+  color: var(--text-muted);
+  border-color: var(--border-color);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.hero-meta-row {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.meta-item.mono { font-size: 0.65rem; color: var(--text-muted); }
+.meta-item i    { color: var(--blue-team); }
+
+.hero-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.htag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-color);
+  padding: 0.15rem 0.4rem;
+}
+
+.faction-bar {
+  height: 2px;
+  opacity: 0.6;
+}
+
+/* ── Content ── */
+.cert-body-wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.cert-content {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  padding: 2rem 2.5rem;
+  line-height: 1.85;
+  color: var(--text-secondary);
+}
+
+/* Markdown styles */
+.cert-content :global(h2) {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin: 2rem 0 1rem;
+}
+
+.cert-content :global(h3) {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--blue-team);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.cert-content :global(strong) {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.cert-content :global(ul),
+.cert-content :global(ol) {
+  list-style: none;
+  padding-left: 0;
+}
+
+.cert-content :global(li) {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.cert-content :global(li::before) {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--blue-team);
+}
+
+.cert-content :global(code) {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  background: rgba(0,240,255,0.06);
+  border: 1px solid rgba(0,240,255,0.15);
+  color: var(--blue-team);
+  padding: 0.1rem 0.4rem;
+}
+
+.cert-content :global(hr) {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 2rem 0;
+}
+
+.cert-content :global(p) {
+  margin-bottom: 1rem;
+}
+
+/* ── Nav ── */
+.cert-nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  padding: 0.65rem 1.25rem;
+  text-decoration: none;
+  border: 1px solid var(--blue-team);
+  color: var(--blue-team);
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  background: var(--blue-team);
+  color: #000;
+  box-shadow: var(--shadow-glow-blue);
+}
+
+.nav-btn.secondary {
+  border-color: var(--border-color);
+  color: var(--text-muted);
+}
+
+.nav-btn.secondary:hover {
+  background: var(--bg-panel);
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+  box-shadow: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .hero-content { flex-direction: column; }
+  .hero-img-wrap { width: 100%; max-width: 320px; }
+  .cert-content  { padding: 1.5rem; }
+}
+</style>

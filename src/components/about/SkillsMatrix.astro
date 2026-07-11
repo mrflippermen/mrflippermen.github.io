@@ -1,0 +1,113 @@
+---
+import Icon from '../Icon.astro';
+import { getLangFromUrl } from '../../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const es   = lang === 'es';
+---
+
+<section class="cv-section">
+  <h2 class="section-title">
+    <Icon name="th-large" />
+    {es ? 'Matriz de Competencias' : 'Competency Matrix'}
+  </h2>
+
+  <div class="skills-grid">
+
+    <div class="skill-group red-team-group">
+      <h3 class="group-title red">
+        <Icon name="skull-crossbones" />
+        {es ? 'Operaciones Ofensivas' : 'Offensive Operations'}
+      </h3>
+      <div class="skill-tags">
+        <span>Kerberoasting</span>
+        <span>AS-REP Roasting</span>
+        <span>DCSync</span>
+        <span>Golden / Silver Ticket</span>
+        <span>Pass-the-Hash</span>
+        <span>Constrained Delegation</span>
+        <span>EDR / AV Bypass</span>
+        <span>Web & API Pentesting</span>
+      </div>
+    </div>
+
+    <div class="skill-group rnd-group">
+      <h3 class="group-title purple">
+        <Icon name="microchip" />
+        {es ? 'Herramientas & Lenguajes' : 'Tooling & Languages'}
+      </h3>
+      <div class="skill-tags">
+        <span>Python</span>
+        <span>Bash</span>
+        <span>PowerShell</span>
+        <span>C</span>
+        <span>Burp Suite Pro</span>
+        <span>BloodHound</span>
+        <span>Metasploit</span>
+        <span>Ligolo-ng</span>
+      </div>
+    </div>
+
+    <div class="skill-group ics-group">
+      <h3 class="group-title blue">
+        <Icon name="shield-alt" />
+        Blue Team & DFIR
+      </h3>
+      <div class="skill-tags">
+        <span>Threat Hunting</span>
+        <span>DFIR</span>
+        <span>{es ? 'Forense Digital' : 'Digital Forensics'}</span>
+        <span>CIS Benchmark Audits</span>
+        <span>{es ? 'Respuesta a Incidentes' : 'Incident Response'}</span>
+        <span>Log Analysis (EVTX)</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .skill-group {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-top: 3px solid var(--border-color);
+    padding: 1.5rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .skill-group:hover { box-shadow: var(--shadow-md); }
+
+  .red-team-group  { border-top-color: var(--red-team); }
+  .red-team-group:hover  { box-shadow: var(--shadow-glow-red); }
+
+  .rnd-group { border-top-color: var(--purple-team); }
+  .rnd-group:hover { box-shadow: var(--shadow-glow-purple); }
+
+  .ics-group { border-top-color: var(--blue-team); }
+  .ics-group:hover { box-shadow: var(--shadow-glow-blue); }
+
+  .group-title {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 1.2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .group-title.red    { color: var(--red-team); }
+  .group-title.purple { color: var(--purple-team); }
+  .group-title.blue   { color: var(--blue-team); }
+
+  @media (max-width: 900px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>

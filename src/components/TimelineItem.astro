@@ -1,0 +1,64 @@
+---
+interface Props {
+  title: string;
+  institution: string;
+  year?: string;
+  image?: string;
+  faction?: 'red' | 'blue' | 'purple' | 'default';
+}
+
+import Icon from './Icon.astro';
+const { title, institution, year, image, faction = 'default' } = Astro.props;
+---
+
+<div class={`timeline-item faction-${faction}`}>
+  <h3>{title}</h3>
+  <span class="institution" set:html={institution}></span>
+  {year && <span class="period"><Icon name="calendar-alt" /> {year}</span>}
+  {image && <img src={image} alt={title} class="timeline-image" />}
+  <slot />
+</div>
+
+<style>
+  .timeline-item {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-item:hover {
+    transform: translateX(5px);
+    background: #1a1a1a;
+  }
+
+  /* Faction Styles */
+  .faction-red {
+    border-color: rgba(217, 4, 41, 0.4);
+    background-image: linear-gradient(rgba(217, 4, 41, 0.05), rgba(217, 4, 41, 0.05));
+  }
+  .faction-red h3 { color: var(--red-team); }
+
+  .faction-blue {
+    border-color: rgba(0, 240, 255, 0.4);
+    background-image: linear-gradient(rgba(0, 240, 255, 0.045), rgba(0, 240, 255, 0.045));
+  }
+  .faction-blue h3 { color: var(--blue-team); }
+
+  .faction-purple {
+    border-color: rgba(114, 9, 183, 0.5);
+    background-image: linear-gradient(rgba(114, 9, 183, 0.06), rgba(114, 9, 183, 0.06));
+  }
+  .faction-purple h3 { color: var(--purple-team); }
+
+  .timeline-image {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 4px;
+    margin-top: 1rem;
+    border: 1px solid var(--border-color);
+    display: block;
+  }
+</style>

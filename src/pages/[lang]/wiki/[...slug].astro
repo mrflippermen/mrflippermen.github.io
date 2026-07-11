@@ -1,0 +1,92 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getLangFromUrl } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const wikiEntries = await getCollection('wiki');
+  return wikiEntries.flatMap(entry => [
+    { params: { lang: 'en', slug: entry.slug }, props: { entry } },
+    { params: { lang: 'es', slug: entry.slug }, props: { entry } }
+  ]);
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const lang = getLangFromUrl(Astro.url);
+---
+
+<BaseLayout title={`${entry.data.title} | Wiki`}>
+  <article class="wiki-article">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <a href={`/${lang}/wiki`}>← {lang === 'es' ? 'VOLVER A WIKI' : 'BACK TO WIKI'}</a>
+      </div>
+      <h1>{entry.data.title}</h1>
+      <p class="description">{entry.data.description}</p>
+    </header>
+
+    <div class="article-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .wiki-article {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+  }
+
+  .article-header {
+    margin-bottom: 3rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 2rem;
+  }
+
+  .breadcrumb {
+    margin-bottom: 1.5rem;
+  }
+
+  .breadcrumb a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+    font-family: var(--font-mono);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--blue-team);
+  }
+
+  .article-header h1 {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+    font-weight: 800;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .description {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .article-content {
+    color: var(--text-primary);
+    line-height: 1.8;
+  }
+
+  /* Style tweaks specifically for this component */
+  .article-content :global(h1),
+  .article-content :global(h2),
+  .article-content :global(h3) {
+    color: var(--text-primary);
+    font-family: 'Share Tech Mono', monospace;
+  }
+</style>

@@ -1,0 +1,146 @@
+---
+import Icon from '../Icon.astro';
+import { getLangFromUrl } from '../../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const es   = lang === 'es';
+---
+
+<section class="cv-section">
+  <h2 class="section-title">
+    <Icon name="crown" />
+    {es ? 'Dominio Global & Reconocimientos' : 'Global Mastery & Recognition'}
+  </h2>
+  <div class="awards-grid">
+
+    <!-- Card 1: HTB Top 1 -->
+    <div class="glass-card highlight-card">
+      <div class="card-icon"><Icon name="trophy" /></div>
+      <div class="card-content">
+        <h3>Hack The Box</h3>
+        <div class="card-subtitle">#1 Ecuador · Top 50 {es ? 'Mundial' : 'Global'}</div>
+        <p>{es
+          ? 'Plataforma de práctica en pentesting y laboratorios empresariales.'
+          : 'Hands-on pentesting platform and enterprise lab environment.'
+        }</p>
+        <img
+          src="/images/about/ranknacional.jpg"
+          alt="Ranking HTB Nacional"
+          class="card-img"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+
+    <!-- Card 2: Blue Team LatAm -->
+    <div class="glass-card blue-card">
+      <div class="card-icon"><Icon name="shield-alt" /></div>
+      <div class="card-content">
+        <h3>Holmes CTF 2025</h3>
+        <div class="card-subtitle">{es ? 'Mejor equipo de LatAm · Top 66 Global' : 'Best LatAm Team · Top 66 Global'}</div>
+        <p>{es
+          ? 'Primer CTF defensivo de Hack The Box. 65 banderas capturadas (100%) en Threat Intel, SOC, DFIR, malware reversing y análisis de memoria.'
+          : "Hack The Box's first defensive CTF. All 65 flags captured (100%) across Threat Intel, SOC, DFIR, malware reversing, and memory analysis."
+        }</p>
+        <img
+          src="/images/about/ctf-blue.png"
+          alt="Blue Team Win"
+          class="card-img"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+
+    <!-- Card 3: LACC -->
+    <div class="glass-card">
+      <div class="card-icon"><Icon name="flag" /></div>
+      <div class="card-content">
+        <h3>LACC — {es ? 'Forense Digital' : 'Digital Forensics'}</h3>
+        <div class="card-subtitle">{es ? 'Preseleccionado · CyberFlippers' : 'Pre-selected · CyberFlippers'}</div>
+        <p>{es
+          ? 'Preseleccionado en la categoría de Forense Digital del Latin American Cybersecurity Challenge, bajo el equipo nacional CyberFlippers.'
+          : 'Pre-selected in the Digital Forensics category of the Latin American Cybersecurity Challenge, under the CyberFlippers national team.'
+        }</p>
+      </div>
+    </div>
+
+    <!-- Card 4: CyberFlippers Captain -->
+    <div class="glass-card purple-card">
+      <div class="card-icon"><Icon name="users" /></div>
+      <div class="card-content">
+        <h3>{es ? 'Capitán CyberFlippers' : 'CyberFlippers Captain'}</h3>
+        <div class="card-subtitle">{es ? 'Equipo Nacional Ecuador' : 'Ecuador National Team'}</div>
+        <p>{es
+          ? 'Equipo competitivo enfocado en CTFs internacionales y formación técnica.'
+          : 'Competitive team focused on international CTFs and technical training.'
+        }</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .glass-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 4px;
+    position: relative;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .glass-card:hover {
+    transform: translateY(-5px);
+    background: #111;
+  }
+
+  .highlight-card { border-color: rgba(16, 185, 129, 0.4); background-image: linear-gradient(rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.05)); }
+  .blue-card      { border-color: rgba(0, 240, 255, 0.4);  background-image: linear-gradient(rgba(0, 240, 255, 0.045), rgba(0, 240, 255, 0.045)); }
+  .purple-card    { border-color: rgba(114, 9, 183, 0.5);  background-image: linear-gradient(rgba(114, 9, 183, 0.06), rgba(114, 9, 183, 0.06)); }
+
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+  }
+
+  .highlight-card .card-icon { color: var(--success-color, #10B981); }
+  .blue-card      .card-icon { color: var(--blue-team); }
+  .purple-card    .card-icon { color: var(--purple-team); }
+
+  .card-content h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+  }
+
+  .card-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    font-family: var(--font-mono);
+  }
+
+  .card-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-top: 1rem;
+    border: 1px solid var(--border-color);
+    display: block;
+  }
+</style>

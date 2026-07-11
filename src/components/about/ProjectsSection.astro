@@ -1,0 +1,98 @@
+---
+import TimelineItem from '../TimelineItem.astro';
+import Icon from '../Icon.astro';
+import { getLangFromUrl } from '../../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const es   = lang === 'es';
+---
+
+<section class="cv-section">
+  <h2 class="section-title">
+    <Icon name="code" />
+    {es ? 'Proyectos de Autoría' : 'Authored Projects'}
+  </h2>
+  <div class="projects-container">
+
+    <TimelineItem
+      title='Flipper CyberAttack Suite <span class="tag">Flagship</span>'
+      institution="PowerShell · Hardware"
+      faction="red"
+    >
+      <p>{es
+        ? 'Automatiza el ciclo completo de evaluación de acceso físico: despliegue de payloads, emulación de BadUSB y ataques de RF controlados desde un Flipper Zero. Diseñado para ejercicios de red team donde el tiempo de permanencia en campo importa.'
+        : 'Automates the full physical-access assessment cycle: payload deployment, BadUSB emulation, and controlled RF attacks from a single Flipper Zero. Built for red-team ops where dwell time in the field matters.'
+      }</p>
+      <a href="https://github.com/mrflippermen/flipper-atack" target="_blank" rel="noopener noreferrer" class="project-link">
+        <Icon name="github" /> {es ? 'Ver código' : 'View source'}
+      </a>
+    </TimelineItem>
+
+    <TimelineItem
+      title="API Security Testing Suite"
+      institution="Python · API Security"
+      faction="blue"
+    >
+      <p>{es
+        ? 'Batería de 264 casos de prueba ofensivos contra APIs, mapeados al OWASP API Security Top 10. Cubre autenticación, autorización, inyección, exposición de datos y rate-limiting. Una sola ejecución revela la postura de seguridad real del endpoint.'
+        : '264 offensive test cases against APIs, mapped to the OWASP API Security Top 10. Covers authentication, authorization, injection, data exposure, and rate-limiting. A single run reveals the real security posture of any endpoint.'
+      }</p>
+    </TimelineItem>
+
+    <TimelineItem
+      title="Shellcode-Evasion-Suite"
+      institution="Python · Defense Evasion"
+      faction="purple"
+    >
+      <p>{es
+        ? 'Marco de evasión que estudia firmas de detección en motores AV/EDR sobre payloads ofuscados. Permite iterar técnicas de evasión — cifrado, inyección, desvío de llamadas — y validar su efectividad contra defensas reales sin salir del laboratorio.'
+        : 'Evasion framework that studies detection signatures across AV/EDR engines on obfuscated payloads. Iterate evasion techniques — encryption, injection, syscall rerouting — and validate effectiveness against real defenses in-lab.'
+      }</p>
+      <a href="https://github.com/mrflippermen/Shellcode-Evasion-Suite" target="_blank" rel="noopener noreferrer" class="project-link">
+        <Icon name="github" /> {es ? 'Ver código' : 'View source'}
+      </a>
+    </TimelineItem>
+
+    <TimelineItem
+      title="BloodHound-Parser"
+      institution="Python · Active Directory"
+      faction="red"
+    >
+      <p>{es
+        ? 'Procesa y prioriza rutas de ataque extraídas de BloodHound hacia Domain Admin. Reduce el ruido de miles de edges a un conjunto accionable de caminos críticos, ordenados por probabilidad de explotación en el entorno real.'
+        : 'Parses and prioritizes BloodHound attack paths to Domain Admin. Reduces noise from thousands of edges to an actionable set of critical paths, ranked by exploitation probability in the live environment.'
+      }</p>
+      <a href="https://github.com/mrflippermen/BloodHound-Parser" target="_blank" rel="noopener noreferrer" class="project-link">
+        <Icon name="github" /> {es ? 'Ver código' : 'View source'}
+      </a>
+    </TimelineItem>
+
+    <TimelineItem
+      title="Shodan-Intel-Reporter"
+      institution="Python · Threat Intel"
+      faction="blue"
+    >
+      <p>{es
+        ? 'Correlaciona activos expuestos en internet contra la base de CVEs conocidos. Automatiza la detección de vectores de entrada remotos y genera reportes de priorización que acortan la ventana de exposición del perímetro.'
+        : 'Correlates internet-exposed assets against the known CVE database. Automates remote entry-vector detection and generates prioritized reports that shorten the perimeter exposure window.'
+      }</p>
+      <a href="https://github.com/mrflippermen/Shodan-Intel-Reporter" target="_blank" rel="noopener noreferrer" class="project-link">
+        <Icon name="github" /> {es ? 'Ver código' : 'View source'}
+      </a>
+    </TimelineItem>
+
+    <TimelineItem
+      title="BugBounty-Automation-Setup"
+      institution="Shell · Recon"
+      faction="purple"
+    >
+      <p>{es
+        ? 'Aprovisiona entornos de pentesting reproducibles desde una instancia limpia en segundos. Preconfigura herramientas de reconocimiento, enumeración y explotación para que el operador empiece a trabajar sin fricción de setup.'
+        : 'Provisions reproducible pentesting environments from a clean instance in seconds. Preconfigures recon, enumeration, and exploitation tooling so the operator starts working with zero setup friction.'
+      }</p>
+      <a href="https://github.com/mrflippermen/BugBounty-Automation-Setup" target="_blank" rel="noopener noreferrer" class="project-link">
+        <Icon name="github" /> {es ? 'Ver código' : 'View source'}
+      </a>
+    </TimelineItem>
+
+  </div>
+</section>

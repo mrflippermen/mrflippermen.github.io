@@ -1,0 +1,148 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  title: string;
+  subtitle?: string;
+  image?: string;
+  link?: string;
+  fit?: 'cover' | 'contain';
+}
+
+const { title, subtitle, image, link, fit = 'cover' } = Astro.props;
+const Tag = link ? 'a' : 'div';
+---
+
+<Tag
+  class="award-card"
+  href={link}
+  {...(link ? { 'data-has-link': 'true' } : {})}
+>
+  {image && (
+    <div class="award-img-wrap">
+      <img src={image} alt={title} loading="lazy" style={`object-fit:${fit}`} />
+      <div class="award-img-overlay"></div>
+    </div>
+  )}
+
+  <div class="award-body">
+    <h3 class="award-title" set:html={title} />
+    {subtitle && <span class="award-subtitle">{subtitle}</span>}
+    <div class="award-slot"><slot /></div>
+    {link && (
+      <span class="award-cta">
+        <Icon name="external-link-alt" /> VIEW CREDENTIAL
+      </span>
+    )}
+  </div>
+
+  <span class="aw-corner tl"></span>
+  <span class="aw-corner br"></span>
+</Tag>
+
+<style>
+.award-card {
+  position: relative;
+  background: var(--bg-panel);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  background-image: linear-gradient(rgba(0, 240, 255, 0.045), rgba(0, 240, 255, 0.045));
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.award-card[data-has-link]:hover {
+  transform: translateY(-4px);
+  border-color: var(--blue-team);
+  box-shadow: var(--shadow-glow-blue);
+}
+
+/* Corner accents */
+.aw-corner {
+  position: absolute;
+  width: 10px; height: 10px;
+  color: var(--blue-team);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.award-card:hover .aw-corner { opacity: 0.7; }
+
+.aw-corner.tl { top: 4px; left: 4px;     border-top: 2px solid; border-left: 2px solid; }
+.aw-corner.br { bottom: 4px; right: 4px;  border-bottom: 2px solid; border-right: 2px solid; }
+
+/* Image */
+.award-img-wrap {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  background: #000;
+}
+
+.award-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(30%);
+  transition: filter 0.4s, transform 0.4s;
+  display: block;
+}
+
+.award-card:hover .award-img-wrap img {
+  filter: grayscale(0%);
+  transform: scale(1.03);
+}
+
+.award-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+}
+
+/* Body */
+.award-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.award-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.award-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--blue-team);
+  letter-spacing: 1px;
+}
+
+.award-slot {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.award-cta {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s;
+}
+
+.award-card:hover .award-cta { color: var(--blue-team); }
+</style>

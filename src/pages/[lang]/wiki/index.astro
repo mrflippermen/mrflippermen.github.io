@@ -1,0 +1,139 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AwardCard from '../../../components/AwardCard.astro';
+import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    {params: {lang: 'en'}},
+    {params: {lang: 'es'}},
+  ];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const allWiki = await getCollection('wiki');
+// Sort by title alphabetically
+allWiki.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<BaseLayout title={`Knowledge Vault | ${t('nav.wiki')}`}>
+  <div class="vault-container">
+    
+    <div class="vault-header">
+      <h1 class="vault-title"><i class="fas fa-book-dead"></i> INTELLIGENCE VAULT ({lang.toUpperCase()})</h1>
+      <p class="vault-subtitle">
+        {lang === 'es' ? 'Repositorio Central de Tácticas, Tradecraft & Explotación.' : 'Central Repository for Field Tactics, Tradecraft & Exploitation.'}
+      </p>
+      
+      <div class="vault-meta">
+        <span class="meta-item">RECORDS: {allWiki.length}</span>
+        <span class="meta-item">CLEARANCE: LEVEL 5</span>
+        <span class="meta-item active">STATUS: ONLINE</span>
+      </div>
+    </div>
+    
+    <div class="vault-grid">
+      {allWiki.map((entry) => (
+        <AwardCard
+            title={entry.data.title}
+            subtitle={entry.data.description || 'Classified Document'}
+            link={`/${lang}/wiki/${entry.slug}`}
+            image={entry.data.image} 
+        >
+            <div class="tags-container">
+                <span class="cert-tag">DOC</span>
+                {entry.data.category && <span class="cert-tag">{entry.data.category}</span>}
+                <span class="cert-id">ID: {entry.slug.substring(0,6).toUpperCase()}</span>
+            </div>
+        </AwardCard>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .vault-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    font-family: var(--font-sans);
+  }
+
+  /* HEADER */
+  .vault-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2rem;
+  }
+
+  .vault-title {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin: 0;
+    font-weight: 900;
+    letter-spacing: -1px;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  
+  .vault-title i { color: var(--red-team); margin-right: 0.5rem; }
+
+  .vault-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0.5rem 0 1.5rem 0;
+    font-family: var(--font-mono);
+  }
+
+  .vault-meta {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--blue-team);
+    display: inline-flex;
+    justify-content: center;
+    gap: 2rem;
+    background: var(--bg-panel);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+  }
+
+  .meta-item.active { color: var(--success-color, #10B981); }
+
+  /* GRID */
+  .vault-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  /* TAGS inside AwardCard slot */
+  .tags-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .cert-tag {
+    display: inline-block;
+    background: var(--bg-main);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+  }
+  
+  .cert-id {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-family: var(--font-mono);
+  }
+</style>

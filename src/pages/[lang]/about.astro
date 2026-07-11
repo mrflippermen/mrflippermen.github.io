@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'es' } },
+  ];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t    = useTranslations(lang);
+const es   = lang === 'es';
+
+import ProfileHeader        from '../../components/about/ProfileHeader.astro';
+import AchievementsGrid     from '../../components/about/AchievementsGrid.astro';
+import ProjectsSection      from '../../components/about/ProjectsSection.astro';
+import SkillsMatrix         from '../../components/about/SkillsMatrix.astro';
+import CertificationsShowcase from '../../components/about/CertificationsShowcase.astro';
+---
+
+<BaseLayout title={`Esteban Jimenez | ${t('nav.about')}`}>
+  <div class="cv-container">
+
+    <!-- ── Profile Dossier ── -->
+    <ProfileHeader />
+
+    <!-- ── Achievements ── -->
+    <div class="reveal">
+      <AchievementsGrid />
+    </div>
+
+    <!-- ── Professional Trajectory ── -->
+    <section class="cv-section reveal">
+      <h2 class="section-title">
+        <Icon name="briefcase" />
+        {es ? 'Trayectoria Profesional' : 'Professional Trajectory'}
+      </h2>
+
+      <div class="timeline-list">
+
+        <!-- Telefónica — CURRENT POSITION -->
+        <div class="timeline-item current">
+          <span class="period">
+            {es ? 'feb 2026' : 'Feb 2026'} — <span class="live-badge"><Icon name="circle" /> {es ? 'EN CURSO' : 'ACTIVE'}</span>
+          </span>
+          <h3>Red Team Intern</h3>
+          <span class="institution">Telefónica Ecuador <span class="institution-note">· Otecel S.A.</span></span>
+          <p>{es
+            ? 'Orquesto evaluaciones ofensivas autorizadas sobre infraestructura corporativa: auditorías CIS Benchmark, API Security Testing y certificación de imágenes Docker en producción. Cada hallazgo reduce directamente la superficie de ataque del entorno.'
+            : 'Orchestrate authorized offensive assessments across corporate infrastructure: CIS Benchmark audits, API security testing, and Docker image certification in production. Every finding directly reduces the attack surface.'
+          }</p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="period">{es ? 'jul 2024' : 'Jul 2024'} — {es ? 'Presente' : 'Present'}</span>
+          <h3>{es ? 'CTF Player & Capitán' : 'CTF Player & Captain'}</h3>
+          <span class="institution">Hack The Box · CyberFlippers · UDLA-Cyber</span>
+          <p>{es
+            ? 'Lidero la escena competitiva de Ecuador como #1 nacional y Top 50 global (pico #36), rango Grandmaster (Lvl 91). Completé las 6 Fortalezas y múltiples Pro Labs — Reversing, Forense y Pwn. Capitán de CyberFlippers (selección nacional) y UDLA-Cyber. Preseleccionado para LACC en Forense Digital.'
+            : 'Lead Ecuador\'s competitive scene as #1 nationally and Top 50 worldwide (peak #36), Grandmaster rank (Lvl 91). Completed all 6 Fortresses and multiple Pro Labs — Reversing, Forensics, and Pwn. Captain of CyberFlippers (national team) and UDLA-Cyber. Pre-selected for LACC in Digital Forensics.'
+          }</p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="period">{es ? 'abr 2024' : 'Apr 2024'} — {es ? 'Presente' : 'Present'}</span>
+          <h3>{es ? 'Ayudante de Cátedra · Ciberseguridad' : 'Teaching Assistant · Cybersecurity'}</h3>
+          <span class="institution">{es ? 'Universidad de Las Américas (UDLA)' : 'Universidad de Las Américas (UDLA)'}</span>
+          <p>{es
+            ? 'Instruyo a la próxima generación de operadores de seguridad. Diseño y superviso laboratorios de explotación y defensa, llevando tácticas ofensivas del mundo real al aula.'
+            : 'Train the next generation of security operators. Design and supervise exploitation and defense labs, bringing real-world offensive tactics into the classroom.'
+          }</p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="period">{es ? 'abr 2024' : 'Apr 2024'} — {es ? 'Presente' : 'Present'}</span>
+          <h3>Bug Hunter</h3>
+          <span class="institution">HackerOne</span>
+          <p>{es
+            ? 'Ejecuto divulgación coordinada de vulnerabilidades web críticas: XSS, CORS misconfigurations, SSRF e inyecciones. Empleo análisis manual con Burp Suite contra vectores del OWASP Top 10, priorizando impacto técnico sobre volumen de reportes.'
+            : 'Execute coordinated disclosure of critical web vulnerabilities: XSS, CORS misconfigurations, SSRF, and injections. Manual analysis with Burp Suite against OWASP Top 10 vectors, prioritizing technical impact over report volume.'
+          }</p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="period">2023 — 2027</span>
+          <h3>{es ? 'Ing. en Ciberseguridad' : 'Cybersecurity Engineering'}</h3>
+          <span class="institution">{es ? 'Universidad de Las Américas (UDLA)' : 'Universidad de Las Américas (UDLA)'}</span>
+          <p>{es
+            ? 'Formación académica en Ingeniería de Ciberseguridad con base en explotación de sistemas, hardening y análisis forense. Graduación prevista en 2027.'
+            : 'Academic foundation in Cybersecurity Engineering — systems exploitation, hardening, and forensic analysis. Graduating 2027.'
+          }</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Skills Matrix ── -->
+    <div class="reveal">
+      <SkillsMatrix />
+    </div>
+
+    <!-- ── Projects ── -->
+    <div class="reveal">
+      <ProjectsSection />
+    </div>
+
+    <!-- ── Certifications ── -->
+    <div class="reveal">
+      <CertificationsShowcase />
+    </div>
+
+    <!-- ── Closing ── -->
+    <section class="cv-section reveal closing-block">
+      <h2 class="section-title">
+        <Icon name="terminal" />
+        {es ? 'Enfoque' : 'Approach'}
+      </h2>
+      <div class="closing-text">
+        <p>{es
+          ? 'Mi trabajo se mueve entre dos ideas: entender cómo se rompe algo y saber explicarlo. Me enfoco en Red Team y Active Directory porque me engancha encadenar fallos pequeños hasta convertirlos en un compromiso completo, siempre en entornos autorizados.'
+          : 'My work sits between two ideas: understanding how something breaks, and being able to explain it. I focus on Red Team and Active Directory because I enjoy chaining small flaws into a full compromise, always in authorized environments.'
+        }</p>
+        <p>{es
+          ? 'Con el tiempo aprendí que explotar no basta: un hallazgo solo sirve si el equipo que lo recibe puede reproducirlo y corregirlo. Por eso cuido el informe tanto como el exploit, manteniendo independencia y objetividad como auditor.'
+          : 'Over time I learned that exploitation is not enough: a finding only matters if the team receiving it can reproduce and fix it. That is why I treat the report with the same care as the exploit, keeping an auditor\'s independence and objectivity.'
+        }</p>
+        <p>{es
+          ? 'Sigo estudiando todos los días. En esto siempre hay algo nuevo que romper y, ahora también, que proteger.'
+          : 'I keep studying every day. There is always something new to break and, now, to protect.'
+        }</p>
+      </div>
+      <a class="closing-cta" href="https://linkedin.com/in/esteban-jimenez-994868249/" target="_blank" rel="noopener noreferrer">
+        <Icon name="linkedin" /> {es ? 'Hablemos por LinkedIn' : "Let's talk on LinkedIn"}
+      </a>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+.cv-container {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Current position highlight */
+:global(.timeline-item.current) {
+  border-left-color: var(--blue-team) !important;
+  background: rgba(0, 240, 255, 0.025) !important;
+}
+
+:global(.timeline-item.current h3) {
+  color: var(--text-primary);
+}
+
+:global(.live-badge) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--success-color);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 1.5px;
+  animation: live-pulse 2s ease-in-out infinite;
+}
+
+:global(.live-badge svg) {
+  font-size: 0.5rem;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+:global(.pending-tag) {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--blue-team);
+  letter-spacing: 1px;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 0.1rem 0.4rem;
+  margin-left: 0.6rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+:global(.institution-note) {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: 0.3rem;
+}
+</style>

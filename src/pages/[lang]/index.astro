@@ -1,0 +1,661 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'es' } },
+  ];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={`Flippermen | ${t('nav.home')}`}>
+  <div class="dashboard-container">
+
+    <!-- ═══════════════════════════════════════════
+         HEADER — Name + Typewriter + Stats
+    ════════════════════════════════════════════ -->
+    <header class="dashboard-header">
+
+      <div class="header-left">
+        <p class="header-label">// CLASSIFIED OPERATIVE PROFILE //</p>
+        <h1 class="executive-name glitch" data-text="ESTEBAN JIMENEZ">ESTEBAN JIMENEZ</h1>
+        <p class="executive-subtitle" id="typewriter-el">&nbsp;</p>
+        <div class="executive-role">
+          <span class="role-badge badge-red">{t('role.red')}</span>
+          <span class="role-badge badge-blue">{t('role.blue')}</span>
+          <span class="role-badge badge-purple">{t('role.purple')}</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="intel-readout" aria-label="Field record">
+          <div class="intel-row">
+            <span class="intel-key">HTB Ecuador</span>
+            <span class="intel-val">#1</span>
+          </div>
+          <div class="intel-row">
+            <span class="intel-key">Pro Labs</span>
+            <span class="intel-val">10+</span>
+          </div>
+          <div class="intel-row">
+            <span class="intel-key">CTF Wins</span>
+            <span class="intel-val">5+</span>
+          </div>
+        </div>
+        <div class="system-status">
+          <div class="pulse-dot"></div>
+          <span>{t('system.status')}</span>
+        </div>
+      </div>
+
+    </header>
+
+    <!-- ═══════════════════════════════════════════
+         STRATEGIC GRID — 5 cards
+    ════════════════════════════════════════════ -->
+    <section class="strategic-grid">
+
+      <!-- IDENTITY -->
+      <a href={`/${lang}/about`} class="grid-card identity-card">
+        <div class="card-corner tl"></div>
+        <div class="card-corner tr"></div>
+        <div class="card-corner bl"></div>
+        <div class="card-corner br"></div>
+        <div class="card-scan"></div>
+        <div class="card-icon"><Icon name="user-secret" /></div>
+        <div class="card-body">
+          <h3 class="card-title">{t('card.identity')}</h3>
+          <span class="card-desc">{t('card.identity.desc')}</span>
+        </div>
+        <div class="card-foot">
+          <span class="access-level">LEVEL 5</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- OPERATIONS -->
+      <a href={`/${lang}/writeups`} class="grid-card ops-card">
+        <div class="card-corner tl"></div>
+        <div class="card-corner tr"></div>
+        <div class="card-corner bl"></div>
+        <div class="card-corner br"></div>
+        <div class="card-scan"></div>
+        <div class="card-icon"><Icon name="terminal" /></div>
+        <div class="card-body">
+          <h3 class="card-title">{t('card.ops')}</h3>
+          <span class="card-desc">{t('card.ops.desc')}</span>
+        </div>
+        <div class="card-foot">
+          <span class="access-level">ACTIVE</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- ARSENAL -->
+      <a href={`/${lang}/certs`} class="grid-card arsenal-card">
+        <div class="card-corner tl"></div>
+        <div class="card-corner tr"></div>
+        <div class="card-corner bl"></div>
+        <div class="card-corner br"></div>
+        <div class="card-scan"></div>
+        <div class="card-icon"><Icon name="certificate" /></div>
+        <div class="card-body">
+          <h3 class="card-title">{t('card.arsenal')}</h3>
+          <span class="card-desc">{t('card.arsenal.desc')}</span>
+        </div>
+        <div class="card-foot">
+          <span class="access-level">VERIFIED</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- INTELLIGENCE -->
+      <a href={`/${lang}/wiki`} class="grid-card intel-card">
+        <div class="card-corner tl"></div>
+        <div class="card-corner tr"></div>
+        <div class="card-corner bl"></div>
+        <div class="card-corner br"></div>
+        <div class="card-scan"></div>
+        <div class="card-icon"><Icon name="brain" /></div>
+        <div class="card-body">
+          <h3 class="card-title">{t('card.intel')}</h3>
+          <span class="card-desc">{t('card.intel.desc')}</span>
+        </div>
+        <div class="card-foot">
+          <span class="access-level">CLASSIFIED</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- CYBERFLIPPER -->
+      <a href={`/${lang}/cyberflipper`} class="grid-card unit-card">
+        <div class="card-corner tl"></div>
+        <div class="card-corner tr"></div>
+        <div class="card-corner bl"></div>
+        <div class="card-corner br"></div>
+        <div class="card-scan"></div>
+        <div class="card-icon"><Icon name="dragon" /></div>
+        <div class="card-body">
+          <h3 class="card-title">{t('card.unit')}</h3>
+          <span class="card-desc">{t('card.unit.desc')}</span>
+        </div>
+        <div class="card-foot">
+          <span class="access-level">RESTRICTED</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         TICKER — scrolling status bar
+    ════════════════════════════════════════════ -->
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <span class="ticker-txt">{t('footer.encrypted')}</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">NODE: US-EAST-1</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">LATENCY: 2ms</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">TLS 1.3 ACTIVE</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">HTB #1 ECUADOR</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">RED TEAM OPERATOR</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">DEFCON 3</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">{t('footer.encrypted')}</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">NODE: US-EAST-1</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">LATENCY: 2ms</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">TLS 1.3 ACTIVE</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">HTB #1 ECUADOR</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">RED TEAM OPERATOR</span>
+        <span class="ticker-sep">◆</span>
+        <span class="ticker-txt">DEFCON 3</span>
+        <span class="ticker-sep">◆</span>
+      </div>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT — Typewriter + Card reveal
+════════════════════════════════════════════ -->
+<script>
+  // ── Typewriter ──────────────────────────────
+  const WORDS = [
+    'Red Team Operator',
+    'Purple Team Strategist',
+    'HTB #1 Ecuador',
+    'CTF Architect & Speaker',
+    'Security Researcher',
+    'Flipper Zero Ops Specialist',
+  ];
+  const prefersReduced = () =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let wIdx = 0, cIdx = 0, deleting = false;
+  let typewriterTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function tick() {
+    const el = document.getElementById('typewriter-el');
+    if (!el) return;
+    const word = WORDS[wIdx];
+
+    if (!deleting) {
+      el.textContent = word.slice(0, ++cIdx);
+      if (cIdx === word.length) { deleting = true; typewriterTimer = setTimeout(tick, 2200); return; }
+    } else {
+      el.textContent = word.slice(0, --cIdx);
+      if (cIdx === 0) { deleting = false; wIdx = (wIdx + 1) % WORDS.length; }
+    }
+    typewriterTimer = setTimeout(tick, deleting ? 50 : 90);
+  }
+
+  function startTypewriter() {
+    // Reset state and clear any chain left over from a prior navigation so the
+    // animation doesn't run twice after a View Transitions page swap.
+    if (typewriterTimer) clearTimeout(typewriterTimer);
+    wIdx = 0; cIdx = 0; deleting = false;
+    const el = document.getElementById('typewriter-el');
+    if (!el) return;
+    if (prefersReduced()) { el.textContent = WORDS[0]; return; }
+    typewriterTimer = setTimeout(tick, 600);
+  }
+
+  // ── Staggered card reveal ────────────────────
+  function revealCards() {
+    const cards = document.querySelectorAll<HTMLElement>('.grid-card');
+    // With reduced motion, show the cards immediately — no travel, no stagger.
+    if (prefersReduced()) {
+      cards.forEach((card) => { card.style.opacity = '1'; card.style.transform = 'none'; });
+      return;
+    }
+    cards.forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 150 + i * 90);
+    });
+  }
+
+  // astro:page-load fires on the initial load AND on every View Transitions
+  // navigation; DOMContentLoaded only fires once, which left the cards stuck at
+  // opacity:0 when navigating back to Home.
+  document.addEventListener('astro:page-load', () => {
+    startTypewriter();
+    revealCards();
+  });
+</script>
+
+<style>
+/* ═══════════════════════════════════════════════════════
+   DASHBOARD CONTAINER
+═══════════════════════════════════════════════════════ */
+.dashboard-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 2rem 2rem;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════════ */
+.dashboard-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 3rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+/* gradient accent under border */
+.dashboard-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 200px; height: 2px;
+  background: linear-gradient(90deg, var(--red-team), transparent);
+}
+
+.header-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--red-team);
+  letter-spacing: 3px;
+  opacity: 0.7;
+  margin-bottom: 1rem;
+}
+
+.executive-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 400;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: var(--text-primary);
+  margin: 0 0 0.6rem;
+}
+
+.executive-subtitle {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--blue-team);
+  min-height: 1.6em;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+}
+
+/* blinking block cursor on subtitle */
+.executive-subtitle::after {
+  content: '█';
+  animation: cursor-blink 1s step-end infinite;
+  color: var(--blue-team);
+  opacity: 0.8;
+  font-size: 0.85em;
+  margin-left: 2px;
+}
+
+@keyframes cursor-blink { 50% { opacity: 0; } }
+
+/* role badges */
+.executive-role { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+.role-badge {
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid;
+  transition: box-shadow 0.3s;
+}
+
+.badge-red    { color: var(--red-team);    border-color: var(--red-team);    background: rgba(217,4,41,0.06);  box-shadow: 0 0 10px rgba(217,4,41,0.2);   }
+.badge-blue   { color: var(--blue-team);   border-color: var(--blue-team);   background: rgba(0,240,255,0.06); box-shadow: 0 0 10px rgba(0,240,255,0.2);  }
+.badge-purple { color: var(--purple-team); border-color: var(--purple-team); background: rgba(114,9,183,0.06); box-shadow: 0 0 10px rgba(114,9,183,0.2);  }
+
+.badge-red:hover    { box-shadow: var(--shadow-glow-red); }
+.badge-blue:hover   { box-shadow: var(--shadow-glow-blue); }
+.badge-purple:hover { box-shadow: var(--shadow-glow-purple); }
+
+/* ─── right side ─── */
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.2rem;
+}
+
+/* Terminal-style intel readout: label left, value right, stacked rows.
+   Replaces the centered big-number "hero-metric" stat panel. */
+.intel-readout {
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  font-family: var(--font-mono);
+  min-width: 230px;
+}
+
+.intel-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.intel-row:last-child { border-bottom: none; }
+
+.intel-key {
+  font-size: 0.62rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.intel-val {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--blue-team);
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.pulse-dot {
+  width: 8px; height: 8px;
+  background: var(--success-color);
+  border-radius: 50%;
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0   rgba(16,185,129,0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0   rgba(16,185,129,0); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   STRATEGIC GRID
+═══════════════════════════════════════════════════════ */
+.strategic-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.grid-card {
+  background: var(--bg-panel);
+  padding: 2rem 1.5rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+/* ── corner bracket decoration ── */
+.card-corner {
+  position: absolute;
+  width: 12px; height: 12px;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.card-corner.tl { top: 10px; left: 10px;  border-top: 2px solid; border-left: 2px solid; }
+.card-corner.tr { top: 10px; right: 10px; border-top: 2px solid; border-right: 2px solid; }
+.card-corner.bl { bottom: 10px; left: 10px;  border-bottom: 2px solid; border-left: 2px solid; }
+.card-corner.br { bottom: 10px; right: 10px; border-bottom: 2px solid; border-right: 2px solid; }
+.grid-card:hover .card-corner { opacity: 1; }
+
+/* ── scan line sweep on hover ── */
+.card-scan {
+  position: absolute;
+  top: -100%; left: 0;
+  width: 100%; height: 55%;
+  pointer-events: none;
+}
+.grid-card:hover .card-scan {
+  animation: card-scan 1.1s ease-out forwards;
+}
+@keyframes card-scan {
+  0%   { top: -55%; opacity: 0.5; }
+  100% { top: 110%; opacity: 0; }
+}
+
+/* ── icon ── */
+.card-icon {
+  font-size: 2rem;
+  color: var(--text-muted);
+  transition: color 0.35s, filter 0.35s;
+  line-height: 1;
+}
+
+/* ── body text ── */
+.card-body { flex: 1; padding: 1.5rem 0; }
+
+.card-title {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0 0 0.5rem;
+  transition: color 0.3s;
+}
+
+.card-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: block;
+  line-height: 1.55;
+  font-family: var(--font-sans);
+  transition: color 0.3s;
+}
+
+/* ── footer ── */
+.card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+  transition: border-color 0.3s;
+}
+
+.access-level {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
+
+.card-arrow {
+  color: var(--text-muted);
+  font-size: 1rem;
+  transition: color 0.3s, transform 0.3s;
+}
+
+/* ── generic hover ── */
+.grid-card:hover { background: rgba(255,255,255,0.015); }
+.grid-card:hover .card-title { color: var(--text-primary); }
+.grid-card:hover .card-desc  { color: var(--text-secondary); }
+
+/* ── per-faction hover ── */
+
+/* IDENTITY — cyan */
+.identity-card .card-corner { border-color: var(--blue-team); }
+.identity-card .card-scan   { background: linear-gradient(transparent, rgba(0,240,255,0.05), transparent); }
+.identity-card:hover .card-icon   { color: var(--blue-team); filter: drop-shadow(0 0 8px var(--blue-team)); }
+.identity-card:hover .access-level { color: var(--blue-team); }
+.identity-card:hover .card-arrow  { color: var(--blue-team); transform: translateX(5px); }
+.identity-card:hover .card-foot   { border-color: rgba(0,240,255,0.25); }
+.identity-card:hover               { box-shadow: inset 0 0 50px rgba(0,240,255,0.04); }
+
+/* OPS — white */
+.ops-card .card-corner { border-color: var(--text-primary); }
+.ops-card .card-scan   { background: linear-gradient(transparent, rgba(255,255,255,0.04), transparent); }
+.ops-card:hover .card-icon   { color: var(--text-primary); filter: drop-shadow(0 0 8px rgba(255,255,255,0.5)); }
+.ops-card:hover .access-level { color: var(--text-primary); }
+.ops-card:hover .card-arrow  { color: var(--text-primary); transform: translateX(5px); }
+.ops-card:hover               { box-shadow: inset 0 0 50px rgba(255,255,255,0.02); }
+
+/* ARSENAL — red */
+.arsenal-card .card-corner { border-color: var(--red-team); }
+.arsenal-card .card-scan   { background: linear-gradient(transparent, rgba(217,4,41,0.06), transparent); }
+.arsenal-card:hover .card-icon   { color: var(--red-team); filter: drop-shadow(0 0 8px var(--red-team)); }
+.arsenal-card:hover .access-level { color: var(--red-team); }
+.arsenal-card:hover .card-arrow  { color: var(--red-team); transform: translateX(5px); }
+.arsenal-card:hover .card-foot   { border-color: rgba(217,4,41,0.25); }
+.arsenal-card:hover               { box-shadow: inset 0 0 50px rgba(217,4,41,0.04); }
+
+/* INTEL — purple */
+.intel-card .card-corner { border-color: var(--purple-team); }
+.intel-card .card-scan   { background: linear-gradient(transparent, rgba(114,9,183,0.07), transparent); }
+.intel-card:hover .card-icon   { color: var(--purple-team); filter: drop-shadow(0 0 8px var(--purple-team)); }
+.intel-card:hover .access-level { color: var(--purple-team); }
+.intel-card:hover .card-arrow  { color: var(--purple-team); transform: translateX(5px); }
+.intel-card:hover .card-foot   { border-color: rgba(114,9,183,0.25); }
+.intel-card:hover               { box-shadow: inset 0 0 50px rgba(114,9,183,0.04); }
+
+/* UNIT — emerald */
+.unit-card .card-corner { border-color: var(--success-color); }
+.unit-card .card-scan   { background: linear-gradient(transparent, rgba(16,185,129,0.05), transparent); }
+.unit-card:hover .card-icon   { color: var(--success-color); filter: drop-shadow(0 0 8px var(--success-color)); }
+.unit-card:hover .access-level { color: var(--success-color); }
+.unit-card:hover .card-arrow  { color: var(--success-color); transform: translateX(5px); }
+.unit-card:hover .card-foot   { border-color: rgba(16,185,129,0.25); }
+.unit-card:hover               { box-shadow: inset 0 0 50px rgba(16,185,129,0.04); }
+
+/* ═══════════════════════════════════════════════════════
+   TICKER
+═══════════════════════════════════════════════════════ */
+.ticker-wrap {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border-color);
+  padding: 0.7rem 0;
+}
+
+/* fade edges */
+.ticker-wrap::before,
+.ticker-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.ticker-wrap::before { left:  0; background: linear-gradient(to right, var(--bg-main), transparent); }
+.ticker-wrap::after  { right: 0; background: linear-gradient(to left,  var(--bg-main), transparent); }
+
+.ticker-track {
+  display: flex;
+  gap: 1.5rem;
+  white-space: nowrap;
+  animation: ticker-scroll 24s linear infinite;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  align-items: center;
+}
+
+.ticker-sep {
+  color: var(--red-team);
+  opacity: 0.4;
+  font-size: 0.5rem;
+}
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .strategic-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container  { padding: 2rem 1rem; }
+  .dashboard-header     { grid-template-columns: 1fr; gap: 2rem; }
+  .header-right         { align-items: flex-start; }
+  .executive-name       { font-size: 2.5rem; }
+  .strategic-grid       { grid-template-columns: repeat(2, 1fr); }
+  .grid-card            { min-height: 220px; }
+}
+
+@media (max-width: 480px) {
+  .strategic-grid { grid-template-columns: 1fr; }
+  .intel-readout  { width: 100%; }
+}
+</style>

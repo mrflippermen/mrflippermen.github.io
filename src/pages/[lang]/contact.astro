@@ -1,0 +1,409 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    {params: {lang: 'en'}},
+    {params: {lang: 'es'}},
+  ];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const es = lang === 'es';
+---
+
+<BaseLayout
+  title={`${es ? 'Contacto' : 'Contact'} | Flippermen`}
+  description={es
+    ? 'Canal de comunicación seguro. Operador Red Team disponible para proyectos de ciberseguridad ofensiva.'
+    : 'Secure communication channel. Red Team Operator available for offensive cybersecurity projects.'
+  }
+>
+  <div class="comms-shell">
+
+    <!-- Header -->
+    <div class="comms-header reveal">
+      <p class="header-pre">// {es ? 'CANAL SEGURO' : 'SECURE CHANNEL'} //</p>
+      <h1 class="comms-title glitch" data-text="COMMS">COMMS</h1>
+      <div class="terminal-line">
+        <span class="prompt">root@flippermen:~/comms#</span>
+        <span class="cmd"> establish-connection --encrypt TLS1.3</span>
+        <span class="blink-cursor">█</span>
+      </div>
+    </div>
+
+    <!-- Status bar -->
+    <div class="status-bar reveal">
+      <div class="status-item">
+        <div class="pulse-dot"></div>
+        <span>{es ? 'CANAL ACTIVO' : 'CHANNEL ACTIVE'}</span>
+      </div>
+      <div class="status-item">
+        <i class="fas fa-lock status-ico"></i>
+        <span>TLS 1.3 / E2E ENCRYPTED</span>
+      </div>
+      <div class="status-item">
+        <i class="fas fa-clock status-ico"></i>
+        <span>{es ? 'RESP. EN 24-48h' : 'RESP. IN 24-48h'}</span>
+      </div>
+    </div>
+
+    <!-- Contact cards -->
+    <div class="comms-grid reveal">
+
+      <a href="https://linkedin.com/in/esteban-jimenez-994868249/" target="_blank" rel="noopener noreferrer" class="comms-card linkedin-card primary-card">
+        <div class="card-corner tl"></div>
+        <div class="card-corner tr"></div>
+        <div class="card-corner bl"></div>
+        <div class="card-corner br"></div>
+        <div class="card-glow"></div>
+        <div class="card-inner">
+          <div class="card-icon-wrap">
+            <i class="fab fa-linkedin"></i>
+          </div>
+          <div class="card-text">
+            <span class="card-label">{es ? 'CANAL PRINCIPAL · LINKEDIN' : 'PRIMARY CHANNEL · LINKEDIN'}</span>
+            <span class="card-value">Esteban Jimenez</span>
+          </div>
+          <i class="fas fa-external-link-alt card-ext"></i>
+        </div>
+      </a>
+
+      <a href="https://www.hackthebox.com/achievement/user/flippermen" target="_blank" rel="noopener noreferrer" class="comms-card htb-card">
+        <div class="card-corner tl"></div>
+        <div class="card-corner tr"></div>
+        <div class="card-corner bl"></div>
+        <div class="card-corner br"></div>
+        <div class="card-glow"></div>
+        <div class="card-inner">
+          <div class="card-icon-wrap">
+            <i class="fas fa-cube"></i>
+          </div>
+          <div class="card-text">
+            <span class="card-label">{t('contact.htb')}</span>
+            <span class="card-value">@flippermen <span class="htb-rank">#1 Ecuador</span></span>
+          </div>
+          <i class="fas fa-external-link-alt card-ext"></i>
+        </div>
+      </a>
+
+      <a href="https://github.com/flippermen" target="_blank" rel="noopener noreferrer" class="comms-card github-card">
+        <div class="card-corner tl"></div>
+        <div class="card-corner tr"></div>
+        <div class="card-corner bl"></div>
+        <div class="card-corner br"></div>
+        <div class="card-glow"></div>
+        <div class="card-inner">
+          <div class="card-icon-wrap">
+            <i class="fab fa-github"></i>
+          </div>
+          <div class="card-text">
+            <span class="card-label">{t('contact.github')}</span>
+            <span class="card-value">github.com/flippermen</span>
+          </div>
+          <i class="fas fa-external-link-alt card-ext"></i>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Footer message -->
+    <div class="comms-footer reveal">
+      <div class="footer-line">
+        <span class="footer-ico">◆</span>
+        <span>{t('contact.channel')}</span>
+        <span class="footer-ico">◆</span>
+      </div>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<style>
+/* ══════════════════════════════════════════
+   COMMS SHELL
+══════════════════════════════════════════ */
+.comms-shell {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+/* ── Header ── */
+.comms-header {
+  margin-bottom: 2rem;
+}
+
+.header-pre {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--red-team);
+  letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+.comms-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: -1px;
+  margin: 0 0 1rem;
+  line-height: 1;
+}
+
+.terminal-line {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+.prompt  { color: var(--success-color); }
+.cmd     { color: var(--text-primary); }
+.blink-cursor {
+  color: var(--blue-team);
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ── Status bar ── */
+.status-bar {
+  display: flex;
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background: var(--bg-panel);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.pulse-dot {
+  width: 7px; height: 7px;
+  background: var(--success-color);
+  border-radius: 50%;
+  animation: pulse-ring 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.7); }
+  70%  { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+}
+
+.status-ico { color: var(--blue-team); }
+
+/* ══════════════════════════════════════════
+   COMMS GRID
+══════════════════════════════════════════ */
+.comms-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+}
+
+/* ── Base card ── */
+.comms-card {
+  position: relative;
+  background: var(--bg-panel);
+  padding: 1.75rem 1.5rem;
+  text-decoration: none;
+  overflow: hidden;
+  transition: background 0.3s;
+  display: block;
+}
+
+/* Corner brackets */
+.card-corner {
+  position: absolute;
+  width: 10px; height: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card-corner.tl { top: 8px; left: 8px;   border-top: 2px solid; border-left: 2px solid; }
+.card-corner.tr { top: 8px; right: 8px;  border-top: 2px solid; border-right: 2px solid; }
+.card-corner.bl { bottom: 8px; left: 8px;  border-bottom: 2px solid; border-left: 2px solid; }
+.card-corner.br { bottom: 8px; right: 8px; border-bottom: 2px solid; border-right: 2px solid; }
+.comms-card:hover .card-corner { opacity: 1; }
+
+/* Glow overlay */
+.card-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+/* Inner layout */
+.card-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.card-icon-wrap {
+  width: 44px; height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  background: rgba(0,0,0,0.3);
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.card-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
+
+.card-value {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+  font-weight: 600;
+}
+
+.card-ext {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 0.3s;
+  flex-shrink: 0;
+}
+.comms-card:hover .card-ext { opacity: 1; }
+
+/* ── Email card — cyan ── */
+.email-card .card-corner   { border-color: var(--blue-team); }
+.email-card .card-glow     { background: radial-gradient(ellipse at center, rgba(0,240,255,0.04), transparent); }
+.email-card:hover          { background: rgba(0,240,255,0.02); }
+.email-card:hover .card-glow { opacity: 1; }
+.email-card:hover .card-icon-wrap {
+  color: var(--blue-team);
+  border-color: rgba(0,240,255,0.3);
+  box-shadow: 0 0 12px rgba(0,240,255,0.2);
+}
+.email-card:hover .card-label { color: var(--blue-team); }
+.email-card:hover .card-value { color: var(--text-primary); }
+
+/* ── HTB card — green ── */
+.htb-card .card-corner   { border-color: var(--success-color); }
+.htb-card .card-glow     { background: radial-gradient(ellipse at center, rgba(16,185,129,0.04), transparent); }
+.htb-card:hover          { background: rgba(16,185,129,0.02); }
+.htb-card:hover .card-glow { opacity: 1; }
+.htb-card:hover .card-icon-wrap {
+  color: #9FEF00;
+  border-color: rgba(159,239,0,0.3);
+  box-shadow: 0 0 12px rgba(159,239,0,0.2);
+}
+.htb-card:hover .card-label { color: #9FEF00; }
+.htb-card:hover .card-value { color: var(--text-primary); }
+.htb-rank {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: #9FEF00;
+  letter-spacing: 1px;
+  margin-left: 0.5rem;
+}
+
+/* ── GitHub card — white ── */
+.github-card .card-corner { border-color: var(--text-primary); }
+.github-card .card-glow   { background: radial-gradient(ellipse at center, rgba(255,255,255,0.03), transparent); }
+.github-card:hover        { background: rgba(255,255,255,0.01); }
+.github-card:hover .card-glow { opacity: 1; }
+.github-card:hover .card-icon-wrap {
+  color: var(--text-primary);
+  border-color: rgba(255,255,255,0.2);
+  box-shadow: 0 0 12px rgba(255,255,255,0.1);
+}
+.github-card:hover .card-label { color: var(--text-secondary); }
+.github-card:hover .card-value { color: var(--text-primary); }
+
+/* ── LinkedIn card — blue ── */
+.linkedin-card .card-corner { border-color: #0A66C2; }
+.linkedin-card .card-glow   { background: radial-gradient(ellipse at center, rgba(10,102,194,0.06), transparent); }
+.linkedin-card:hover        { background: rgba(10,102,194,0.02); }
+.linkedin-card:hover .card-glow { opacity: 1; }
+.linkedin-card:hover .card-icon-wrap {
+  color: #0A66C2;
+  border-color: rgba(10,102,194,0.3);
+  box-shadow: 0 0 12px rgba(10,102,194,0.2);
+}
+.linkedin-card:hover .card-label { color: #0A66C2; }
+.linkedin-card:hover .card-value { color: var(--text-primary); }
+
+/* ── Footer ── */
+.comms-footer {
+  text-align: center;
+}
+.footer-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
+.footer-ico {
+  color: var(--red-team);
+  opacity: 0.4;
+  font-size: 0.5rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .comms-grid { grid-template-columns: 1fr; }
+  .status-bar { flex-direction: column; }
+  .status-item { flex: none; }
+}
+
+@media (max-width: 400px) {
+  .card-value { font-size: 0.78rem; word-break: break-all; }
+}
+</style>

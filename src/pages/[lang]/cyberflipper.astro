@@ -1,0 +1,1040 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'es' } },
+  ];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t    = useTranslations(lang);
+const es   = lang === 'es';
+
+// ─── Roster data ──────────────────────────────────────────────────────────────
+const roster = [
+  {
+    handle:   'flippermen',
+    role:     es ? 'COMANDANTE DE UNIDAD' : 'UNIT COMMANDER',
+    rank:     'O-5',
+    spec:     es ? 'ARQUITECTURA DE INFRAESTRUCTURA AD' : 'AD INFRASTRUCTURE ARCHITECT',
+    faction:  'red',
+    htb:      '#1 Ecuador',
+    desc:     es
+      ? 'Arquitecto de la unidad. Orquesta operaciones full-spectrum contra entornos Active Directory. Diseñó la estrategia que posicionó a Ecuador en el #1 de HTB. Comandante de misión en escenarios de adversarios reales.'
+      : 'Unit architect. Orchestrates full-spectrum operations against Active Directory environments. Designed the strategy that landed Ecuador at HTB #1. Mission commander for real-world adversary scenarios.',
+    captain: true,
+  },
+  {
+    handle:   'MarcGMN1403',
+    role:     es ? 'LÍDER DE CRIPTOANÁLISIS' : 'CRYPTANALYSIS LEAD',
+    rank:     'E-5',
+    spec:     es ? 'ESTEGANOGRAFÍA & CRIPTOGRAFÍA CUSTOM' : 'STEGANOGRAPHY & CUSTOM CRYPTO',
+    faction:  'purple',
+    desc:     es
+      ? 'Especialista en criptoanálisis y esteganografía. Recupera texto plano de esquemas de cifrado arbitrarios. Extrae inteligencia encubierta de canales en imagen, audio y tráfico de red.'
+      : 'Cryptanalysis and steganography specialist. Recovers plaintext from arbitrary encryption schemes. Extracts covert intelligence from image, audio, and network traffic channels.',
+  },
+  {
+    handle:   'AngelDustX',
+    role:     es ? 'EXPLOTACIÓN WEB' : 'WEB EXPLOITATION',
+    rank:     'E-4',
+    spec:     es ? 'SQLi / XSS / SSTI / SSRF' : 'SQLi / XSS / SSTI / SSRF',
+    faction:  'red',
+    desc:     es
+      ? 'Punta de lanza en compromiso web. Encadena XSS, CSRF, SSTI y SSRF en rutas de explotación completas hasta RCE. Opera a nivel de código fuente para identificar vectores no documentados.'
+      : 'Spearhead in web compromise. Chains XSS, CSRF, SSTI, and SSRF into full exploitation chains to RCE. Operates at source-code level to identify undocumented vectors.',
+  },
+  {
+    handle:   'KomiGath',
+    role:     es ? 'FORENSE DIGITAL' : 'DIGITAL FORENSICS',
+    rank:     'E-4',
+    spec:     es ? 'INGENIERÍA INVERSA DE MALWARE' : 'MALWARE REVERSE ENGINEERING',
+    faction:  'blue',
+    desc:     es
+      ? 'Analista forense y reversing de malware. Extrae artefactos volátiles de memoria y desmonta binarios en IDA Pro. Reconstruye cadenas de ataque completas a partir de muestras de campo.'
+      : 'Forensic analyst and malware reverse engineer. Extracts volatile artifacts from memory and disassembles binaries in IDA Pro. Reconstructs full attack chains from field samples.',
+  },
+  {
+    handle:   'ch1l1',
+    role:     es ? 'OPERATIVO DE INTELIGENCIA' : 'INTEL OPERATIVE',
+    rank:     'E-4',
+    spec:     es ? 'OSINT & INGENIERÍA SOCIAL' : 'OSINT & SOCIAL ENGINEERING',
+    faction:  'purple',
+    desc:     es
+      ? 'Operativo de inteligencia OSINT. Reconstruye infraestructura organizacional, personal y vectores de entrada sin enviar un solo paquete al objetivo. Ingeniería social técnica como vector primario.'
+      : 'OSINT intelligence operative. Reconstructs organizational infrastructure, personnel, and entry vectors without sending a single packet to target. Technical social engineering as primary vector.',
+  },
+  {
+    handle:   'crrlla',
+    role:     es ? 'OPERADOR' : 'OPERATOR',
+    rank:     'E-3',
+    spec:     es ? 'ASALTO DE RED & PIVOTING' : 'NETWORK ASSAULT & PIVOTING',
+    faction:  'red',
+    desc:     es
+      ? 'Especialista en movimiento lateral. Pivota entre segmentos de red aislados mediante tunelización personalizada. Mantiene persistencia silenciosa en entornos monitoreados.'
+      : 'Lateral movement specialist. Pivots across isolated network segments through custom tunneling. Maintains silent persistence in monitored environments.',
+  },
+  {
+    handle:   'AdrianX',
+    role:     es ? 'OPERADOR' : 'OPERATOR',
+    rank:     'E-3',
+    spec:     es ? 'PRIVESC LINUX & KERNEL EXPLOITS' : 'LINUX PRIVESC & KERNEL EXPLOITS',
+    faction:  'red',
+    desc:     es
+      ? 'Especialista en escalada de privilegios Linux. Explota SUID misconfigs, capabilities y kernel exploits. Escala sin tocar disco. Bypass de hardening validado en entornos corporativos.'
+      : 'Linux privilege escalation specialist. Exploits SUID misconfigs, capabilities, and kernel vulnerabilities. Escalates without touching disk. Hardening bypass validated in corporate environments.',
+  },
+  {
+    handle:   'DiegoJr',
+    role:     es ? 'OPERADOR' : 'OPERATOR',
+    rank:     'E-3',
+    spec:     es ? 'WINDOWS INTERNALS & TOKEN ABUSE' : 'WINDOWS INTERNALS & TOKEN ABUSE',
+    faction:  'red',
+    desc:     es
+      ? 'Especialista en internals de Windows y AD. Explota delegación Kerberos, abusa de impersonación de tokens y ejecuta Pass-the-Hash y movimiento lateral en entornos domain-joined.'
+      : 'Windows internals and AD specialist. Exploits Kerberos delegation, abuses token impersonation, and executes Pass-the-Hash and lateral movement in domain-joined environments.',
+  },
+  {
+    handle:   '0s0bit',
+    role:     es ? 'OPERADOR' : 'OPERATOR',
+    rank:     'E-3',
+    spec:     es ? 'SCRIPTING & AUTOMATIZACIÓN' : 'SCRIPTING & AUTOMATION',
+    faction:  'purple',
+    desc:     es
+      ? 'Ingeniero de automatización ofensiva. Construye herramientas personalizadas a velocidad operativa. Identifica patrones y los convierte en exploits reutilizables antes de completar el reconocimiento manual.'
+      : 'Offensive automation engineer. Builds custom tooling at operational tempo. Identifies patterns and converts them into reusable exploits before manual recon is complete.',
+  },
+  {
+    handle:   'N01syb0y',
+    role:     es ? 'OPERADOR' : 'OPERATOR',
+    rank:     'E-3',
+    spec:     es ? 'HACKING DE HARDWARE & RF' : 'HARDWARE HACKING & RF',
+    faction:  'purple',
+    desc:     es
+      ? 'Especialista en compromiso de perímetro físico. Clona RFID, reproduce señales RF y despliega payloads BadUSB. Convierte hardware comercial en herramientas de evaluación táctica. SDR operator.'
+      : 'Physical perimeter compromise specialist. Clones RFID, replays RF signals, and deploys BadUSB payloads. Converts commercial hardware into tactical assessment tools. SDR operator.',
+  },
+];
+
+// ─── Deployments ──────────────────────────────────────────────────────────────
+const deployments = [
+  {
+    tier:   'gold',
+    icon:   'fa-trophy',
+    event:  'HACK THE BOX',
+    year:   '2024–2025',
+    result: es ? '#1 ECUADOR · TOP 50 MUNDIAL' : '#1 ECUADOR · GLOBAL TOP 50',
+    detail: es ? '#1 sostenido en Ecuador con presencia global. HTB Hall of Fame.' : 'Sustained #1 in Ecuador with global presence. HTB Hall of Fame.',
+  },
+  {
+    tier:   'gold',
+    icon:   'fa-flag',
+    event:  'LACC · FORENSE DIGITAL',
+    year:   '2025',
+    result: es ? 'PRESELECCIONADO' : 'PRE-SELECTED',
+    detail: es ? 'Preseleccionado en Forense Digital, bajo el equipo nacional CyberFlippers.' : 'Pre-selected in Digital Forensics, under the CyberFlippers national team.',
+  },
+  {
+    tier:   'blue',
+    icon:   'fa-shield-halved',
+    event:  'HOLMES CTF 2025',
+    year:   '2025',
+    result: es ? 'MEJOR BLUE TEAM LATAM' : 'BEST LATAM BLUE TEAM',
+    detail: es ? 'Rank 66 global. DFIR en vivo y respuesta a incidentes en tiempo real.' : 'Global rank 66. Live DFIR and real-time incident response challenge.',
+  },
+  {
+    tier:   'purple',
+    icon:   'fa-crosshairs',
+    event:  'FLUID ATTACKS CTF 2026',
+    year:   '2026',
+    result: es ? 'TOP 5 NACIONAL' : 'NATIONAL TOP 5',
+    detail: es ? 'Full-spectrum: pwn, web, crypto y forense.' : 'Full-spectrum: pwn, web, crypto and forensics.',
+  },
+];
+---
+
+<BaseLayout title={`CyberFlippers | ${t('nav.cyberflipper')}`}>
+<div class="cf-page">
+
+  <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+  <section class="cf-hero">
+    <div class="cf-hero-inner">
+
+      <div class="cf-emblem-wrap">
+        <img
+          src="/images/cyberflipper_hero.png"
+          alt="CyberFlippers Emblem"
+          class="cf-emblem"
+          width="200" height="200"
+        />
+        <div class="emblem-scan"></div>
+        <div class="emblem-ring"></div>
+      </div>
+
+      <div class="cf-title-block">
+        <p class="cf-overtitle">// SPECIAL OPERATIONS UNIT · ECUADOR //</p>
+        <h1 class="cf-title glitch" data-text="CYBERFLIPPERS">CYBERFLIPPERS</h1>
+        <p class="cf-tagline">
+          {es
+            ? 'Célula autónoma. Sin presupuesto institucional. Sin excusas. Capacidad de adaptación extrema.'
+            : 'Autonomous cell. No institutional budget. No excuses. Extreme adaptive capability.'}
+        </p>
+        <div class="cf-badges">
+          <span class="cf-badge red"><i class="fas fa-skull-crossbones"></i> RED TEAM</span>
+          <span class="cf-badge blue"><i class="fas fa-shield-halved"></i> BLUE TEAM</span>
+          <span class="cf-badge green"><i class="fas fa-satellite-dish"></i> CTF OPS</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ ORIGIN STORY ═══════════════════════════ -->
+  <section class="cf-section reveal">
+    <h2 class="cf-section-title">
+      <i class="fas fa-book-skull"></i>
+      {es ? 'HISTORIA DE ORIGEN' : 'ORIGIN STORY'}
+    </h2>
+    <div class="origin-block">
+      <div class="origin-terminal">
+        <div class="term-bar">
+          <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+          <span class="term-title">incident_report.log</span>
+        </div>
+        <div class="term-body">
+          <p class="term-line"><span class="term-prompt">$</span> {es ? 'cat historia.txt' : 'cat history.txt'}</p>
+          <p class="term-out">
+            {es
+              ? '2025. Clasificamos al torneo regional más importante en Brasil. Solicitamos respaldo institucional. La respuesta fue una gorra y una camiseta. Nada más.'
+              : '2025. We qualified for the region\'s largest tournament in Brazil. We sought institutional backing. The reply was a cap and a t-shirt. Nothing more.'}
+          </p>
+          <p class="term-out">
+            {es
+              ? 'Esa negativa se convirtió en nuestra ventaja táctica. Sin presupuesto ni laboratorios corporativos, desarrollamos autosuficiencia operativa. Mientras otros equipos viajaban con viáticos, nosotros estudiábamos kernels hasta el amanecer. La falta de inversión no frenó la unidad. La endureció.'
+              : 'That refusal became our tactical advantage. With no budget or corporate labs, we built operational self-sufficiency. While other teams traveled on per diems, we studied kernels until dawn. The lack of funding didn\'t stop the unit. It hardened it.'}
+          </p>
+          <blockquote class="term-quote">
+            <i class="fas fa-terminal quote-icon"></i>
+            {es
+              ? 'Resultado: #1 Nacional. Top Regional. Preselección internacional. No necesitábamos presupuesto. Necesitábamos un punto de apoyo. Lo encontramos.'
+              : 'Result: #1 National. Top Regional. International pre-selection. We didn\'t need a budget. We needed a foothold. We found one.'}
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ STATS ═══════════════════════════ -->
+  <section class="cf-section reveal">
+    <h2 class="cf-section-title">
+      <i class="fas fa-chart-line"></i>
+      {es ? 'ESTADÍSTICAS DE UNIDAD' : 'UNIT STATISTICS'}
+    </h2>
+    <div class="intel-readout cf-readout" aria-label="Unit statistics">
+      <div class="intel-row">
+        <i class="fas fa-users intel-ico green"></i>
+        <span class="intel-label">
+          <span class="intel-name">{es ? 'Operativos' : 'Operatives'}</span>
+          <span class="intel-sub">{es ? 'Servicio activo' : 'Active duty'}</span>
+        </span>
+        <span class="intel-val">10</span>
+      </div>
+      <div class="intel-row">
+        <i class="fas fa-flag intel-ico red"></i>
+        <span class="intel-label">
+          <span class="intel-name">{es ? 'Kills confirmados' : 'Confirmed kills'}</span>
+          <span class="intel-sub">{es ? 'Flags capturadas' : 'Flags captured'}</span>
+        </span>
+        <span class="intel-val">136+</span>
+      </div>
+      <div class="intel-row">
+        <i class="fas fa-trophy intel-ico gold"></i>
+        <span class="intel-label">
+          <span class="intel-name">Ecuador</span>
+          <span class="intel-sub">Hack The Box</span>
+        </span>
+        <span class="intel-val">#1</span>
+      </div>
+      <div class="intel-row">
+        <i class="fas fa-globe intel-ico blue"></i>
+        <span class="intel-label">
+          <span class="intel-name">{es ? 'CTFs internacionales' : 'International CTFs'}</span>
+          <span class="intel-sub">{es ? 'Representando a Ecuador' : 'Representing Ecuador'}</span>
+        </span>
+        <span class="intel-val">4+</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ ROSTER ═══════════════════════════ -->
+  <section class="cf-section reveal">
+    <div class="section-header-row">
+      <h2 class="cf-section-title no-margin">
+        <i class="fas fa-id-card-clip"></i>
+        {es ? 'ROSTER ACTIVO' : 'ACTIVE ROSTER'}
+      </h2>
+      <div class="op-indicator">
+        <span class="op-dot"></span>
+        <span>{es ? 'OPERACIONAL' : 'OPERATIONAL'}</span>
+      </div>
+    </div>
+
+    <div class="roster-grid">
+      {roster.map((op) => (
+        <article class={`op-card faction-${op.faction}${op.captain ? ' captain-card' : ''}`}>
+
+          {op.captain && (
+            <div class="captain-banner">
+              <i class="fas fa-star"></i>
+              {es ? 'CAPITÁN' : 'CAPTAIN'}
+              <i class="fas fa-star"></i>
+            </div>
+          )}
+
+          <div class="op-header">
+            <span class={`faction-dot dot-${op.faction}`}></span>
+            <span class="op-role">{op.role}</span>
+            <span class="op-rank">{op.rank}</span>
+          </div>
+
+          <div class="op-handle">{op.handle}</div>
+
+          <div class="op-spec">
+            <i class="fas fa-crosshairs spec-icon"></i>
+            {op.spec}
+          </div>
+
+          <p class="op-desc">{op.desc}</p>
+
+          {op.htb && (
+            <div class="op-badge htb-badge">
+              <i class="fas fa-trophy"></i> HTB {op.htb}
+            </div>
+          )}
+
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ DEPLOYMENTS ═══════════════════════════ -->
+  <section class="cf-section reveal">
+    <h2 class="cf-section-title">
+      <i class="fas fa-rocket"></i>
+      {es ? 'DESPLIEGUES GLOBALES' : 'GLOBAL DEPLOYMENTS'}
+    </h2>
+
+    <div class="deployments-list">
+      {deployments.map((d) => (
+        <div class={`deploy-item tier-${d.tier}`}>
+          <div class="deploy-icon">
+            <i class={`fas ${d.icon}`}></i>
+          </div>
+          <div class="deploy-body">
+            <div class="deploy-event">{d.event}</div>
+            <div class="deploy-result">{d.result}</div>
+            <div class="deploy-detail">{d.detail}</div>
+          </div>
+          <div class="deploy-year">{d.year}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ DOCTRINE ═══════════════════════════ -->
+  <section class="cf-section reveal">
+    <h2 class="cf-section-title">
+      <i class="fas fa-scroll"></i>
+      {es ? 'DOCTRINA OPERACIONAL' : 'OPERATIONAL DOCTRINE'}
+    </h2>
+    <div class="doctrine-grid">
+      <div class="doctrine-card">
+        <i class="fas fa-brain doctrine-icon red"></i>
+        <h3>{es ? 'MENTALIDAD ADVERSARIA' : 'ADVERSARIAL MINDSET'}</h3>
+        <p>{es
+          ? 'Todo sistema tiene una superficie de ataque. Operamos con mentalidad adversarial incluso en defensa. Ningún entorno es sacrosanto.'
+          : 'Every system has an attack surface. We operate with an adversarial mindset even when defending. No environment is sacrosanct.'}</p>
+      </div>
+      <div class="doctrine-card">
+        <i class="fas fa-code-branch doctrine-icon blue"></i>
+        <h3>{es ? 'AUTONOMÍA TÉCNICA' : 'TECHNICAL AUTONOMY'}</h3>
+        <p>{es
+          ? 'No desplegamos herramientas que no entendemos. Si no existe, la construimos. Si existe, la modificamos. El código es nuestra munición.'
+          : 'We don\'t deploy tools we don\'t understand. If it doesn\'t exist, we build it. If it exists, we modify it. Code is our ammunition.'}</p>
+      </div>
+      <div class="doctrine-card">
+        <i class="fas fa-shield-halved doctrine-icon green"></i>
+        <h3>{es ? 'FULL-SPECTRUM' : 'FULL-SPECTRUM'}</h3>
+        <p>{es
+          ? 'Red Team, Blue Team, DFIR, hardware y criptografía integrados en una sola unidad. Sin especialistas de nicho. Operadores de espectro completo.'
+          : 'Red Team, Blue Team, DFIR, hardware, and cryptography integrated in a single unit. No niche specialists. Full-spectrum operators.'}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ RECRUITMENT ═══════════════════════════ -->
+  <section class="cf-section reveal">
+    <div class="recruit-box">
+      <div class="recruit-corner tl"></div>
+      <div class="recruit-corner tr"></div>
+      <div class="recruit-corner bl"></div>
+      <div class="recruit-corner br"></div>
+
+      <p class="recruit-label">// ENLISTMENT_PROTOCOL //</p>
+      <h2 class="recruit-title">
+        {es ? '¿CREES QUE PUEDES ENTRAR?' : 'THINK YOU CAN MAKE IT?'}
+      </h2>
+      <p class="recruit-text">
+        {es
+          ? 'Certificaciones no acreditan capacidad operativa. CVs no reflejan disciplina táctica. Evaluamos una métrica: '
+          : 'Certifications don\'t prove operational capability. CVs don\'t reflect tactical discipline. We assess one metric: '}
+        <strong class="highlight-word">{es ? 'obsesión técnica' : 'technical obsession'}</strong>.
+        {es
+          ? ' Si has sacrificado sueño por descifrar un vector de explotación, entiendes nuestro estándar.'
+          : ' If you\'ve lost sleep decoding an exploitation vector, you understand our standard.'}
+      </p>
+      <a href={`/${lang}/contact`} class="recruit-btn">
+        <i class="fas fa-terminal"></i>
+        {es ? 'CONTACTAR COMANDO' : 'CONTACT COMMAND'}
+      </a>
+    </div>
+  </section>
+
+</div>
+</BaseLayout>
+
+<style>
+/* ═══════════════════════════════════════════════════
+   PAGE WRAPPER
+═══════════════════════════════════════════════════ */
+.cf-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+/* ═══════════════════════════════════════════════════
+   SHARED SECTION STYLES
+═══════════════════════════════════════════════════ */
+.cf-section { }
+
+.cf-section-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.cf-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 60px; height: 2px;
+  background: linear-gradient(to right, var(--red-team), transparent);
+}
+
+.cf-section-title i { color: var(--red-team); font-size: 1rem; }
+.cf-section-title.no-margin { margin-bottom: 0; }
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.section-header-row::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 60px; height: 2px;
+  background: linear-gradient(to right, var(--red-team), transparent);
+}
+
+.op-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--success-color);
+  letter-spacing: 2px;
+}
+
+.op-dot {
+  width: 8px; height: 8px;
+  background: var(--success-color);
+  border-radius: 50%;
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0   rgba(16,185,129,0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0   rgba(16,185,129,0); }
+}
+
+/* ═══════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════ */
+.cf-hero {
+  padding: 2rem 0 0;
+}
+
+.cf-hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 3rem;
+}
+
+/* Emblem */
+.cf-emblem-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 180px; height: 180px;
+}
+
+.cf-emblem {
+  width: 180px; height: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(217,4,41,0.4)) grayscale(0.2);
+  transition: filter 0.4s;
+}
+
+.cf-emblem-wrap:hover .cf-emblem {
+  filter: drop-shadow(0 0 30px rgba(217,4,41,0.7)) grayscale(0);
+}
+
+/* rotating ring */
+.emblem-ring {
+  position: absolute;
+  inset: -10px;
+  border: 1px solid rgba(217,4,41,0.2);
+  border-radius: 50%;
+  animation: ring-spin 20s linear infinite;
+}
+@keyframes ring-spin { to { transform: rotate(360deg); } }
+
+/* scan line */
+.emblem-scan {
+  position: absolute;
+  top: -100%; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(transparent, var(--blue-team), transparent);
+  animation: emblem-scan 3s ease-in-out infinite;
+  opacity: 0.6;
+}
+@keyframes emblem-scan {
+  0%   { top: -5%; }
+  100% { top: 105%; }
+}
+
+/* Title block */
+.cf-title-block { flex: 1; }
+
+.cf-overtitle {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--red-team);
+  letter-spacing: 3px;
+  margin-bottom: 0.75rem;
+  opacity: 0.8;
+}
+
+.cf-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: var(--text-primary);
+  margin: 0 0 1rem;
+}
+
+.cf-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.cf-badges { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+.cf-badge {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cf-badge.red   { color: var(--red-team);    border-color: var(--red-team);    background: rgba(217,4,41,0.06);  }
+.cf-badge.blue  { color: var(--blue-team);   border-color: var(--blue-team);   background: rgba(0,240,255,0.06); }
+.cf-badge.green { color: var(--success-color); border-color: var(--success-color); background: rgba(16,185,129,0.06); }
+
+/* ═══════════════════════════════════════════════════
+   ORIGIN TERMINAL
+═══════════════════════════════════════════════════ */
+.origin-terminal {
+  background: var(--bg-card);
+  border: 1px solid rgba(217, 4, 41, 0.4);
+}
+
+.term-bar {
+  background: #1a1a1a;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.term-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.term-dot.r { background: #ff5f57; }
+.term-dot.y { background: #febc2e; }
+.term-dot.g { background: #28c840; }
+
+.term-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-left: 0.5rem;
+}
+
+.term-body {
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.term-line {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.term-prompt {
+  color: var(--success-color);
+  margin-right: 0.5rem;
+}
+
+.term-out {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  padding-left: 1rem;
+  border-left: 1px solid var(--border-color);
+}
+
+.term-quote {
+  font-style: italic;
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border: 1px solid rgba(0,240,255,0.2);
+  background: rgba(0,240,255,0.03);
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.quote-icon { color: var(--blue-team); margin-top: 3px; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════════ */
+/* Terminal-style dossier readout (replaces the 4-card hero-metric grid) */
+.intel-readout {
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  font-family: var(--font-mono);
+}
+
+.cf-readout .intel-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.4rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: background 0.3s;
+}
+
+.cf-readout .intel-row:last-child { border-bottom: none; }
+.cf-readout .intel-row:hover { background: rgba(255, 255, 255, 0.02); }
+
+.intel-ico { font-size: 1.1rem; line-height: 1; text-align: center; }
+.intel-ico.red   { color: var(--red-team); }
+.intel-ico.green { color: var(--success-color); }
+.intel-ico.gold  { color: #F59E0B; }
+.intel-ico.blue  { color: var(--blue-team); }
+
+.intel-label { display: flex; flex-direction: column; gap: 0.15rem; }
+
+.intel-name {
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.intel-sub {
+  font-size: 0.56rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.cf-readout .intel-val {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+}
+
+/* ═══════════════════════════════════════════════════
+   ROSTER
+═══════════════════════════════════════════════════ */
+.roster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.op-card {
+  background: var(--bg-panel);
+  padding: 1.5rem;
+  position: relative;
+  transition: background 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.op-card:hover { background: rgba(255,255,255,0.015); }
+
+/* faction color-coding: full tinted border + faint wash (no side-stripe) */
+.op-card.faction-red    { border: 1px solid rgba(217, 4, 41, 0.4);   background-image: linear-gradient(rgba(217, 4, 41, 0.05),  rgba(217, 4, 41, 0.05)); }
+.op-card.faction-blue   { border: 1px solid rgba(0, 240, 255, 0.4);  background-image: linear-gradient(rgba(0, 240, 255, 0.045), rgba(0, 240, 255, 0.045)); }
+.op-card.faction-purple { border: 1px solid rgba(114, 9, 183, 0.5);  background-image: linear-gradient(rgba(114, 9, 183, 0.06), rgba(114, 9, 183, 0.06)); }
+
+/* captain highlight */
+.op-card.captain-card {
+  background: rgba(217,4,41,0.04);
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 700px) {
+  .op-card.captain-card { grid-column: auto; }
+}
+
+.captain-banner {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--red-team);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.op-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.faction-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-red    { background: var(--red-team);    box-shadow: 0 0 5px var(--red-team); }
+.dot-blue   { background: var(--blue-team);   box-shadow: 0 0 5px var(--blue-team); }
+.dot-purple { background: var(--purple-team); box-shadow: 0 0 5px var(--purple-team); }
+
+.op-role { flex: 1; text-transform: uppercase; }
+.op-rank { color: var(--text-muted); opacity: 0.7; }
+
+.op-handle {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.op-spec {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--blue-team);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.spec-icon { opacity: 0.6; font-size: 0.65rem; }
+
+.op-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.htb-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #F59E0B;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════════════════
+   DEPLOYMENTS
+═══════════════════════════════════════════════════ */
+.deployments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.deploy-item {
+  background: var(--bg-panel);
+  padding: 1.5rem 2rem;
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.deploy-item:hover {
+  background: rgba(255,255,255,0.015);
+  transform: translateX(4px);
+}
+
+.deploy-item.tier-gold   { background-image: linear-gradient(rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.08)); }
+.deploy-item.tier-blue   { background-image: linear-gradient(rgba(0, 240, 255, 0.06), rgba(0, 240, 255, 0.06)); }
+.deploy-item.tier-purple { background-image: linear-gradient(rgba(114, 9, 183, 0.09), rgba(114, 9, 183, 0.09)); }
+
+.deploy-icon {
+  font-size: 1.5rem;
+  text-align: center;
+}
+.tier-gold   .deploy-icon { color: #F59E0B; text-shadow: 0 0 10px rgba(245,158,11,0.5); }
+.tier-blue   .deploy-icon { color: var(--blue-team);  text-shadow: var(--shadow-glow-blue); }
+.tier-purple .deploy-icon { color: var(--purple-team); text-shadow: var(--shadow-glow-purple); }
+
+.deploy-event {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.deploy-result {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.deploy-detail {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.deploy-year {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════
+   DOCTRINE
+═══════════════════════════════════════════════════ */
+.doctrine-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.doctrine-card {
+  background: var(--bg-panel);
+  padding: 2rem 1.5rem;
+  transition: background 0.3s;
+}
+
+.doctrine-card:hover { background: rgba(255,255,255,0.02); }
+
+.doctrine-icon {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.doctrine-icon.red   { color: var(--red-team);    text-shadow: var(--shadow-glow-red); }
+.doctrine-icon.blue  { color: var(--blue-team);   text-shadow: var(--shadow-glow-blue); }
+.doctrine-icon.green { color: var(--success-color); text-shadow: var(--shadow-glow-green); }
+
+.doctrine-card h3 {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.doctrine-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* ═══════════════════════════════════════════════════
+   RECRUITMENT BOX
+═══════════════════════════════════════════════════ */
+.recruit-box {
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  padding: 3rem;
+  text-align: center;
+  position: relative;
+}
+
+.recruit-corner {
+  position: absolute;
+  width: 14px; height: 14px;
+  border-color: var(--red-team);
+}
+.recruit-corner.tl { top: 12px; left: 12px;  border-top: 2px solid; border-left: 2px solid; }
+.recruit-corner.tr { top: 12px; right: 12px; border-top: 2px solid; border-right: 2px solid; }
+.recruit-corner.bl { bottom: 12px; left: 12px;  border-bottom: 2px solid; border-left: 2px solid; }
+.recruit-corner.br { bottom: 12px; right: 12px; border-bottom: 2px solid; border-right: 2px solid; }
+
+.recruit-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--red-team);
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.recruit-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+  font-weight: 400;
+}
+
+.recruit-text {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 550px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+
+.highlight-word {
+  color: var(--red-team);
+  font-style: normal;
+  text-shadow: 0 0 10px rgba(217,4,41,0.4);
+}
+
+.recruit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  color: var(--red-team);
+  border: 1px solid var(--red-team);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.recruit-btn:hover {
+  background: var(--red-team);
+  color: #fff;
+  box-shadow: var(--shadow-glow-red);
+  text-shadow: none;
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .cf-hero-inner      { flex-direction: column; text-align: center; }
+  .cf-emblem-wrap     { margin: 0 auto; }
+  .cf-badges          { justify-content: center; }
+  .doctrine-grid      { grid-template-columns: 1fr; }
+  .deploy-item        { grid-template-columns: 40px 1fr; }
+  .deploy-year        { display: none; }
+}
+
+@media (max-width: 600px) {
+  .roster-grid   { grid-template-columns: 1fr; }
+  .recruit-box   { padding: 2rem 1.5rem; }
+}
+</style>

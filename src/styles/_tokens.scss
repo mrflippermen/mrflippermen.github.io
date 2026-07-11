@@ -1,0 +1,87 @@
+// =============================================================================
+// DESIGN TOKENS — FLIPPERMEN CYBER-OPS
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// SCSS Variables (para uso interno en SCSS)
+// -----------------------------------------------------------------------------
+$color-crimson:  #D90429;
+$color-sapphire: #00F0FF;
+$color-purple:   #7209B7;
+$color-emerald:  #10B981;
+$color-amber:    #F59E0B;
+
+$font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+$font-sans: 'Archivo', system-ui, -apple-system, sans-serif;
+$font-display: 'Share Tech Mono', monospace;
+
+// -----------------------------------------------------------------------------
+// CSS Custom Properties
+// -----------------------------------------------------------------------------
+:root {
+    // --- Backgrounds ---
+    --bg-main:   #050505;
+    --bg-card:   #0A0A0A;
+    --bg-panel:  #0f0f0f;
+    --bg-glass:  rgba(15, 15, 15, 0.8);
+
+    // --- Text ---
+    // Contrast vs --bg-main (#050505): primary ~21:1, secondary ~9:1, muted ~5.2:1.
+    // Keep muted ≥ #808080 — it carries real body copy (card descriptions, footer,
+    // ticker), so it must clear WCAG AA 4.5:1. #555 read at ~2.6:1 and failed.
+    --text-primary:   #FFFFFF;
+    --text-secondary: #AAAAAA;
+    --text-muted:     #808080;
+    // Purely decorative dim text (non-informational glyphs) only.
+    --text-faint:     #555555;
+
+    // --- Faction Colors ---
+    --red-team:    #{$color-crimson};
+    --blue-team:   #{$color-sapphire};
+    --purple-team: #{$color-purple};
+
+    // --- Status Colors ---
+    --success-color: #{$color-emerald};
+    --warning-color: #{$color-amber};
+    --danger-color:  #{$color-crimson};
+
+    // --- Borders ---
+    --border-color:  #252525;
+    --border-bright: #3a3a3a;
+
+    // --- Z-index scale ---
+    // Semantic layers, low numbers. Page content stays at 0–2.
+    // scanline overlay < mobile nav dropdown < sticky header < skip link.
+    --z-scanline:     50;
+    --z-nav-dropdown: 90;
+    --z-header:       100;
+    --z-skip-link:    200;
+
+    // --- Focus ring (keyboard navigation) ---
+    --focus-ring: var(--blue-team);
+
+    // --- Shadows ---
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.7);
+    --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.8);
+
+    // --- Neon Glows ---
+    --shadow-glow-red:    0 0 8px rgba(217, 4, 41, 0.6),  0 0 24px rgba(217, 4, 41, 0.25);
+    --shadow-glow-blue:   0 0 8px rgba(0, 240, 255, 0.6),  0 0 24px rgba(0, 240, 255, 0.25);
+    --shadow-glow-purple: 0 0 8px rgba(114, 9, 183, 0.6),  0 0 24px rgba(114, 9, 183, 0.25);
+    --shadow-glow-green:  0 0 8px rgba(16, 185, 129, 0.6), 0 0 24px rgba(16, 185, 129, 0.25);
+
+    // --- Fonts ---
+    --font-mono:    #{$font-mono};
+    --font-sans:    #{$font-sans};
+    --font-display: #{$font-display};
+
+    // --- Legacy aliases (compatibilidad) ---
+    --neon-red:    var(--red-team);
+    --neon-blue:   var(--blue-team);
+    --neon-purple: var(--purple-team);
+    --neon-green:  var(--success-color);
+
+    // --- Circuit Pattern ---
+    --pattern-opacity: 0.06;
+}

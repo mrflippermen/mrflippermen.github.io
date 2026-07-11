@@ -1,0 +1,454 @@
+@use 'tokens';
+// Fonts are loaded once via the <link rel="stylesheet"> + preconnect in
+// BaseLayout.astro. Importing them here too triggered a duplicate fetch.
+
+// =============================================================================
+// RESET & BASE
+// =============================================================================
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 120px;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+
+    // Circuit grid background
+    background-image:
+        linear-gradient(rgba(0, 240, 255, var(--pattern-opacity)) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, var(--pattern-opacity)) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-attachment: fixed;
+}
+
+// Text selection
+::selection {
+    background: rgba(0, 240, 255, 0.18);
+    color: #fff;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 0;
+    &:hover { background: var(--blue-team); }
+}
+
+// Hacker list style
+ul {
+    list-style: none;
+    padding-left: 1rem;
+
+    li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.5rem;
+
+        &::before {
+            content: ">>";
+            position: absolute;
+            left: 0;
+            color: var(--red-team);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.85em;
+        }
+    }
+}
+
+// Links
+a {
+    color: var(--blue-team);
+    text-decoration: none;
+    transition: color 0.2s, text-shadow 0.2s;
+    font-weight: 600;
+
+    &:hover {
+        color: var(--red-team);
+        text-shadow: 0 0 8px rgba(217, 4, 41, 0.4);
+    }
+}
+
+// Layout helper
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+// =============================================================================
+// ANIMATIONS
+// =============================================================================
+
+// --- Fade In Up ---
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up { animation: fadeInUp 0.6s ease-out both; }
+
+// --- Glitch (intermitente — dispara brevemente cada ~7s) ---
+@keyframes glitch-1 {
+    0%, 90%, 100% { clip-path: none; transform: none; }
+    91%  { clip-path: inset(30% 0 65% 0); transform: translate(-6px, 1px);  color: var(--red-team); }
+    92%  { clip-path: inset(70% 0 10% 0); transform: translate(6px, -1px); color: var(--red-team); }
+    93%  { clip-path: inset(45% 0 42% 0); transform: translate(-3px, 2px);  color: var(--red-team); }
+    94%  { clip-path: none; transform: none; }
+    96%  { clip-path: inset(20% 0 75% 0); transform: translate(4px);  color: var(--blue-team); }
+    97%  { clip-path: inset(60% 0 25% 0); transform: translate(-4px); color: var(--blue-team); }
+    98%  { clip-path: none; transform: none; }
+}
+
+@keyframes glitch-2 {
+    0%, 89%, 100% { clip-path: none; transform: none; }
+    90%  { clip-path: inset(50% 0 40% 0); transform: translate(5px,  2px); }
+    91%  { clip-path: inset(15% 0 70% 0); transform: translate(-5px, -2px); }
+    92%  { clip-path: inset(80% 0 5%  0); transform: translate(3px); }
+    93%  { clip-path: none; transform: none; }
+}
+
+.glitch {
+    position: relative;
+
+    &::before,
+    &::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        pointer-events: none;
+    }
+
+    &::before {
+        animation: glitch-1 7s infinite;
+    }
+
+    &::after {
+        animation: glitch-2 7s 0.4s infinite;
+    }
+}
+
+// --- Cursor blink ---
+@keyframes cursor-blink { 50% { opacity: 0; } }
+
+.typing-cursor::after {
+    content: '█';
+    color: var(--blue-team);
+    animation: cursor-blink 1s step-end infinite;
+    font-size: 0.85em;
+    margin-left: 2px;
+}
+
+// --- Scanline overlay ---
+main::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 0, 0, 0.1) 3px,
+        rgba(0, 0, 0, 0.1) 4px
+    );
+    pointer-events: none;
+    z-index: var(--z-scanline);
+}
+
+// --- Scroll reveal ---
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+
+    &.visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// =============================================================================
+// REDUCED MOTION
+// Honor the OS-level "reduce motion" setting. Kills the ambient loops (ticker,
+// glitch, cursor blink, pulse) and reveal travel, and forces any reveal-gated
+// content visible so nothing ships blank for these users.
+// =============================================================================
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    html { scroll-behavior: auto; }
+
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+// --- Pulse ring ---
+@keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0   rgba(16, 185, 129, 0.6); }
+    70%  { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0   rgba(16, 185, 129, 0); }
+}
+
+// =============================================================================
+// FOCUS (keyboard navigation)
+// Every interactive element gets a visible focus ring for keyboard users.
+// :focus-visible keeps it from showing on mouse clicks. Was missing entirely.
+// =============================================================================
+:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+}
+
+// =============================================================================
+// LAYOUT
+// =============================================================================
+// Scoped to the site header (direct child of body). The bare `header` selector
+// also matched content headers like `.dashboard-header`, forcing them sticky
+// with a glass background they never asked for.
+body > header {
+    background: rgba(10, 10, 10, 0.95) !important;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+footer {
+    text-align: center;
+    padding: 3rem 0;
+    margin-top: 4rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+// =============================================================================
+// BUTTONS
+// =============================================================================
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--text-primary);
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border-color);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+        border-color: var(--blue-team);
+        color: var(--blue-team);
+        box-shadow: var(--shadow-glow-blue);
+        background: rgba(0, 240, 255, 0.04);
+        transform: translateY(-2px);
+        text-shadow: none;
+    }
+
+    &.btn-red {
+        border-color: var(--red-team);
+        color: var(--red-team);
+
+        &:hover {
+            box-shadow: var(--shadow-glow-red);
+            background: rgba(217, 4, 41, 0.04);
+        }
+    }
+}
+
+// =============================================================================
+// CARD BASE
+// =============================================================================
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+
+    &:hover {
+        border-color: rgba(0, 240, 255, 0.25);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+    }
+}
+
+// =============================================================================
+// SECTIONS
+// =============================================================================
+.hero {
+    text-align: left;
+    padding: 5rem 1.5rem;
+    background: var(--bg-main);
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+
+    h1 {
+        font-family: var(--font-display);
+        font-size: clamp(2.5rem, 6vw, 5rem);
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        letter-spacing: -1px;
+        line-height: 1.1;
+
+        .highlight { color: var(--blue-team); }
+    }
+
+    p {
+        font-size: 1.1rem;
+        max-width: 600px;
+        color: var(--text-secondary);
+        margin-top: 1.5rem;
+    }
+}
+
+.cv-section {
+    margin-bottom: 4.5rem;
+
+    h2, .section-title {
+        font-family: var(--font-display);
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.75rem;
+        margin-bottom: 2rem;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        position: relative;
+        letter-spacing: 2px;
+
+        // "//" prefix
+        &::before {
+            content: '//';
+            color: var(--red-team);
+            font-size: 1rem;
+            font-family: var(--font-mono);
+        }
+
+        // colored underline accent
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(to right, var(--red-team), transparent);
+        }
+
+        i, svg { color: var(--blue-team); margin-right: 0.25rem; }
+    }
+}
+
+// =============================================================================
+// SKILL TAGS
+// =============================================================================
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    span {
+        background: rgba(0, 240, 255, 0.03);
+        border: 1px solid var(--border-color);
+        padding: 0.3rem 0.75rem;
+        font-family: var(--font-mono);
+        font-size: 0.76rem;
+        color: var(--text-secondary);
+        letter-spacing: 0.5px;
+        transition: all 0.2s;
+        cursor: default;
+
+        &:hover {
+            border-color: var(--blue-team);
+            color: var(--blue-team);
+            background: rgba(0, 240, 255, 0.06);
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.12);
+        }
+    }
+}
+
+// =============================================================================
+// TIMELINE
+// =============================================================================
+.timeline-item {
+    border-left: 1px solid var(--border-color);
+    padding-left: 1.5rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    transition: border-color 0.3s;
+
+    &:hover { border-left-color: var(--blue-team); }
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: -4px;
+        top: 10px;
+        width: 7px;
+        height: 7px;
+        background: var(--blue-team);
+        border-radius: 50%;
+        box-shadow: 0 0 6px var(--blue-team);
+        transition: box-shadow 0.3s;
+    }
+
+    &:hover::before { box-shadow: var(--shadow-glow-blue); }
+
+    h3 {
+        font-family: var(--font-mono);
+        color: var(--text-primary);
+        font-size: 1.05rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .period {
+        font-family: var(--font-mono);
+        color: var(--red-team);
+        font-size: 0.8rem;
+        margin-bottom: 0.4rem;
+        display: block;
+        letter-spacing: 1px;
+    }
+
+    .institution {
+        font-weight: 600;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        display: block;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.5px;
+    }
+}

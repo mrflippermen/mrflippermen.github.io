@@ -1,0 +1,662 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    {params: {lang: 'en'}},
+    {params: {lang: 'es'}},
+  ];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const es = lang === 'es';
+
+const allWriteups = await getCollection('writeups');
+allWriteups.sort((a, b) => {
+  if (a.data.date && b.data.date) {
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  }
+  return 0;
+});
+
+const totalMissions = allWriteups.length;
+
+// Extract unique platforms for filter buttons
+const platforms = ['ALL', ...Array.from(new Set(allWriteups.map(p => (p.data.platform || 'OTHER').toUpperCase())))];
+
+// Difficulty color map
+const diffColors: Record<string, string> = {
+  easy:   'var(--success-color)',
+  medium: '#F59E0B',
+  hard:   'var(--red-team)',
+  insane: '#9333EA',
+};
+---
+
+<BaseLayout title={`${es ? 'Registro de Operaciones' : 'Operations Log'} | ${t('nav.writeups')}`}>
+  <div class="ops-container">
+
+    <!-- ── PAGE HEADER ── -->
+    <div class="ops-header reveal">
+      <div class="header-left">
+        <p class="header-pre">// {es ? 'ARCHIVO CLASIFICADO' : 'CLASSIFIED ARCHIVE'} //</p>
+        <h1 class="ops-title glitch" data-text="OPERATIONS LOG">OPERATIONS LOG</h1>
+        <div class="terminal-line">
+          <span class="prompt">root@flippermen:~/ops#</span>
+          <span class="cmd"> ls -la --sort=date --filter=pwned</span><span class="blink-cursor">█</span>
+        </div>
+      </div>
+      <div class="intel-readout" aria-label="Ops record">
+        <div class="intel-row">
+          <span class="intel-key">{es ? 'Misiones' : 'Missions'}</span>
+          <span class="intel-val" id="mission-count">{totalMissions}</span>
+        </div>
+        <div class="intel-row">
+          <span class="intel-key">Pwned</span>
+          <span class="intel-val success">100%</span>
+        </div>
+        <div class="intel-row">
+          <span class="intel-key">DEFCON</span>
+          <span class="intel-val warn">3</span>
+        </div>
+        <div class="intel-row">
+          <span class="intel-key">{es ? 'Plataformas' : 'Platforms'}</span>
+          <span class="intel-val">{platforms.length - 1}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEARCH + FILTERS ── -->
+    <div class="control-bar reveal">
+      <div class="search-wrap">
+        <i class="fas fa-search search-ico"></i>
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder={es ? 'Buscar objetivo, CVE, técnica...' : 'Search target, CVE, technique...'}
+          autocomplete="off"
+        />
+        <span class="search-hits" id="search-hits"></span>
+      </div>
+      <div class="filter-wrap" id="filter-controls">
+        {platforms.map(p => (
+          <button class={`filter-btn${p === 'ALL' ? ' active' : ''}`} data-filter={p}>
+            {p === 'ALL' ? (es ? 'TODOS' : 'ALL') : p}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- ── MISSION LIST ── -->
+    <div class="missions-list" id="missions-list">
+      {allWriteups.map((post, idx) => {
+        const platform  = (post.data.platform || 'OTHER').toUpperCase();
+        const diff      = (post.data.difficulty || '').toLowerCase();
+        const diffColor = diffColors[diff] || 'var(--text-muted)';
+        const opId      = post.slug.split('').reduce((a, c) => (a + c.charCodeAt(0)) & 0xffff, 0).toString().padStart(4, '0');
+        const hasImg    = !!(post.data.image || post.data.header?.teaser);
+        const imgSrc    = post.data.image || (post.data.header?.teaser ? post.data.header.teaser.replace('/assets/', '/') : '');
+        const dateStr   = post.data.date ? new Date(post.data.date).toLocaleDateString(lang === 'es' ? 'es-EC' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '—';
+        return (
+          <article
+            class="mission-row searchable-item"
+            data-title={post.data.title.toLowerCase()}
+            data-platform={platform}
+            data-tags={(post.data.tags?.join(' ') || '').toLowerCase()}
+            data-diff={diff}
+            style={`animation-delay: ${idx * 40}ms`}
+          >
+            <!-- Thumb -->
+            <div class="row-thumb">
+              {hasImg ? (
+                <img src={imgSrc} alt={post.data.title} loading="lazy" />
+              ) : (
+                <div class="thumb-placeholder">
+                  <i class="fas fa-terminal"></i>
+                </div>
+              )}
+              <span class="platform-badge" data-platform={platform}>{platform}</span>
+            </div>
+
+            <!-- Body -->
+            <div class="row-body">
+              <div class="row-meta">
+                <span class="op-id">OP-{opId}</span>
+                <span class="row-date"><i class="fas fa-calendar-alt"></i> {dateStr}</span>
+                {diff && (
+                  <span class="diff-badge" style={`color: ${diffColor}; border-color: ${diffColor};`}>
+                    {diff.toUpperCase()}
+                  </span>
+                )}
+              </div>
+
+              <h2 class="row-title">
+                <a href={`/${lang}/writeups/${post.slug}`}>{post.data.title}</a>
+              </h2>
+
+              {post.data.excerpt && (
+                <p class="row-excerpt">{post.data.excerpt}</p>
+              )}
+
+              <div class="row-footer">
+                <div class="tag-list">
+                  {post.data.tags?.length
+                    ? post.data.tags.map((tag: string) => <span class="tag">#{tag}</span>)
+                    : <span class="tag">#{platform}</span>
+                  }
+                </div>
+                <a href={`/${lang}/writeups/${post.slug}`} class="access-btn">
+                  {es ? 'VER REPORTE' : 'VIEW REPORT'} <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Status indicator -->
+            <div class="row-status">
+              <i class="fas fa-check-circle status-icon"></i>
+              <span class="status-text">PWNED</span>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    <!-- ── EMPTY STATE ── -->
+    <div class="empty-state" id="empty-state" style="display:none">
+      <i class="fas fa-satellite-dish"></i>
+      <p>{es ? 'No se encontraron operaciones.' : 'No operations found.'}</p>
+      <span>{es ? 'Ajusta los filtros de búsqueda.' : 'Adjust your search filters.'}</span>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const searchInput  = document.getElementById('search-input') as HTMLInputElement | null;
+    const filterBtns   = document.querySelectorAll('.filter-btn');
+    const items        = document.querySelectorAll('.searchable-item');
+    const countEl      = document.getElementById('mission-count');
+    const hitsEl       = document.getElementById('search-hits');
+    const emptyState   = document.getElementById('empty-state');
+
+    let currentFilter = 'ALL';
+    let currentSearch = '';
+
+    function filterItems() {
+      let visible = 0;
+
+      items.forEach(item => {
+        const el       = item as HTMLElement;
+        const title    = el.dataset.title    || '';
+        const tags     = el.dataset.tags     || '';
+        const platform = el.dataset.platform || 'OTHER';
+        const diff     = el.dataset.diff     || '';
+
+        const searchMatch =
+          !currentSearch ||
+          title.includes(currentSearch) ||
+          tags.includes(currentSearch)  ||
+          diff.includes(currentSearch)  ||
+          platform.toLowerCase().includes(currentSearch);
+
+        const filterMatch =
+          currentFilter === 'ALL' ||
+          platform === currentFilter ||
+          tags.includes(currentFilter.toLowerCase());
+
+        const show = searchMatch && filterMatch;
+        el.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      if (countEl) countEl.textContent = String(visible);
+      if (hitsEl)  hitsEl.textContent  = currentSearch ? `${visible} result${visible !== 1 ? 's' : ''}` : '';
+      if (emptyState) emptyState.style.display = visible === 0 ? 'flex' : 'none';
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', e => {
+        currentSearch = (e.target as HTMLInputElement).value.toLowerCase().trim();
+        filterItems();
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = (btn as HTMLElement).dataset.filter || 'ALL';
+        filterItems();
+      });
+    });
+  });
+</script>
+
+<style>
+/* ══════════════════════════════════════════
+   OPS CONTAINER
+══════════════════════════════════════════ */
+.ops-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+/* ── Header ── */
+.ops-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-pre {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--red-team);
+  letter-spacing: 3px;
+  margin-bottom: 0.4rem;
+}
+
+.ops-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: -1px;
+  margin: 0 0 1rem;
+  line-height: 1;
+}
+
+.terminal-line {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+
+.prompt  { color: var(--success-color); }
+.cmd     { color: var(--text-primary); }
+
+.blink-cursor {
+  color: var(--blue-team);
+  animation: blink-op 1s step-end infinite;
+  margin-left: 2px;
+}
+@keyframes blink-op { 50% { opacity: 0; } }
+
+/* Terminal-style intel readout (replaces the hero-metric stat row) */
+.intel-readout {
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  font-family: var(--font-mono);
+  min-width: 230px;
+}
+
+.intel-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.intel-row:last-child { border-bottom: none; }
+
+.intel-key {
+  font-size: 0.62rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.intel-val {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--blue-team);
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+}
+
+.intel-val.success { color: var(--success-color); text-shadow: 0 0 10px rgba(16, 185, 129, 0.25); }
+.intel-val.warn    { color: #F59E0B;               text-shadow: 0 0 10px rgba(245, 158, 11, 0.25); }
+
+/* ── Control bar ── */
+.control-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 1rem;
+  transition: border-color 0.2s;
+}
+
+.search-wrap:focus-within {
+  border-color: var(--blue-team);
+  box-shadow: 0 0 0 1px rgba(0,240,255,0.15);
+}
+
+.search-ico { color: var(--text-muted); font-size: 0.85rem; }
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.search-input::placeholder { color: var(--text-muted); }
+
+.search-hits {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--blue-team);
+  white-space: nowrap;
+}
+
+.filter-wrap {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.75rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: var(--blue-team);
+  color: var(--blue-team);
+}
+
+.filter-btn.active {
+  background: rgba(0,240,255,0.08);
+  border-color: var(--blue-team);
+  color: var(--blue-team);
+}
+
+/* ══════════════════════════════════════════
+   MISSION ROWS
+══════════════════════════════════════════ */
+.missions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.mission-row {
+  display: grid;
+  grid-template-columns: 160px 1fr auto;
+  background: var(--bg-panel);
+  transition: background 0.2s;
+  animation: row-in 0.4s ease both;
+}
+
+@keyframes row-in {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.mission-row:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+/* Thumb */
+.row-thumb {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  flex-shrink: 0;
+}
+
+.row-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  filter: grayscale(50%);
+  transition: all 0.4s;
+  display: block;
+}
+
+.mission-row:hover .row-thumb img {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.04);
+}
+
+.thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--border-color);
+  font-size: 2rem;
+}
+
+.platform-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-align: center;
+  padding: 0.25rem;
+  background: rgba(0,0,0,0.85);
+  color: var(--text-muted);
+}
+
+.platform-badge[data-platform="HTB"]     { color: #9FEF00; }
+.platform-badge[data-platform="CTF"]     { color: var(--blue-team); }
+.platform-badge[data-platform="TRYHACKME"] { color: #E8405A; }
+.platform-badge[data-platform="VULNHUB"] { color: #F59E0B; }
+.platform-badge[data-platform="HACKTHEBOX"] { color: #9FEF00; }
+
+/* Body */
+.row-body {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.row-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.op-id {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--red-team);
+  letter-spacing: 1.5px;
+}
+
+.row-date {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.diff-badge {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid;
+}
+
+.row-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.row-title a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.mission-row:hover .row-title a {
+  color: var(--blue-team);
+}
+
+.row-excerpt {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.row-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tag-list {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-color);
+  padding: 0.1rem 0.4rem;
+}
+
+.access-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--blue-team);
+  border: 1px solid var(--blue-team);
+  padding: 0.35rem 0.8rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.access-btn:hover {
+  background: var(--blue-team);
+  color: #000;
+  box-shadow: var(--shadow-glow-blue);
+}
+
+/* Status column */
+.row-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.25rem;
+  gap: 0.3rem;
+  min-width: 70px;
+}
+
+.status-icon {
+  color: var(--success-color);
+  font-size: 1.1rem;
+}
+
+.status-text {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--success-color);
+  letter-spacing: 1.5px;
+}
+
+/* ── Empty state ── */
+.empty-state {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  text-align: center;
+}
+
+.empty-state i   { font-size: 2.5rem; opacity: 0.3; }
+.empty-state p   { font-size: 1rem; margin: 0; }
+.empty-state span { font-size: 0.8rem; opacity: 0.6; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .mission-row   { grid-template-columns: 1fr; }
+  .row-thumb     { height: 140px; }
+  .row-body      { border-left: none; border-right: none; }
+  .row-status    { flex-direction: row; padding: 0.75rem 1.25rem; border-top: 1px solid var(--border-color); }
+  .ops-header    { flex-direction: column; align-items: flex-start; }
+  .intel-readout { width: 100%; }
+}
+</style>

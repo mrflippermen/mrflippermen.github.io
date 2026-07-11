@@ -1,0 +1,423 @@
+---
+import Icon from '../Icon.astro';
+import { getLangFromUrl } from '../../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const es   = lang === 'es';
+---
+
+<header class="profile-header">
+
+  <!-- CONFIDENTIAL watermark -->
+  <span class="watermark" aria-hidden="true">CLASSIFIED</span>
+
+  <div class="profile-inner">
+
+    <!-- ── PHOTO COLUMN ── -->
+    <div class="photo-col">
+      <div class="photo-frame">
+        <img
+          src="/images/about/profile-photo.jpg"
+          alt="Esteban Jimenez"
+          width="220" height="220"
+          loading="eager"
+        />
+        <div class="photo-scan"></div>
+        <div class="photo-overlay"></div>
+        <div class="photo-corner tl"></div>
+        <div class="photo-corner tr"></div>
+        <div class="photo-corner bl"></div>
+        <div class="photo-corner br"></div>
+      </div>
+      <div class="clearance-badge">
+        <span class="clearance-dot"></span>
+        <span>CLEARANCE: TOP SECRET</span>
+      </div>
+      <div class="id-number">ID #4471-EC</div>
+    </div>
+
+    <!-- ── INFO COLUMN ── -->
+    <div class="info-col">
+
+      <!-- Name + title -->
+      <div class="identity-block">
+        <p class="identity-overtitle">// {es ? 'DOSIER OPERATIVO' : 'OPERATIVE DOSSIER'} //</p>
+        <h1 class="identity-name">ESTEBAN JIMENEZ</h1>
+        <p class="identity-title">
+          RED TEAM OPERATOR <span class="sep">//</span>
+          BLUE TEAM &amp; SOC <span class="sep">//</span>
+          PURPLE TEAM STRATEGIST
+        </p>
+      </div>
+
+      <!-- Summary -->
+      <p class="identity-summary">
+        {es
+          ? 'Investigador de seguridad ofensiva centrado en Red Team, seguridad de APIs y explotación de Active Directory. Actualmente Red Team Intern en Telefónica Ecuador (Otecel S.A.): pentests autorizados, seguridad de APIs y auditorías CIS Benchmark. #1 de Ecuador y Top 50 mundial en Hack The Box (mejor puesto #36, rango Grandmaster, Lvl 91), con las 6 Pro Labs y todas las Fortalezas completadas. Capitán de CyberFlippers y UDLA-Cyber.'
+          : 'Offensive security researcher focused on Red Team operations, API security, and Active Directory exploitation. Currently Red Team Intern at Telefónica Ecuador (Otecel S.A.): authorized pentests, API security testing, and CIS Benchmark audits. Ranked #1 in Ecuador and Top 50 worldwide on Hack The Box (peak #36, Grandmaster rank, Lvl 91), with all 6 Pro Labs and every Fortress completed. Captain of CyberFlippers and UDLA-Cyber.'
+        }
+      </p>
+
+      <!-- Meta grid -->
+      <div class="meta-grid">
+        <div class="meta-item">
+          <span class="meta-key"><Icon name="location-dot" /> {es ? 'UBICACIÓN' : 'LOCATION'}</span>
+          <span class="meta-val">Ecuador · Remote Global</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key"><Icon name="shield-halved" /> {es ? 'UNIDAD' : 'UNIT'}</span>
+          <span class="meta-val">CyberFlippers · {es ? 'Capitán' : 'Captain'}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key"><Icon name="trophy" /> {es ? 'RANGO' : 'RANK'}</span>
+          <span class="meta-val">#1 Ecuador · Top 50 Global <span class="meta-sub">· Grandmaster · peak #36</span></span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key"><Icon name="building-shield" /> {es ? 'POSICIÓN ACTUAL' : 'CURRENT POSITION'}</span>
+          <span class="meta-val">Red Team Intern · Telefónica <span class="meta-sub">{es ? '· Otecel S.A.' : '· Otecel S.A.'}</span></span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key"><Icon name="graduation-cap" /> {es ? 'ACADEMIA' : 'ACADEMY'}</span>
+          <span class="meta-val">{es ? 'Ing. Ciberseguridad' : 'Cybersecurity Eng.'} · UDLA <span class="meta-sub">→ 2027</span></span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key"><Icon name="satellite-dish" /> {es ? 'CONTACTO' : 'CONTACT'}</span>
+          <div class="social-links">
+            <a href="https://linkedin.com/in/esteban-jimenez-994868249/"
+               target="_blank" rel="noopener noreferrer"
+               class="social-btn linkedin" aria-label="LinkedIn">
+              <Icon name="linkedin" />
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://github.com/mrflippermen"
+               target="_blank" rel="noopener noreferrer"
+               class="social-btn github" aria-label="GitHub">
+              <Icon name="github" />
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom bar with faction tags -->
+  <div class="faction-bar">
+    <span class="faction-tag red"><Icon name="skull-crossbones" /> RED TEAM</span>
+    <span class="faction-tag blue"><Icon name="shield-halved" /> BLUE TEAM & SOC</span>
+    <span class="faction-tag purple"><Icon name="brain" /> PURPLE TEAM</span>
+    <span class="faction-tag green"><Icon name="microchip" /> OT / ICS</span>
+    <span class="faction-tag white"><Icon name="bug" /> BUG BOUNTY</span>
+  </div>
+
+</header>
+
+<style>
+/* ═══════════════════════════════════════════════════
+   PROFILE HEADER
+═══════════════════════════════════════════════════ */
+.profile-header {
+  background: var(--bg-panel);
+  border: 1px solid rgba(217, 4, 41, 0.4);
+  background-image: linear-gradient(rgba(217, 4, 41, 0.04), rgba(217, 4, 41, 0.04));
+  margin-bottom: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Watermark */
+.watermark {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-20deg);
+  font-family: var(--font-display);
+  font-size: 8rem;
+  color: rgba(255,255,255,0.025);
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: 10px;
+  z-index: 0;
+  user-select: none;
+}
+
+.profile-inner {
+  display: flex;
+  gap: 3rem;
+  padding: 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Photo column ── */
+.photo-col {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 220px;
+}
+
+.photo-frame {
+  width: 220px; height: 220px;
+  position: relative;
+  background: #000;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.photo-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transform: rotate(-90deg);
+  filter: grayscale(80%) contrast(1.15);
+  transition: filter 0.6s ease;
+  display: block;
+}
+
+.photo-frame:hover img {
+  filter: grayscale(0%) contrast(1);
+}
+
+/* scan line on photo */
+.photo-scan {
+  position: absolute;
+  top: -100%; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(transparent, rgba(0,240,255,0.6), transparent);
+  animation: photo-scan 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes photo-scan {
+  0%   { top: -5%; }
+  100% { top: 105%; }
+}
+
+/* photo overlay gradient */
+.photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 60%,
+    rgba(0,0,0,0.5) 100%
+  );
+  pointer-events: none;
+}
+
+/* corner brackets on photo */
+.photo-corner {
+  position: absolute;
+  width: 14px; height: 14px;
+  border-color: var(--red-team);
+  opacity: 0.7;
+}
+.photo-corner.tl { top: 6px; left: 6px;   border-top: 2px solid; border-left: 2px solid; }
+.photo-corner.tr { top: 6px; right: 6px;  border-top: 2px solid; border-right: 2px solid; }
+.photo-corner.bl { bottom: 6px; left: 6px;  border-bottom: 2px solid; border-left: 2px solid; }
+.photo-corner.br { bottom: 6px; right: 6px; border-bottom: 2px solid; border-right: 2px solid; }
+
+.clearance-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--success-color);
+  letter-spacing: 1.5px;
+  background: rgba(16,185,129,0.06);
+  border: 1px solid rgba(16,185,129,0.25);
+  padding: 0.25rem 0.6rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.clearance-dot {
+  width: 6px; height: 6px;
+  background: var(--success-color);
+  border-radius: 50%;
+  animation: blink 2s step-end infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.id-number {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+
+/* ── Info column ── */
+.info-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.identity-overtitle {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--red-team);
+  letter-spacing: 3px;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+
+.identity-name {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: -1px;
+  line-height: 1;
+  margin: 0;
+}
+
+.identity-title {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--red-team);
+  letter-spacing: 1.5px;
+  margin: 0.5rem 0 0;
+  line-height: 1.7;
+}
+
+.identity-title .sep {
+  color: var(--text-muted);
+  margin: 0 0.4rem;
+}
+
+.identity-summary {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  max-width: 680px;
+  border-left: 2px solid var(--border-bright);
+  padding-left: 1rem;
+}
+
+/* Meta grid */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 2rem;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.meta-key {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.meta-key :global(svg) { color: var(--blue-team); }
+
+.meta-val {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.meta-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Social links */
+.social-links {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid;
+  text-decoration: none;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+
+.social-btn.linkedin { color: #0A66C2; border-color: #0A66C2; }
+.social-btn.github   { color: var(--text-secondary); border-color: var(--border-color); }
+.social-btn.email    { color: var(--blue-team); border-color: var(--blue-team); }
+
+.social-btn:hover {
+  color: #fff !important;
+  transform: translateY(-2px);
+}
+
+.social-btn.linkedin:hover { background: #0A66C2; box-shadow: 0 0 12px rgba(10,102,194,0.4); }
+.social-btn.github:hover   { background: #333; border-color: #666; box-shadow: none; text-shadow: none; }
+.social-btn.email:hover    { background: var(--blue-team); box-shadow: var(--shadow-glow-blue); }
+
+/* ── Faction bar ── */
+.faction-bar {
+  display: flex;
+  border-top: 1px solid var(--border-color);
+  position: relative;
+  z-index: 1;
+}
+
+.faction-tag {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.6rem 0.5rem;
+  border-right: 1px solid var(--border-color);
+  transition: background 0.2s;
+  cursor: default;
+}
+
+.faction-tag:last-child { border-right: none; }
+
+.faction-tag.red    { color: var(--red-team);    }
+.faction-tag.blue   { color: var(--blue-team);   }
+.faction-tag.purple { color: var(--purple-team); }
+.faction-tag.green  { color: var(--success-color); }
+.faction-tag.white  { color: var(--text-secondary); }
+
+.faction-tag.red:hover    { background: rgba(217,4,41,0.06);  }
+.faction-tag.blue:hover   { background: rgba(0,240,255,0.06); }
+.faction-tag.purple:hover { background: rgba(114,9,183,0.06); }
+.faction-tag.green:hover  { background: rgba(16,185,129,0.06); }
+.faction-tag.white:hover  { background: rgba(255,255,255,0.03); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .profile-inner  { flex-direction: column; align-items: center; text-align: center; }
+  .photo-col      { width: 180px; }
+  .photo-frame    { width: 180px; height: 180px; }
+  .identity-summary { border-left: none; border-top: 2px solid var(--border-bright); padding-left: 0; padding-top: 0.75rem; }
+  .meta-grid      { grid-template-columns: 1fr; gap: 0.75rem; }
+  .social-links   { justify-content: center; }
+  .faction-bar    { flex-wrap: wrap; }
+  .faction-tag    { flex: 0 1 50%; border-bottom: 1px solid var(--border-color); }
+}
+</style>

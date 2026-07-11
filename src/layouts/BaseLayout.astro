@@ -1,0 +1,136 @@
+---
+import CommandHeader from '../components/CommandHeader.astro';
+import SEOHead from '../components/SEOHead.astro';
+import { ViewTransitions } from 'astro:transitions';
+import '../styles/global.scss';
+import { getLangFromUrl } from '../i18n/utils';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+const lang = getLangFromUrl(Astro.url);
+
+const {
+  title       = "Flippermen | CyberSec",
+  description = "Red Team Operator | HTB Top 1 Ecuador | Senior Cybersecurity Researcher especializado en Active Directory, EDR Evasion y Exploit Development",
+  image,
+  type
+} = Astro.props;
+---
+
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#050505" />
+
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+        font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+      "
+    />
+
+    <!-- Security Headers -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Google Fonts — Archivo + JetBrains Mono + Share Tech Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Share+Tech+Mono&display=swap"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font Awesome 6 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+
+    <title>{title}</title>
+
+    <SEOHead
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+    />
+
+    <ViewTransitions />
+  </head>
+
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <CommandHeader />
+
+    <main id="main-content" role="main">
+      <slot />
+    </main>
+
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          &copy; {new Date().getFullYear()}
+          <span style="color: var(--red-team); font-family: var(--font-mono);">FLIPPERMEN</span>
+          &nbsp;//&nbsp; Built with Astro
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<!-- IntersectionObserver — fires on every View Transitions navigation AND initial load -->
+<script>
+  function setupRevealObserver() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  }
+
+  // astro:page-load fires on initial load AND every client-side navigation
+  document.addEventListener('astro:page-load', setupRevealObserver);
+</script>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--red-team);
+    color: #fff;
+    padding: 8px 16px;
+    z-index: var(--z-skip-link);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: top 0.2s;
+  }
+
+  .skip-link:focus { top: 0; }
+</style>

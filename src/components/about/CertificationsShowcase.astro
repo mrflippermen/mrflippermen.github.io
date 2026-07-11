@@ -1,0 +1,151 @@
+---
+import AwardCard from '../AwardCard.astro';
+import Icon from '../Icon.astro';
+import { getLangFromUrl } from '../../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const es   = lang === 'es';
+---
+
+<section class="cv-section">
+  <h2 class="section-title">
+    <Icon name="graduation-cap" />
+    {es ? 'Formación Elite' : 'Elite Training'}
+  </h2>
+  
+  <!-- Flagship: CPTS + CBTeamer -->
+  <div class="cert-showcase cert-showcase-grid">
+    <AwardCard
+      title='HTB Certified Penetration Testing Specialist (CPTS)'
+      subtitle="ID: HTBCERT-04993356B2 · May 2026"
+      image="/images/about/cpts.jpg"
+      fit="contain"
+      link="https://www.credly.com/badges/1ea8fd86-1cf0-4aab-938d-f968522dfdce/public_url"
+    >
+      <p>{es ? 'Examen práctico de 10 días sobre una red empresarial. 100/100 puntos, con reporte final destacado por el equipo evaluador de HTB.' : '10-day hands-on exam against an enterprise network. 100/100, with a final report commended by the HTB review team.'}</p>
+    </AwardCard>
+    <AwardCard
+      title='Certified Blue Teamer (CBTeamer)'
+      subtitle="The SecOps Group · Ene 2026"
+      image="/images/about/cbteamer.png"
+      link="/certs/cbteamer"
+    >
+      <p>{es ? 'DFIR, análisis en Splunk, forense de memoria y explotación de Active Directory.' : 'DFIR, Splunk analysis, memory forensics, and Active Directory exploitation.'}</p>
+    </AwardCard>
+    <AwardCard
+      title='CARTS'
+      subtitle="Cyberwarfare Labs"
+    >
+      <p>{es ? 'Certificación práctica de Red Team.' : 'Hands-on Red Team certification.'}</p>
+    </AwardCard>
+    <AwardCard
+      title='CAPE — Active Directory'
+      subtitle={es ? 'Hack The Box · En curso' : 'Hack The Box · In progress'}
+    >
+      <p>{es ? 'Certified Active Directory Pentesting Expert. Examen de explotación avanzada de AD, en preparación.' : 'Certified Active Directory Pentesting Expert. Advanced AD exploitation exam, in preparation.'}</p>
+    </AwardCard>
+  </div>
+
+  <!-- Cyberwarfare Labs Section with Logo -->
+  <div class="cwl-section">
+    <div class="cwl-logo-container">
+      <img 
+        src="/images/about/cwl-logo.png" 
+        alt="Cyberwarfare Labs Logo" 
+        class="cwl-logo"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <h2 class="section-title"><Icon name="biohazard" /> Cyberwarfare Labs</h2>
+  </div>
+  
+  <div class="feature-grid">
+    <AwardCard
+      title='Certified AD Red Team Specialist'
+      subtitle="ID: 697ea4d4fbb... | Feb 2026"
+      image="/images/about/cwl-ad-rts.png"
+      link="/certs/ad-rts"
+    />
+    <AwardCard
+      title='Certified Web Red Team Analyst'
+      subtitle="ID: 6983d6b090d... | Feb 2026"
+      image="/images/about/cwl-web-rta.png"
+      link="/certs/web-rta"
+    />
+  </div>
+
+  <!-- HTB Pro Labs Matrix -->
+  <h3 class="subsection-title">Hack The Box Pro Labs (100% {es ? 'Completados' : 'Completed'})</h3>
+  <div class="feature-grid">
+    <AwardCard title='Cybernetics' subtitle="APT & Phishing" image="/images/about/Cybernetics.jpg" link="/certs/cybernetics" />
+    <AwardCard title='APTLabs' subtitle="Lateral Movement" image="/images/about/aptlabs.jpg" link="/certs/aptlabs" />
+    <AwardCard title='RastaLabs' subtitle="EDR Evasion" image="/images/about/rastalab.jpg" link="/certs/rastalabs" />
+    <AwardCard title='Offshore' subtitle="AD Trusts" image="/images/about/Offshore.jpg" link="/certs/offshore" />
+    <AwardCard title='Zephyr' subtitle="Pivoting" image="/images/about/Zephyr.jpg" link="/certs/zephyr" />
+    <AwardCard title='Dante' subtitle="Exploit Dev" image="/images/about/dante.jpg" link="/certs/dante" />
+  </div>
+</section>
+
+<style>
+  .cv-section {
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  
+  .section-title :global(svg) { color: var(--blue-team); margin-right: 0.5rem; }
+
+  .subsection-title {
+    font-size: 1.4rem;
+    color: var(--text-secondary);
+    margin: 3rem 0 1.5rem;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .cert-showcase {
+    margin-bottom: 3rem;
+  }
+
+  .cert-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .cwl-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 4rem;
+  }
+  
+  .cwl-logo {
+    height: 50px;
+    width: auto;
+    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.3));
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+    .cwl-section {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
