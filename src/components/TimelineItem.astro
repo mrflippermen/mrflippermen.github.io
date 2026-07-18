@@ -12,7 +12,7 @@ const { title, institution, year, image, faction = 'default' } = Astro.props;
 ---
 
 <div class={`timeline-item faction-${faction}`}>
-  <h3>{title}</h3>
+  <h3 set:html={title}></h3>
   <span class="institution" set:html={institution}></span>
   {year && <span class="period"><Icon name="calendar-alt" /> {year}</span>}
   {image && <img src={image} alt={title} class="timeline-image" />}
@@ -60,5 +60,28 @@ const { title, institution, year, image, faction = 'default' } = Astro.props;
     margin-top: 1rem;
     border: 1px solid var(--border-color);
     display: block;
+  }
+
+  .timeline-item h3 {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0 0 0.35rem;
+  }
+
+  /* Flagship / status badge injected via the title prop */
+  .timeline-item h3 :global(.tag) {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--warning-color);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    background: rgba(245, 158, 11, 0.08);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    white-space: nowrap;
   }
 </style>

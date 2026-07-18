@@ -1,5 +1,6 @@
 ---
 title: "Powermad Cheat Sheet"
+category: "AD"
 description: "Herramientas para Machine Account Quota y explotación de DNS dinámico."
 image: "/images/wiki/4.png"
 ---

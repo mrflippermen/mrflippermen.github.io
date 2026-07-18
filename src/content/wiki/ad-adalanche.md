@@ -1,5 +1,6 @@
 ---
 title: "Adalanche Cheat Sheet"
+category: "AD"
 description: "Herramienta de análisis visual de ACLs y permisos en Active Directory."
 image: "/images/wiki/11.png"
 ---

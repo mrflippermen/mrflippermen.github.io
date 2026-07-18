@@ -17,6 +17,21 @@ const t = useTranslations(lang);
 const allWiki = await getCollection('wiki');
 // Sort by title alphabetically
 allWiki.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+// Build category facets (ordered, with counts) for the filter bar.
+const CATEGORY_ORDER = ['Web', 'AD', 'Exploitation', 'Forensics', 'Other'];
+const CATEGORY_LABELS: Record<string, string> = {
+  Web: 'Web', AD: 'Active Directory', Exploitation: 'Explotación',
+  Forensics: 'Forense', Other: 'Otros',
+};
+const counts = new Map<string, number>();
+for (const e of allWiki) {
+  const c = e.data.category ?? 'Other';
+  counts.set(c, (counts.get(c) ?? 0) + 1);
+}
+const facets = CATEGORY_ORDER.filter((c) => counts.has(c)).map((c) => ({
+  id: c, label: CATEGORY_LABELS[c] ?? c, count: counts.get(c) ?? 0,
+}));
 ---
 
 <BaseLayout title={`Knowledge Vault | ${t('nav.wiki')}`}>
@@ -35,24 +50,62 @@ allWiki.sort((a, b) => a.data.title.localeCompare(b.data.title));
       </div>
     </div>
     
+    <nav class="vault-filter" aria-label={lang === 'es' ? 'Filtrar por categoría' : 'Filter by category'}>
+      <button class="filter-chip is-active" data-filter="all" aria-pressed="true">
+        {lang === 'es' ? 'Todos' : 'All'} <span class="chip-count">{allWiki.length}</span>
+      </button>
+      {facets.map((f) => (
+        <button class="filter-chip" data-filter={f.id} aria-pressed="false">
+          {f.label} <span class="chip-count">{f.count}</span>
+        </button>
+      ))}
+    </nav>
+
     <div class="vault-grid">
       {allWiki.map((entry) => (
-        <AwardCard
-            title={entry.data.title}
-            subtitle={entry.data.description || 'Classified Document'}
-            link={`/${lang}/wiki/${entry.slug}`}
-            image={entry.data.image} 
-        >
-            <div class="tags-container">
-                <span class="cert-tag">DOC</span>
-                {entry.data.category && <span class="cert-tag">{entry.data.category}</span>}
-                <span class="cert-id">ID: {entry.slug.substring(0,6).toUpperCase()}</span>
-            </div>
-        </AwardCard>
+        <div class="vault-cell" data-category={entry.data.category ?? 'Other'}>
+          <AwardCard
+              title={entry.data.title}
+              subtitle={entry.data.description || 'Classified Document'}
+              link={`/${lang}/wiki/${entry.slug}`}
+              image={entry.data.image}
+          >
+              <div class="tags-container">
+                  <span class="cert-tag">DOC</span>
+                  {entry.data.category && <span class="cert-tag">{entry.data.category}</span>}
+                  <span class="cert-id">ID: {entry.slug.substring(0,6).toUpperCase()}</span>
+              </div>
+          </AwardCard>
+        </div>
       ))}
     </div>
 
+    <p class="vault-empty" hidden>{lang === 'es' ? 'Sin registros en esta categoría.' : 'No records in this category.'}</p>
+
   </div>
+
+  <script>
+    const chips = document.querySelectorAll<HTMLButtonElement>('.filter-chip');
+    const cells = document.querySelectorAll<HTMLElement>('.vault-cell');
+    const empty = document.querySelector<HTMLElement>('.vault-empty');
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const filter = chip.dataset.filter;
+        chips.forEach((c) => {
+          const on = c === chip;
+          c.classList.toggle('is-active', on);
+          c.setAttribute('aria-pressed', String(on));
+        });
+        let shown = 0;
+        cells.forEach((cell) => {
+          const match = filter === 'all' || cell.dataset.category === filter;
+          cell.hidden = !match;
+          if (match) shown++;
+        });
+        if (empty) empty.hidden = shown !== 0;
+      });
+    });
+  </script>
 </BaseLayout>
 
 <style>
@@ -104,11 +157,74 @@ allWiki.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
   .meta-item.active { color: var(--success-color, #10B981); }
 
+  /* FILTER BAR */
+  .vault-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-chip {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    padding: 0.45rem 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+
+  .filter-chip:hover {
+    color: var(--text-primary);
+    border-color: var(--border-bright);
+  }
+
+  .filter-chip:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .filter-chip.is-active {
+    color: var(--blue-team);
+    border-color: var(--blue-team);
+    background: rgba(0, 240, 255, 0.06);
+  }
+
+  .chip-count {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    background: var(--bg-main);
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+  }
+
+  .filter-chip.is-active .chip-count { color: var(--blue-team); }
+
+  .vault-empty {
+    text-align: center;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    padding: 3rem 0;
+  }
+
   /* GRID */
   .vault-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
+  }
+
+  .vault-cell[hidden] { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .filter-chip { transition: none; }
   }
 
   /* TAGS inside AwardCard slot */

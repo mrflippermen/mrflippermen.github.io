@@ -1,5 +1,6 @@
 ---
 title: "Digital Forensics & DFIR Tools"
+category: "Forensics"
 description: "Colección exhaustiva de herramientas para análisis forense digital, respuesta a incidentes y malware analysis."
 image: "/images/wiki/1.png"
 ---

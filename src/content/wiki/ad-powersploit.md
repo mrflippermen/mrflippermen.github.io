@@ -1,5 +1,6 @@
 ---
 title: "PowerSploit / PowerView Cheat Sheet"
+category: "AD"
 description: "Comandos esenciales para enumeración de Active Directory usando PowerView y PowerSploit."
 image: "/images/wiki/2.png"
 ---

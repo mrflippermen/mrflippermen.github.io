@@ -30,6 +30,10 @@ const {
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#050505" />
 
+    <!-- Mark JS as available before first paint so scroll-reveal only hides content
+         when JS can bring it back. No-JS visitors and crawlers get everything visible. -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
+
     <!-- Content Security Policy -->
     <meta http-equiv="Content-Security-Policy"
       content="

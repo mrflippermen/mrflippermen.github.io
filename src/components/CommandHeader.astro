@@ -77,6 +77,9 @@ const currentDate = new Date().toISOString().split('T')[0];
       <a href={`/${lang}/contact`}     class={currentPath.includes('/contact')     ? 'nav-link active' : 'nav-link'}>
         <Icon name="satellite-dish" class="nav-ico" /> COMMS
       </a>
+      <a href={`/${lang}/osint`}       class={currentPath.includes('/osint')       ? 'nav-link active' : 'nav-link'}>
+        <Icon name="location-dot" class="nav-ico" /> OSINT
+      </a>
       <a href={`/${lang}/cyberflipper`}
          class={currentPath.includes('/cyberflipper') ? 'nav-link special active' : 'nav-link special'}>
         <Icon name="dragon" class="nav-ico" /> CYBERFLIPPER

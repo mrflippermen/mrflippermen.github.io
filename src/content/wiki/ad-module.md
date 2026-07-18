@@ -1,5 +1,6 @@
 ---
 title: "Active Directory PowerShell Module Cheat Sheet"
+category: "AD"
 description: "Uso del módulo oficial de Microsoft para enumeración sigilosa (Living off the Land)."
 image: "/images/wiki/9.png"
 ---

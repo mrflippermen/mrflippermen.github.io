@@ -165,7 +165,9 @@ main::before {
 }
 
 // --- Scroll reveal ---
-.reveal {
+// Visible by default; only gated behind `.visible` when JS is present (html.js).
+// This guarantees no-JS visitors and crawlers never receive a blank section.
+html.js .reveal {
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.7s ease, transform 0.7s ease;

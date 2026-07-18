@@ -14,6 +14,7 @@ export const ui = {
         'nav.wiki': 'Wiki',
         'nav.contact': 'Comms',
         'nav.cyberflipper': 'CyberFlipper',
+        'nav.osint': 'OSINT',
 
         // Dashboard
         'role.red': 'RED TEAM OPERATOR',
@@ -58,6 +59,7 @@ export const ui = {
         'nav.wiki': 'Wiki',
         'nav.contact': 'Comunicaciones',
         'nav.cyberflipper': 'CyberFlipper',
+        'nav.osint': 'OSINT',
 
         // Dashboard
         'role.red': 'OPERADOR RED TEAM',

@@ -1,0 +1,850 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'es' } },
+  ];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t    = useTranslations(lang);
+const es   = lang === 'es';
+
+const tools = [
+  {
+    icon: 'fa-id-card',
+    title: es ? 'Cédula ↔ Nombre' : 'ID ↔ Name',
+    desc: es
+      ? 'Consulta datos asociados a una cédula ecuatoriana o busca cédula por nombre completo.'
+      : 'Query data associated with an Ecuadorian national ID or search by full name.',
+    endpoint: 'GET /api/v1/cedula/{numero}',
+    endpoint2: 'GET /api/v1/nombre/{apellido}/{nombre}',
+    src: 'SRI (Servicio de Rentas Internas)',
+    srcUrl: 'https://srienlinea.sri.gob.ec',
+  },
+  {
+    icon: 'fa-car',
+    title: 'ANT — ' + (es ? 'Vehículos y Multas' : 'Vehicles & Fines'),
+    desc: es
+      ? 'Consulta datos de vehículos, citaciones y multas de tránsito por placa o cédula.'
+      : 'Query vehicle data, traffic citations and fines by license plate or ID.',
+    endpoint: 'GET /api/v1/ant/placa/{placa}',
+    endpoint2: 'GET /api/v1/ant/cedula/{cedula}',
+    src: 'ANT (Agencia Nacional de Tránsito)',
+    srcUrl: 'https://www.ant.gob.ec',
+  },
+  {
+    icon: 'fa-gavel',
+    title: es ? 'Función Judicial' : 'Judicial Records',
+    desc: es
+      ? 'Causas judiciales, procesos activos y sentencias asociadas a una cédula.'
+      : 'Court cases, active proceedings and sentences associated with an ID.',
+    endpoint: 'GET /api/v1/judicial/{cedula}',
+    src: es ? 'Función Judicial del Ecuador' : 'Ecuador Judicial Branch',
+    srcUrl: 'https://procesosjudiciales.funcionjudicial.gob.ec',
+  },
+  {
+    icon: 'fa-building',
+    title: 'Supercias — ' + (es ? 'Compañías' : 'Companies'),
+    desc: es
+      ? 'Información de compañías y estados financieros registrados en la Supercias.'
+      : 'Company information and financial statements registered with Supercias.',
+    endpoint: 'GET /api/v1/supercias/{ruc}',
+    src: 'Supercias',
+    srcUrl: 'https://www.supercias.gob.ec',
+  },
+  {
+    icon: 'fa-graduation-cap',
+    title: 'SENESCYT — ' + (es ? 'Títulos' : 'Degrees'),
+    desc: es
+      ? 'Títulos profesionales y grados académicos registrados por cédula.'
+      : 'Professional degrees and academic titles registered by ID.',
+    endpoint: 'GET /api/v1/senescyt/{cedula}',
+    src: 'SENESCYT',
+    srcUrl: 'https://www.senescyt.gob.ec',
+  },
+  {
+    icon: 'fa-check-circle',
+    title: es ? 'Validadores' : 'Validators',
+    desc: es
+      ? 'Valida cédula (algoritmo módulo 10) y placas vehiculares.'
+      : 'Validate IDs (modulus 10 algorithm) and vehicle plates.',
+    endpoint: 'GET /api/v1/validar/cedula/{numero}',
+    endpoint2: 'GET /api/v1/validar/placa/{placa}',
+    src: es ? 'Algoritmo propio' : 'Custom algorithm',
+    srcUrl: '',
+  },
+];
+
+const externals = [
+  {
+    icon: 'fa-user-magnifying-glass',
+    title: 'WhatsMyName',
+    url: 'https://whatsmyname.app/',
+    desc: es ? 'Busca usuarios por username en cientos de plataformas.' : 'Search usernames across hundreds of platforms.',
+  },
+  {
+    icon: 'fa-envelope',
+    title: 'Reacher',
+    url: 'https://reacher.email/',
+    desc: es ? 'Verifica si un email existe sin enviar correo.' : 'Check if an email exists without sending mail.',
+  },
+  {
+    icon: 'fa-shield-halved',
+    title: 'Have I Been Pwned',
+    url: 'https://haveibeenpwned.com/',
+    desc: es ? 'Consulta si tu email apareció en brechas de datos.' : 'Check if your email appears in data breaches.',
+  },
+  {
+    icon: 'fa-database',
+    title: 'DeHashed',
+    url: 'https://dehashed.com/',
+    desc: es ? 'Motor de búsqueda de brechas de seguridad.' : 'Data breach search engine.',
+  },
+  {
+    icon: 'fa-magnifying-glass',
+    title: 'GHunt',
+    url: 'https://github.com/mxrch/GHunt',
+    desc: es ? 'OSINT para cuentas Google.' : 'OSINT for Google accounts.',
+  },
+  {
+    icon: 'fa-users',
+    title: 'Sherlock',
+    url: 'https://github.com/sherlock-project/sherlock',
+    desc: es ? 'Busca username en redes sociales.' : 'Find usernames across social networks.',
+  },
+  {
+    icon: 'fa-sitemap',
+    title: 'theHarvester',
+    url: 'https://github.com/laramies/theHarvester',
+    desc: es ? 'Recolecta emails, subdominios y IPs.' : 'Gather emails, subdomains, and IPs.',
+  },
+  {
+    icon: 'fa-globe',
+    title: 'OSINT Framework',
+    url: 'https://osintframework.com/',
+    desc: es ? 'Mapa de herramientas OSINT organizadas por categoría.' : 'OSINT tool map organized by category.',
+  },
+];
+---
+
+<BaseLayout title={`OSINT | ${t('nav.osint')}`}>
+<div class="osint-page">
+
+  <section class="osint-hero">
+    <div class="osint-hero-inner">
+      <div class="osint-title-block">
+        <p class="osint-overtitle">// OPEN SOURCE INTELLIGENCE //</p>
+        <h1 class="osint-title glitch" data-text="OSINT ECUADOR">OSINT ECUADOR</h1>
+        <p class="osint-tagline">
+          {es
+            ? 'Recolección de información de fuentes abiertas. Enfocado en datos públicos del Ecuador y herramientas globales de inteligencia.'
+            : 'Open-source intelligence gathering. Focused on Ecuador\'s public data and global intelligence tools.'}
+        </p>
+        <div class="osint-badges">
+          <span class="osint-badge blue"><i class="fas fa-flag-ecuador"></i> ECUADOR</span>
+          <span class="osint-badge red"><i class="fas fa-database"></i> API REST</span>
+          <span class="osint-badge green"><i class="fas fa-lock-open"></i> {es ? 'FUENTES PÚBLICAS' : 'PUBLIC SOURCES'}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="osint-section reveal">
+    <h2 class="osint-section-title">
+      <i class="fas fa-terminal"></i>
+      {es ? 'ARQUITECTURA DEL SISTEMA' : 'SYSTEM ARCHITECTURE'}
+    </h2>
+    <div class="api-block">
+      <div class="api-terminal">
+        <div class="term-bar">
+          <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+          <span class="term-title">ec-osint.service</span>
+        </div>
+        <div class="term-body">
+          <p class="term-line"><span class="term-prompt">$</span> systemctl status ec-osint</p>
+          <p class="term-out">
+            {es
+              ? 'Backend Flask con conectores a 5 fuentes de datos gubernamentales. Cache SQLite integrado. Sin autenticación requerida — todos los endpoints consumen APIs públicas.'
+              : 'Flask backend with connectors to 5 government data sources. Built-in SQLite cache. No authentication required — all endpoints consume public APIs.'}
+          </p>
+          <div class="api-flow">
+            <div class="flow-node">
+              <i class="fas fa-globe flow-ico blue"></i>
+              <span>{es ? 'Cliente Web' : 'Web Client'}</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node">
+              <i class="fas fa-server flow-ico red"></i>
+              <span>{es ? 'API Flask' : 'Flask API'}</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node">
+              <i class="fas fa-database flow-ico green"></i>
+              <span>{es ? 'Cache SQLite' : 'SQLite Cache'}</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node">
+              <i class="fas fa-building flow-ico gold"></i>
+              <span>SRI · ANT · Judicial · Supercias · SENESCYT</span>
+            </div>
+          </div>
+          <blockquote class="term-quote">
+            <i class="fas fa-circle-info quote-icon"></i>
+            {es
+              ? 'Todos los datos provienen de fuentes gubernamentales de acceso público. No se requiere API key ni autenticación.'
+              : 'All data comes from publicly accessible government sources. No API key or authentication required.'}
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="osint-section reveal">
+    <h2 class="osint-section-title">
+      <i class="fas fa-plug"></i>
+      {es ? 'END POINTS DE LA API' : 'API ENDPOINTS'}
+    </h2>
+    <div class="endpoints-grid">
+      {tools.map((tool) => (
+        <article class="endpoint-card">
+          <div class="endpoint-header">
+            <i class={`fas ${tool.icon} endpoint-ico`}></i>
+            <h3>{tool.title}</h3>
+          </div>
+          <p class="endpoint-desc">{tool.desc}</p>
+          <div class="endpoint-code">
+            <span class="code-method">GET</span>
+            <span class="code-path">{tool.endpoint}</span>
+          </div>
+          {tool.endpoint2 && (
+            <div class="endpoint-code">
+              <span class="code-method">GET</span>
+              <span class="code-path">{tool.endpoint2}</span>
+            </div>
+          )}
+          <div class="endpoint-src">
+            <i class="fas fa-link"></i>
+            <a href={tool.srcUrl} target="_blank" rel="noopener noreferrer">{tool.src}</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="osint-section reveal">
+    <h2 class="osint-section-title">
+      <i class="fas fa-toolbox"></i>
+      {es ? 'HERRAMIENTAS OSINT GLOBALES' : 'GLOBAL OSINT TOOLS'}
+    </h2>
+    <div class="externals-grid">
+      {externals.map((ext) => (
+        <a href={ext.url} target="_blank" rel="noopener noreferrer" class="external-card">
+          <div class="external-ico-wrap">
+            <i class={`fas ${ext.icon}`}></i>
+          </div>
+          <div class="external-body">
+            <h4>{ext.title}</h4>
+            <p>{ext.desc}</p>
+          </div>
+          <i class="fas fa-external-link-alt external-link-icon"></i>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="osint-section reveal">
+    <h2 class="osint-section-title">
+      <i class="fas fa-rocket"></i>
+      {es ? 'DESPLIEGUE DEL BACKEND' : 'BACKEND DEPLOYMENT'}
+    </h2>
+
+    <div class="deploy-grid">
+      <div class="deploy-card">
+        <div class="deploy-card-header">
+          <i class="fas fa-cloud-upload-alt deploy-card-ico"></i>
+          <h3>Render</h3>
+        </div>
+        <div class="deploy-card-body">
+          <p>{es
+            ? 'Sube el repo a GitHub. En Render crea un Web Service con:'
+            : 'Push the repo to GitHub. On Render create a Web Service with:'}</p>
+          <div class="deploy-code">
+            <span class="deploy-label">{es ? 'Build:' : 'Build:'}</span>
+            <code>pip install -r requirements.txt</code>
+          </div>
+          <div class="deploy-code">
+            <span class="deploy-label">{es ? 'Start:' : 'Start:'}</span>
+            <code>gunicorn app:app</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="deploy-card">
+        <div class="deploy-card-header">
+          <i class="fas fa-train deploy-card-ico"></i>
+          <h3>Railway</h3>
+        </div>
+        <div class="deploy-card-body">
+          <p>{es
+            ? 'Conecta tu repo. Railway detecta Python automáticamente. Sin configuración adicional.'
+            : 'Connect your repo. Railway auto-detects Python. No additional config needed.'}</p>
+        </div>
+      </div>
+
+      <div class="deploy-card">
+        <div class="deploy-card-header">
+          <i class="fas fa-server deploy-card-ico"></i>
+          <h3>{es ? 'VPS Propio' : 'Self-hosted VPS'}</h3>
+        </div>
+        <div class="deploy-card-body">
+          <div class="deploy-code">
+            <code>pip install -r requirements.txt<br/>gunicorn app:app -b 0.0.0.0:5000</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="deploy-card">
+        <div class="deploy-card-header">
+          <i class="fas fa-bolt deploy-card-ico"></i>
+          <h3>Vercel Serverless</h3>
+        </div>
+        <div class="deploy-card-body">
+          <p>{es
+            ? 'Convierte app.py a función serverless con vercel.json.'
+            : 'Convert app.py to a serverless function with vercel.json.'}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="osint-section reveal">
+    <div class="recruit-box">
+      <div class="recruit-corner tl"></div>
+      <div class="recruit-corner tr"></div>
+      <div class="recruit-corner bl"></div>
+      <div class="recruit-corner br"></div>
+
+      <p class="recruit-label">// SOURCE_CODE //</p>
+      <h2 class="recruit-title">
+        {es ? '¿QUIERES EL CÓDIGO?' : 'WANT THE CODE?'}
+      </h2>
+      <p class="recruit-text">
+        {es
+          ? 'El backend Flask completo, los conectores a fuentes de datos y el frontend están disponibles en el repositorio. Incluye instrucciones de deploy para Render, Railway o VPS propio.'
+          : 'The complete Flask backend, data source connectors, and frontend are available in the repository. Includes deploy instructions for Render, Railway, or self-hosted VPS.'}
+      </p>
+      <div class="recruit-code">
+        <code>git clone https://github.com/mrflippermen/ec-OSINT</code>
+      </div>
+      <a href="https://github.com/mrflippermen/ec-OSINT" target="_blank" rel="noopener noreferrer" class="recruit-btn">
+        <i class="fab fa-github"></i>
+        {es ? 'VER EN GITHUB' : 'VIEW ON GITHUB'}
+      </a>
+    </div>
+  </section>
+
+</div>
+</BaseLayout>
+
+<style>
+.osint-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.osint-section { }
+
+.osint-section-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.osint-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 60px; height: 2px;
+  background: linear-gradient(to right, var(--blue-team), transparent);
+}
+
+.osint-section-title i { color: var(--blue-team); font-size: 1rem; }
+
+.osint-hero {
+  padding: 2rem 0 0;
+}
+
+.osint-hero-inner {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 3rem;
+}
+
+.osint-title-block { }
+
+.osint-overtitle {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--blue-team);
+  letter-spacing: 3px;
+  margin-bottom: 0.75rem;
+  opacity: 0.8;
+}
+
+.osint-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: var(--text-primary);
+  margin: 0 0 1rem;
+}
+
+.osint-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  max-width: 650px;
+}
+
+.osint-badges { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+.osint-badge {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.osint-badge.blue  { color: var(--blue-team);   border-color: var(--blue-team);   background: rgba(0,240,255,0.06); }
+.osint-badge.red   { color: var(--red-team);    border-color: var(--red-team);    background: rgba(217,4,41,0.06); }
+.osint-badge.green { color: var(--success-color); border-color: var(--success-color); background: rgba(16,185,129,0.06); }
+
+.api-terminal {
+  background: var(--bg-card);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+.api-flow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.flow-node {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+}
+
+.flow-ico { font-size: 1rem; }
+.flow-ico.blue  { color: var(--blue-team); }
+.flow-ico.red   { color: var(--red-team); }
+.flow-ico.green { color: var(--success-color); }
+.flow-ico.gold  { color: #F59E0B; }
+
+.flow-arrow {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.term-bar {
+  background: #1a1a1a;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.term-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.term-dot.r { background: #ff5f57; }
+.term-dot.y { background: #febc2e; }
+.term-dot.g { background: #28c840; }
+
+.term-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-left: 0.5rem;
+}
+
+.term-body {
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.term-line {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.term-prompt {
+  color: var(--success-color);
+  margin-right: 0.5rem;
+}
+
+.term-out {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  padding-left: 1rem;
+  border-left: 1px solid var(--border-color);
+}
+
+.term-quote {
+  font-style: italic;
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  border: 1px solid rgba(0,240,255,0.2);
+  background: rgba(0,240,255,0.03);
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.quote-icon { color: var(--blue-team); margin-top: 3px; flex-shrink: 0; }
+
+.endpoints-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.endpoint-card {
+  background: var(--bg-panel);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: background 0.3s;
+}
+
+.endpoint-card:hover { background: rgba(255,255,255,0.015); }
+
+.endpoint-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.endpoint-ico {
+  color: var(--blue-team);
+  font-size: 1.2rem;
+  width: 1.5rem;
+  text-align: center;
+}
+
+.endpoint-header h3 {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+
+.endpoint-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.endpoint-code {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background: var(--bg-main);
+  padding: 0.4rem 0.75rem;
+}
+
+.code-method {
+  color: var(--success-color);
+  font-weight: 700;
+}
+
+.code-path {
+  color: var(--accent, var(--blue-team));
+  opacity: 0.9;
+}
+
+.endpoint-src {
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-muted);
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.endpoint-src a {
+  font-size: 0.75rem;
+}
+
+.externals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.external-card {
+  background: var(--bg-panel);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  transition: background 0.3s;
+  position: relative;
+}
+
+.external-card:hover { background: rgba(255,255,255,0.02); }
+
+.external-ico-wrap {
+  flex-shrink: 0;
+  width: 40px; height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  background: var(--bg-main);
+  font-size: 1.1rem;
+  color: var(--blue-team);
+}
+
+.external-body { flex: 1; }
+
+.external-body h4 {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+  letter-spacing: 1px;
+}
+
+.external-body p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.external-link-icon {
+  color: var(--text-faint);
+  font-size: 0.75rem;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+
+.external-card:hover .external-link-icon {
+  color: var(--blue-team);
+}
+
+.deploy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.deploy-card {
+  background: var(--bg-panel);
+  padding: 1.5rem;
+  transition: background 0.3s;
+}
+
+.deploy-card:hover { background: rgba(255,255,255,0.015); }
+
+.deploy-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.deploy-card-ico {
+  font-size: 1.3rem;
+  color: var(--blue-team);
+}
+
+.deploy-card-header h3 {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+
+.deploy-card-body p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.deploy-code {
+  background: var(--bg-main);
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.deploy-label {
+  color: var(--red-team);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.deploy-code code {
+  color: var(--accent, var(--blue-team));
+}
+
+.recruit-box {
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  padding: 3rem;
+  text-align: center;
+  position: relative;
+}
+
+.recruit-corner {
+  position: absolute;
+  width: 14px; height: 14px;
+  border-color: var(--blue-team);
+}
+.recruit-corner.tl { top: 12px; left: 12px;  border-top: 2px solid; border-left: 2px solid; }
+.recruit-corner.tr { top: 12px; right: 12px; border-top: 2px solid; border-right: 2px solid; }
+.recruit-corner.bl { bottom: 12px; left: 12px;  border-bottom: 2px solid; border-left: 2px solid; }
+.recruit-corner.br { bottom: 12px; right: 12px; border-bottom: 2px solid; border-right: 2px solid; }
+
+.recruit-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--blue-team);
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.recruit-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+  font-weight: 400;
+}
+
+.recruit-text {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 550px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.7;
+}
+
+.recruit-code {
+  background: var(--bg-main);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  margin: 0 auto 1.5rem;
+  display: inline-block;
+  border: 1px solid var(--border-color);
+}
+
+.recruit-code code {
+  color: var(--blue-team);
+}
+
+.recruit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  color: var(--blue-team);
+  border: 1px solid var(--blue-team);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.recruit-btn:hover {
+  background: var(--blue-team);
+  color: #000;
+  box-shadow: var(--shadow-glow-blue);
+  text-shadow: none;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .osint-hero-inner { text-align: center; }
+  .osint-badges { justify-content: center; }
+  .osint-tagline { margin-left: auto; margin-right: auto; }
+  .api-flow { justify-content: center; }
+}
+
+@media (max-width: 600px) {
+  .endpoints-grid { grid-template-columns: 1fr; }
+  .externals-grid { grid-template-columns: 1fr; }
+  .deploy-grid    { grid-template-columns: 1fr; }
+  .recruit-box    { padding: 2rem 1.5rem; }
+}
+</style>

@@ -1,5 +1,6 @@
 ---
 title: "ASREPRoast Cheat Sheet"
+category: "AD"
 description: "Ataque contra cuentas que tienen desactivada la pre-autenticación Kerberos."
 image: "/images/wiki/10.png"
 ---
