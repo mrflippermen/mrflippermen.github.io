@@ -13,6 +13,29 @@ const lang = getLangFromUrl(Astro.url);
 const t    = useTranslations(lang);
 const es   = lang === 'es';
 
+// ── Live query console ──────────────────────────────────────────────
+// Default openquery REST API base. Deploy `openquery serve` (Render / Railway /
+// Fly / Vercel / VPS) and either edit this constant or set the endpoint from the
+// console's config field (stored in localStorage). Empty = ask the user to set it.
+const OSINT_API_BASE = '';
+
+// The 6 functional Ecuador sources exposed by openquery.
+// `kind` drives which input each source expects: cedula (10), ruc (13), or both.
+const SOURCES = [
+  { id: 'ec.sri_ruc',            icon: 'fa-id-card',         kind: 'both',
+    name: es ? 'SRI — RUC / Cédula'        : 'SRI — RUC / ID' },
+  { id: 'ec.funcion_judicial',   icon: 'fa-gavel',           kind: 'cedula',
+    name: es ? 'Función Judicial'          : 'Judicial Records' },
+  { id: 'ec.supercias',          icon: 'fa-building',        kind: 'ruc',
+    name: es ? 'Supercias — Compañías'     : 'Supercias — Companies' },
+  { id: 'ec.senescyt',           icon: 'fa-graduation-cap',  kind: 'cedula',
+    name: es ? 'SENESCYT — Títulos'        : 'SENESCYT — Degrees' },
+  { id: 'ec.ant_citaciones',     icon: 'fa-car',             kind: 'cedula',
+    name: es ? 'ANT — Multas'              : 'ANT — Fines' },
+  { id: 'ec.sri_establecimientos', icon: 'fa-store',         kind: 'ruc',
+    name: es ? 'SRI — Establecimientos'    : 'SRI — Establishments' },
+];
+
 const tools = [
   {
     icon: 'fa-id-card',
@@ -153,6 +176,87 @@ const externals = [
     </div>
   </section>
 
+  <!-- ═══════════════════════════ LIVE QUERY CONSOLE ═══════════════════════════ -->
+  <section class="osint-section reveal" id="consulta">
+    <h2 class="osint-section-title">
+      <i class="fas fa-magnifying-glass-chart"></i>
+      {es ? 'CONSULTA UNIVERSAL — ECUADOR' : 'UNIVERSAL QUERY — ECUADOR'}
+    </h2>
+
+    <div class="console-shell" data-api-base={OSINT_API_BASE}>
+      <form class="console-form" id="osint-form" autocomplete="off" novalidate>
+        <div class="console-input-row">
+          <label class="console-field">
+            <span class="console-label">{es ? 'Cédula (10) o RUC (13)' : 'ID (10) or RUC (13)'}</span>
+            <input
+              id="osint-doc"
+              type="text"
+              inputmode="numeric"
+              maxlength="13"
+              pattern="[0-9]{10,13}"
+              placeholder="1790016919001"
+              aria-label={es ? 'Número de cédula o RUC' : 'ID or RUC number'}
+              required
+            />
+          </label>
+          <button type="submit" class="console-run" id="osint-run">
+            <i class="fas fa-play"></i>
+            <span>{es ? 'Consultar' : 'Query'}</span>
+          </button>
+        </div>
+
+        <div class="console-meta">
+          <button type="button" class="console-config-toggle" id="osint-config-toggle" aria-expanded="false">
+            <i class="fas fa-gear"></i> {es ? 'Endpoint de la API' : 'API endpoint'}
+          </button>
+          <span class="console-endpoint-state" id="osint-endpoint-state"></span>
+        </div>
+
+        <div class="console-config" id="osint-config" hidden>
+          <label class="console-field">
+            <span class="console-label">{es ? 'URL base de openquery' : 'openquery base URL'}</span>
+            <input id="osint-api-base" type="url" placeholder="https://tu-openquery.onrender.com" />
+          </label>
+          <label class="console-field">
+            <span class="console-label">{es ? 'API key (opcional)' : 'API key (optional)'}</span>
+            <input id="osint-api-key" type="password" placeholder="OPENQUERY_API_KEY" autocomplete="off" />
+          </label>
+          <button type="button" class="console-save" id="osint-config-save">
+            <i class="fas fa-floppy-disk"></i> {es ? 'Guardar' : 'Save'}
+          </button>
+          <p class="console-config-hint">
+            {es
+              ? 'Despliega `openquery serve` (Render/Railway/Fly/VPS) y pega aquí su URL. Se guarda solo en tu navegador.'
+              : 'Deploy `openquery serve` (Render/Railway/Fly/VPS) and paste its URL here. Stored only in your browser.'}
+          </p>
+        </div>
+      </form>
+
+      <p class="console-hint" id="osint-hint">
+        {es
+          ? 'Introduce una cédula o RUC y pulsa Consultar: se lanzan en paralelo las 6 fuentes públicas del Ecuador.'
+          : 'Enter an ID or RUC and hit Query: all 6 Ecuadorian public sources run in parallel.'}
+      </p>
+
+      <div class="results-grid" id="osint-results">
+        {SOURCES.map((s) => (
+          <article class="result-card" data-source={s.id} data-kind={s.kind} data-status="idle">
+            <header class="result-head">
+              <i class={`fas ${s.icon} result-ico`}></i>
+              <h3>{s.name}</h3>
+              <span class="result-badge">
+                <i class="fas fa-circle status-dot"></i>
+                <span class="status-text">{es ? 'En espera' : 'Idle'}</span>
+              </span>
+            </header>
+            <code class="result-source">{s.id}</code>
+            <div class="result-body" aria-live="polite"></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="osint-section reveal">
     <h2 class="osint-section-title">
       <i class="fas fa-terminal"></i>
@@ -165,26 +269,26 @@ const externals = [
           <span class="term-title">ec-osint.service</span>
         </div>
         <div class="term-body">
-          <p class="term-line"><span class="term-prompt">$</span> systemctl status ec-osint</p>
+          <p class="term-line"><span class="term-prompt">$</span> openquery serve --host 0.0.0.0 --port 8000</p>
           <p class="term-out">
             {es
-              ? 'Backend Flask con conectores a 5 fuentes de datos gubernamentales. Cache SQLite integrado. Sin autenticación requerida — todos los endpoints consumen APIs públicas.'
-              : 'Flask backend with connectors to 5 government data sources. Built-in SQLite cache. No authentication required — all endpoints consume public APIs.'}
+              ? 'Motor openquery: 562 fuentes en 21 países, 6 funcionales para Ecuador. Resuelve CAPTCHA (PaddleOCR), evade WAF, cachea y aplica rate-limit. Esta web estática consume su API REST; el navegador nunca toca las fuentes .gob.ec directamente.'
+              : 'openquery engine: 562 sources across 21 countries, 6 functional for Ecuador. Solves CAPTCHA (PaddleOCR), bypasses WAF, caches, and rate-limits. This static site consumes its REST API; the browser never touches the .gob.ec sources directly.'}
           </p>
           <div class="api-flow">
             <div class="flow-node">
               <i class="fas fa-globe flow-ico blue"></i>
-              <span>{es ? 'Cliente Web' : 'Web Client'}</span>
+              <span>{es ? 'Web estática' : 'Static site'}</span>
             </div>
             <div class="flow-arrow">→</div>
             <div class="flow-node">
               <i class="fas fa-server flow-ico red"></i>
-              <span>{es ? 'API Flask' : 'Flask API'}</span>
+              <span>openquery API</span>
             </div>
             <div class="flow-arrow">→</div>
             <div class="flow-node">
-              <i class="fas fa-database flow-ico green"></i>
-              <span>{es ? 'Cache SQLite' : 'SQLite Cache'}</span>
+              <i class="fas fa-shield-halved flow-ico green"></i>
+              <span>{es ? 'CAPTCHA · WAF · Cache' : 'CAPTCHA · WAF · Cache'}</span>
             </div>
             <div class="flow-arrow">→</div>
             <div class="flow-node">
@@ -195,8 +299,8 @@ const externals = [
           <blockquote class="term-quote">
             <i class="fas fa-circle-info quote-icon"></i>
             {es
-              ? 'Todos los datos provienen de fuentes gubernamentales de acceso público. No se requiere API key ni autenticación.'
-              : 'All data comes from publicly accessible government sources. No API key or authentication required.'}
+              ? 'La consulta requiere un backend openquery corriendo (Render/Railway/Fly/VPS). Configura su URL en la consola de arriba; se guarda solo en tu navegador.'
+              : 'Querying requires a running openquery backend (Render/Railway/Fly/VPS). Set its URL in the console above; it is stored only in your browser.'}
           </blockquote>
         </div>
       </div>
@@ -348,6 +452,174 @@ const externals = [
   </section>
 
 </div>
+
+<script is:inline define:vars={{ OSINT_API_BASE, SOURCES, lang }}>
+  (function () {
+    const T = lang === 'es'
+      ? { idle: 'En espera', loading: 'Consultando…', ok: 'OK', empty: 'Sin datos', err: 'Error',
+          noApi: 'Configura el endpoint de openquery (icono ⚙) para ejecutar consultas.',
+          badDoc: 'Introduce una cédula (10 dígitos) o RUC (13 dígitos) válidos.',
+          saved: 'Endpoint guardado', notSet: 'Sin endpoint configurado',
+          using: 'Usando', latency: 'ms', cached: 'caché', skip: 'No aplica a esta fuente' }
+      : { idle: 'Idle', loading: 'Querying…', ok: 'OK', empty: 'No data', err: 'Error',
+          noApi: 'Set the openquery endpoint (⚙ icon) to run queries.',
+          badDoc: 'Enter a valid ID (10 digits) or RUC (13 digits).',
+          saved: 'Endpoint saved', notSet: 'No endpoint set',
+          using: 'Using', latency: 'ms', cached: 'cached', skip: 'Not applicable to this source' };
+
+    const LS_BASE = 'osint.apiBase';
+    const LS_KEY  = 'osint.apiKey';
+
+    const shell     = document.querySelector('.console-shell');
+    if (!shell) return;
+    const form      = document.getElementById('osint-form');
+    const docInput  = document.getElementById('osint-doc');
+    const runBtn     = document.getElementById('osint-run');
+    const hint      = document.getElementById('osint-hint');
+    const stateEl   = document.getElementById('osint-endpoint-state');
+    const cfgToggle = document.getElementById('osint-config-toggle');
+    const cfg       = document.getElementById('osint-config');
+    const baseInput = document.getElementById('osint-api-base');
+    const keyInput  = document.getElementById('osint-api-key');
+    const saveBtn   = document.getElementById('osint-config-save');
+    const cards     = Array.from(document.querySelectorAll('.result-card'));
+
+    const getBase = () => (localStorage.getItem(LS_BASE) || OSINT_API_BASE || '').replace(/\/+$/, '');
+    const getKey  = () => localStorage.getItem(LS_KEY) || '';
+
+    function reflectEndpoint() {
+      const base = getBase();
+      stateEl.textContent = base ? `${T.using} ${base}` : T.notSet;
+      stateEl.classList.toggle('is-set', !!base);
+      baseInput.value = base;
+      keyInput.value = getKey();
+    }
+
+    cfgToggle.addEventListener('click', () => {
+      const open = cfg.hasAttribute('hidden');
+      if (open) cfg.removeAttribute('hidden'); else cfg.setAttribute('hidden', '');
+      cfgToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    saveBtn.addEventListener('click', () => {
+      const b = baseInput.value.trim().replace(/\/+$/, '');
+      const k = keyInput.value.trim();
+      if (b) localStorage.setItem(LS_BASE, b); else localStorage.removeItem(LS_BASE);
+      if (k) localStorage.setItem(LS_KEY, k); else localStorage.removeItem(LS_KEY);
+      reflectEndpoint();
+      hint.textContent = T.saved + (b ? ` → ${b}` : '');
+    });
+
+    // Normalize the document number for a given source kind.
+    function docFor(kind, raw) {
+      const v = raw.replace(/\D/g, '');
+      if (kind === 'ruc') {
+        if (v.length === 13) return v;
+        if (v.length === 10) return v + '001'; // natural person RUC = cédula + 001
+        return null;
+      }
+      if (kind === 'cedula') return v.length >= 10 ? v.slice(0, 10) : null;
+      return v; // both
+    }
+
+    function setStatus(card, status, text) {
+      card.dataset.status = status;
+      const st = card.querySelector('.status-text');
+      if (st) st.textContent = text;
+    }
+
+    function renderData(card, data) {
+      const body = card.querySelector('.result-body');
+      body.innerHTML = '';
+      if (data == null || (typeof data === 'object' && Object.keys(data).length === 0)) {
+        body.innerHTML = `<p class="result-empty">${T.empty}</p>`;
+        return false;
+      }
+      const dl = document.createElement('dl');
+      dl.className = 'kv';
+      const flat = flatten(data);
+      const keys = Object.keys(flat).slice(0, 12);
+      for (const k of keys) {
+        const dt = document.createElement('dt'); dt.textContent = k;
+        const dd = document.createElement('dd'); dd.textContent = String(flat[k]);
+        dl.append(dt, dd);
+      }
+      body.appendChild(dl);
+      return true;
+    }
+
+    // Flatten one level of nested objects/arrays into "a.b" keys for compact display.
+    function flatten(obj, prefix = '', out = {}) {
+      if (Array.isArray(obj)) {
+        obj.slice(0, 6).forEach((v, i) => flatten(v, prefix ? `${prefix}[${i}]` : `[${i}]`, out));
+      } else if (obj && typeof obj === 'object') {
+        for (const [k, v] of Object.entries(obj)) {
+          const key = prefix ? `${prefix}.${k}` : k;
+          if (v && typeof v === 'object') flatten(v, key, out);
+          else out[key] = v;
+        }
+      } else if (prefix) {
+        out[prefix] = obj;
+      }
+      return out;
+    }
+
+    async function queryOne(card, base, key, rawDoc, signal) {
+      const source = card.dataset.source;
+      const kind   = card.dataset.kind;
+      const doc = docFor(kind, rawDoc);
+      const body = card.querySelector('.result-body');
+      if (!doc) { setStatus(card, 'skip', T.skip); body.innerHTML = ''; return; }
+
+      setStatus(card, 'loading', T.loading);
+      body.innerHTML = '';
+      const started = performance.now();
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (key) { headers['Authorization'] = `Bearer ${key}`; headers['X-API-Key'] = key; }
+        const res = await fetch(`${base}/api/v1/query`, {
+          method: 'POST', headers, signal,
+          body: JSON.stringify({ source, document_type: 'custom', document_number: doc }),
+        });
+        const ms = Math.round(performance.now() - started);
+        if (!res.ok) {
+          setStatus(card, 'err', `${T.err} ${res.status}`);
+          body.innerHTML = `<p class="result-empty">HTTP ${res.status}</p>`;
+          return;
+        }
+        const json = await res.json();
+        const hasData = renderData(card, json.data ?? json);
+        const meta = [`${json.latency_ms ?? ms} ${T.latency}`];
+        if (json.cached) meta.push(T.cached);
+        setStatus(card, hasData ? 'ok' : 'empty', `${hasData ? T.ok : T.empty} · ${meta.join(' · ')}`);
+      } catch (e) {
+        if (e.name === 'AbortError') return;
+        setStatus(card, 'err', T.err);
+        body.innerHTML = `<p class="result-empty">${e.message || 'fetch failed'}</p>`;
+      }
+    }
+
+    let inFlight = null;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const base = getBase();
+      const raw = docInput.value.trim();
+      const digits = raw.replace(/\D/g, '');
+      if (!base) { hint.textContent = T.noApi; cfg.removeAttribute('hidden'); cfgToggle.setAttribute('aria-expanded', 'true'); return; }
+      if (digits.length !== 10 && digits.length !== 13) { hint.textContent = T.badDoc; return; }
+
+      if (inFlight) inFlight.abort();
+      inFlight = new AbortController();
+      hint.textContent = '';
+      runBtn.disabled = true;
+      cards.forEach((c) => { setStatus(c, 'idle', T.idle); c.querySelector('.result-body').innerHTML = ''; });
+      await Promise.all(cards.map((c) => queryOne(c, base, getKey(), digits, inFlight.signal)));
+      runBtn.disabled = false;
+    });
+
+    reflectEndpoint();
+  })();
+</script>
 </BaseLayout>
 
 <style>
@@ -846,5 +1118,240 @@ const externals = [
   .externals-grid { grid-template-columns: 1fr; }
   .deploy-grid    { grid-template-columns: 1fr; }
   .recruit-box    { padding: 2rem 1.5rem; }
+}
+
+/* ═══════════════════════════════════════════════════
+   LIVE QUERY CONSOLE
+═══════════════════════════════════════════════════ */
+.console-shell {
+  background: var(--bg-card);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 1.75rem;
+}
+
+.console-form { display: flex; flex-direction: column; gap: 1rem; }
+
+.console-input-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.console-field { display: flex; flex-direction: column; gap: 0.35rem; flex: 1; min-width: 200px; }
+
+.console-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.console-shell input {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  padding: 0.65rem 0.85rem;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.console-shell input:focus {
+  outline: none;
+  border-color: var(--blue-team);
+  box-shadow: 0 0 0 1px rgba(0, 240, 255, 0.3);
+}
+
+.console-run {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #000;
+  background: var(--blue-team);
+  border: 1px solid var(--blue-team);
+  padding: 0.65rem 1.5rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s, opacity 0.2s;
+}
+
+.console-run:hover { box-shadow: var(--shadow-glow-blue); transform: translateY(-1px); }
+.console-run:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.console-run:disabled { opacity: 0.5; cursor: progress; transform: none; box-shadow: none; }
+
+.console-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.console-config-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  cursor: pointer;
+  padding: 0.2rem 0;
+}
+.console-config-toggle:hover { color: var(--blue-team); }
+
+.console-endpoint-state { color: var(--warning-color); }
+.console-endpoint-state.is-set { color: var(--success-color); }
+
+.console-config {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.75rem;
+  align-items: end;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+}
+
+.console-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--blue-team);
+  background: transparent;
+  border: 1px solid var(--blue-team);
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  height: fit-content;
+  transition: background 0.2s, color 0.2s;
+}
+.console-save:hover { background: var(--blue-team); color: #000; }
+
+.console-config-hint {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.console-hint {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 1rem 0 1.25rem;
+  min-height: 1.1em;
+}
+
+/* Results */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.result-card {
+  background: var(--bg-panel);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.result-head { display: flex; align-items: center; gap: 0.6rem; }
+.result-ico { color: var(--blue-team); font-size: 1rem; width: 1.3rem; text-align: center; }
+
+.result-head h3 {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+  margin: 0;
+  flex: 1;
+}
+
+.result-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.status-dot { font-size: 0.5rem; color: var(--text-faint); }
+
+.result-card[data-status="loading"] .status-dot { color: var(--warning-color); animation: blink 1s step-end infinite; }
+.result-card[data-status="loading"] .status-text { color: var(--warning-color); }
+.result-card[data-status="ok"] .status-dot,
+.result-card[data-status="ok"] .status-text { color: var(--success-color); }
+.result-card[data-status="empty"] .status-dot,
+.result-card[data-status="empty"] .status-text { color: var(--text-secondary); }
+.result-card[data-status="err"] .status-dot,
+.result-card[data-status="err"] .status-text { color: var(--red-team); }
+.result-card[data-status="skip"] { opacity: 0.55; }
+
+@keyframes blink { 50% { opacity: 0.25; } }
+
+.result-source {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--blue-team);
+  opacity: 0.8;
+}
+
+.result-body { min-height: 1px; }
+
+.result-empty {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.kv { margin: 0; display: grid; grid-template-columns: minmax(0, auto) 1fr; gap: 0.2rem 0.75rem; }
+.kv dt {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.kv dd {
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  margin: 0;
+  word-break: break-word;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .console-run, .console-save { transition: none; }
+  .result-card[data-status="loading"] .status-dot { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .console-config { grid-template-columns: 1fr; }
+  .console-input-row { flex-direction: column; align-items: stretch; }
+  .console-run { justify-content: center; }
 }
 </style>
