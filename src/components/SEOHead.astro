@@ -7,16 +7,31 @@ interface Props {
   keywords?: string;
 }
 
-const { 
-  title, 
-  description, 
-  image = '/images/og-default.png',
+const {
+  title,
+  description,
+  image = '/images/cyberflipper_hero.png',
   type = 'website',
   keywords = 'Red Team, Pentesting, HTB, Hack The Box, Ecuador, OSCP, Cybersecurity, Active Directory'
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const imageURL = new URL(image, Astro.site);
+
+// i18n alternates: prefixDefaultLocale is on, so every path starts with /es or /en.
+const langNames = { es: 'Spanish', en: 'English' } as const;
+const segments = Astro.url.pathname.split('/');
+const currentLang = (segments[1] === 'en' ? 'en' : 'es') as keyof typeof langNames;
+const pathForLang = (l: 'es' | 'en') => {
+  const s = [...segments];
+  if (s[1] === 'es' || s[1] === 'en') s[1] = l; else s.splice(1, 0, l);
+  return s.join('/') || '/';
+};
+const alternates = [
+  { hreflang: 'es', href: new URL(pathForLang('es'), Astro.site) },
+  { hreflang: 'en', href: new URL(pathForLang('en'), Astro.site) },
+  { hreflang: 'x-default', href: new URL(pathForLang('es'), Astro.site) },
+];
 ---
 
 <!-- Primary Meta Tags -->
@@ -43,7 +58,12 @@ const imageURL = new URL(image, Astro.site);
 <!-- Canonical -->
 <link rel="canonical" href={canonicalURL} />
 
+<!-- i18n alternates (hreflang) -->
+{alternates.map((alt) => (
+  <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+))}
+
 <!-- Additional SEO -->
 <meta name="robots" content="index, follow" />
-<meta name="language" content="Spanish" />
+<meta name="language" content={langNames[currentLang]} />
 <meta name="revisit-after" content="7 days" />

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="1200" height="480" role="img" aria-label="POISONED BRANCH">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#141414" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0A0A0A" stop-opacity="0"/>
+      <stop offset="1" stop-color="#050505" stop-opacity="0.9"/>
+    </linearGradient>
+    <pattern id="scan" width="1" height="3" patternUnits="userSpaceOnUse">
+      <rect width="1" height="1" fill="#ffffff" opacity="0.02"/>
+    </pattern>
+  </defs>
+
+  <!-- base -->
+  <rect width="1200" height="480" fill="#0A0A0A"/>
+  <rect width="1200" height="480" fill="url(#grid)"/>
+  <rect width="1200" height="480" fill="url(#fade)"/>
+  <rect width="1200" height="480" fill="url(#scan)"/>
+
+  <!-- accent left bar -->
+  <rect x="0" y="0" width="10" height="480" fill="#10B981"/>
+  <rect x="10" y="0" width="2" height="480" fill="#10B981" opacity="0.25"/>
+
+  <!-- corner brackets -->
+  <g stroke="#10B981" stroke-width="3" fill="none" opacity="0.8">
+    <path d="M40 34 H92 M40 34 V86"/>
+    <path d="M1160 34 H1108 M1160 34 V86"/>
+    <path d="M40 446 H92 M40 446 V394"/>
+    <path d="M1160 446 H1108 M1160 446 V394"/>
+  </g>
+
+  <!-- top label -->
+  <text x="60" y="86" font-family="'Courier New',monospace" font-size="20" letter-spacing="5" fill="#808080">HOLMES CTF 2026 // REICHENBACH</text>
+
+  <!-- difficulty chip -->
+  <g>
+    <rect x="980" y="60" width="160" height="40" fill="none" stroke="#10B981" stroke-width="1.5"/>
+    <text x="1060" y="87" text-anchor="middle" font-family="'Courier New',monospace" font-size="20" letter-spacing="4" fill="#10B981">MEDIUM</text>
+  </g>
+
+  <!-- big scenario number -->
+  <text x="60" y="330" font-family="'Courier New',monospace" font-weight="bold" font-size="230" fill="#10B981" opacity="0.92">S05</text>
+
+  <!-- title -->
+  <text x="470" y="250" font-family="'Courier New',monospace" font-weight="bold" font-size="70" letter-spacing="2" fill="#FFFFFF">POISONED BRANCH</text>
+  <!-- tag / discipline -->
+  <text x="472" y="300" font-family="'Courier New',monospace" font-size="26" letter-spacing="6" fill="#10B981">LINUX / SUPPLY CHAIN</text>
+
+  <!-- prompt line -->
+  <text x="472" y="360" font-family="'Courier New',monospace" font-size="22" fill="#808080">root@flippermen:~/ops# ./solve <tspan fill="#10B981">--pwned</tspan></text>
+
+  <!-- status -->
+  <text x="60" y="430" font-family="'Courier New',monospace" font-size="20" letter-spacing="3" fill="#10B981">[ ✓ PWNED ]</text>
+</svg>
